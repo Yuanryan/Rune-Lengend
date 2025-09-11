@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1o5mprry88w"]
+[gd_scene load_steps=4 format=3 uid="uid://c1o5mprry88w"]
 
 [ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/card_tile.gd" id="1_jw68n"]
+[ext_resource type="Resource" uid="uid://dwfdqho5fjg08" path="res://Resources/Actions/jump.tres" id="2_7ecad"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7ecad"]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="Card" type="TextureRect"]
+custom_minimum_size = Vector2(50, 50)
 offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("PlaceholderTexture2D_7ecad")
 script = ExtResource("1_jw68n")
+action = ExtResource("2_7ecad")

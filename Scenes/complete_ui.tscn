@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://complete_ui_scene"]
+
+[ext_resource type="Script" path="res://Scripts/UI/card_palette.gd" id="1_palette"]
+[ext_resource type="Script" path="res://Scripts/UI/card_queue.gd" id="2_queue"]
+[ext_resource type="Script" path="res://Scripts/UI/example_usage.gd" id="3_manager"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_palette_bg"]
+bg_color = Color(0.2, 0.2, 0.3, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_queue_bg"]
+bg_color = Color(0.1, 0.1, 0.2, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_left = 10
+corner_radius_bottom_right = 10
+
+[node name="CompleteUI" type="CanvasLayer"]
+script = ExtResource("3_manager")
+
+[node name="MainContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_palette_bg")
+
+[node name="TopMargin" type="MarginContainer" parent="MainContainer/TopPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TopContent" type="VBoxContainer" parent="MainContainer/TopPanel/TopMargin"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="MainContainer/TopPanel/TopMargin/TopContent"]
+layout_mode = 2
+text = "Action Cards"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+
+[node name="CardPalette" type="HBoxContainer" parent="MainContainer/TopPanel/TopMargin/TopContent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+alignment = 1
+script = ExtResource("1_palette")
+
+[node name="Spacer" type="Control" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BottomPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_queue_bg")
+
+[node name="BottomMargin" type="MarginContainer" parent="MainContainer/BottomPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BottomContent" type="VBoxContainer" parent="MainContainer/BottomPanel/BottomMargin"]
+layout_mode = 2
+
+[node name="QueueLabel" type="Label" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+layout_mode = 2
+text = "Action Queue"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+
+[node name="ActionQueue" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("2_queue")
+
+[node name="ControlButtons" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ExecuteButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ControlButtons"]
+layout_mode = 2
+text = "Execute Sequence"
+theme_override_font_sizes/font_size = 16
+
+[node name="ClearButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ControlButtons"]
+layout_mode = 2
+text = "Clear Queue"
+theme_override_font_sizes/font_size = 16
+
+[node name="InfoLabel" type="Label" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+layout_mode = 2
+text = "Drag cards from above to build your action sequence"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+modulate = Color(0.8, 0.8, 0.8, 1)

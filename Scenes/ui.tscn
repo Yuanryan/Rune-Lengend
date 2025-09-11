@@ -1,35 +1,77 @@
 [gd_scene load_steps=3 format=3 uid="uid://bugyqn1qslwac"]
 
 [ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/card_queue.gd" id="1_jxero"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wviqb"]
+[ext_resource type="PackedScene" uid="uid://c1o5mprry88w" path="res://Scenes/card_tile.tscn" id="2_qdvrb"]
 
 [node name="UI" type="CanvasLayer"]
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_wviqb")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="TopPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="TopMargin" type="MarginContainer" parent="MainContainer/TopPanel"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="NinePatchRect" type="NinePatchRect" parent="PanelContainer/MarginContainer"]
+[node name="TopContent" type="VBoxContainer" parent="MainContainer/TopPanel/TopMargin"]
 layout_mode = 2
 
-[node name="CardQueue" type="HBoxContainer" parent="PanelContainer/MarginContainer/NinePatchRect"]
+[node name="TopLabel" type="Label" parent="MainContainer/TopPanel/TopMargin/TopContent"]
 layout_mode = 2
-offset_top = 578.0
-offset_right = 1132.0
-offset_bottom = 628.0
+text = "Available Cards
+"
+horizontal_alignment = 1
+
+[node name="CardDeck" type="HBoxContainer" parent="MainContainer/TopPanel/TopMargin/TopContent"]
+layout_mode = 2
+
+[node name="BottomPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="BottomMargin" type="MarginContainer" parent="MainContainer/BottomPanel"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BottomContent" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="CardQueue" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 10
 alignment = 1
 script = ExtResource("1_jxero")
+
+[node name="Card" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/CardQueue" instance=ExtResource("2_qdvrb")]
+layout_mode = 2
+
+[node name="ExecuteButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+custom_minimum_size = Vector2(70, 55)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Execute
+"
+
+[node name="ClearButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+custom_minimum_size = Vector2(70, 55)
+layout_mode = 2
+text = "Clear
+"
