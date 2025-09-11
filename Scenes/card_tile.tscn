@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1o5mprry88w"]
+
+[ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/card_tile.gd" id="1_jw68n"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7ecad"]
+
+[node name="TextureRect" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("PlaceholderTexture2D_7ecad")
+script = ExtResource("1_jw68n")

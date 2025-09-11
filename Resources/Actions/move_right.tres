@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BasicMove" load_steps=2 format=3 uid="uid://b8syxaru1l5e6"]
+
+[ext_resource type="Script" uid="uid://cj8coy1srj8u1" path="res://Scripts/Actions/basic_move.gd" id="1_86iwa"]
+
+[resource]
+script = ExtResource("1_86iwa")
+velocity = Vector2(200, 0)
+name = "MoveRight"
+duration = 0.4
+metadata/_custom_type_script = "uid://cj8coy1srj8u1"

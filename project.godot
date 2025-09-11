@@ -1,0 +1,40 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="AnimalPuzzle"
+run/main_scene="uid://d055chr3oqj4h"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/unused_parameter=0
+gdscript/warnings/unused_signal=0
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "red",
+"res://Resources/": "orange",
+"res://Scenes/": "yellow",
+"res://Scripts/": "green"
+}
+
+[layer_names]
+
+2d_physics/layer_1="Map"
+2d_physics/layer_2="Player"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
