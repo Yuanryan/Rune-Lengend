@@ -72,8 +72,6 @@ func get_cooldown_progress() -> float:
     return 1.0 - (_cooldown_timer / cooldown_duration)
 
 func _update_display() -> void:
-    super._update_display()
-    
     # 更新視覺狀態
     if _is_on_cooldown:
         modulate = Color(0.5, 0.5, 0.5, 0.7)
@@ -83,11 +81,12 @@ func _update_display() -> void:
         modulate = Color.WHITE
     
     # 更新標籤顯示使用次數
-    if _label and max_uses > 0:
+    if has_node("Label") and max_uses > 0:
+        var label_node = get_node("Label")
         var uses_text = str(_current_uses) + "/" + str(max_uses)
         if _is_on_cooldown:
             uses_text += " (CD)"
-        _label.text = _label.text + "\n" + uses_text
+        label_node.text = get_action_label() + "\n" + uses_text
 
 func set_action_type(type: String) -> void:
     action_type = type

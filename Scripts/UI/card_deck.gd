@@ -1,6 +1,6 @@
-# UI/CardPalette.gd
+# UI/CardDeck.gd
 extends HBoxContainer
-class_name CardPalette
+class_name CardDeck
 
 # Simple card palette that works with your existing action resources
 # This replaces the factory approach with direct resource usage
@@ -22,11 +22,9 @@ func _create_cards_from_resources() -> void:
     
     # Create cards from resources
     for action_resource in action_resources:
-        var card = CardTile.new()
+        var card_scene = preload("uid://c2nq82l2n1e8q")
+        var card = card_scene.instantiate() as CardTile
         card.set_action(action_resource)
-        card.draggable = true
-        card.show_label = true
-        card.card_size = Vector2(80, 80)
         
         # Connect signals
         card.card_clicked.connect(_on_card_clicked)
@@ -51,17 +49,17 @@ func _on_card_clicked(card: CardTile) -> void:
     card_selected.emit(card)
 
 func _on_card_dragged(card: CardTile) -> void:
-    # Optional: Handle drag start
-    pass
+    print("Card dragged: ", card.get_action_label())
+    
 
 # Example of how to set up with your existing resources
 func setup_with_existing_resources() -> void:
     # Load your existing action resources
-    var move_right = load("res://Resources/Actions/move_right.tres")
-    var move_left = load("res://Resources/Actions/move_left.tres")
-    var jump = load("res://Resources/Actions/jump.tres")
-    var jump_right = load("res://Resources/Actions/jump_right.tres")
-    var jump_left = load("res://Resources/Actions/jump_left.tres")
+    var move_right = load("uid://b8syxaru1l5e6")
+    var move_left = load("uid://balt8ynd8p4oc")
+    var jump = load("uid://dwfdqho5fjg08")
+    var jump_right = load("uid://vjw3bdgqn8qj")
+    var jump_left = load("uid://dsgp2n8cm2tht")
     
     # Add them to the palette
     if move_right:

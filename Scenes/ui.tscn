@@ -1,9 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bugyqn1qslwac"]
+[gd_scene load_steps=7 format=3 uid="uid://dmavjrcww2c2h"]
 
-[ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/card_queue.gd" id="1_jxero"]
-[ext_resource type="PackedScene" uid="uid://c1o5mprry88w" path="res://Scenes/card_tile.tscn" id="2_qdvrb"]
+[ext_resource type="Script" uid="uid://cyw1d1rlfgj7k" path="res://Scripts/UI/ui.gd" id="1_nf4gj"]
+[ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/card_deck.gd" id="2_lujqu"]
+[ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/card_queue.gd" id="2_queue"]
+[ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/drop_monitor.gd" id="3_2246s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_palette_bg"]
+bg_color = Color(0.2, 0.2, 0.3, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_queue_bg"]
+bg_color = Color(0.1, 0.1, 0.2, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_nf4gj")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -15,63 +32,110 @@ grow_vertical = 2
 [node name="TopPanel" type="PanelContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_palette_bg")
 
 [node name="TopMargin" type="MarginContainer" parent="MainContainer/TopPanel"]
-custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="TopContent" type="VBoxContainer" parent="MainContainer/TopPanel/TopMargin"]
 layout_mode = 2
 
-[node name="TopLabel" type="Label" parent="MainContainer/TopPanel/TopMargin/TopContent"]
+[node name="TitleLabel" type="Label" parent="MainContainer/TopPanel/TopMargin/TopContent"]
 layout_mode = 2
-text = "Available Cards
-"
+theme_override_font_sizes/font_size = 18
+text = "Available Cards"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CardDeck" type="HBoxContainer" parent="MainContainer/TopPanel/TopMargin/TopContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 15
+alignment = 1
+script = ExtResource("2_lujqu")
+
+[node name="DropMonitor" type="Panel" parent="MainContainer"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 20.0
+script = ExtResource("3_2246s")
 
 [node name="BottomPanel" type="PanelContainer" parent="MainContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_queue_bg")
 
 [node name="BottomMargin" type="MarginContainer" parent="MainContainer/BottomPanel"]
-custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="BottomContent" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin"]
+[node name="BottomContent" type="VBoxContainer" parent="MainContainer/BottomPanel/BottomMargin"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="QueueLabel" type="Label" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Action Queue"
+horizontal_alignment = 1
+
+[node name="ActionQueue" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+alignment = 1
+script = ExtResource("2_queue")
+
+[node name="PreviewIndicator" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueue"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(4, 60)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueue/PreviewIndicator"]
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 60.0
+mouse_filter = 2
+color = Color(1, 0.803922, 0.984314, 1)
+
+[node name="ControlButtons" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="CardQueue" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+[node name="ExecuteButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ControlButtons"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/separation = 10
-alignment = 1
-script = ExtResource("1_jxero")
+theme_override_font_sizes/font_size = 16
+text = "Execute Sequence"
 
-[node name="Card" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/CardQueue" instance=ExtResource("2_qdvrb")]
+[node name="ClearButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ControlButtons"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "Clear Queue"
 
-[node name="ExecuteButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
-custom_minimum_size = Vector2(70, 55)
+[node name="InfoLabel" type="Label" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.8, 0.8, 0.8, 1)
 layout_mode = 2
-size_flags_horizontal = 10
-text = "Execute
-"
-
-[node name="ClearButton" type="Button" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
-custom_minimum_size = Vector2(70, 55)
-layout_mode = 2
-text = "Clear
-"
+theme_override_font_sizes/font_size = 12
+text = "Drag cards from above to build your action sequence"
+horizontal_alignment = 1

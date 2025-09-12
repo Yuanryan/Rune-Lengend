@@ -1,49 +1,30 @@
 # UI/ExampleUsage.gd
 extends CanvasLayer
 
-# Complete UI manager that coordinates all card components
-# This script should be attached to the root CanvasLayer in your UI scene
 
-@export var card_palette: CardPalette
-@export var action_queue: QueuePanel
-@export var player: CharacterBody2D
-@export var execute_button: Button
-@export var clear_button: Button
-@export var info_label: Label
+@onready var card_deck: CardDeck = %CardDeck
+@onready var action_queue: QueuePanel = %ActionQueue
+@onready var execute_button: Button = %ExecuteButton
+@onready var clear_button: Button = %ClearButton
+@onready var info_label: Label = %InfoLabel
 
+var player: CharacterBody2D
 var _action_count: int = 0
 
 func _ready() -> void:
-    # Find UI components if not assigned
-    _find_ui_components()
-    
     # Connect signals
     _connect_signals()
     
-    # Set up the palette with your existing resources
-    if card_palette:
-        card_palette.setup_with_existing_resources()
+    if card_deck:
+        card_deck.setup_with_existing_resources()
     
     # Update UI
     _update_ui()
 
-func _find_ui_components() -> void:
-    # Auto-find components if not assigned in editor
-    if not card_palette:
-        card_palette = get_node_or_null("MainContainer/TopPanel/TopMargin/TopContent/CardPalette")
-    if not action_queue:
-        action_queue = get_node_or_null("MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueue")
-    if not execute_button:
-        execute_button = get_node_or_null("MainContainer/BottomPanel/BottomMargin/BottomContent/ControlButtons/ExecuteButton")
-    if not clear_button:
-        clear_button = get_node_or_null("MainContainer/BottomPanel/BottomMargin/BottomContent/ControlButtons/ClearButton")
-    if not info_label:
-        info_label = get_node_or_null("MainContainer/BottomPanel/BottomMargin/BottomContent/InfoLabel")
-
 func _connect_signals() -> void:
     # Connect palette signals
-    if card_palette:
-        card_palette.card_selected.connect(_on_card_selected)
+    if card_deck:
+        card_deck.card_selected.connect(_on_card_selected)
     
     # Connect queue signals
     if action_queue:
@@ -141,5 +122,5 @@ func create_custom_card() -> void:
     var jump_resource = load("res://Resources/Actions/jump.tres")
     if jump_resource:
         # Add it to the palette
-        if card_palette:
-            card_palette.add_action_resource(jump_resource)
+        if card_deck:
+            card_deck.add_action_resource(jump_resource)
