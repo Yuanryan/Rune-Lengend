@@ -1,19 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://d055chr3oqj4h"]
+[gd_scene load_steps=4 format=3 uid="uid://d055chr3oqj4h"]
 
 [ext_resource type="PackedScene" uid="uid://dqtphadkel0dl" path="res://Scenes/Levels/level_1.tscn" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cviyl35yedewi" path="res://Scenes/player.tscn" id="1_ig7tw"]
-[ext_resource type="Script" uid="uid://dy6k5mx7dxtcy" path="res://Scripts/Actions/action.gd" id="2_kry3j"]
-[ext_resource type="Resource" uid="uid://b8syxaru1l5e6" path="res://Resources/Actions/move_right.tres" id="3_ynf5e"]
-[ext_resource type="Resource" uid="uid://vjw3bdgqn8qj" path="res://Resources/Actions/jump_right.tres" id="4_hptm8"]
-[ext_resource type="Resource" uid="uid://dwfdqho5fjg08" path="res://Resources/Actions/jump.tres" id="5_d1ilt"]
-[ext_resource type="Resource" uid="uid://dsgp2n8cm2tht" path="res://Resources/Actions/jump_left.tres" id="6_6iyac"]
-[ext_resource type="Resource" uid="uid://balt8ynd8p4oc" path="res://Resources/Actions/move_left.tres" id="7_fdnlq"]
 [ext_resource type="PackedScene" uid="uid://dmavjrcww2c2h" path="res://Scenes/ui.tscn" id="9_ynf5e"]
 
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
-action_queue = Array[ExtResource("2_kry3j")]([ExtResource("3_ynf5e"), ExtResource("4_hptm8"), ExtResource("7_fdnlq"), ExtResource("5_d1ilt"), ExtResource("6_6iyac")])
 
 [node name="Level1" parent="." instance=ExtResource("1_0xm2m")]
 position = Vector2(0, 49)

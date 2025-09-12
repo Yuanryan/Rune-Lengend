@@ -8,7 +8,6 @@ extends CanvasLayer
 @onready var clear_button: Button = %ClearButton
 @onready var info_label: Label = %InfoLabel
 
-var player: CharacterBody2D
 var _action_count: int = 0
 
 func _ready() -> void:
@@ -64,11 +63,11 @@ func _on_clear_pressed() -> void:
     clear_sequence()
 
 func execute_sequence() -> void:
-    if action_queue and player:
+    if action_queue and GameManager.get_player():
         var actions = action_queue.get_actions()
         if actions.size() > 0:
             print("Executing sequence with ", actions.size(), " actions")
-            player.load_actions_from_ui(actions)
+            GameManager.get_player().load_actions_from_ui(actions)
             _update_ui()
         else:
             print("No actions in queue to execute")
@@ -106,9 +105,6 @@ func _show_message(text: String) -> void:
         info_label.text = original_text
         info_label.modulate = Color.WHITE
 
-# Public API for external systems
-func set_player(player_node: CharacterBody2D) -> void:
-    player = player_node
 
 func get_action_count() -> int:
     return _action_count

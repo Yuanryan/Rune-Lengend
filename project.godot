@@ -34,6 +34,10 @@ folder_colors={
 2d_physics/layer_1="Map"
 2d_physics/layer_2="Player"
 
+[autoload]
+
+GameManager="*res://Scripts/game_manager.gd"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

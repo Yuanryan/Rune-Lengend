@@ -1,10 +1,14 @@
 # Player/Player.gd
 extends CharacterBody2D
+class_name Player
 
 const GRAVITY := 1000.0
 
 @export var action_queue: Array[Action] = []
 var _current_action: Action = null
+
+func _ready() -> void:
+    GameManager.set_player(self)
 
 func _physics_process(delta: float) -> void:
     # 重力
