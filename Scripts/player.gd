@@ -1,10 +1,15 @@
 # Player/Player.gd
 extends CharacterBody2D
+class_name Player
 
 const GRAVITY := 1000.0
 
 @export var action_queue: Array[Action] = []
 var _current_action: Action = null
+
+func _ready() -> void:
+    # 玩家現在由 Level 負責生成和註冊到 GameManager
+    pass
 
 func _physics_process(delta: float) -> void:
     # 重力

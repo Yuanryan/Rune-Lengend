@@ -1,0 +1,57 @@
+# Level.gd
+# 關卡類別，負責管理關卡狀態和玩家生成
+@tool
+extends Node2D
+class_name Level
+
+var player: Player = null
+@onready var starting_point: Marker2D = $StartingPoint
+
+func _get_configuration_warnings() -> PackedStringArray:
+    var warnings: PackedStringArray = []
+    
+    # 檢查是否有 StartingPoint 子節點
+    if not has_node("StartingPoint"):
+        warnings.append("Level 缺少 Marker2D 子節點 (StartingPoint)")
+    elif not get_node("StartingPoint") is Marker2D:
+        warnings.append("StartingPoint 必須是 Marker2D 節點")
+    
+    return warnings
+
+func _ready() -> void:
+    if not starting_point:
+        push_error("Level 缺少 StartingPoint 子節點")
+        return
+    
+# 在起始點生成玩家
+func spawn_player(player_scene: PackedScene) -> Player:
+    starting_point = get_node("StartingPoint")
+    print("StartingPoint: ", starting_point)
+    if not starting_point:
+        push_error("無法生成玩家：缺少 StartingPoint")
+        return null
+    
+    # 如果已經有玩家，先移除
+    if GameManager.has_player():
+        GameManager.get_player().queue_free()
+    
+    # 實例化玩家
+    player = GameManager.player_scene.instantiate()
+    if not player:
+        push_error("無法實例化玩家場景")
+        return null
+    
+    # 設置玩家位置
+    player.global_position = starting_point.global_position
+    
+    # 將玩家加入場景
+    add_child(player)
+        
+    print("玩家已在起始點生成: ", starting_point.global_position)
+    return player
+
+# 獲取起始點位置
+func get_starting_position() -> Vector2:
+    if starting_point:
+        return starting_point.global_position
+    return global_position

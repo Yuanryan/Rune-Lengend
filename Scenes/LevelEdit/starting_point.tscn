@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://m78ohatsav31"]
+
+[node name="StartingPoint" type="Marker2D"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dnle1wpu00iwi"]
+
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/level.gd" id="1_oylv5"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/land_edit_tool.tscn" id="2_w2ac1"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/land.tscn" id="3_ovj6s"]
+[ext_resource type="PackedScene" uid="uid://m78ohatsav31" path="res://Scenes/LevelEdit/starting_point.tscn" id="4_w2ac1"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_oylv5")
+metadata/_custom_type_script = "uid://bfeqcf2b658ki"
+
+[node name="LandEditTool" parent="." instance=ExtResource("2_w2ac1")]
+
+[node name="Land" parent="." instance=ExtResource("3_ovj6s")]
+
+[node name="Polygon2D" parent="Land" index="0"]
+position = Vector2(257, 171)
+polygon = PackedVector2Array(247, 277, 0, 384, 384, 384, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land"]
+position = Vector2(257, 171)
+polygon = PackedVector2Array(247, 277, 0, 384, 384, 384, 384, 256)
+
+[node name="StartingPoint" parent="." instance=ExtResource("4_w2ac1")]
+position = Vector2(349, 490)
+
+[editable path="Land"]
