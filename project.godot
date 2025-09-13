@@ -15,6 +15,10 @@ run/main_scene="uid://d055chr3oqj4h"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameManager="*res://Scripts/game_manager.gd"
+
 [debug]
 
 gdscript/warnings/unused_parameter=0
@@ -33,10 +37,6 @@ folder_colors={
 
 2d_physics/layer_1="Map"
 2d_physics/layer_2="Player"
-
-[autoload]
-
-GameManager="*res://Scripts/game_manager.gd"
 
 [rendering]
 
