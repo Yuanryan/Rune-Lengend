@@ -8,7 +8,8 @@ const GRAVITY := 1000.0
 var _current_action: Action = null
 
 func _ready() -> void:
-    GameManager.set_player(self)
+    # 玩家現在由 Level 負責生成和註冊到 GameManager
+    pass
 
 func _physics_process(delta: float) -> void:
     # 重力
