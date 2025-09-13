@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmavjrcww2c2h"]
 
-[ext_resource type="Script" uid="uid://cyw1d1rlfgj7k" path="res://Scripts/UI/ui.gd" id="1_nf4gj"]
-[ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/card_deck.gd" id="2_lujqu"]
-[ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/card_queue.gd" id="2_queue"]
-[ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/drop_monitor.gd" id="3_2246s"]
+[ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
+[ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
+[ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/InGame/card_queue.gd" id="2_queue"]
+[ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/InGame/drop_monitor.gd" id="3_2246s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_palette_bg"]
 bg_color = Color(0.2, 0.2, 0.3, 0.8)
@@ -19,8 +19,8 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="UI" type="CanvasLayer"]
-script = ExtResource("1_nf4gj")
+[node name="InGameUI" type="CanvasLayer"]
+script = ExtResource("1_fo61o")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15

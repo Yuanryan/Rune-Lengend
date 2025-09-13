@@ -1,4 +1,3 @@
-# UI/ExampleUsage.gd
 extends CanvasLayer
 
 
@@ -61,6 +60,7 @@ func _on_execute_pressed() -> void:
 
 func _on_clear_pressed() -> void:
     clear_sequence()
+
 
 func execute_sequence() -> void:
     if action_queue and GameManager.get_player():

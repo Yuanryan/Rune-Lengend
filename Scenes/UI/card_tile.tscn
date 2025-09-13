@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2nq82l2n1e8q"]
 
-[ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/card_tile.gd" id="1_jw68n"]
+[ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/InGame/card_tile.gd" id="1_jw68n"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_jw68n"]
 
