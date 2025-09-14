@@ -6,5 +6,5 @@
 script = ExtResource("1_blxmx")
 velocity = Vector2(-200, -420)
 name = "Jump Left"
-duration = 0.4
+duration = 0.95
 metadata/_custom_type_script = "uid://cj8coy1srj8u1"

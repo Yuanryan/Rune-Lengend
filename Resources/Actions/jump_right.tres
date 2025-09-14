@@ -6,5 +6,5 @@
 script = ExtResource("1_peo70")
 velocity = Vector2(200, -440)
 name = "Jump Right"
-duration = 0.4
+duration = 0.95
 metadata/_custom_type_script = "uid://cj8coy1srj8u1"
