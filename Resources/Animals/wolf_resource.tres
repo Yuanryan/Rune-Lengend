@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AnimalResource" load_steps=2 format=3 uid="uid://dhl4h4f80cuu3"]
+
+[ext_resource type="Script" uid="uid://nplwq6xwpqwf" path="res://Scripts/Animals/animal_resource.gd" id="1_uwort"]
+
+[resource]
+script = ExtResource("1_uwort")
+name = "Wolf"
+move_speed = 120.0
+jump_velocity = Vector2(100, -300)
+metadata/_custom_type_script = "uid://nplwq6xwpqwf"

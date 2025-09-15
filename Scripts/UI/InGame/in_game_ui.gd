@@ -12,11 +12,6 @@ var _action_count: int = 0
 func _ready() -> void:
     # Connect signals
     _connect_signals()
-    
-    if card_deck:
-        card_deck.setup_with_existing_resources()
-    
-    # Update UI
     _update_ui()
 
 func _connect_signals() -> void:

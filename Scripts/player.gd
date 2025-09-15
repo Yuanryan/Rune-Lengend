@@ -7,9 +7,12 @@ const GRAVITY := 1000.0
 @export var action_queue: Array[Action] = []
 var _current_action: Action = null
 
-func _ready() -> void:
-    # 玩家現在由 Level 負責生成和註冊到 GameManager
-    pass
+# 動物系統
+@export var current_animal: Animal
+
+func _process(delta: float) -> void:
+    if Input.is_action_just_pressed("ui_accept"):
+        interrupt_current_action()
 
 func _physics_process(delta: float) -> void:
     # 重力
@@ -28,6 +31,17 @@ func _physics_process(delta: float) -> void:
             _current_action = null
 
     move_and_slide()
+
+# 中斷當前動作並執行下一個
+func interrupt_current_action() -> void:
+    if _current_action != null:
+        # 調用動作的中斷方法進行清理
+        _current_action.interrupt(self)
+        _current_action = null
+        # 立即執行下一個動作（如果有的話）
+        if action_queue.size() > 0:
+            _current_action = action_queue.pop_front()
+            _current_action.start(self)
 
 func load_actions_from_ui(ui_actions: Array[Action]) -> void:
     # 將 UI 組好的動作（Action 陣列）複製到 queue

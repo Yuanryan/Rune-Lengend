@@ -23,17 +23,18 @@ func _ready() -> void:
         push_error("Level 缺少 StartingPoint 子節點")
         return
     
+    # 只在非編輯器模式下生成玩家
+    if not Engine.is_editor_hint():
+        spawn_player()
+
 # 在起始點生成玩家
-func spawn_player(player_scene: PackedScene) -> Player:
-    starting_point = get_node("StartingPoint")
-    print("StartingPoint: ", starting_point)
+func spawn_player() -> Player:
     if not starting_point:
         push_error("無法生成玩家：缺少 StartingPoint")
         return null
     
     # 如果已經有玩家，先移除
-    if GameManager.has_player():
-        GameManager.get_player().queue_free()
+    GameManager.remove_player()
     
     # 實例化玩家
     player = GameManager.player_scene.instantiate()

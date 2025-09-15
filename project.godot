@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 GameManager="*res://Scripts/Managers/game_manager.gd"
 UIManager="*res://Scripts/Managers/ui_manager.gd"
+LevelManager="*res://Scripts/Managers/level_manager.gd"
 
 [debug]
 

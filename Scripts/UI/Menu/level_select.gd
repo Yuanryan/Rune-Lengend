@@ -13,85 +13,50 @@ signal back_to_main_menu()
 # 關卡按鈕場景
 const LEVEL_BUTTON_SCENE: PackedScene = preload("res://Scenes/UI/level_button.tscn")
 
-# 動態載入的關卡配置
-var level_configs: Array[Dictionary] = []
-
 func _ready() -> void:
     # 連接信號
     _connect_signals()
     
-    # 掃描關卡資料夾
-    _scan_levels_folder()
-    
     # 創建關卡按鈕
     _create_level_buttons()
-    
-    # 載入關卡進度 (暫時註釋掉，所有關卡都解鎖)
-    # _load_level_progress()
 
 func _connect_signals() -> void:
     if back_button:
         back_button.pressed.connect(_on_back_pressed)
 
-func _scan_levels_folder() -> void:
-    """掃描 Scenes/Levels 資料夾中的關卡場景"""
-    level_configs.clear()
-    
-    var levels_dir = DirAccess.open("res://Scenes/Levels")
-    if not levels_dir:
-        push_error("無法開啟關卡資料夾: res://Scenes/Levels")
-        return
-    
-    var level_number = 1
-    levels_dir.list_dir_begin()
-    var file_name = levels_dir.get_next()
-    
-    while file_name != "":
-        if file_name.ends_with(".tscn") and file_name.begins_with("level_"):
-            var scene_path = "res://Scenes/Levels/" + file_name
-            var level_name = _get_level_name_from_filename(file_name)
-            
-            var config = {
-                "number": level_number,
-                "name": level_name,
-                "scene_path": scene_path,
-                "unlocked": true,  # 暫時讓所有關卡都解鎖
-                "completed": false
-            }
-            
-            level_configs.append(config)
-            level_number += 1
-        
-        file_name = levels_dir.get_next()
-    
-    levels_dir.list_dir_end()
-    
-    # 按關卡編號排序
-    level_configs.sort_custom(func(a, b): return a.number < b.number)
-    
-    print("掃描到 ", level_configs.size(), " 個關卡")
-
-func _get_level_name_from_filename(filename: String) -> String:
-    """從檔案名稱生成關卡名稱"""
-    # 移除 .tscn 副檔名
-    var level_name = filename.trim_suffix(".tscn")        
-    return level_name
 
 func _create_level_buttons() -> void:
     if not levels_container or not LEVEL_BUTTON_SCENE:
         push_error("無法創建關卡按鈕：缺少必要組件")
         return
     
-    for config in level_configs:
+    # 從 LevelManager 獲取所有關卡 ID
+    var level_ids = LevelManager.get_all_level_ids()
+    
+    for i in range(level_ids.size()):
+        var level_id = level_ids[i]
+        var level_resource = LevelManager.get_level_resource(level_id)
+        
+        if not level_resource:
+            continue
+        
         var button: LevelButton = LEVEL_BUTTON_SCENE.instantiate()
         if not button:
             push_error("無法實例化關卡按鈕")
             continue
         
+        # 創建配置
+        var config = {
+            "level_id": level_id,
+            "level_resource": level_resource,
+            "unlocked": true,  # 暫時讓所有關卡都解鎖
+            "completed": false
+        }
+        
         # 設置按鈕
         button.setup(
-            config.number,
-            config.name,
+            i + 1,  # 關卡編號
+            level_resource.level_name,
             config.unlocked,
             config.completed,
             config
@@ -104,12 +69,14 @@ func _create_level_buttons() -> void:
         levels_container.add_child(button)
 
 func _on_level_selected(config: Dictionary) -> void:
-    print("選擇關卡: ", config.number, " - ", config.name)
+    var level_id = config.level_id
+    var level_resource = config.level_resource
+    print("選擇關卡: ", level_id, " - ", level_resource.level_name)
     
-    # 載入關卡場景
-    var level_scene: PackedScene = load(config.scene_path)
+    # 直接使用 LevelManager 載入關卡
+    var level_scene = level_resource.level_scene
     if not level_scene:
-        push_error("無法載入關卡場景: " + config.scene_path)
+        push_error("關卡資源中沒有設定場景: " + level_id)
         return
     
     # 發送信號
@@ -176,12 +143,6 @@ func _on_back_pressed() -> void:
 #             unlock_level(level_number + 1)
 #             break
 
-func get_level_config(level_number: int) -> Dictionary:
-    """獲取指定關卡的配置"""
-    for config in level_configs:
-        if config.number == level_number:
-            return config
-    return {}
 
 func show_level_select() -> void:
     """顯示關卡選擇頁面"""
