@@ -66,6 +66,9 @@ func create_action_from_type(action_type: Action.ActionType) -> Action:
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_accept"):
         interrupt_current_action()
+    elif event.is_action_pressed("reset_player"):
+        # 使用關卡重新載入而不是直接重置玩家
+        LevelManager.reload_current_level()
 
 func _physics_process(delta: float) -> void:
     # 重力
@@ -116,3 +119,28 @@ func load_actions_from_ui(action_types: Array[Action.ActionType]) -> void:
             action_queue.append(action)
     _current_action = null  # 重新開始
     is_executing_actions = true  # 開始執行動作
+
+func reset_to_starting_point() -> void:
+    """重置玩家到起始點"""
+    # 停止所有動作
+    action_queue.clear()
+    if _current_action != null:
+        _current_action.interrupt(self)
+        _current_action = null
+    is_executing_actions = false
+    
+    # 重置速度
+    velocity = Vector2.ZERO
+    
+    # 獲取當前關卡的起始點位置
+    var level = get_parent()
+    if level and level.has_method("get_starting_point_position"):
+        global_position = level.get_starting_point_position()
+    elif level and level.has_node("StartingPoint"):
+        global_position = level.get_node("StartingPoint").global_position
+    else:
+        print("無法找到起始點位置")
+    
+    # 重新啟用UI按鈕
+    UIManager.get_in_game_ui().enable_buttons()
+    print("玩家已重置到起始點")

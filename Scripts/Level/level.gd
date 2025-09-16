@@ -51,3 +51,11 @@ func spawn_player() -> Player:
     add_child(player)
     return player
 
+func get_starting_point_position() -> Vector2:
+    """獲取起始點位置"""
+    if starting_point:
+        return starting_point.global_position
+    else:
+        push_error("無法獲取起始點位置：StartingPoint 不存在")
+        return Vector2.ZERO
+

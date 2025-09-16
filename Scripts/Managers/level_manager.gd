@@ -126,3 +126,29 @@ func get_current_level() -> Level:
 # 獲取所有關卡場景
 func get_all_level_scenes() -> Dictionary:
     return level_scenes
+
+# 重新載入當前關卡
+func reload_current_level() -> Level:
+    """重新載入當前關卡，保持動作佇列狀態"""
+    if not current_level_scene:
+        push_error("沒有當前關卡場景可以重新載入")
+        return null
+    
+    # 保存當前動作佇列狀態（從UI獲取，因為玩家可能正在執行動作）
+    var saved_action_queue = []
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui and in_game_ui.action_queue:
+        saved_action_queue = in_game_ui.action_queue.get_action_types()
+    
+    # 重新載入關卡
+    var reloaded_level = load_level_scene(current_level_scene)
+    
+    # 恢復動作佇列
+    if reloaded_level and saved_action_queue.size() > 0:
+        # 等待一幀確保UI已經準備好
+        await get_tree().process_frame
+        in_game_ui = UIManager.get_in_game_ui()
+        if in_game_ui:
+            in_game_ui.restore_action_queue(saved_action_queue)
+    
+    return reloaded_level

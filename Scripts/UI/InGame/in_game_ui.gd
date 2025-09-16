@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var action_queue: QueuePanel = %ActionQueue
 @onready var execute_button: Button = %ExecuteButton
 @onready var clear_button: Button = %ClearButton
+@onready var reset_button: Button = %ResetButton
 @onready var info_label: Label = %InfoLabel
 
 
@@ -28,6 +29,8 @@ func _connect_signals() -> void:
         execute_button.pressed.connect(_on_execute_pressed)
     if clear_button:
         clear_button.pressed.connect(_on_clear_pressed)
+    if reset_button:
+        reset_button.pressed.connect(_on_reset_pressed)
 
 func _on_card_selected(card: CardTile) -> void:
     pass
@@ -49,6 +52,9 @@ func _on_execute_pressed() -> void:
 func _on_clear_pressed() -> void:
     clear_sequence()
 
+func _on_reset_pressed() -> void:
+    reset_player()
+
 func execute_sequence() -> void:
     if action_queue and GameManager.get_player():
         var actions = action_queue.get_action_types()
@@ -66,13 +72,26 @@ func clear_sequence() -> void:
     if action_queue:
         action_queue.clear_queue()
 
+func reset_player() -> void:
+    """重新載入關卡並保持動作佇列"""
+    # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
+    LevelManager.reload_current_level()
+
+func restore_action_queue(action_types: Array[Action.ActionType]) -> void:
+    """恢復動作佇列（由LevelManager調用）"""
+    if action_queue:
+        action_queue.restore_action_queue(action_types)
+    _update_ui()
+
 func disable_buttons() -> void:
     execute_button.disabled = true
     clear_button.disabled = true
+    reset_button.disabled = true
 
 func enable_buttons() -> void:
     execute_button.disabled = false
     clear_button.disabled = false
+    reset_button.disabled = false
 
 func _update_ui() -> void:
     # Get action count from action_queue
@@ -84,6 +103,10 @@ func _update_ui() -> void:
     
     if clear_button:
         clear_button.disabled = action_count == 0
+    
+    # Reset button is always enabled (unless player is executing actions)
+    if reset_button:
+        reset_button.disabled = GameManager.get_player() and GameManager.get_player().is_executing()
     
     # Update info label
     if info_label:
