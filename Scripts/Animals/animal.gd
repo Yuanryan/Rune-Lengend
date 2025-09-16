@@ -1,9 +1,18 @@
 # Animals/Animal.gd
-# TODO: add abstract keyword after Godot 4.5
-extends Resource
+@abstract
 class_name Animal
+extends Resource
 
-@export var name: String = "Unnamed"
+@export var animal_data: AnimalResource
 
-func get_actions() -> Array[Action]:
-    return []
+enum AnimalType {
+    RABBIT,
+    WOLF
+}
+
+func _init(_animal_data: AnimalResource = null):
+    if _animal_data:
+        animal_data = _animal_data
+
+func get_animal_data() -> AnimalResource:
+    return animal_data

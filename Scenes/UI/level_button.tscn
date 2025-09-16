@@ -2,15 +2,8 @@
 
 [ext_resource type="Script" uid="uid://deetjnjv1p5tk" path="res://Scripts/UI/Menu/level_button.gd" id="1_level_button"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_disabled"]
-bg_color = Color(0.15, 0.15, 0.15, 0.7)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
-bg_color = Color(0.3, 0.4, 0.5, 0.9)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+bg_color = Color(0.2, 0.3, 0.4, 0.9)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -23,8 +16,15 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
-bg_color = Color(0.2, 0.3, 0.4, 0.9)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+bg_color = Color(0.3, 0.4, 0.5, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_disabled"]
+bg_color = Color(0.15, 0.15, 0.15, 0.7)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -32,10 +32,10 @@ corner_radius_bottom_left = 10
 
 [node name="LevelButton" type="Button"]
 custom_minimum_size = Vector2(150, 120)
-theme_override_styles/disabled = SubResource("StyleBoxFlat_disabled")
-theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
 theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_disabled")
 script = ExtResource("1_level_button")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]

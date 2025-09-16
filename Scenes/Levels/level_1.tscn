@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=5 format=3 uid="uid://dqtphadkel0dl"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/land.tscn" id="2_4dpyx"]
+[ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_iixi8"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0x8k9")
+level_resource = ExtResource("2_iixi8")
 
 [node name="LandEditTool" parent="." instance=ExtResource("2_3mqfk")]
 
@@ -35,7 +37,8 @@ polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(24, 144)
-zoom = Vector2(0.73, 0.73)
+zoom = Vector2(0.7, 0.7)
+limit_enabled = false
 
 [editable path="Land"]
 [editable path="Land2"]

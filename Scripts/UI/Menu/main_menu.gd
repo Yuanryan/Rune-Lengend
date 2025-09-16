@@ -20,13 +20,10 @@ func _connect_signals() -> void:
 
 func _on_start_pressed() -> void:
     """開始遊戲按鈕被點擊"""
-    print("開始遊戲")
-    if GameManager:
-        GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
+    GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
 
 func _on_exit_pressed() -> void:
     """退出遊戲按鈕被點擊"""
-    print("退出遊戲")
     get_tree().quit()
 
 func show_main_menu() -> void:

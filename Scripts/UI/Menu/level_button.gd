@@ -16,20 +16,21 @@ var level_name: String = ""
 var is_unlocked: bool = false
 var is_completed: bool = false
 var level_config: Dictionary = {}
+var level_scene: PackedScene = null
 
 func _ready() -> void:
     # 連接按鈕信號
     pressed.connect(_on_button_pressed)
-    
     # 更新UI顯示
     _update_display()
 
-func setup(level_num: int, level_title: String, unlocked: bool = false, completed: bool = false, config: Dictionary = {}) -> void:
+func setup(level_num: int, level_title: String, unlocked: bool = false, completed: bool = false, config: Dictionary = {}, scene: PackedScene = null) -> void:
     level_number = level_num
     level_name = level_title
     is_unlocked = unlocked
     is_completed = completed
     level_config = config
+    level_scene = scene
     
     _update_display()
 
@@ -70,8 +71,16 @@ func _update_display() -> void:
 
 func _on_button_pressed() -> void:
     if is_unlocked:
-        level_selected.emit(level_config)
-        print("選擇關卡: ", level_number, " - ", level_name)
+        if level_scene:
+            # 直接使用保存的場景載入關卡
+            var level = LevelManager.load_level_scene(level_scene)
+            if level:
+                # 仍然發送信號以通知其他系統
+                level_selected.emit(level_config)
+            else:
+                print("載入關卡失敗: ", level_number, " - ", level_name)
+        else:
+            print("關卡場景不存在: ", level_number, " - ", level_name)
 
 func set_unlocked(unlocked: bool) -> void:
     is_unlocked = unlocked

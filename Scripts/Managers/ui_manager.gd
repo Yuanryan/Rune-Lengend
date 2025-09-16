@@ -40,7 +40,6 @@ func show_main_menu() -> void:
     if main_menu_ui:
         main_menu_ui.show_main_menu()
         current_ui = main_menu_ui
-    print("顯示主選單")
 
 # 顯示關卡選擇
 func show_level_select() -> void:
@@ -49,8 +48,6 @@ func show_level_select() -> void:
     if level_select:
         level_select.show_level_select()
         current_ui = level_select
-    print("顯示關卡選擇")
-
 # 顯示遊戲UI
 func show_game_ui() -> void:
     """顯示遊戲內UI"""
@@ -59,7 +56,6 @@ func show_game_ui() -> void:
         in_game_ui.visible = true
         in_game_ui.process_mode = Node.PROCESS_MODE_INHERIT
         current_ui = in_game_ui
-    print("顯示遊戲UI")
 
 # 隱藏所有UI
 func _hide_all_ui() -> void:
@@ -78,12 +74,16 @@ func _hide_all_ui() -> void:
 func get_current_ui() -> Node:
     return current_ui
 
-# 檢查UI是否可見
-func is_ui_visible(ui: Node) -> bool:
-    if ui == main_menu_ui:
-        return main_menu_ui.visible if main_menu_ui else false
-    elif ui == level_select:
-        return level_select.visible if level_select else false
-    elif ui == in_game_ui:
-        return in_game_ui.visible if in_game_ui else false
-    return false
+
+# 從關卡創建卡片
+func create_cards_from_level(level: Level) -> void:
+    """根據關卡資源創建卡片"""
+    if not level or not level.level_resource:
+        push_error("關卡或關卡資源不存在，無法創建卡片")
+        return
+    if in_game_ui:
+        in_game_ui.card_deck.create_cards_from_level_resource(level.level_resource)
+
+func get_in_game_ui() -> CanvasLayer:
+    """獲取遊戲內UI"""
+    return in_game_ui

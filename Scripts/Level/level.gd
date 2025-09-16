@@ -4,7 +4,7 @@
 extends Node2D
 class_name Level
 
-var player: Player = null
+@export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = $StartingPoint
 
 func _get_configuration_warnings() -> PackedStringArray:
@@ -23,20 +23,23 @@ func _ready() -> void:
         push_error("Level 缺少 StartingPoint 子節點")
         return
     
+    # 只在非編輯器模式下生成玩家
+    if not Engine.is_editor_hint():
+        spawn_player()
+
 # 在起始點生成玩家
-func spawn_player(player_scene: PackedScene) -> Player:
-    starting_point = get_node("StartingPoint")
-    print("StartingPoint: ", starting_point)
+func spawn_player() -> Player:
     if not starting_point:
         push_error("無法生成玩家：缺少 StartingPoint")
         return null
     
     # 如果已經有玩家，先移除
-    if GameManager.has_player():
-        GameManager.get_player().queue_free()
+    GameManager.remove_player()
     
     # 實例化玩家
-    player = GameManager.player_scene.instantiate()
+    var player = GameManager.player_scene.instantiate()
+    player.set_available_animals(level_resource.available_animals)
+    GameManager.set_player(player)
     if not player:
         push_error("無法實例化玩家場景")
         return null
@@ -46,12 +49,12 @@ func spawn_player(player_scene: PackedScene) -> Player:
     
     # 將玩家加入場景
     add_child(player)
-        
-    print("玩家已在起始點生成: ", starting_point.global_position)
     return player
 
-# 獲取起始點位置
-func get_starting_position() -> Vector2:
+func get_starting_point_position() -> Vector2:
+    """獲取起始點位置"""
     if starting_point:
         return starting_point.global_position
-    return global_position
+    else:
+        push_error("無法獲取起始點位置：StartingPoint 不存在")
+        return Vector2.ZERO

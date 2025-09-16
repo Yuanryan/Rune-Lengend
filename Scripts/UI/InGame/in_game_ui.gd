@@ -5,24 +5,18 @@ extends CanvasLayer
 @onready var action_queue: QueuePanel = %ActionQueue
 @onready var execute_button: Button = %ExecuteButton
 @onready var clear_button: Button = %ClearButton
+@onready var reset_button: Button = %ResetButton
 @onready var info_label: Label = %InfoLabel
 
-var _action_count: int = 0
 
 func _ready() -> void:
-    # Connect signals
-    _connect_signals()
-    
-    if card_deck:
-        card_deck.setup_with_existing_resources()
-    
-    # Update UI
-    _update_ui()
+    _connect_signals.call_deferred()
+    _update_ui.call_deferred()
 
 func _connect_signals() -> void:
     # Connect palette signals
-    if card_deck:
-        card_deck.card_selected.connect(_on_card_selected)
+    # if card_deck:
+    #     card_deck.card_selected.connect(_on_card_selected)
     
     # Connect queue signals
     if action_queue:
@@ -35,40 +29,44 @@ func _connect_signals() -> void:
         execute_button.pressed.connect(_on_execute_pressed)
     if clear_button:
         clear_button.pressed.connect(_on_clear_pressed)
+    if reset_button:
+        reset_button.pressed.connect(_on_reset_pressed)
 
 func _on_card_selected(card: CardTile) -> void:
-    print("Card selected: ", card.get_action_label())
-    # Optional: Add visual feedback for selected card
+    pass
 
-func _on_action_added(action: Action, index: int) -> void:
-    _action_count += 1
-    print("Action added to queue: ", action.name, " at index ", index)
+func _on_action_added(action_type: Action.ActionType, index: int) -> void:
+    print("Action added to queue: ", action_type, " at index ", index)
     _update_ui()
 
-func _on_action_removed(action: Action, index: int) -> void:
-    _action_count -= 1
-    print("Action removed from queue: ", action.name, " at index ", index)
+func _on_action_removed(action_type: Action.ActionType, index: int) -> void:
+    print("Action removed from queue: ", action_type, " at index ", index)
     _update_ui()
 
 func _on_queue_cleared() -> void:
-    _action_count = 0
-    print("Action queue cleared")
     _update_ui()
 
 func _on_execute_pressed() -> void:
+    execute_button.release_focus()
     execute_sequence()
 
 func _on_clear_pressed() -> void:
+    clear_button.release_focus()
     clear_sequence()
 
+func _on_reset_pressed() -> void:
+    reset_button.release_focus()
+    reset_player()
 
 func execute_sequence() -> void:
     if action_queue and GameManager.get_player():
-        var actions = action_queue.get_actions()
+        var actions = action_queue.get_action_types()
+        print("Actions: ", actions)
         if actions.size() > 0:
             print("Executing sequence with ", actions.size(), " actions")
             GameManager.get_player().load_actions_from_ui(actions)
             _update_ui()
+            disable_buttons()
         else:
             print("No actions in queue to execute")
             _show_message("No actions in queue!")
@@ -76,23 +74,49 @@ func execute_sequence() -> void:
 func clear_sequence() -> void:
     if action_queue:
         action_queue.clear_queue()
-        print("Action queue cleared")
-        _update_ui()
+
+func reset_player() -> void:
+    """重新載入關卡並保持動作佇列"""
+    # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
+    LevelManager.reload_current_level()
+
+func restore_action_queue(action_types: Array[Action.ActionType]) -> void:
+    """恢復動作佇列（由LevelManager調用）"""
+    if action_queue:
+        action_queue.restore_action_queue(action_types)
+    _update_ui()
+
+func disable_buttons() -> void:
+    execute_button.disabled = true
+    clear_button.disabled = true
+    reset_button.disabled = true
+
+func enable_buttons() -> void:
+    execute_button.disabled = false
+    clear_button.disabled = false
+    reset_button.disabled = false
 
 func _update_ui() -> void:
+    # Get action count from action_queue
+    var action_count = action_queue.get_action_count() if action_queue else 0
+    
     # Update button states
     if execute_button:
-        execute_button.disabled = _action_count == 0
+        execute_button.disabled = action_count == 0
     
     if clear_button:
-        clear_button.disabled = _action_count == 0
+        clear_button.disabled = action_count == 0
+    
+    # Reset button is always enabled (unless player is executing actions)
+    if reset_button:
+        reset_button.disabled = GameManager.get_player() and GameManager.get_player().is_executing()
     
     # Update info label
     if info_label:
-        if _action_count == 0:
+        if action_count == 0:
             info_label.text = "Drag cards from above to build your action sequence"
         else:
-            info_label.text = "Ready to execute " + str(_action_count) + " actions"
+            info_label.text = "Ready to execute " + str(action_count) + " actions"
 
 func _show_message(text: String) -> void:
     if info_label:
@@ -104,19 +128,3 @@ func _show_message(text: String) -> void:
         await get_tree().create_timer(2.0).timeout
         info_label.text = original_text
         info_label.modulate = Color.WHITE
-
-
-func get_action_count() -> int:
-    return _action_count
-
-func is_queue_empty() -> bool:
-    return _action_count == 0
-
-# Example of creating cards programmatically from resources
-func create_custom_card() -> void:
-    # Load one of your existing action resources
-    var jump_resource = load("res://Resources/Actions/jump.tres")
-    if jump_resource:
-        # Add it to the palette
-        if card_deck:
-            card_deck.add_action_resource(jump_resource)
