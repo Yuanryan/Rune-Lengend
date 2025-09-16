@@ -9,6 +9,7 @@ var _current_action: Action = null
 var current_animal: Animal
 var available_animals: Array[Animal] = []
 var is_executing_actions: bool = false
+var _total_actions_executed: int = 0
 
 # 獲取當前動物的數據
 func get_current_animal_data() -> AnimalResource:
@@ -79,22 +80,28 @@ func _physics_process(delta: float) -> void:
     if _current_action == null and action_queue.size() > 0:
         _current_action = action_queue.pop_front()
         _current_action.start(self)
+        _notify_ui_action_started(_total_actions_executed)
 
     # 更新當前 action
     if _current_action != null:
         var finished := _current_action.update(self, delta)
         if finished:
             _current_action.interrupt(self)
+            _notify_ui_action_finished(_total_actions_executed)
+            _total_actions_executed += 1  # 增加已執行的動作計數
             _current_action = null
+            
             if action_queue.size() > 0:
                 _current_action = action_queue.pop_front()
                 _current_action.start(self)
+                _notify_ui_action_started(_total_actions_executed)
     
     # 檢查是否所有動作都完成了
     if _current_action == null and action_queue.size() == 0 and is_executing_actions:
         is_executing_actions = false
         print("所有動作執行完成")
         UIManager.get_in_game_ui().enable_buttons()
+        _notify_ui_all_actions_finished()
 
 
     move_and_slide()
@@ -104,11 +111,13 @@ func interrupt_current_action() -> void:
     if _current_action != null:
         # 調用動作的中斷方法進行清理
         _current_action.interrupt(self)
+        _notify_ui_action_finished(_total_actions_executed)
         _current_action = null
         # 立即執行下一個動作（如果有的話）
         if action_queue.size() > 0:
             _current_action = action_queue.pop_front()
             _current_action.start(self)
+            _notify_ui_action_started(_total_actions_executed)
 
 func load_actions_from_ui(action_types: Array[Action.ActionType]) -> void:
     # 將 UI 組好的動作類型轉換為實際的動作並加入 queue
@@ -118,6 +127,7 @@ func load_actions_from_ui(action_types: Array[Action.ActionType]) -> void:
         if action:
             action_queue.append(action)
     _current_action = null  # 重新開始
+    _total_actions_executed = 0  # 重置已執行的動作計數
     is_executing_actions = true  # 開始執行動作
 
 func reset_to_starting_point() -> void:
@@ -144,3 +154,22 @@ func reset_to_starting_point() -> void:
     # 重新啟用UI按鈕
     UIManager.get_in_game_ui().enable_buttons()
     print("玩家已重置到起始點")
+
+func _notify_ui_action_started(index: int) -> void:
+    """通知UI動作開始執行"""
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui and in_game_ui.action_queue:
+        in_game_ui.action_queue.set_executing_action_index(index)
+
+func _notify_ui_action_finished(index: int) -> void:
+    """通知UI動作執行完成"""
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui and in_game_ui.action_queue:
+        # 動作完成後清除發光效果
+        in_game_ui.action_queue.clear_executing_action()
+
+func _notify_ui_all_actions_finished() -> void:
+    """通知UI所有動作執行完成"""
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui and in_game_ui.action_queue:
+        in_game_ui.action_queue.clear_executing_action()

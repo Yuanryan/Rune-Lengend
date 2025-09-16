@@ -12,16 +12,37 @@ mouse_default_cursor_shape = 6
 texture = SubResource("ImageTexture_jw68n")
 script = ExtResource("1_jw68n")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="OutlineColorRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = -30.5
+offset_right = 30.5
+offset_bottom = 30.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0.13, 0.13, 0.13, 0.647059)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(59, 59)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.13, 0.13, 0.13, 0.67058825)
 
 [node name="Label" type="RichTextLabel" parent="."]
 unique_name_in_owner = true

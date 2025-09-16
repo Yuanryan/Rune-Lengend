@@ -7,6 +7,7 @@ class_name QueuePanel
 
 var queue_cards: Array[CardTile] = []
 var _is_dragging_over: bool = false
+var _current_executing_index: int = -1
 
 signal action_added(action_type: Action.ActionType, index: int)
 signal action_removed(action_type: Action.ActionType, index: int)
@@ -208,3 +209,22 @@ func _get_action_label(action_type: Action.ActionType) -> String:
             return "Switch Animal"
         _:
             return "Unknown Action"
+
+func set_executing_action_index(index: int) -> void:
+    """設置當前執行的動作索引"""
+    # 停止之前執行的卡片發光
+    if _current_executing_index >= 0 and _current_executing_index < queue_cards.size():
+        var prev_card = queue_cards[_current_executing_index]
+        if is_instance_valid(prev_card):
+            prev_card.set_executing(false)
+    
+    # 開始新的卡片發光
+    _current_executing_index = index
+    if _current_executing_index >= 0 and _current_executing_index < queue_cards.size():
+        var current_card = queue_cards[_current_executing_index]
+        if is_instance_valid(current_card):
+            current_card.set_executing(true)
+
+func clear_executing_action() -> void:
+    """清除執行狀態"""
+    set_executing_action_index(-1)
