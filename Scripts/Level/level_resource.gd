@@ -6,7 +6,6 @@ class_name LevelResource
 @export var level_name: String = "Unnamed Level"
 @export var level_description: String = ""
 
-
 @export var max_total_actions: int = 5  # 最多可放置的動作數量
 
 @export var individual_action_limits: Dictionary[Action.ActionType, int] = {
@@ -18,10 +17,6 @@ class_name LevelResource
 }
 # 可用動物列表（動物名稱）
 @export var available_animals: Array[Animal.AnimalType] = []
-
-# 檢查是否可以使用指定動物
-func can_use_animal(animal_name: String) -> bool:
-    return animal_name in available_animals
 
 # 檢查是否達到動作數量限制
 func is_action_limit_reached(current_count: int) -> bool:

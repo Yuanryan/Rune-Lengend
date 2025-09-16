@@ -13,7 +13,6 @@ enum GameState {
 # 玩家實例記錄
 var player: Player = null
 var player_scene: PackedScene = preload("uid://cviyl35yedewi")
-# 遊戲狀態
 var current_state: GameState = GameState.MAIN_MENU
 
 

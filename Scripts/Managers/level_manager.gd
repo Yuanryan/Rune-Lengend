@@ -113,6 +113,9 @@ func load_level_scene(level_scene: PackedScene) -> Level:
     # 將關卡加入場景樹
     get_tree().current_scene.add_child(current_level)
     
+    # 通知 UI Manager 創建卡片
+    UIManager.create_cards_from_level(current_level)
+    
     level_loaded.emit(current_level)
     print("關卡已載入: ", current_level.name)
     return current_level

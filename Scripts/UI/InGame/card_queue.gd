@@ -6,13 +6,13 @@ class_name QueuePanel
 @onready var monitor: DropMonitor = %DropMonitor
 @onready var _preview_indicator: Control = %PreviewIndicator
 
-var planned_actions: Array[Action] = []
+var planned_action_types: Array[Action.ActionType] = []
 var queue_cards: Array[CardTile] = []
 
 var _is_dragging_over: bool = false
 
-signal action_added(action: Action, index: int)
-signal action_removed(action: Action, index: int)
+signal action_added(action_type: Action.ActionType, index: int)
+signal action_removed(action_type: Action.ActionType, index: int)
 signal queue_cleared()
 
 func _ready() -> void:
@@ -118,17 +118,17 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
     _is_dragging_over = false
     
     var card: CardTile = data["card"]
-    if card and card.action:
+    if card:
         # 檢查這個卡片是否已經在隊列中
         var card_index = queue_cards.find(card)
         
         if card_index < 0:
             # 新卡片從外部拖入隊列
-            var action_copy = card.action.duplicate()
+            var action_type = card.get_action_type()
             
             # 檢查是否拖動到特定位置
             var target_card = _get_card_at_position(at_position)
-            var insert_index = planned_actions.size()  # 默認插入到末尾
+            var insert_index = planned_action_types.size()  # 默認插入到末尾
             
             if target_card:
                 var target_index = queue_cards.find(target_card)
@@ -136,24 +136,24 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
                     insert_index = target_index
             
             # 在指定位置插入
-            planned_actions.insert(insert_index, action_copy)
+            planned_action_types.insert(insert_index, action_type)
             
             # 創建隊列中的卡片顯示
-            var queue_card = _create_queue_card(action_copy)
+            var queue_card = _create_queue_card(action_type, card.get_action_label())
             queue_cards.insert(insert_index, queue_card)
             
             # 重新排列子節點
             _reorder_children()
             
-            action_added.emit(action_copy, insert_index)
+            action_added.emit(action_type, insert_index)
         else:
             # 卡片已在隊列中，檢查是否拖動到其他卡片上進行交換
             _handle_card_reorder(card, card_index, at_position)
 
-func _create_queue_card(action: Action) -> CardTile:
+func _create_queue_card(action_type: Action.ActionType, label: String) -> CardTile:
     var card_scene = preload("uid://c2nq82l2n1e8q")
     var card = card_scene.instantiate() as CardTile
-    card.set_action(action)
+    card.set_action_type(action_type, label)
     
     add_child(card)
     return card
@@ -245,11 +245,11 @@ func _insert_card_at_position(from_index: int, to_index: int) -> void:
     if from_index < 0 or to_index < 0 or from_index >= queue_cards.size() or to_index >= queue_cards.size():
         return
     
-    # 從原位置移除卡片和動作
-    var moved_action = planned_actions[from_index]
+    # 從原位置移除卡片和動作類型
+    var moved_action_type = planned_action_types[from_index]
     var moved_card = queue_cards[from_index]
     
-    planned_actions.remove_at(from_index)
+    planned_action_types.remove_at(from_index)
     queue_cards.remove_at(from_index)
     
     # 調整目標索引（如果移除的位置在目標位置之前）
@@ -258,13 +258,13 @@ func _insert_card_at_position(from_index: int, to_index: int) -> void:
         adjusted_to_index = to_index - 1
     
     # 在目標位置插入
-    planned_actions.insert(adjusted_to_index, moved_action)
+    planned_action_types.insert(adjusted_to_index, moved_action_type)
     queue_cards.insert(adjusted_to_index, moved_card)
     
     # 重新排列所有子節點
     _reorder_children()
     
-    print("Card moved: ", moved_action.name, " from ", from_index, " to ", adjusted_to_index)
+    print("Card moved: ", moved_action_type, " from ", from_index, " to ", adjusted_to_index)
 
 func _reorder_children() -> void:
     """重新排列所有子節點以匹配數組順序"""
@@ -288,24 +288,24 @@ func _show_insert_feedback(card: CardTile) -> void:
         card.modulate = original_modulate
 
 func _remove_action_at(index: int):
-    if index >= 0 and index < planned_actions.size():
-        var action = planned_actions[index]
-        planned_actions.remove_at(index)
+    if index >= 0 and index < planned_action_types.size():
+        var action_type = planned_action_types[index]
+        planned_action_types.remove_at(index)
         
         if index < queue_cards.size():
             var card = queue_cards[index]
             queue_cards.remove_at(index)
             card.queue_free()  # 直接釋放卡片，不再有容器
         
-        action_removed.emit(action, index)
+        action_removed.emit(action_type, index)
 
-func remove_action(action: Action):
-    var index = planned_actions.find(action)
+func remove_action_type(action_type: Action.ActionType):
+    var index = planned_action_types.find(action_type)
     if index >= 0:
         _remove_action_at(index)
 
 func clear_queue():
-    planned_actions.clear()
+    planned_action_types.clear()
     
     for card in queue_cards:
         if is_instance_valid(card):
@@ -314,11 +314,11 @@ func clear_queue():
     
     queue_cleared.emit()
 
-func get_actions() -> Array[Action]:
-    return planned_actions.duplicate()
+func get_action_types() -> Array[Action.ActionType]:
+    return planned_action_types.duplicate()
 
 func get_action_count() -> int:
-    return planned_actions.size()
+    return planned_action_types.size()
 
 func is_empty() -> bool:
-    return planned_actions.is_empty()
+    return planned_action_types.is_empty()

@@ -7,8 +7,7 @@ func _init():
     var rabbit_data = load("uid://vk62uradafkf") as AnimalResource
     super._init(rabbit_data)
         
-    # 創建兔子的彈跳切換動作
-    switch_action = RabbitSwitchAction.new()
+
 
 # 兔子的彈跳切換動作
 class RabbitSwitchAction extends TimedAction:

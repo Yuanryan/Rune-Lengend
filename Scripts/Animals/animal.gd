@@ -13,3 +13,6 @@ enum AnimalType {
 func _init(_animal_data: AnimalResource = null):
     if _animal_data:
         animal_data = _animal_data
+
+func get_animal_data() -> AnimalResource:
+    return animal_data

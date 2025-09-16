@@ -35,14 +35,14 @@ func _on_card_selected(card: CardTile) -> void:
     print("Card selected: ", card.get_action_label())
     # Optional: Add visual feedback for selected card
 
-func _on_action_added(action: Action, index: int) -> void:
+func _on_action_added(action_type: Action.ActionType, index: int) -> void:
     _action_count += 1
-    print("Action added to queue: ", action.name, " at index ", index)
+    print("Action added to queue: ", action_type, " at index ", index)
     _update_ui()
 
-func _on_action_removed(action: Action, index: int) -> void:
+func _on_action_removed(action_type: Action.ActionType, index: int) -> void:
     _action_count -= 1
-    print("Action removed from queue: ", action.name, " at index ", index)
+    print("Action removed from queue: ", action_type, " at index ", index)
     _update_ui()
 
 func _on_queue_cleared() -> void:
@@ -59,10 +59,10 @@ func _on_clear_pressed() -> void:
 
 func execute_sequence() -> void:
     if action_queue and GameManager.get_player():
-        var actions = action_queue.get_actions()
-        if actions.size() > 0:
-            print("Executing sequence with ", actions.size(), " actions")
-            GameManager.get_player().load_actions_from_ui(actions)
+        var action_types = action_queue.get_action_types()
+        if action_types.size() > 0:
+            print("Executing sequence with ", action_types.size(), " actions")
+            GameManager.get_player().load_actions_from_ui(action_types)
             _update_ui()
         else:
             print("No actions in queue to execute")
@@ -115,3 +115,14 @@ func create_custom_card() -> void:
         # Add it to the palette
         if card_deck:
             card_deck.add_action_resource(jump_resource)
+
+# 從關卡資源創建卡片
+func create_cards_from_level_resource(level_resource: LevelResource) -> void:
+    """根據關卡資源創建卡片"""
+    if not level_resource:
+        print("關卡資源不存在，無法創建卡片")
+        return
+    
+    # 通知 card_deck 根據關卡資源創建卡片
+    card_deck.create_cards_from_level_resource(level_resource)
+    print("已根據關卡資源創建卡片")

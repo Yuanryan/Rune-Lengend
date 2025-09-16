@@ -4,5 +4,6 @@
 
 [resource]
 script = ExtResource("1_0x8k2")
+level_name = "Level 1"
 available_animals = Array[int]([0])
 metadata/_custom_type_script = "uid://bnoi35lwldban"

@@ -1,7 +1,8 @@
 extends TextureRect
 class_name CardTile
 
-@export var action: Action
+@export var action_type: Action.ActionType
+@export var action_label: String = ""
 @export var draggable: bool = true
 @export var show_label: bool = true
 @export var label_font_size: int = 14
@@ -18,11 +19,12 @@ signal card_dragged(card: CardTile)
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_PASS
     
-func get_action() -> Action:
-    return action
+func get_action_type() -> Action.ActionType:
+    return action_type
 
-func set_action(new_action: Action) -> void:
-    action = new_action
+func set_action_type(new_action_type: Action.ActionType, new_label: String = "") -> void:
+    action_type = new_action_type
+    action_label = new_label
     # 確保 label 已經初始化
     if label:
         label.text = get_action_label()
@@ -32,16 +34,16 @@ func set_action(new_action: Action) -> void:
 
 func _update_label() -> void:
     # 在 _ready 完成後更新 label
-    if label and action:
+    if label:
         label.text = get_action_label()
 
 func get_action_label() -> String:
-    if not action:
-        return "Empty"
-    return action.name
+    if action_label != "":
+        return action_label
+    return "Empty"
 
 func _get_drag_data(at_position: Vector2) -> Variant:
-    if not draggable or not action:
+    if not draggable:
         return null
     
     _is_dragging = true
@@ -50,7 +52,7 @@ func _get_drag_data(at_position: Vector2) -> Variant:
     var data := {
         "type": "card",
         "card": self,
-        "action": action
+        "action_type": action_type
     }
 
     var preview := duplicate() as CardTile

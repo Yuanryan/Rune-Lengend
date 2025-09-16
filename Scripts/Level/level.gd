@@ -4,7 +4,6 @@
 extends Node2D
 class_name Level
 
-var player: Player = null
 @export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = $StartingPoint
 
@@ -38,7 +37,7 @@ func spawn_player() -> Player:
     GameManager.remove_player()
     
     # 實例化玩家
-    player = GameManager.player_scene.instantiate()
+    var player = GameManager.player_scene.instantiate()
     if not player:
         push_error("無法實例化玩家場景")
         return null

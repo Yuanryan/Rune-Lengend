@@ -87,3 +87,12 @@ func is_ui_visible(ui: Node) -> bool:
     elif ui == in_game_ui:
         return in_game_ui.visible if in_game_ui else false
     return false
+
+# 從關卡創建卡片
+func create_cards_from_level(level: Level) -> void:
+    """根據關卡資源創建卡片"""
+    if not level or not level.level_resource:
+        push_error("關卡或關卡資源不存在，無法創建卡片")
+        return
+    if in_game_ui:
+        in_game_ui.create_cards_from_level_resource(level.level_resource)

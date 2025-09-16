@@ -7,6 +7,9 @@ func _init(_velocity_x := 0.0, _name := "Move") -> void:
 	velocity_x = _velocity_x
 	name = _name
 
+func set_velocity_x(new_velocity_x: float) -> void:
+	velocity_x = new_velocity_x
+
 func start(player: CharacterBody2D) -> void:
 	player.velocity.x = velocity_x
 
