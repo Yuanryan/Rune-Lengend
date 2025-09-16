@@ -49,11 +49,5 @@ func spawn_player() -> Player:
     
     # 將玩家加入場景
     add_child(player)
-        
     return player
 
-# 獲取起始點位置
-func get_starting_position() -> Vector2:
-    if starting_point:
-        return starting_point.global_position
-    return global_position

@@ -28,7 +28,7 @@ func _create_card(action_type: Action.ActionType, label: String) -> void:
     
     # Connect signals
     card.card_clicked.connect(_on_card_clicked)
-    card.card_dragged.connect(_on_card_dragged)
+    # card.card_dragged.connect(_on_card_dragged)
     
     add_child(card)
     card_tiles.append(card)
@@ -37,7 +37,6 @@ func _on_card_clicked(card: CardTile) -> void:
     card_selected.emit(card)
 
 func _on_card_dragged(card: CardTile) -> void:
-    # print("Card dragged: ", card.get_action_label())
     pass
     
 # Get all cards for external use

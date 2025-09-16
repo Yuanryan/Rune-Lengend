@@ -123,16 +123,6 @@ func unload_level() -> void:
 func get_current_level() -> Level:
     return current_level
 
-# 獲取當前關卡場景
-func get_current_level_scene():
-    return current_level_scene
-
-# 獲取關卡場景
-func get_level_scene(level_id: String):
-    if level_id in level_scenes:
-        return level_scenes[level_id]
-    return null
-
 # 獲取所有關卡場景
 func get_all_level_scenes() -> Dictionary:
     return level_scenes

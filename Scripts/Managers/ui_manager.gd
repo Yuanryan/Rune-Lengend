@@ -74,15 +74,6 @@ func _hide_all_ui() -> void:
 func get_current_ui() -> Node:
     return current_ui
 
-# 檢查UI是否可見
-func is_ui_visible(ui: Node) -> bool:
-    if ui == main_menu_ui:
-        return main_menu_ui.visible if main_menu_ui else false
-    elif ui == level_select:
-        return level_select.visible if level_select else false
-    elif ui == in_game_ui:
-        return in_game_ui.visible if in_game_ui else false
-    return false
 
 # 從關卡創建卡片
 func create_cards_from_level(level: Level) -> void:
@@ -91,7 +82,7 @@ func create_cards_from_level(level: Level) -> void:
         push_error("關卡或關卡資源不存在，無法創建卡片")
         return
     if in_game_ui:
-        in_game_ui.create_cards_from_level_resource(level.level_resource)
+        in_game_ui.card_deck.create_cards_from_level_resource(level.level_resource)
 
 func get_in_game_ui() -> CanvasLayer:
     """獲取遊戲內UI"""

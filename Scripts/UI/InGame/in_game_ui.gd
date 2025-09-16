@@ -14,8 +14,8 @@ func _ready() -> void:
 
 func _connect_signals() -> void:
     # Connect palette signals
-    if card_deck:
-        card_deck.card_selected.connect(_on_card_selected)
+    # if card_deck:
+    #     card_deck.card_selected.connect(_on_card_selected)
     
     # Connect queue signals
     if action_queue:
@@ -30,7 +30,6 @@ func _connect_signals() -> void:
         clear_button.pressed.connect(_on_clear_pressed)
 
 func _on_card_selected(card: CardTile) -> void:
-    # print("Card selected: ", card.get_action_label())
     pass
 
 func _on_action_added(action_type: Action.ActionType, index: int) -> void:
@@ -103,29 +102,3 @@ func _show_message(text: String) -> void:
         await get_tree().create_timer(2.0).timeout
         info_label.text = original_text
         info_label.modulate = Color.WHITE
-
-
-func get_action_count() -> int:
-    return action_queue.get_action_count() if action_queue else 0
-
-func is_queue_empty() -> bool:
-    return action_queue.is_empty() if action_queue else true
-
-# Example of creating cards programmatically from resources
-func create_custom_card() -> void:
-    # Load one of your existing action resources
-    var jump_resource = load("res://Resources/Actions/jump.tres")
-    if jump_resource:
-        # Add it to the palette
-        if card_deck:
-            card_deck.add_action_resource(jump_resource)
-
-# 從關卡資源創建卡片
-func create_cards_from_level_resource(level_resource: LevelResource) -> void:
-    """根據關卡資源創建卡片"""
-    if not level_resource:
-        print("關卡資源不存在，無法創建卡片")
-        return
-    
-    # 通知 card_deck 根據關卡資源創建卡片
-    card_deck.create_cards_from_level_resource(level_resource)

@@ -39,6 +39,7 @@ func switch_animal(target_animal: Animal) -> void:
 func is_executing() -> bool:
     """檢查是否正在執行動作"""
     return is_executing_actions
+
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType) -> Action:
     """根據動作類型和當前動物數據創建實際的動作"""
