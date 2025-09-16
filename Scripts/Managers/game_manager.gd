@@ -19,7 +19,7 @@ var current_state: GameState = GameState.MAIN_MENU
 
 # 信號
 signal game_state_changed(new_state: GameState)
-signal level_chosen(level_scene: PackedScene)
+signal level_chosen(level_id: String)
 
 func _ready() -> void:
     # 設置為自動載入單例
@@ -68,11 +68,11 @@ func set_game_state(new_state: GameState) -> void:
 
 
 # 信號處理
-func _on_level_chosen(level_scene: PackedScene) -> void:
+func _on_level_chosen(level_id: String) -> void:
     # 關卡載入由 LevelManager 處理
-    LevelManager.load_level_scene(level_scene)
+    LevelManager.load_level_by_id(level_id)
     set_game_state(GameState.GAME_PLAY)
-    level_chosen.emit(level_scene)
+    level_chosen.emit(level_id)
 
 func _on_back_to_main_menu() -> void:
     set_game_state(GameState.MAIN_MENU)

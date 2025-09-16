@@ -4,20 +4,18 @@
 extends CanvasLayer
 class_name LevelSelect
 
-signal level_chosen(level_scene: PackedScene)
+signal level_chosen(level_id: String)
 signal back_to_main_menu()
 
 @onready var levels_container: GridContainer = %LevelsContainer
 @onready var back_button: Button = %BackButton
 
 # 關卡按鈕場景
-const LEVEL_BUTTON_SCENE: PackedScene = preload("res://Scenes/UI/level_button.tscn")
+const LEVEL_BUTTON_SCENE: PackedScene = preload("uid://c7k8nan0o1p2q")
 
 func _ready() -> void:
     # 連接信號
     _connect_signals()
-    
-    # 創建關卡按鈕
     _create_level_buttons()
 
 func _connect_signals() -> void:
@@ -30,14 +28,15 @@ func _create_level_buttons() -> void:
         push_error("無法創建關卡按鈕：缺少必要組件")
         return
     
-    # 從 LevelManager 獲取所有關卡 ID
+    # 從 LevelManager 獲取所有關卡場景
+    var level_scenes = LevelManager.get_all_level_scenes()
     var level_ids = LevelManager.get_all_level_ids()
     
     for i in range(level_ids.size()):
         var level_id = level_ids[i]
-        var level_resource = LevelManager.get_level_resource(level_id)
+        var level_scene = level_scenes[level_id]
         
-        if not level_resource:
+        if not level_scene:
             continue
         
         var button: LevelButton = LEVEL_BUTTON_SCENE.instantiate()
@@ -48,7 +47,7 @@ func _create_level_buttons() -> void:
         # 創建配置
         var config = {
             "level_id": level_id,
-            "level_resource": level_resource,
+            "level_scene": level_scene,
             "unlocked": true,  # 暫時讓所有關卡都解鎖
             "completed": false
         }
@@ -56,7 +55,7 @@ func _create_level_buttons() -> void:
         # 設置按鈕
         button.setup(
             i + 1,  # 關卡編號
-            level_resource.level_name,
+            level_id.capitalize(),  # 使用關卡 ID 作為顯示名稱
             config.unlocked,
             config.completed,
             config
@@ -70,17 +69,10 @@ func _create_level_buttons() -> void:
 
 func _on_level_selected(config: Dictionary) -> void:
     var level_id = config.level_id
-    var level_resource = config.level_resource
-    print("選擇關卡: ", level_id, " - ", level_resource.level_name)
+    print("選擇關卡: ", level_id)
     
-    # 直接使用 LevelManager 載入關卡
-    var level_scene = level_resource.level_scene
-    if not level_scene:
-        push_error("關卡資源中沒有設定場景: " + level_id)
-        return
-    
-    # 發送信號
-    level_chosen.emit(level_scene)
+    # 發送信號，讓 GameManager 處理關卡載入
+    level_chosen.emit(level_id)
 
 func _on_back_pressed() -> void:
     print("返回主選單")

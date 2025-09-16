@@ -7,7 +7,6 @@ const GRAVITY := 1000.0
 @export var action_queue: Array[Action] = []
 var _current_action: Action = null
 
-# 動物系統
 @export var current_animal: Animal
 
 func _process(delta: float) -> void:

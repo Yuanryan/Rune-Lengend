@@ -1,18 +1,19 @@
-[gd_resource type="Resource" script_class="LevelResource" load_steps=3 format=3 uid="uid://b1m4rjjw5rhyn"]
+[gd_resource type="Resource" script_class="LevelResource" load_steps=7 format=3 uid="uid://b1m4rjjw5rhyn"]
 
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/level_resource.gd" id="1_0x8k2"]
-[ext_resource type="PackedScene" uid="uid://dqtphadkel0dl" path="res://Scenes/Levels/level_1.tscn" id="1_1x8k3"]
+[ext_resource type="Script" uid="uid://dy6k5mx7dxtcy" path="res://Scripts/Actions/abstract/action.gd" id="1_5foon"]
+[ext_resource type="Script" uid="uid://lgt02nbyyj3p" path="res://Scripts/Animals/animal.gd" id="1_honaa"]
+[ext_resource type="Script" uid="uid://dhcewu00wxvfi" path="res://Scripts/Animals/rabbit.gd" id="2_hjdlt"]
+[ext_resource type="Resource" uid="uid://vk62uradafkf" path="res://Resources/Animals/rabbit_resource.tres" id="2_qplue"]
+
+[sub_resource type="Resource" id="Resource_qplue"]
+script = ExtResource("2_hjdlt")
+animal_data = ExtResource("2_qplue")
+metadata/_custom_type_script = "uid://dhcewu00wxvfi"
 
 [resource]
 script = ExtResource("1_0x8k2")
 level_name = "關卡 1 - 基礎移動"
 level_description = "學習兔子的基本移動和跳躍"
-max_animals = 1
-max_actions = 3
-level_scene = ExtResource("1_1x8k3")
-target_position = Vector2(500, 0)
-target_description = "到達目標位置"
-difficulty = 1
-available_animals = Array[String](["Rabbit"])
-completion_conditions = Array[String](["reach_target"])
+available_animals = Array[ExtResource("1_honaa")]([SubResource("Resource_qplue")])
 metadata/_custom_type_script = "uid://bnoi35lwldban"

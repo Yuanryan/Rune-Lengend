@@ -1,4 +1,3 @@
-# Scripts/Actions/basic_move.gd
 extends ContinuousAction
 class_name MoveAction
 
@@ -9,9 +8,7 @@ func _init(_velocity_x := 0.0, _name := "Move") -> void:
 	name = _name
 
 func start(player: CharacterBody2D) -> void:
-	super.start(player)
 	player.velocity.x = velocity_x
-
 
 func update(player: CharacterBody2D, delta: float) -> bool:
 	return false

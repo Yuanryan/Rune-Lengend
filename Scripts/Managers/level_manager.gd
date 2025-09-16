@@ -1,14 +1,13 @@
 # LevelManager.gd
-# 關卡管理器單例，負責載入和管理關卡資源
+# 關卡管理器單例，負責載入和管理關卡場景
 extends Node
 
-# 當前關卡資源
-var current_level_resource = null
+# 當前關卡場景
+var current_level_scene: PackedScene = null
 var current_level: Level = null
 
-
-# 關卡資源字典
-var level_resources: Dictionary = {}
+# 關卡場景字典
+var level_scenes: Dictionary = {}
 
 # 信號
 signal level_loaded(level_scene: Level)
@@ -16,52 +15,46 @@ signal level_unloaded()
 signal player_spawned(player: Player)
 
 func _ready() -> void:
-    _initialize_level_resources()
+    _initialize_level_scenes()
 
-# 初始化關卡資源
-func _initialize_level_resources() -> void:
+# 初始化關卡場景
+func _initialize_level_scenes() -> void:
     _scan_and_load_levels()
-    print("已初始化 %d 個關卡資源" % level_resources.size())
+    print("已初始化 %d 個關卡場景" % level_scenes.size())
 
 # 掃描並載入所有關卡
 func _scan_and_load_levels() -> void:
-    var resources_dir = "res://Resources/Levels/"
+    var scenes_dir = "res://Scenes/Levels/"
     
-    # 掃描資源檔案
-    var resource_files = _get_files_in_directory(resources_dir, ".tres")
+    # 掃描場景檔案
+    var scene_files = _get_files_in_directory(scenes_dir, ".tscn")
     
-    for resource_file in resource_files:
-        var level_name = resource_file.replace(".tres", "")  # 例如: "level_1"
-        var resource_path = resources_dir + resource_file
-        _load_level_from_resource(level_name, resource_path)
+    for scene_file in scene_files:
+        var level_name = scene_file.replace(".tscn", "")  # 例如: "level_1"
+        var scene_path = scenes_dir + scene_file
+        _load_level_from_scene(level_name, scene_path)
 
-# 從資源檔案載入關卡
-func _load_level_from_resource(level_id: String, resource_path: String) -> void:
+# 從場景檔案載入關卡
+func _load_level_from_scene(level_id: String, scene_path: String) -> void:
     # 檢查檔案是否存在
-    if not FileAccess.file_exists(resource_path):
-        print("關卡資源檔案不存在: ", resource_path)
+    if not FileAccess.file_exists(scene_path):
+        print("關卡場景檔案不存在: ", scene_path)
         return
     
-
-    # 載入關卡資源
-    var resource = load(resource_path)
-    if not resource:
-        print("無法載入關卡資源: ", resource_path)
+    # 載入關卡場景
+    var scene = load(scene_path)
+    if not scene:
+        print("無法載入關卡場景: ", scene_path)
         return
     
-    # 檢查資源是否有必要的屬性
-    if not resource.has_method("get_level_info"):
-        print("關卡資源格式不正確，缺少 get_level_info 方法: ", resource_path)
+    # 檢查是否為 PackedScene
+    if not scene is PackedScene:
+        print("檔案不是有效的場景檔案: ", scene_path)
         return
     
-    # 檢查資源中是否包含場景
-    if not resource.level_scene:
-        print("警告: 關卡資源中沒有設定場景: ", resource_path)
-        return
-    
-    # 儲存到關卡資源字典
-    level_resources[level_id] = resource
-    print("已載入關卡: %s (資源: %s)" % [level_id, resource_path])
+    # 儲存到關卡場景字典
+    level_scenes[level_id] = scene
+    print("已載入關卡: %s (場景: %s)" % [level_id, scene_path])
 
 # 獲取目錄中的檔案
 func _get_files_in_directory(path: String, extension: String) -> Array[String]:
@@ -84,7 +77,7 @@ func _get_files_in_directory(path: String, extension: String) -> Array[String]:
 # 獲取所有關卡 ID
 func get_all_level_ids() -> Array[String]:
     var ids: Array[String] = []
-    for level_id in level_resources.keys():
+    for level_id in level_scenes.keys():
         ids.append(level_id)
     ids.sort()
     return ids
@@ -93,33 +86,29 @@ func get_all_level_ids() -> Array[String]:
 
 # 載入關卡（通過關卡 ID）
 func load_level_by_id(level_id: String) -> Level:
-    if level_id not in level_resources:
+    if level_id not in level_scenes:
         push_error("找不到關卡: " + level_id)
         return null
     
-    var level_resource = level_resources[level_id]
-    if not level_resource.level_scene:
-        push_error("關卡資源中沒有設定場景: " + level_id)
-        return null
-    
-    return load_level_scene(level_resource.level_scene, level_resource)
+    var level_scene = level_scenes[level_id]
+    return load_level_scene(level_scene)
 
 # 載入關卡場景
-func load_level_scene(level_scene: PackedScene, level_resource = null) -> Level:
+func load_level_scene(level_scene: PackedScene) -> Level:
     # 清除當前關卡
     if current_level:
         current_level.queue_free()
         current_level = null
         GameManager.remove_player()
     
-    # 載入新關卡
+    # 設定當前關卡場景
+    current_level_scene = level_scene
+    
+    # 實例化關卡場景
     current_level = level_scene.instantiate()
     if not current_level:
         push_error("無法載入關卡場景")
         return null
-    
-    # 設定當前關卡資源
-    current_level_resource = level_resource
     
     # 將關卡加入場景樹
     get_tree().current_scene.add_child(current_level)
@@ -134,7 +123,7 @@ func unload_level() -> void:
         current_level.queue_free()
         current_level = null
         GameManager.remove_player()
-        current_level_resource = null
+        current_level_scene = null
         level_unloaded.emit()
         print("關卡已卸載")
 
@@ -142,12 +131,16 @@ func unload_level() -> void:
 func get_current_level() -> Level:
     return current_level
 
-# 獲取當前關卡資源
-func get_current_level_resource():
-    return current_level_resource
+# 獲取當前關卡場景
+func get_current_level_scene():
+    return current_level_scene
 
-# 獲取關卡資源
-func get_level_resource(level_id: String):
-    if level_id in level_resources:
-        return level_resources[level_id]
+# 獲取關卡場景
+func get_level_scene(level_id: String):
+    if level_id in level_scenes:
+        return level_scenes[level_id]
     return null
+
+# 獲取所有關卡場景
+func get_all_level_scenes() -> Dictionary:
+    return level_scenes

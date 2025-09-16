@@ -5,6 +5,7 @@ extends Node2D
 class_name Level
 
 var player: Player = null
+@export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = $StartingPoint
 
 func _get_configuration_warnings() -> PackedStringArray:

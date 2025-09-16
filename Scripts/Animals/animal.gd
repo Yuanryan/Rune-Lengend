@@ -1,12 +1,12 @@
 # Animals/Animal.gd
-# TODO: add abstract keyword after Godot 4.5
-extends Resource
+@abstract
 class_name Animal
+extends Resource
 
 @export var animal_data: AnimalResource
-@export var move_action: MoveAction
-@export var jump_action: JumpAction
-@export var switch_action: Action
+var move_action: MoveAction
+var jump_action: JumpAction
+var switch_action: Action
 
 func _init(_animal_data: AnimalResource = null):
     if _animal_data:
