@@ -4,10 +4,11 @@ class_name Player
 
 const GRAVITY := 1000.0
 
-@export var action_queue: Array[Action] = []
+var action_queue: Array[Action] = []
 var _current_action: Action = null
-
-@export var current_animal: Animal
+var current_animal: Animal
+var available_animals: Array[Animal] = []
+var is_executing_actions: bool = false
 
 # 獲取當前動物的數據
 func get_current_animal_data() -> AnimalResource:
@@ -16,6 +17,28 @@ func get_current_animal_data() -> AnimalResource:
         return current_animal.get_animal_data()
     return null
 
+func set_current_animal(animal: Animal) -> void:
+    current_animal = animal
+
+func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
+    for animal_type in animals:
+        match animal_type:
+            Animal.AnimalType.WOLF:
+                available_animals.append(Wolf.new())
+            Animal.AnimalType.RABBIT:
+                available_animals.append(Rabbit.new())
+    set_current_animal(available_animals[0])
+
+func switch_animal(target_animal: Animal) -> void:
+    """切換到指定的動物"""
+    if target_animal:
+        current_animal = target_animal
+        # 可以在這裡添加切換動物的視覺效果
+        print("切換到動物: ", target_animal.animal_data.name)
+
+func is_executing() -> bool:
+    """檢查是否正在執行動作"""
+    return is_executing_actions
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType) -> Action:
     """根據動作類型和當前動物數據創建實際的動作"""
@@ -39,8 +62,8 @@ func create_action_from_type(action_type: Action.ActionType) -> Action:
             print("未知的動作類型: %d" % action_type)
             return null
 
-func _process(delta: float) -> void:
-    if Input.is_action_just_pressed("ui_accept"):
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed("ui_accept"):
         interrupt_current_action()
 
 func _physics_process(delta: float) -> void:
@@ -57,7 +80,18 @@ func _physics_process(delta: float) -> void:
     if _current_action != null:
         var finished := _current_action.update(self, delta)
         if finished:
+            _current_action.interrupt(self)
             _current_action = null
+            if action_queue.size() > 0:
+                _current_action = action_queue.pop_front()
+                _current_action.start(self)
+    
+    # 檢查是否所有動作都完成了
+    if _current_action == null and action_queue.size() == 0 and is_executing_actions:
+        is_executing_actions = false
+        print("所有動作執行完成")
+        UIManager.get_in_game_ui().enable_buttons()
+
 
     move_and_slide()
 
@@ -80,3 +114,4 @@ func load_actions_from_ui(action_types: Array[Action.ActionType]) -> void:
         if action:
             action_queue.append(action)
     _current_action = null  # 重新開始
+    is_executing_actions = true  # 開始執行動作

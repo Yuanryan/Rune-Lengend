@@ -10,27 +10,15 @@ var card_tiles: Array[CardTile] = []
 
 signal card_selected(card: CardTile)
 
-func _create_four_cards() -> void:
-    # Clear existing cards
-    for card in card_tiles:
-        if is_instance_valid(card):
-            card.queue_free()
-    card_tiles.clear()
-    
-    if not current_animal:
-        print("No current animal set for card deck")
-        return
+func _create_four_cards() -> void:    
+    # if not current_animal:
+    #     print("No current animal set for card deck")
+    #     return
     
     # Create move left card
     _create_card(Action.ActionType.MOVE_LEFT, "Move Left")
-    
-    # Create move right card
     _create_card(Action.ActionType.MOVE_RIGHT, "Move Right")
-    
-    # Create jump left card
     _create_card(Action.ActionType.JUMP_LEFT, "Jump Left")
-    
-    # Create jump right card
     _create_card(Action.ActionType.JUMP_RIGHT, "Jump Right")
 
 func _create_card(action_type: Action.ActionType, label: String) -> void:
@@ -49,8 +37,9 @@ func _on_card_clicked(card: CardTile) -> void:
     card_selected.emit(card)
 
 func _on_card_dragged(card: CardTile) -> void:
-    print("Card dragged: ", card.get_action_label())
-
+    # print("Card dragged: ", card.get_action_label())
+    pass
+    
 # Get all cards for external use
 func get_all_cards() -> Array[CardTile]:
     return card_tiles
@@ -71,4 +60,3 @@ func create_cards_from_level_resource(level_resource: LevelResource) -> void:
     clear_cards()
     _create_four_cards()
     
-    print("已根據關卡資源創建 %d 張卡片" % card_tiles.size())

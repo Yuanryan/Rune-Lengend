@@ -4,7 +4,6 @@
 extends CanvasLayer
 class_name LevelSelect
 
-signal level_chosen(level_id: String)
 signal back_to_main_menu()
 
 @onready var levels_container: GridContainer = %LevelsContainer
@@ -58,21 +57,12 @@ func _create_level_buttons() -> void:
             level_id.capitalize(),  # 使用關卡 ID 作為顯示名稱
             config.unlocked,
             config.completed,
-            config
+            config,
+            level_scene  # 傳遞關卡場景
         )
-        
-        # 連接信號
-        button.level_selected.connect(_on_level_selected)
         
         # 添加到容器
         levels_container.add_child(button)
-
-func _on_level_selected(config: Dictionary) -> void:
-    var level_id = config.level_id
-    print("選擇關卡: ", level_id)
-    
-    # 發送信號，讓 GameManager 處理關卡載入
-    level_chosen.emit(level_id)
 
 func _on_back_pressed() -> void:
     print("返回主選單")

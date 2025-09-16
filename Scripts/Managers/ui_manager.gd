@@ -40,7 +40,6 @@ func show_main_menu() -> void:
     if main_menu_ui:
         main_menu_ui.show_main_menu()
         current_ui = main_menu_ui
-    print("顯示主選單")
 
 # 顯示關卡選擇
 func show_level_select() -> void:
@@ -49,8 +48,6 @@ func show_level_select() -> void:
     if level_select:
         level_select.show_level_select()
         current_ui = level_select
-    print("顯示關卡選擇")
-
 # 顯示遊戲UI
 func show_game_ui() -> void:
     """顯示遊戲內UI"""
@@ -59,7 +56,6 @@ func show_game_ui() -> void:
         in_game_ui.visible = true
         in_game_ui.process_mode = Node.PROCESS_MODE_INHERIT
         current_ui = in_game_ui
-    print("顯示遊戲UI")
 
 # 隱藏所有UI
 func _hide_all_ui() -> void:
@@ -96,3 +92,7 @@ func create_cards_from_level(level: Level) -> void:
         return
     if in_game_ui:
         in_game_ui.create_cards_from_level_resource(level.level_resource)
+
+func get_in_game_ui() -> CanvasLayer:
+    """獲取遊戲內UI"""
+    return in_game_ui

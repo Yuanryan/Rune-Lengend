@@ -38,6 +38,8 @@ func spawn_player() -> Player:
     
     # 實例化玩家
     var player = GameManager.player_scene.instantiate()
+    player.set_available_animals(level_resource.available_animals)
+    GameManager.set_player(player)
     if not player:
         push_error("無法實例化玩家場景")
         return null
@@ -48,7 +50,6 @@ func spawn_player() -> Player:
     # 將玩家加入場景
     add_child(player)
         
-    print("玩家已在起始點生成: ", starting_point.global_position)
     return player
 
 # 獲取起始點位置

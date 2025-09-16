@@ -20,7 +20,6 @@ func _ready() -> void:
 # 初始化關卡場景
 func _initialize_level_scenes() -> void:
     _scan_and_load_levels()
-    print("已初始化 %d 個關卡場景" % level_scenes.size())
 
 # 掃描並載入所有關卡
 func _scan_and_load_levels() -> void:
@@ -54,7 +53,6 @@ func _load_level_from_scene(level_id: String, scene_path: String) -> void:
     
     # 儲存到關卡場景字典
     level_scenes[level_id] = scene
-    print("已載入關卡: %s (場景: %s)" % [level_id, scene_path])
 
 # 獲取目錄中的檔案
 func _get_files_in_directory(path: String, extension: String) -> Array[String]:
@@ -84,15 +82,6 @@ func get_all_level_ids() -> Array[String]:
 
 # ========== 核心功能 ==========
 
-# 載入關卡（通過關卡 ID）
-func load_level_by_id(level_id: String) -> Level:
-    if level_id not in level_scenes:
-        push_error("找不到關卡: " + level_id)
-        return null
-    
-    var level_scene = level_scenes[level_id]
-    return load_level_scene(level_scene)
-
 # 載入關卡場景
 func load_level_scene(level_scene: PackedScene) -> Level:
     # 清除當前關卡
@@ -115,9 +104,9 @@ func load_level_scene(level_scene: PackedScene) -> Level:
     
     # 通知 UI Manager 創建卡片
     UIManager.create_cards_from_level(current_level)
-    
+    GameManager.set_game_state(GameManager.GameState.GAME_PLAY)
+
     level_loaded.emit(current_level)
-    print("關卡已載入: ", current_level.name)
     return current_level
 
 # 卸載關卡

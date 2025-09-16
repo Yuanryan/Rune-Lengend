@@ -15,7 +15,6 @@ var player: Player = null
 var player_scene: PackedScene = preload("uid://cviyl35yedewi")
 var current_state: GameState = GameState.MAIN_MENU
 
-
 # 信號
 signal game_state_changed(new_state: GameState)
 signal level_chosen(level_id: String)
@@ -46,7 +45,6 @@ func _on_level_unloaded() -> void:
 # 設置關卡選擇信號
 func setup_level_select_signals(level_select_ui: LevelSelect) -> void:
     if level_select_ui:
-        level_select_ui.level_chosen.connect(_on_level_chosen)
         level_select_ui.back_to_main_menu.connect(_on_back_to_main_menu)
 
 # 遊戲狀態管理
@@ -65,13 +63,6 @@ func set_game_state(new_state: GameState) -> void:
         GameState.GAME_PLAY:
             UIManager.show_game_ui()
 
-
-# 信號處理
-func _on_level_chosen(level_id: String) -> void:
-    # 關卡載入由 LevelManager 處理
-    LevelManager.load_level_by_id(level_id)
-    set_game_state(GameState.GAME_PLAY)
-    level_chosen.emit(level_id)
 
 func _on_back_to_main_menu() -> void:
     set_game_state(GameState.MAIN_MENU)

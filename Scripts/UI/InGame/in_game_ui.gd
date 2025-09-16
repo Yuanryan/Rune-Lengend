@@ -7,12 +7,10 @@ extends CanvasLayer
 @onready var clear_button: Button = %ClearButton
 @onready var info_label: Label = %InfoLabel
 
-var _action_count: int = 0
 
 func _ready() -> void:
-    # Connect signals
-    _connect_signals()
-    _update_ui()
+    _connect_signals.call_deferred()
+    _update_ui.call_deferred()
 
 func _connect_signals() -> void:
     # Connect palette signals
@@ -32,22 +30,18 @@ func _connect_signals() -> void:
         clear_button.pressed.connect(_on_clear_pressed)
 
 func _on_card_selected(card: CardTile) -> void:
-    print("Card selected: ", card.get_action_label())
-    # Optional: Add visual feedback for selected card
+    # print("Card selected: ", card.get_action_label())
+    pass
 
 func _on_action_added(action_type: Action.ActionType, index: int) -> void:
-    _action_count += 1
     print("Action added to queue: ", action_type, " at index ", index)
     _update_ui()
 
 func _on_action_removed(action_type: Action.ActionType, index: int) -> void:
-    _action_count -= 1
     print("Action removed from queue: ", action_type, " at index ", index)
     _update_ui()
 
 func _on_queue_cleared() -> void:
-    _action_count = 0
-    print("Action queue cleared")
     _update_ui()
 
 func _on_execute_pressed() -> void:
@@ -56,14 +50,15 @@ func _on_execute_pressed() -> void:
 func _on_clear_pressed() -> void:
     clear_sequence()
 
-
 func execute_sequence() -> void:
     if action_queue and GameManager.get_player():
-        var action_types = action_queue.get_action_types()
-        if action_types.size() > 0:
-            print("Executing sequence with ", action_types.size(), " actions")
-            GameManager.get_player().load_actions_from_ui(action_types)
+        var actions = action_queue.get_action_types()
+        print("Actions: ", actions)
+        if actions.size() > 0:
+            print("Executing sequence with ", actions.size(), " actions")
+            GameManager.get_player().load_actions_from_ui(actions)
             _update_ui()
+            disable_buttons()
         else:
             print("No actions in queue to execute")
             _show_message("No actions in queue!")
@@ -71,23 +66,32 @@ func execute_sequence() -> void:
 func clear_sequence() -> void:
     if action_queue:
         action_queue.clear_queue()
-        print("Action queue cleared")
-        _update_ui()
+
+func disable_buttons() -> void:
+    execute_button.disabled = true
+    clear_button.disabled = true
+
+func enable_buttons() -> void:
+    execute_button.disabled = false
+    clear_button.disabled = false
 
 func _update_ui() -> void:
+    # Get action count from action_queue
+    var action_count = action_queue.get_action_count() if action_queue else 0
+    
     # Update button states
     if execute_button:
-        execute_button.disabled = _action_count == 0
+        execute_button.disabled = action_count == 0
     
     if clear_button:
-        clear_button.disabled = _action_count == 0
+        clear_button.disabled = action_count == 0
     
     # Update info label
     if info_label:
-        if _action_count == 0:
+        if action_count == 0:
             info_label.text = "Drag cards from above to build your action sequence"
         else:
-            info_label.text = "Ready to execute " + str(_action_count) + " actions"
+            info_label.text = "Ready to execute " + str(action_count) + " actions"
 
 func _show_message(text: String) -> void:
     if info_label:
@@ -102,10 +106,10 @@ func _show_message(text: String) -> void:
 
 
 func get_action_count() -> int:
-    return _action_count
+    return action_queue.get_action_count() if action_queue else 0
 
 func is_queue_empty() -> bool:
-    return _action_count == 0
+    return action_queue.is_empty() if action_queue else true
 
 # Example of creating cards programmatically from resources
 func create_custom_card() -> void:
@@ -125,4 +129,3 @@ func create_cards_from_level_resource(level_resource: LevelResource) -> void:
     
     # 通知 card_deck 根據關卡資源創建卡片
     card_deck.create_cards_from_level_resource(level_resource)
-    print("已根據關卡資源創建卡片")
