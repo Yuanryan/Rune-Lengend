@@ -9,9 +9,15 @@ class_name LevelResource
 
 @export var max_total_actions: int = 5  # 最多可放置的動作數量
 
-@export var individual_action_limits: Dictionary[Action, int] = {}
+@export var individual_action_limits: Dictionary[Action.ActionType, int] = {
+    Action.ActionType.MOVE_LEFT: 2,
+    Action.ActionType.MOVE_RIGHT: 2,
+    Action.ActionType.JUMP_LEFT: 1,
+    Action.ActionType.JUMP_RIGHT: 1,
+    Action.ActionType.SWITCH_ANIMAL: 1
+}
 # 可用動物列表（動物名稱）
-@export var available_animals: Array[Animal] = []
+@export var available_animals: Array[Animal.AnimalType] = []
 
 # 檢查是否可以使用指定動物
 func can_use_animal(animal_name: String) -> bool:
