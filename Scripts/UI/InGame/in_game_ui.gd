@@ -47,12 +47,15 @@ func _on_queue_cleared() -> void:
     _update_ui()
 
 func _on_execute_pressed() -> void:
+    execute_button.release_focus()
     execute_sequence()
 
 func _on_clear_pressed() -> void:
+    clear_button.release_focus()
     clear_sequence()
 
 func _on_reset_pressed() -> void:
+    reset_button.release_focus()
     reset_player()
 
 func execute_sequence() -> void:

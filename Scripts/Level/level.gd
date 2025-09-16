@@ -58,4 +58,3 @@ func get_starting_point_position() -> Vector2:
     else:
         push_error("無法獲取起始點位置：StartingPoint 不存在")
         return Vector2.ZERO
-

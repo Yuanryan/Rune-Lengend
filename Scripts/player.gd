@@ -88,7 +88,7 @@ func _physics_process(delta: float) -> void:
         if finished:
             _current_action.interrupt(self)
             _notify_ui_action_finished(_total_actions_executed)
-            _total_actions_executed += 1  # 增加已執行的動作計數
+            _total_actions_executed += 1  
             _current_action = null
             
             if action_queue.size() > 0:
@@ -112,7 +112,9 @@ func interrupt_current_action() -> void:
         # 調用動作的中斷方法進行清理
         _current_action.interrupt(self)
         _notify_ui_action_finished(_total_actions_executed)
+        _total_actions_executed += 1  
         _current_action = null
+        
         # 立即執行下一個動作（如果有的話）
         if action_queue.size() > 0:
             _current_action = action_queue.pop_front()
