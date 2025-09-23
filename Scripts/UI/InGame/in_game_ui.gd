@@ -78,7 +78,7 @@ func clear_sequence() -> void:
 func reset_player() -> void:
     """重新載入關卡並保持動作佇列"""
     # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
-    LevelManager.reload_current_level()
+    LevelManager.reload_level_from_last_checkpoint()
 
 func restore_action_queue(action_types: Array[Action.ActionType]) -> void:
     """恢復動作佇列（由LevelManager調用）"""

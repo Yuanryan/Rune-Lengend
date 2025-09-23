@@ -69,7 +69,7 @@ func _input(event: InputEvent) -> void:
         interrupt_current_action()
     elif event.is_action_pressed("reset_player"):
         # 使用關卡重新載入而不是直接重置玩家
-        LevelManager.reload_current_level()
+        LevelManager.reload_level_from_last_checkpoint()
 
 func _physics_process(delta: float) -> void:
     # 重力

@@ -9,6 +9,7 @@ var current_level: Level = null
 # 關卡場景字典
 var level_scenes: Dictionary = {}
 
+
 # 信號
 signal level_loaded(level_scene: Level)
 signal level_unloaded()
@@ -83,7 +84,7 @@ func get_all_level_ids() -> Array[String]:
 # ========== 核心功能 ==========
 
 # 載入關卡場景
-func load_level_scene(level_scene: PackedScene) -> Level:
+func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector2.ZERO) -> Level:
     # 清除當前關卡
     if current_level:
         current_level.queue_free()
@@ -101,6 +102,11 @@ func load_level_scene(level_scene: PackedScene) -> Level:
     
     # 將關卡加入場景樹
     get_tree().current_scene.add_child(current_level)
+    
+    # 如果指定了生成位置，設置起始點並生成玩家
+    if spawn_position != Vector2.ZERO:
+        current_level.starting_point.global_position = spawn_position
+    current_level.spawn_player()
     
     # 通知 UI Manager 創建卡片
     UIManager.create_cards_from_level(current_level)
@@ -134,21 +140,92 @@ func reload_current_level() -> Level:
         push_error("沒有當前關卡場景可以重新載入")
         return null
     
-    # 保存當前動作佇列狀態（從UI獲取，因為玩家可能正在執行動作）
-    var saved_action_queue = []
-    var in_game_ui = UIManager.get_in_game_ui()
-    if in_game_ui and in_game_ui.action_queue:
-        saved_action_queue = in_game_ui.action_queue.get_action_types()
+    # 保存動作佇列狀態
+    var saved_action_queue = _save_action_queue()
     
     # 重新載入關卡
     var reloaded_level = load_level_scene(current_level_scene)
     
     # 恢復動作佇列
-    if reloaded_level and saved_action_queue.size() > 0:
-        # 等待一幀確保UI已經準備好
+    if reloaded_level:
+        await _restore_action_queue(saved_action_queue)
+    
+    return reloaded_level
+
+# 保存和恢復動作佇列的通用方法
+func _save_action_queue() -> Array:
+    """保存當前動作佇列狀態"""
+    var saved_action_queue = []
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui and in_game_ui.action_queue:
+        saved_action_queue = in_game_ui.action_queue.get_action_types()
+    return saved_action_queue
+
+func _restore_action_queue(saved_action_queue: Array) -> void:
+    """恢復動作佇列狀態"""
+    if saved_action_queue.size() > 0:
         await get_tree().process_frame
-        in_game_ui = UIManager.get_in_game_ui()
+        var in_game_ui = UIManager.get_in_game_ui()
         if in_game_ui:
             in_game_ui.restore_action_queue(saved_action_queue)
+
+# 從最後檢查點重新載入關卡
+func reload_level_from_last_checkpoint() -> Level:
+    """從最後到達的檢查點重新載入關卡"""
+    if not current_level_scene:
+        push_error("沒有當前關卡場景可以重新載入")
+        return null
+    
+    # 保存當前檢查點ID和動作佇列狀態
+    var saved_checkpoint_id = 0
+    var spawn_position = Vector2.ZERO
+    
+    if current_level:
+        saved_checkpoint_id = current_level.get_current_checkpoint_id()
+        print("保存的檢查點ID: ", saved_checkpoint_id)
+        
+        # 獲取檢查點位置
+        if saved_checkpoint_id > 0:
+            var checkpoint = current_level.get_checkpoint_by_id(saved_checkpoint_id)
+            if checkpoint:
+                spawn_position = checkpoint.global_position
+                print("檢查點位置: ", spawn_position)
+    
+    var saved_action_queue = _save_action_queue()
+    
+    # 重新載入關卡並在檢查點位置生成玩家
+    var reloaded_level = load_level_scene(current_level_scene, spawn_position)
+    
+    # 恢復動作佇列
+    if reloaded_level:
+        await _restore_action_queue(saved_action_queue)
+    
+    return reloaded_level
+
+# 從指定檢查點重新載入關卡
+func reload_level_from_specific_checkpoint(checkpoint_id: int) -> Level:
+    """從指定檢查點重新載入關卡"""
+    if not current_level_scene:
+        push_error("沒有當前關卡場景可以重新載入")
+        return null
+    
+    # 獲取指定檢查點位置
+    var spawn_position = Vector2.ZERO
+    if current_level:
+        var checkpoint = current_level.get_checkpoint_by_id(checkpoint_id)
+        if checkpoint:
+            spawn_position = checkpoint.global_position
+            print("指定檢查點位置: ", spawn_position)
+        else:
+            print("找不到檢查點: ", checkpoint_id)
+    
+    var saved_action_queue = _save_action_queue()
+    
+    # 重新載入關卡並在指定檢查點位置生成玩家
+    var reloaded_level = load_level_scene(current_level_scene, spawn_position)
+    
+    # 恢復動作佇列
+    if reloaded_level:
+        await _restore_action_queue(saved_action_queue)
     
     return reloaded_level

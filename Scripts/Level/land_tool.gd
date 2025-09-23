@@ -9,6 +9,7 @@ var collision_polygon_2d: CollisionPolygon2D = null
 func _ready():
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true) 
+        collision_polygon_2d = _find_collision()
 
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray = []
@@ -24,6 +25,13 @@ func _find_polygon2d() -> Polygon2D:
     for child in get_children():
         if child is Polygon2D:
             set_editable_instance(child, true)
+            return child
+    return null
+
+func _find_collision() -> CollisionPolygon2D:
+    # 尋找第一個 Polygon2D 子節點
+    for child in get_children():
+        if child is CollisionPolygon2D:
             return child
     return null
 

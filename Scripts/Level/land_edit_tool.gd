@@ -11,10 +11,6 @@ var land_tools: Array[LandTool] = []
 @export_tool_button("Generate All Collisions", "CollisionPolygon2D") var generate_all_action = generate_all_collisions
 @export_tool_button("Clear All Collisions", "CollisionPolygon2D") var clear_all_action = clear_all_collisions
 
-func _ready() -> void:
-    if Engine.is_editor_hint():
-        land_tools = _find_all_land_tools()
-
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray = []
     

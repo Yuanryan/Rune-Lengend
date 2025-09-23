@@ -18,10 +18,11 @@ position = Vector2(-400, 344)
 [node name="Land" parent="." instance=ExtResource("2_4dpyx")]
 
 [node name="Polygon2D" parent="Land" index="0"]
+position = Vector2(8, 152)
 polygon = PackedVector2Array(-576, 256, -576, 320, 640, 320, 640, 256)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land"]
-position = Vector2(0, 128)
+[node name="@CollisionPolygon2D@41520" type="CollisionPolygon2D" parent="Land"]
+position = Vector2(8, 152)
 polygon = PackedVector2Array(-576, 256, -576, 320, 640, 320, 640, 256)
 
 [node name="Land2" parent="." instance=ExtResource("2_4dpyx")]
@@ -31,46 +32,62 @@ position = Vector2(0, 8)
 position = Vector2(-237, -26)
 polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land2"]
+[node name="@CollisionPolygon2D@41521" type="CollisionPolygon2D" parent="Land2"]
 position = Vector2(-237, -26)
 polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
 
 [node name="Land3" parent="." instance=ExtResource("2_4dpyx")]
-position = Vector2(-242, 90)
+position = Vector2(296, 264)
 
 [node name="Polygon2D" parent="Land3" index="0"]
-position = Vector2(306, -170)
-color = Color(0.29803923, 0.84705883, 0.69411767, 1)
-polygon = PackedVector2Array(128, 368, 128, 384, 256, 384, 256, 368)
+position = Vector2(-32, -336)
+polygon = PackedVector2Array(0, 352, 0, 384, 384, 384, 384, 352)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3"]
-position = Vector2(306, -170)
-polygon = PackedVector2Array(128, 368, 128, 384, 256, 384, 256, 368)
+[node name="@CollisionPolygon2D@41522" type="CollisionPolygon2D" parent="Land3"]
+position = Vector2(-32, -336)
+polygon = PackedVector2Array(0, 352, 0, 384, 384, 384, 384, 352)
+
+[node name="checkpoint" parent="." instance=ExtResource("5_cyadu")]
+position = Vector2(472, 224)
+checkpoint_id = 1
+camera_target_position = Vector2(1128, 176)
+
+[node name="checkpoint2" parent="." instance=ExtResource("5_cyadu")]
+position = Vector2(1792, 464)
+checkpoint_id = 1
+camera_target_position = Vector2(2440, 176)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(24, 144)
+position = Vector2(48, 208)
 offset = Vector2(0, 100)
-zoom = Vector2(1.2, 1.2)
+zoom = Vector2(0.8, 0.8)
 limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="Land3" parent="." instance=ExtResource("2_4dpyx")]
-position = Vector2(267, 131)
+[node name="Land5" parent="." instance=ExtResource("2_4dpyx")]
+position = Vector2(2072, 432)
 
-[node name="Polygon2D" parent="Land3" index="0"]
-position = Vector2(-419, -158.00002)
-scale = Vector2(0.98437506, 0.98437506)
-polygon = PackedVector2Array(0, 354.53967, 0, 384, 384, 384, 384, 354.38016)
+[node name="Polygon2D" parent="Land5" index="0"]
+position = Vector2(-48, -240)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3"]
-position = Vector2(-419, -158.00002)
-polygon = PackedVector2Array(0, 349, 0, 378, 378, 378, 378, 349)
+[node name="@CollisionPolygon2D@41523" type="CollisionPolygon2D" parent="Land5"]
+position = Vector2(-48, -240)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="checkpoint2" parent="." instance=ExtResource("5_cyadu")]
-position = Vector2(526, 225)
-camera_target_position = Vector2(1000, 144)
+[node name="Land4" parent="." instance=ExtResource("2_4dpyx")]
+position = Vector2(760, 472)
+
+[node name="Polygon2D" parent="Land4" index="0"]
+position = Vector2(16, -208)
+polygon = PackedVector2Array(0, 256, 0, 320, 1120, 320, 1120, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land4"]
+position = Vector2(16, -208)
+polygon = PackedVector2Array(0, 256, 0, 320, 1120, 320, 1120, 256)
 
 [editable path="Land"]
 [editable path="Land2"]
 [editable path="Land3"]
+[editable path="Land5"]
+[editable path="Land4"]
