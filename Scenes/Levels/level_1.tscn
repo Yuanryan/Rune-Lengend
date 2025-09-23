@@ -13,7 +13,7 @@ level_resource = ExtResource("2_iixi8")
 [node name="LandEditTool" parent="." instance=ExtResource("2_3mqfk")]
 
 [node name="StartingPoint" type="Marker2D" parent="."]
-position = Vector2(-528, 344)
+position = Vector2(-400, 344)
 
 [node name="Land" parent="." instance=ExtResource("2_4dpyx")]
 
@@ -28,17 +28,29 @@ polygon = PackedVector2Array(-576, 256, -576, 320, 640, 320, 640, 256)
 position = Vector2(0, 8)
 
 [node name="Polygon2D" parent="Land2" index="0"]
-position = Vector2(240, -72)
-color = Color(0.0392157, 1, 0.545098, 1)
+position = Vector2(-237, -26)
 polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land2"]
-position = Vector2(240, -72)
+position = Vector2(-237, -26)
 polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
+
+[node name="Land3" parent="." instance=ExtResource("2_4dpyx")]
+position = Vector2(-242, 90)
+
+[node name="Polygon2D" parent="Land3" index="0"]
+position = Vector2(306, -170)
+color = Color(0.29803923, 0.84705883, 0.69411767, 1)
+polygon = PackedVector2Array(128, 368, 128, 384, 256, 384, 256, 368)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3"]
+position = Vector2(306, -170)
+polygon = PackedVector2Array(128, 368, 128, 384, 256, 384, 256, 368)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(24, 144)
-zoom = Vector2(0.7, 0.7)
+offset = Vector2(0, 100)
+zoom = Vector2(1.2, 1.2)
 limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
