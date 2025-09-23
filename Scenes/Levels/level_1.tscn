@@ -39,13 +39,14 @@ polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
 position = Vector2(-242, 90)
 
 [node name="Polygon2D" parent="Land3" index="0"]
-position = Vector2(306, -170)
+position = Vector2(-419, -158.00002)
+scale = Vector2(0.98437506, 0.98437506)
 color = Color(0.29803923, 0.84705883, 0.69411767, 1)
-polygon = PackedVector2Array(128, 368, 128, 384, 256, 384, 256, 368)
+polygon = PackedVector2Array(0, 354.53967, 0, 384, 384, 384, 384, 354.38016)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3"]
-position = Vector2(306, -170)
-polygon = PackedVector2Array(128, 368, 128, 384, 256, 384, 256, 368)
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Land3"]
+position = Vector2(-419, -158.00002)
+polygon = PackedVector2Array(0, 349, 0, 378, 378, 378, 378, 349)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(24, 144)
@@ -54,18 +55,6 @@ zoom = Vector2(1.2, 1.2)
 limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
-
-[node name="Land3" parent="." instance=ExtResource("2_4dpyx")]
-position = Vector2(267, 131)
-
-[node name="Polygon2D" parent="Land3" index="0"]
-position = Vector2(-419, -158.00002)
-scale = Vector2(0.98437506, 0.98437506)
-polygon = PackedVector2Array(0, 354.53967, 0, 384, 384, 384, 384, 354.38016)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3"]
-position = Vector2(-419, -158.00002)
-polygon = PackedVector2Array(0, 349, 0, 378, 378, 378, 378, 349)
 
 [node name="checkpoint2" parent="." instance=ExtResource("5_cyadu")]
 position = Vector2(526, 225)
