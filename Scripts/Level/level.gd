@@ -6,6 +6,7 @@ class_name Level
 
 @export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = $StartingPoint
+@onready var camera: Camera2D = $Camera2D
 
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray = []
@@ -26,6 +27,17 @@ func _ready() -> void:
     # 只在非編輯器模式下生成玩家
     if not Engine.is_editor_hint():
         spawn_player()
+
+    # 連接所有檢查點的信號
+    for checkpoint in get_tree().get_nodes_in_group("checkpoints"):
+        checkpoint.checkpoint_reached.connect(_on_checkpoint_reached)
+
+    camera.position_smoothing_enabled = true
+    camera.position_smoothing_speed = 8.0 
+
+func _on_checkpoint_reached(checkpoint_id: String, camera_target_position: Vector2, checkpoint_pos: Vector2) -> void:
+    camera.global_position = camera_target_position
+    starting_point.global_position = checkpoint_pos
 
 # 在起始點生成玩家
 func spawn_player() -> Player:

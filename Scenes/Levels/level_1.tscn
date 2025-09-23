@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=6 format=3 uid="uid://dqtphadkel0dl"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/land.tscn" id="2_4dpyx"]
 [ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_iixi8"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/checkpoint.tscn" id="5_cyadu"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0x8k9")
@@ -12,7 +13,7 @@ level_resource = ExtResource("2_iixi8")
 [node name="LandEditTool" parent="." instance=ExtResource("2_3mqfk")]
 
 [node name="StartingPoint" type="Marker2D" parent="."]
-position = Vector2(-512, 352)
+position = Vector2(-528, 344)
 
 [node name="Land" parent="." instance=ExtResource("2_4dpyx")]
 
@@ -39,6 +40,25 @@ polygon = PackedVector2Array(40, 344, 40, 368, 384, 368, 384, 344)
 position = Vector2(24, 144)
 zoom = Vector2(0.7, 0.7)
 limit_enabled = false
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="Land3" parent="." instance=ExtResource("2_4dpyx")]
+position = Vector2(267, 131)
+
+[node name="Polygon2D" parent="Land3" index="0"]
+position = Vector2(-419, -158.00002)
+scale = Vector2(0.98437506, 0.98437506)
+polygon = PackedVector2Array(0, 354.53967, 0, 384, 384, 384, 384, 354.38016)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3"]
+position = Vector2(-419, -158.00002)
+polygon = PackedVector2Array(0, 349, 0, 378, 378, 378, 378, 349)
+
+[node name="checkpoint2" parent="." instance=ExtResource("5_cyadu")]
+position = Vector2(526, 225)
+camera_target_position = Vector2(1000, 144)
 
 [editable path="Land"]
 [editable path="Land2"]
+[editable path="Land3"]
