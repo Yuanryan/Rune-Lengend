@@ -6,6 +6,7 @@ extends Resource
 @export var animal_data: AnimalResource
 
 enum AnimalType {
+    MAN,
     RABBIT,
     WOLF
 }
