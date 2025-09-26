@@ -100,8 +100,12 @@ func _add_new_card(card: CardTile, at_position: Vector2) -> void:
     """添加新卡片到佇列"""
     var action_type = card.get_action_type()
     var insert_index = _get_insert_index(at_position)
+    var animal_type = -1
+    if card and card.animal_type != -1:
+        # CardTile 會攜帶 animal_type（僅 SWITCH_ANIMAL 會用到）
+        animal_type = card.animal_type
     
-    var queue_card = _create_queue_card(action_type, card.get_action_label())
+    var queue_card = _create_queue_card(action_type, card.get_action_label(), animal_type)
     queue_cards.insert(insert_index, queue_card)
     _reorder_children()
     
@@ -129,11 +133,13 @@ func _move_card(from_index: int, to_index: int) -> void:
     queue_cards.insert(to_index, moved_card)
     _reorder_children()
 
-func _create_queue_card(action_type: Action.ActionType, label: String) -> CardTile:
+func _create_queue_card(action_type: Action.ActionType, label: String, animal_type: int = -1) -> CardTile:
     """創建佇列卡片"""
     var card_scene = preload("uid://c2nq82l2n1e8q")
     var card = card_scene.instantiate() as CardTile
     card.set_action_type(action_type, label)
+    if animal_type != -1:
+        card.animal_type = animal_type
     add_child(card)
     return card
 
@@ -164,12 +170,24 @@ func clear_queue() -> void:
     queue_cleared.emit()
 
 func get_action_types() -> Array[Action.ActionType]:
-    """獲取動作類型數組"""
+    """獲取動作類型數組（保留舊 API）"""
     var action_types: Array[Action.ActionType] = []
     for card in queue_cards:
         if is_instance_valid(card):
             action_types.append(card.get_action_type())
     return action_types
+
+func get_action_descriptors() -> Array:
+    """獲取動作描述（包含對 SWITCH_ANIMAL 的 animal_type）"""
+    var action_descs: Array = []
+    for card in queue_cards:
+        if is_instance_valid(card):
+            var desc = {
+                "action_type": card.get_action_type(),
+                "animal_type": (card.animal_type)
+            }
+            action_descs.append(desc)
+    return action_descs
 
 func get_action_count() -> int:
     """獲取動作數量"""

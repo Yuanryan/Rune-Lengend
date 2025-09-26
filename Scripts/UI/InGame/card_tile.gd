@@ -9,11 +9,14 @@ class_name CardTile
 @export var label_bg_color: Color = Color(0, 0, 0, 0.55)
 @export var card_size: Vector2 = Vector2(60, 60)
 
+
 @onready var bg: ColorRect = %ColorRect
 @onready var label: RichTextLabel = %Label
 @onready var outline: ColorRect = %OutlineColorRect
 var _is_dragging: bool = false
 var _glow_tween: Tween
+# 專供 SWITCH_ANIMAL 使用：記錄目標動物類型（Animal.AnimalType 的整數值）。-1 代表未設定
+var animal_type: int = -1
 
 signal card_clicked(card: CardTile)
 signal card_dragged(card: CardTile)
@@ -54,7 +57,8 @@ func _get_drag_data(at_position: Vector2) -> Variant:
     var data := {
         "type": "card",
         "card": self,
-        "action_type": action_type
+        "action_type": action_type,
+        "animal_type": animal_type
     }
 
     var preview := duplicate() as CardTile

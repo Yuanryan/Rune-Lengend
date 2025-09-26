@@ -60,7 +60,7 @@ func _on_reset_pressed() -> void:
 
 func execute_sequence() -> void:
     if action_queue and GameManager.get_player():
-        var actions = action_queue.get_action_types()
+        var actions = action_queue.get_action_descriptors()
         print("Actions: ", actions)
         if actions.size() > 0:
             print("Executing sequence with ", actions.size(), " actions")

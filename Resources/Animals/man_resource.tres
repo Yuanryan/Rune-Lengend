@@ -5,6 +5,5 @@
 [resource]
 script = ExtResource("1_vk7cc")
 name = "Man"
-move_speed = 120.0
-jump_velocity = Vector2(120, -300)
+move_speed = 0.0
 metadata/_custom_type_script = "uid://nplwq6xwpqwf"
