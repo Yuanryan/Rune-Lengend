@@ -1,9 +1,15 @@
-[gd_resource type="Resource" script_class="AnimalResource" load_steps=2 format=3 uid="uid://d5a707f6axs7"]
+[gd_resource type="Resource" script_class="AnimalResource" load_steps=4 format=3 uid="uid://d5a707f6axs7"]
 
 [ext_resource type="Script" uid="uid://nplwq6xwpqwf" path="res://Scripts/Animals/animal_resource.gd" id="1_vk7cc"]
+[ext_resource type="Script" uid="uid://bk0nc2dgnw1td" path="res://Scripts/Animals/man.gd" id="1_x0dqb"]
+
+[sub_resource type="Resource" id="Resource_g06dk"]
+script = ExtResource("1_x0dqb")
+metadata/_custom_type_script = "uid://bk0nc2dgnw1td"
 
 [resource]
 script = ExtResource("1_vk7cc")
 name = "Man"
-move_speed = 0.0
+move_speed = 80.0
+animal_type = SubResource("Resource_g06dk")
 metadata/_custom_type_script = "uid://nplwq6xwpqwf"

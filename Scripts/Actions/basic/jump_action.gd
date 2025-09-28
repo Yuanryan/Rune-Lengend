@@ -3,11 +3,12 @@ extends ConditionalAction
 class_name JumpAction
 
 @export var jump_velocity: Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.ZERO
 
 var _has_left_ground: bool = false
 
-func _init(_jump_velocity := Vector2.ZERO, _name := "Jump") -> void:
-	jump_velocity = _jump_velocity
+func _init(dir := Vector2.ZERO, _name := "Jump") -> void:
+	direction = dir
 	name = _name
 
 func set_jump_velocity(new_jump_velocity: Vector2) -> void:
@@ -28,3 +29,4 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
 
 func interrupt(player: CharacterBody2D) -> void:
 	player.velocity = Vector2.ZERO
+	print("[DEBUG] JumpAction.interrupt called")

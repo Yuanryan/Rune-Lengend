@@ -6,54 +6,31 @@ const GRAVITY := 1000.0
 
 var action_queue: Array[Action] = []
 var _current_action: Action = null
-var current_animal: Animal
-var available_animals: Array[Animal] = []
 var is_executing_actions: bool = false
 var _total_actions_executed: int = 0
 
 # 動物組件
-var animal_component: AnimalComponent
+@onready var animal_component: AnimalComponent = %AnimalComponent
 
 # 信號
 signal animal_switched(target_animal: Animal)
 signal action_started(action: Action)
 
 func _ready():
-    # 初始化動物組件
-    animal_component = AnimalComponent.new()
-    add_child(animal_component)
-    
     # 連接動物切換信號
-    connect("animal_switched", _on_animal_switched)
-
-# 獲取當前動物的數據
-func get_current_animal_data() -> AnimalResource:
-    """獲取當前動物的資源數據"""
-    if current_animal:
-        return current_animal.get_animal_data()
-    return null
-
-func set_current_animal(animal: Animal) -> void:
-    current_animal = animal
-    if animal_component:
-        animal_component.set_current_animal(animal)
+    animal_switched.connect(_on_animal_switched)
+    animal_component.set_player(self)
 
 func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
-    for animal_type in animals:
-        match animal_type:
-            Animal.AnimalType.WOLF:
-                available_animals.append(Wolf.new())
-            Animal.AnimalType.RABBIT:
-                available_animals.append(Rabbit.new())
-    set_current_animal(available_animals[0])
+    """設置可用動物 - 委託給 AnimalComponent 處理"""
+    animal_component.set_available_animals(animals)
 
 func switch_animal(target_animal: Animal) -> void:
     """切換到指定的動物"""
+    print("[DEBUG] switch_animal called with: ", target_animal.animal_data.name if target_animal else "null")
     if target_animal:
-        current_animal = target_animal
-        if animal_component:
-            animal_component.set_current_animal(target_animal)
-        # 發出動物切換信號
+        # 發出動物切換信號，讓AnimalComponent處理實際的切換
+        print("[DEBUG] Emitting animal_switched signal")
         animal_switched.emit(target_animal)
         print("切換到動物: ", target_animal.animal_data.name)
 
@@ -64,31 +41,22 @@ func is_executing() -> bool:
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType, animal_type: int = -1) -> Action:
     """根據動作類型和當前動物數據創建實際的動作"""
-    var animal_data = get_current_animal_data()
-    if not animal_data:
-        print("無法創建動作：沒有當前動物數據")
-        return null
-    
-    # 使用動物組件獲取動物的移動特性
-    var move_speed = animal_component.get_animal_move_speed() if animal_component else animal_data.move_speed
-    var jump_velocity = animal_component.get_animal_jump_velocity() if animal_component else animal_data.jump_velocity
-    
+    print("[DEBUG] create_action_from_type called - action_type: ", action_type, ", animal_type: ", animal_type)
+
     match action_type:
         Action.ActionType.MOVE_LEFT:
-            return MoveAction.new(-move_speed, "Move_Left")
+            return MoveAction.new(-1., "Move_Left")
         Action.ActionType.MOVE_RIGHT:
-            return MoveAction.new(move_speed, "Move_Right")
+            return MoveAction.new(1., "Move_Right")
         Action.ActionType.JUMP_LEFT:
-            return JumpAction.new(Vector2(-jump_velocity.x, jump_velocity.y), "Jump_Left")
+            return JumpAction.new(Vector2(-1, 1), "Jump_Left")
         Action.ActionType.JUMP_RIGHT:
-            return JumpAction.new(jump_velocity, "Jump_Right")
+            return JumpAction.new(Vector2(1, 1), "Jump_Right")
         Action.ActionType.SWITCH_ANIMAL:
             var target_animal: Animal = null
             if animal_type != -1:
                 target_animal = Animal.animal_from_type(animal_type)
-            else:
-                # 如果沒有指定動物類型，使用 MAN 作為默認
-                target_animal = Animal.animal_from_type(Animal.AnimalType.MAN)
+                print("[DEBUG] Creating switch action with target animal: ", target_animal.animal_data.name if target_animal else "null")
             return SwitchAnimalAction.new(target_animal)
         _:
             print("未知的動作類型: %d" % action_type)
@@ -108,78 +76,80 @@ func _physics_process(delta: float) -> void:
 
     # 若沒有正在執行的 action，就從 queue 取下一個
     if _current_action == null and action_queue.size() > 0:
-        _current_action = action_queue.pop_front()
-        # 發出動作開始信號，讓動物組件調整動作參數
-        action_started.emit(_current_action)
-        _current_action.start(self)
-        _notify_ui_action_started(_total_actions_executed)
+        _start_next_action()
 
     # 更新當前 action
     if _current_action != null:
         var finished := _current_action.update(self, delta)
         if finished:
-            _current_action.interrupt(self)
-            _notify_ui_action_finished(_total_actions_executed)
-            _total_actions_executed += 1  
-            _current_action = null
-            
-            if action_queue.size() > 0:
-                _current_action = action_queue.pop_front()
-                # 發出動作開始信號，讓動物組件調整動作參數
-                action_started.emit(_current_action)
-                _current_action.start(self)
-                _notify_ui_action_started(_total_actions_executed)
-    
+            _finish_current_action()
+
     # 檢查是否所有動作都完成了
+    _check_all_actions_completed()
+    move_and_slide()
+
+# 輔助方法
+func _start_next_action() -> void:
+    """開始執行下一個動作"""
+    if action_queue.size() > 0:
+        _current_action = action_queue.pop_front()
+        print("[DEBUG] Starting action: ", _current_action.name, " (", _current_action.get_class(), ")")
+        # 發出動作開始信號，讓動物組件調整動作參數
+        print("[DEBUG] Emitting action_started signal")
+        action_started.emit(_current_action)
+        _current_action.start(self)
+        _notify_ui_action_started(_total_actions_executed)
+
+func _finish_current_action() -> void:
+    """完成當前動作並開始下一個"""
+    _current_action.interrupt(self)
+    _notify_ui_action_finished(_total_actions_executed)
+    _total_actions_executed += 1  
+    _current_action = null
+    
+    # 如果還有動作，立即開始下一個
+    if action_queue.size() > 0:
+        _start_next_action()
+
+func _check_all_actions_completed() -> void:
+    """檢查是否所有動作都完成了"""
     if _current_action == null and action_queue.size() == 0 and is_executing_actions:
         is_executing_actions = false
         print("所有動作執行完成")
         UIManager.get_in_game_ui().enable_buttons()
         _notify_ui_all_actions_finished()
 
-
-    move_and_slide()
-
-# 中斷當前動作並執行下一個
 func interrupt_current_action() -> void:
+    """中斷當前動作並執行下一個"""
     if _current_action != null:
-        # 調用動作的中斷方法進行清理
-        _current_action.interrupt(self)
-        _notify_ui_action_finished(_total_actions_executed)
-        _total_actions_executed += 1  
-        _current_action = null
-        
-        # 立即執行下一個動作（如果有的話）
-        if action_queue.size() > 0:
-            _current_action = action_queue.pop_front()
-            # 發出動作開始信號，讓動物組件調整動作參數
-            action_started.emit(_current_action)
-            _current_action.start(self)
-            _notify_ui_action_started(_total_actions_executed)
+        _finish_current_action()
 
 func load_actions_from_ui(actions: Array) -> void:
-    # 將 UI 組好的動作轉換為實際的動作並加入 queue（支援舊格式與新格式）
+    """將 UI 組好的動作轉換為實際的動作並加入 queue"""
     action_queue.clear()
-    if actions.size() == 0:
+    if actions.is_empty():
         return
-    var first_item = actions[0]
-    var use_descriptors: bool = typeof(first_item) == TYPE_DICTIONARY and first_item.has("action_type")
-    if use_descriptors:
-        for desc in actions:
-            if typeof(desc) == TYPE_DICTIONARY and desc.has("action_type"):
-                var action_type: int = desc.get("action_type", -1)
-                var animal_type: int = desc.get("animal_type", -1)
-                var action = create_action_from_type(action_type, animal_type)
-                if action:
-                    action_queue.append(action)
-    else:
-        for action_type in actions:
-            var action2 = create_action_from_type(action_type)
-            if action2:
-                action_queue.append(action2)
-    _current_action = null  # 重新開始
-    _total_actions_executed = 0  # 重置已執行的動作計數
-    is_executing_actions = true  # 開始執行動作
+    
+    # 檢查是否使用描述符格式
+    var use_descriptors: bool = actions[0] is Dictionary and actions[0].has("action_type")
+    
+    for item in actions:
+        var action: Action = null
+        if use_descriptors:
+            var desc = item as Dictionary
+            var action_type: int = desc.get("action_type", -1)
+            var animal_type: int = desc.get("animal_type", -1)
+            action = create_action_from_type(action_type, animal_type)
+        else:
+            action = create_action_from_type(item)
+        
+        if action:
+            action_queue.append(action)
+    
+    # 重置執行狀態
+    _current_action = null
+    _total_actions_executed = 0
+    is_executing_actions = true
 
 func reset_to_starting_point() -> void:
     """重置玩家到起始點"""
@@ -227,4 +197,5 @@ func _notify_ui_all_actions_finished() -> void:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
+    print("[DEBUG] Player._on_animal_switched called with: ", target_animal.animal_data.name if target_animal and target_animal.animal_data else "未知動物")
     print("動物切換完成: ", target_animal.animal_data.name if target_animal and target_animal.animal_data else "未知動物")

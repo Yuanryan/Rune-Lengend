@@ -1,10 +1,16 @@
-[gd_resource type="Resource" script_class="AnimalResource" load_steps=2 format=3 uid="uid://vk62uradafkf"]
+[gd_resource type="Resource" script_class="AnimalResource" load_steps=4 format=3 uid="uid://vk62uradafkf"]
 
+[ext_resource type="Script" uid="uid://dhcewu00wxvfi" path="res://Scripts/Animals/rabbit.gd" id="1_3av21"]
 [ext_resource type="Script" uid="uid://nplwq6xwpqwf" path="res://Scripts/Animals/animal_resource.gd" id="1_8m683"]
+
+[sub_resource type="Resource" id="Resource_fkcf5"]
+script = ExtResource("1_3av21")
+metadata/_custom_type_script = "uid://dhcewu00wxvfi"
 
 [resource]
 script = ExtResource("1_8m683")
 name = "Rabbit"
 move_speed = 200.0
 jump_velocity = Vector2(200, -400)
+animal_type = SubResource("Resource_fkcf5")
 metadata/_custom_type_script = "uid://nplwq6xwpqwf"

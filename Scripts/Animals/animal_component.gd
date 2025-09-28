@@ -2,28 +2,46 @@
 extends Node2D
 class_name AnimalComponent
 
-@onready var sprite: Sprite2D = get_parent().get_node("Sprite2D")
-@onready var player: Player = get_parent()
+@onready var sprite: Sprite2D = %Sprite2D
+var player: Player = null
 
 var current_animal: Animal = null
-var switch_action: TimedAction = null
+var available_animals: Array[Animal] = []
+var switch_action: Action = null
 
 func _ready():
     # 確保玩家存在
-    if not player:
-        push_error("AnimalComponent 需要一個 Player 父節點")
-        return
+    player = get_parent()
     
     # 監聽動物切換信號
     player.animal_switched.connect(_on_animal_switched)
     player.action_started.connect(_on_action_started)
 
+func set_player(player_ref: Player) -> void:
+    self.player = player_ref
+
+func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
+    """設置可用動物並初始化第一個動物"""
+    available_animals.clear()
+    print("[DEBUG] AnimalComponent.set_available_animals called with: ", animals)
+    for animal_type in animals:
+        available_animals.append(Animal.animal_from_type(animal_type))
+    
+    # 設置第一個動物為當前動物，並通過Player發出信號
+    if available_animals.size() > 0:
+        if player:
+            player.switch_animal(available_animals[0])
+        else:
+            set_current_animal(available_animals[0])
+
 func set_current_animal(animal: Animal) -> void:
     """設置當前動物並更新相關屬性"""
+    print("[DEBUG] AnimalComponent.set_current_animal called with: ", animal.animal_data.name if animal else "null")
     if not animal:
         return
     
     current_animal = animal
+    print("[DEBUG] AnimalComponent current_animal set to: ", current_animal.animal_data.name)
     _update_animal_appearance()
     _update_animal_behavior()
 
@@ -87,28 +105,30 @@ func update_switch_animation(delta: float) -> bool:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
+    print("[DEBUG] AnimalComponent._on_animal_switched called with: ", target_animal.animal_data.name if target_animal else "null")
     set_current_animal(target_animal)
 
 func _on_action_started(action: Action) -> void:
     """當動作開始時，根據當前動物調整動作參數"""
+    print("[DEBUG] AnimalComponent._on_action_started called with action: ", action.name, " (", action.get_class(), ")")
     if not current_animal or not current_animal.animal_data:
+        print("[DEBUG] No current animal or animal data available")
         return
     
     var animal_data = current_animal.animal_data
+    print("[DEBUG] Current animal data - name: ", animal_data.name, ", speed: ", animal_data.move_speed, ", jump: ", animal_data.jump_velocity)
     
     # 處理移動動作
     if action is MoveAction:
-        if action.name == "Move_Left":
-            action.velocity_x = -animal_data.move_speed
-        elif action.name == "Move_Right":
-            action.velocity_x = animal_data.move_speed
+        var new_velocity = animal_data.move_speed * action.direction
+        print("[DEBUG] Setting MoveAction velocity_x to: ", new_velocity, " (speed: ", animal_data.move_speed, " * direction: ", action.direction, ")")
+        action.set_velocity_x(new_velocity)
     
     # 處理跳躍動作
     elif action is JumpAction:
-        if action.name == "Jump_Left":
-            action.jump_velocity = Vector2(-animal_data.jump_velocity.x, animal_data.jump_velocity.y)
-        elif action.name == "Jump_Right":
-            action.jump_velocity = animal_data.jump_velocity
+        var new_jump_velocity = animal_data.jump_velocity * action.direction
+        print("[DEBUG] Setting JumpAction jump_velocity to: ", new_jump_velocity, " (jump: ", animal_data.jump_velocity, " * direction: ", action.direction, ")")
+        action.set_jump_velocity(new_jump_velocity)
 
 # 默認切換動畫
 class DefaultSwitchAction extends TimedAction:

@@ -59,7 +59,7 @@ func _on_reset_pressed() -> void:
     reset_player()
 
 func execute_sequence() -> void:
-    if action_queue and GameManager.get_player():
+    if action_queue:
         var actions = action_queue.get_action_descriptors()
         print("Actions: ", actions)
         if actions.size() > 0:
@@ -80,10 +80,10 @@ func reset_player() -> void:
     # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
     LevelManager.reload_level_from_last_checkpoint()
 
-func restore_action_queue(action_types: Array[Action.ActionType]) -> void:
+func restore_action_queue(action_descriptors: Array) -> void:
     """恢復動作佇列（由LevelManager調用）"""
     if action_queue:
-        action_queue.restore_action_queue(action_types)
+        action_queue.restore_action_queue(action_descriptors)
     _update_ui()
 
 func disable_buttons() -> void:

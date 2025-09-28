@@ -60,7 +60,7 @@ func _create_four_cards() -> void:
 
 func _create_switch_animal_card(available_animals: Array[Animal.AnimalType]) -> void:
     for animal in available_animals:
-        name = Animal.AnimalType.keys()[animal]
+        name = Animal.get_animal_name(animal)
         var card = _create_card(Action.ActionType.SWITCH_ANIMAL, "Switch " + name)
         if card:
             card.animal_type = animal

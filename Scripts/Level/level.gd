@@ -64,8 +64,8 @@ func spawn_player() -> Player:
     
     # 實例化玩家
     var player = GameManager.player_scene.instantiate()
-    player.set_available_animals(level_resource.available_animals)
     GameManager.set_player(player)
+    player.set_available_animals.call_deferred(level_resource.available_animals)
     if not player:
         push_error("無法實例化玩家場景")
         return null

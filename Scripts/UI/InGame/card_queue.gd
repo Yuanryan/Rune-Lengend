@@ -169,14 +169,6 @@ func clear_queue() -> void:
     queue_cards.clear()
     queue_cleared.emit()
 
-func get_action_types() -> Array[Action.ActionType]:
-    """獲取動作類型數組（保留舊 API）"""
-    var action_types: Array[Action.ActionType] = []
-    for card in queue_cards:
-        if is_instance_valid(card):
-            action_types.append(card.get_action_type())
-    return action_types
-
 func get_action_descriptors() -> Array:
     """獲取動作描述（包含對 SWITCH_ANIMAL 的 animal_type）"""
     var action_descs: Array = []
@@ -197,22 +189,29 @@ func is_empty() -> bool:
     """檢查佇列是否為空"""
     return queue_cards.is_empty()
 
-func restore_action_queue(action_types: Array[Action.ActionType]) -> void:
+func restore_action_queue(action_descriptors: Array) -> void:
     """恢復動作佇列"""
     clear_queue()
     
-    for action_type in action_types:
-        var action_label = _get_action_label(action_type)
-        var queue_card = _create_queue_card(action_type, action_label)
+    for desc in action_descriptors:
+        var action_type: Action.ActionType = desc.get("action_type", -1)
+        var animal_type: int = desc.get("animal_type", -1)
+        
+        var action_label = _get_action_label(action_type, animal_type)
+        var queue_card = _create_queue_card(action_type, action_label, animal_type)
+        
+        # 設置動物類型
+        queue_card.animal_type = animal_type
         queue_cards.append(queue_card)
     
     _reorder_children()
     
     # 發送信號通知UI更新
-    for i in range(action_types.size()):
-        action_added.emit(action_types[i], i)
+    for i in range(queue_cards.size()):
+        if is_instance_valid(queue_cards[i]):
+            action_added.emit(queue_cards[i].get_action_type(), i)
 
-func _get_action_label(action_type: Action.ActionType) -> String:
+func _get_action_label(action_type: Action.ActionType, animal_type: int = -1) -> String:
     """獲取動作標籤"""
     match action_type:
         Action.ActionType.MOVE_LEFT:
@@ -224,7 +223,7 @@ func _get_action_label(action_type: Action.ActionType) -> String:
         Action.ActionType.JUMP_RIGHT:
             return "Jump Right"
         Action.ActionType.SWITCH_ANIMAL:
-            return "Switch Animal"
+            return "Switch " +  Animal.get_animal_name(animal_type)
         _:
             return "Unknown Action"
 

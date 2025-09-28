@@ -158,7 +158,7 @@ func _save_action_queue() -> Array:
     var saved_action_queue = []
     var in_game_ui = UIManager.get_in_game_ui()
     if in_game_ui and in_game_ui.action_queue:
-        saved_action_queue = in_game_ui.action_queue.get_action_types()
+        saved_action_queue = in_game_ui.action_queue.get_action_descriptors()
     return saved_action_queue
 
 func _restore_action_queue(saved_action_queue: Array) -> void:

@@ -11,10 +11,12 @@ collision_layer = 2
 script = ExtResource("1_4flbx")
 
 [node name="AnimalComponent" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("2_6t5aa")
 metadata/_custom_type_script = "uid://bfrlho461b3xp"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 scale = Vector2(0.144531, 0.222656)
 texture = ExtResource("2_onrkg")
 
