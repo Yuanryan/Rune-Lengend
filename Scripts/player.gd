@@ -112,7 +112,7 @@ func _check_all_actions_completed() -> void:
     if _current_action == null and action_queue.size() == 0 and is_executing_actions:
         is_executing_actions = false
         print("所有動作執行完成")
-        UIManager.get_in_game_ui().enable_buttons()
+        UIManager.get_in_game_ui().unlock_buttons_after_execute()
         _notify_ui_all_actions_finished()
 
 func interrupt_current_action() -> void:

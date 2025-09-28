@@ -99,8 +99,14 @@ func disable_buttons() -> void:
     execute_button.disabled = true
     clear_button.disabled = true
 
+    
 func enable_buttons() -> void:
     execute_button.disabled = false
+    clear_button.disabled = false
+    reset_button.disabled = false
+
+func unlock_buttons_after_execute() -> void:
+    execute_button.disabled = true # 執行完動作後，按鈕不能被按
     clear_button.disabled = false
     reset_button.disabled = false
     # 解鎖隊列允許修改
