@@ -29,4 +29,3 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
 
 func interrupt(player: CharacterBody2D) -> void:
 	player.velocity = Vector2.ZERO
-	print("[DEBUG] JumpAction.interrupt called")

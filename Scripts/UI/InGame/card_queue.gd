@@ -8,6 +8,7 @@ class_name QueuePanel
 var queue_cards: Array[CardTile] = []
 var _is_dragging_over: bool = false
 var _current_executing_index: int = -1
+var _is_locked: bool = false  # 隊列鎖定狀態
 
 signal action_added(action_type: Action.ActionType, index: int)
 signal action_removed(action_type: Action.ActionType, index: int)
@@ -18,11 +19,19 @@ func _ready() -> void:
     monitor.card_dropped_outside.connect(_on_card_dropped_outside)
 
 func _on_card_dropped_outside(card: CardTile) -> void:
+    # 如果隊列被鎖定，不允許移除卡片
+    if _is_locked:
+        return
+        
     var card_index = queue_cards.find(card)
     if card_index >= 0:
         _remove_action_at(card_index)
 
 func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
+    # 如果隊列被鎖定，不允許拖放
+    if _is_locked:
+        return false
+        
     var can_drop = typeof(data) == TYPE_DICTIONARY and data.has("type") and data["type"] == "card"
     
     if can_drop:
@@ -245,3 +254,15 @@ func set_executing_action_index(index: int) -> void:
 func clear_executing_action() -> void:
     """清除執行狀態"""
     set_executing_action_index(-1)
+
+func lock_queue() -> void:
+    """鎖定隊列，防止修改"""
+    _is_locked = true
+
+func unlock_queue() -> void:
+    """解鎖隊列，允許修改"""
+    _is_locked = false
+
+func is_locked() -> bool:
+    """檢查隊列是否被鎖定"""
+    return _is_locked

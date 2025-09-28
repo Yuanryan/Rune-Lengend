@@ -23,7 +23,6 @@ func set_player(player_ref: Player) -> void:
 func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
     """設置可用動物並初始化第一個動物"""
     available_animals.clear()
-    print("[DEBUG] AnimalComponent.set_available_animals called with: ", animals)
     for animal_type in animals:
         available_animals.append(Animal.animal_from_type(animal_type))
     
@@ -36,12 +35,10 @@ func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
 
 func set_current_animal(animal: Animal) -> void:
     """設置當前動物並更新相關屬性"""
-    print("[DEBUG] AnimalComponent.set_current_animal called with: ", animal.animal_data.name if animal else "null")
     if not animal:
         return
     
     current_animal = animal
-    print("[DEBUG] AnimalComponent current_animal set to: ", current_animal.animal_data.name)
     _update_animal_appearance()
     _update_animal_behavior()
 
@@ -105,29 +102,23 @@ func update_switch_animation(delta: float) -> bool:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
-    print("[DEBUG] AnimalComponent._on_animal_switched called with: ", target_animal.animal_data.name if target_animal else "null")
     set_current_animal(target_animal)
 
 func _on_action_started(action: Action) -> void:
     """當動作開始時，根據當前動物調整動作參數"""
-    print("[DEBUG] AnimalComponent._on_action_started called with action: ", action.name, " (", action.get_class(), ")")
     if not current_animal or not current_animal.animal_data:
-        print("[DEBUG] No current animal or animal data available")
         return
     
     var animal_data = current_animal.animal_data
-    print("[DEBUG] Current animal data - name: ", animal_data.name, ", speed: ", animal_data.move_speed, ", jump: ", animal_data.jump_velocity)
     
     # 處理移動動作
     if action is MoveAction:
         var new_velocity = animal_data.move_speed * action.direction
-        print("[DEBUG] Setting MoveAction velocity_x to: ", new_velocity, " (speed: ", animal_data.move_speed, " * direction: ", action.direction, ")")
         action.set_velocity_x(new_velocity)
     
     # 處理跳躍動作
     elif action is JumpAction:
         var new_jump_velocity = animal_data.jump_velocity * action.direction
-        print("[DEBUG] Setting JumpAction jump_velocity to: ", new_jump_velocity, " (jump: ", animal_data.jump_velocity, " * direction: ", action.direction, ")")
         action.set_jump_velocity(new_jump_velocity)
 
 # 默認切換動畫

@@ -27,10 +27,8 @@ func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
 
 func switch_animal(target_animal: Animal) -> void:
     """切換到指定的動物"""
-    print("[DEBUG] switch_animal called with: ", target_animal.animal_data.name if target_animal else "null")
     if target_animal:
         # 發出動物切換信號，讓AnimalComponent處理實際的切換
-        print("[DEBUG] Emitting animal_switched signal")
         animal_switched.emit(target_animal)
         print("切換到動物: ", target_animal.animal_data.name)
 
@@ -41,7 +39,6 @@ func is_executing() -> bool:
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType, animal_type: int = -1) -> Action:
     """根據動作類型和當前動物數據創建實際的動作"""
-    print("[DEBUG] create_action_from_type called - action_type: ", action_type, ", animal_type: ", animal_type)
 
     match action_type:
         Action.ActionType.MOVE_LEFT:
@@ -56,7 +53,6 @@ func create_action_from_type(action_type: Action.ActionType, animal_type: int = 
             var target_animal: Animal = null
             if animal_type != -1:
                 target_animal = Animal.animal_from_type(animal_type)
-                print("[DEBUG] Creating switch action with target animal: ", target_animal.animal_data.name if target_animal else "null")
             return SwitchAnimalAction.new(target_animal)
         _:
             print("未知的動作類型: %d" % action_type)
@@ -66,8 +62,10 @@ func _input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_accept"):
         interrupt_current_action()
     elif event.is_action_pressed("reset_player"):
-        # 使用關卡重新載入而不是直接重置玩家
-        LevelManager.reload_level_from_last_checkpoint()
+        # 調用與重置按鈕相同的邏輯
+        var in_game_ui = UIManager.get_in_game_ui()
+        if in_game_ui:
+            in_game_ui.reset_player()
 
 func _physics_process(delta: float) -> void:
     # 重力
@@ -93,9 +91,7 @@ func _start_next_action() -> void:
     """開始執行下一個動作"""
     if action_queue.size() > 0:
         _current_action = action_queue.pop_front()
-        print("[DEBUG] Starting action: ", _current_action.name, " (", _current_action.get_class(), ")")
         # 發出動作開始信號，讓動物組件調整動作參數
-        print("[DEBUG] Emitting action_started signal")
         action_started.emit(_current_action)
         _current_action.start(self)
         _notify_ui_action_started(_total_actions_executed)
@@ -197,5 +193,4 @@ func _notify_ui_all_actions_finished() -> void:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
-    print("[DEBUG] Player._on_animal_switched called with: ", target_animal.animal_data.name if target_animal and target_animal.animal_data else "未知動物")
     print("動物切換完成: ", target_animal.animal_data.name if target_animal and target_animal.animal_data else "未知動物")

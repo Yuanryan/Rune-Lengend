@@ -14,15 +14,11 @@ func _init(_target_animal: Animal = null):
     duration = 1.0   # 給動畫足夠的時間完成
 
 func start(player):
-    print("[DEBUG] SwitchAnimalAction.start called")
     super.start(player)
     if target_animal:
-        print("[DEBUG] SwitchAnimalAction target_animal: ", target_animal.animal_data.name)
         
         # 切換動物
-        print("[DEBUG] Calling player.switch_animal")
         player.switch_animal(target_animal)
-        print("[DEBUG] Emitting animal_switched signal from SwitchAnimalAction")
         animal_switched.emit(target_animal)
         
         # 輸出切換信息
@@ -35,8 +31,6 @@ func start(player):
         _switch_action = target_animal.get_switch_action()
         if _switch_action:
             _switch_action.start(player)
-    else:
-        print("[DEBUG] 警告：SwitchAnimalAction 沒有目標動物")
 
 func update(player, delta: float) -> bool:
     # 如果有切換動作，更新它

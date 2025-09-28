@@ -13,5 +13,5 @@ class RabbitSwitchAction extends JumpAction:
 
     func _init():
         jump_velocity = Vector2(150, -700)
-        name = "Rabbit_Switch"
+        name = "Rabbit_SuperJump"
     

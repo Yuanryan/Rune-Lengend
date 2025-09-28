@@ -14,10 +14,6 @@ func _ready() -> void:
     _update_ui.call_deferred()
 
 func _connect_signals() -> void:
-    # Connect palette signals
-    # if card_deck:
-    #     card_deck.card_selected.connect(_on_card_selected)
-    
     # Connect queue signals
     if action_queue:
         action_queue.action_added.connect(_on_action_added)
@@ -64,6 +60,8 @@ func execute_sequence() -> void:
         print("Actions: ", actions)
         if actions.size() > 0:
             print("Executing sequence with ", actions.size(), " actions")
+            # 鎖定隊列防止修改
+            action_queue.lock_queue()
             GameManager.get_player().load_actions_from_ui(actions)
             _update_ui()
             disable_buttons()
@@ -77,6 +75,17 @@ func clear_sequence() -> void:
 
 func reset_player() -> void:
     """重新載入關卡並保持動作佇列"""
+    # 停止玩家正在執行的動作
+    var player = GameManager.get_player()
+    if player:
+        player.interrupt_current_action()
+        player.is_executing_actions = false
+    
+    # 解鎖隊列（如果被鎖定的話）
+    if action_queue:
+        action_queue.unlock_queue()
+        action_queue.clear_executing_action()
+    
     # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
     LevelManager.reload_level_from_last_checkpoint()
 
@@ -89,31 +98,36 @@ func restore_action_queue(action_descriptors: Array) -> void:
 func disable_buttons() -> void:
     execute_button.disabled = true
     clear_button.disabled = true
-    reset_button.disabled = true
 
 func enable_buttons() -> void:
     execute_button.disabled = false
     clear_button.disabled = false
     reset_button.disabled = false
+    # 解鎖隊列允許修改
+    if action_queue:
+        action_queue.unlock_queue()
 
 func _update_ui() -> void:
     # Get action count from action_queue
     var action_count = action_queue.get_action_count() if action_queue else 0
+    var is_queue_locked = action_queue and action_queue.is_locked()
     
     # Update button states
     if execute_button:
-        execute_button.disabled = action_count == 0
+        execute_button.disabled = action_count == 0 or is_queue_locked
     
     if clear_button:
-        clear_button.disabled = action_count == 0
+        clear_button.disabled = action_count == 0 or is_queue_locked
     
-    # Reset button is always enabled (unless player is executing actions)
+    # Reset button is always enabled
     if reset_button:
-        reset_button.disabled = GameManager.get_player() and GameManager.get_player().is_executing()
+        reset_button.disabled = false
     
     # Update info label
     if info_label:
-        if action_count == 0:
+        if is_queue_locked:
+            info_label.text = "Executing actions... Queue is locked"
+        elif action_count == 0:
             info_label.text = "Drag cards from above to build your action sequence"
         else:
             info_label.text = "Ready to execute " + str(action_count) + " actions"

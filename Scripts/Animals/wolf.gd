@@ -7,24 +7,27 @@ func _init():
     super._init(wolf_data)
     switch_action = WolfSwitchAction.new()
     
-# 狼的旋轉切換動作
+# 狼的衝刺切換動作
 class WolfSwitchAction extends TimedAction:
-    var rotation_speed: float = 360.0
+    var dash_speed: float = 500.0
+    var dash_direction: Vector2 = Vector2.RIGHT
     
     func _init():
-        duration = 0.8
-        name = "Wolf_Switch"
+        duration = 0.3  # 短時間衝刺
+        name = "Wolf_Dash"
     
     func start(player: CharacterBody2D):
         super.start(player)
-        player.modulate.a = 0.0
+        # 根據玩家面向方向決定衝刺方向
+        dash_direction = Vector2.RIGHT if player.scale.x > 0 else Vector2.LEFT
     
     func update(player: CharacterBody2D, delta: float) -> bool:
-        # 旋轉效果
-        player.rotation_degrees += rotation_speed * delta
-        
-        # 淡入效果
-        var progress = 1.0 - (_time_left / duration)
-        player.modulate.a = progress
-        
+        # 衝刺效果
+        var dash_velocity = dash_direction * dash_speed
+        player.velocity.x = dash_velocity.x
+        player.velocity.y = 0.0
         return super.update(player, delta)
+
+     # 中斷時停止移動
+    func interrupt(player: CharacterBody2D) -> void:
+        player.velocity = Vector2.ZERO
