@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjnqrwfc3b3qd"]
 
-[ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/damage_area.gd" id="1_gkjvs"]
+[ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/Objects/damage_area.gd" id="1_gkjvs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dnriv"]
 
