@@ -15,6 +15,7 @@ var _total_actions_executed: int = 0
 # 信號
 signal animal_switched(target_animal: Animal)
 signal action_started(action: Action)
+signal player_died()
 
 func _ready():
     # 連接動物切換信號
@@ -171,6 +172,24 @@ func reset_to_starting_point() -> void:
     # 重新啟用UI按鈕
     UIManager.get_in_game_ui().enable_buttons()
     print("玩家已重置到起始點")
+
+func die() -> void:
+    """玩家死亡處理"""
+    print("玩家死亡")
+    
+    # 發出死亡信號
+    player_died.emit()
+    
+    # 停止所有動作
+    action_queue.clear()
+    if _current_action != null:
+        _current_action.interrupt(self)
+        _current_action = null
+    is_executing_actions = false
+    
+    # 重置速度
+    velocity = Vector2.ZERO
+    
 
 func _notify_ui_action_started(index: int) -> void:
     """通知UI動作開始執行"""

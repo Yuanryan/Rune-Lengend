@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=8 format=3 uid="uid://dqtphadkel0dl"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/land.tscn" id="2_4dpyx"]
 [ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_iixi8"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/checkpoint.tscn" id="5_cyadu"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/damage_area.tscn" id="6_5f3p6"]
+[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/spike.tscn" id="6_xgxfi"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0x8k9")
@@ -86,8 +88,15 @@ polygon = PackedVector2Array(0, 256, 0, 320, 1120, 320, 1120, 256)
 position = Vector2(16, -208)
 polygon = PackedVector2Array(0, 256, 0, 320, 1120, 320, 1120, 256)
 
+[node name="DamageArea" parent="." instance=ExtResource("6_5f3p6")]
+position = Vector2(-608, 408)
+
+[node name="Spike" parent="." instance=ExtResource("6_xgxfi")]
+position = Vector2(-176, 384)
+
 [editable path="Land"]
 [editable path="Land2"]
 [editable path="Land3"]
 [editable path="Land5"]
 [editable path="Land4"]
+[editable path="DamageArea"]

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dakout3cuxl2s"]
+
+[ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/damage_area.gd" id="1_damage_area"]
+
+[node name="DamageArea" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_damage_area")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 0, 0, 0.3)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-4, -4)
+polygon = PackedVector2Array(4, 4, 44, 4, 44, 44, 4, 44)

@@ -1,13 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
-[ext_resource type="Script" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
+[ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="2_onrkg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_4flbx")
 
 [node name="AnimalComponent" type="Node2D" parent="."]
