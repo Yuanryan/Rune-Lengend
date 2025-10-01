@@ -10,13 +10,24 @@ enum GameState {
     GAME_PLAY
 }
 
+# 遊戲內狀態枚舉
+enum InGameState {
+    PLANNING,      # 規劃階段：玩家可以拖拽卡片建立動作序列
+    EXECUTING,     # 執行階段：動作正在執行中
+    COMPLETED,     # 完成階段：動作執行完成
+    PAUSED,        # 暫停階段：遊戲暫停
+    FAILED         # 失敗階段：玩家死亡或失敗
+}
+
 # 玩家實例記錄
 var player: Player = null
 var player_scene: PackedScene = preload("uid://cviyl35yedewi")
 var current_state: GameState = GameState.MAIN_MENU
+var current_in_game_state: InGameState = InGameState.PLANNING
 
 # 信號
 signal game_state_changed(new_state: GameState)
+signal in_game_state_changed(new_state: InGameState)
 signal level_chosen(level_id: String)
 
 func _ready() -> void:
@@ -28,6 +39,7 @@ func initialize_game() -> void:
     UIManager.initialize_ui()
     _setup_level_manager_signals()
     set_game_state(GameState.MAIN_MENU)
+    set_in_game_state(InGameState.PLANNING)
 
 # 設置 LevelManager 信號連接
 func _setup_level_manager_signals() -> void:
@@ -62,6 +74,36 @@ func set_game_state(new_state: GameState) -> void:
             UIManager.show_level_select()
         GameState.GAME_PLAY:
             UIManager.show_game_ui()
+            # 進入遊戲時重置為規劃階段
+            set_in_game_state(InGameState.PLANNING)
+
+# 遊戲內狀態管理
+func set_in_game_state(new_state: InGameState) -> void:
+    if current_in_game_state == new_state:
+        return
+    
+    var previous_state = current_in_game_state
+    current_in_game_state = new_state
+    in_game_state_changed.emit(new_state)
+    
+    print("遊戲內狀態從 %s 變更為 %s" % [_get_state_name(previous_state), _get_state_name(new_state)])
+
+# 輔助方法
+func _get_state_name(state: InGameState) -> String:
+    """獲取狀態名稱"""
+    match state:
+        InGameState.PLANNING:
+            return "規劃階段"
+        InGameState.EXECUTING:
+            return "執行階段"
+        InGameState.COMPLETED:
+            return "完成階段"
+        InGameState.PAUSED:
+            return "暫停階段"
+        InGameState.FAILED:
+            return "失敗階段"
+        _:
+            return "未知狀態"
 
 
 func _on_back_to_main_menu() -> void:
@@ -83,6 +125,53 @@ func get_player() -> Player:
 # 檢查玩家是否存在
 func has_player() -> bool:
     return player != null
+
+# 狀態檢查方法
+func is_in_planning_state() -> bool:
+    return current_in_game_state == InGameState.PLANNING
+
+func is_in_executing_state() -> bool:
+    return current_in_game_state == InGameState.EXECUTING
+
+func is_in_completed_state() -> bool:
+    return current_in_game_state == InGameState.COMPLETED
+
+func is_in_paused_state() -> bool:
+    return current_in_game_state == InGameState.PAUSED
+
+func is_in_failed_state() -> bool:
+    return current_in_game_state == InGameState.FAILED
+
+# 狀態轉換方法
+func start_execution() -> void:
+    """開始執行動作序列"""
+    if is_in_planning_state():
+        set_in_game_state(InGameState.EXECUTING)
+
+func complete_execution() -> void:
+    """完成動作執行"""
+    if is_in_executing_state():
+        set_in_game_state(InGameState.COMPLETED)
+
+func fail_execution() -> void:
+    """動作執行失敗"""
+    if is_in_executing_state():
+        set_in_game_state(InGameState.FAILED)
+
+func reset_to_planning() -> void:
+    """重置到規劃階段"""
+    set_in_game_state(InGameState.PLANNING)
+
+func pause_game() -> void:
+    """暫停遊戲"""
+    if not is_in_paused_state():
+        set_in_game_state(InGameState.PAUSED)
+
+func resume_game() -> void:
+    """恢復遊戲"""
+    if is_in_paused_state():
+        # 恢復到之前的狀態，預設為規劃階段
+        set_in_game_state(InGameState.PLANNING)
 
 # 處理ESC鍵輸入
 func handle_escape_key() -> void:

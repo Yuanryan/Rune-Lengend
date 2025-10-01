@@ -57,7 +57,7 @@ camera_target_position = Vector2(1128, 176)
 
 [node name="checkpoint2" parent="." instance=ExtResource("5_cyadu")]
 position = Vector2(1792, 464)
-checkpoint_id = 1
+checkpoint_id = 2
 camera_target_position = Vector2(2440, 176)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -98,6 +98,7 @@ position = Vector2(-176, 384)
 [node name="Turret" parent="." instance=ExtResource("8_jv26f")]
 position = Vector2(-24, 408)
 rotation = -3.1415882
+will_fire = false
 
 [editable path="Land"]
 [editable path="Land2"]

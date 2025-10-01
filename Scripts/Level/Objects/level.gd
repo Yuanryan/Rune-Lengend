@@ -51,6 +51,9 @@ func _on_checkpoint_reached(checkpoint_id: int, camera_target_position: Vector2,
     camera.global_position = camera_target_position
     starting_point.global_position = checkpoint_pos
     
+    # 重置遊戲狀態到規劃階段
+    GameManager.reset_to_planning()
+    
     print("到達檢查點: ", checkpoint_id)
 
 # 在起始點生成玩家

@@ -23,7 +23,8 @@ signal card_dragged(card: CardTile)
 
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_PASS
-    
+    GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+
 func get_action_type() -> Action.ActionType:
     return action_type
 
@@ -74,8 +75,11 @@ func _gui_input(event: InputEvent) -> void:
     elif event is InputEventMouseButton:
         var mouse_event = event as InputEventMouseButton
         if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
+            # 按下時不觸發點擊事件，只處理拖拽
+            pass
+        elif not mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
+            # 釋放時觸發點擊事件
             card_clicked.emit(self)
-        elif not mouse_event.pressed:
             bg.visible = false
             _is_dragging = false
 
@@ -95,6 +99,13 @@ func set_executing(is_executing: bool) -> void:
         _glow_tween.tween_property(outline, "self_modulate:a", 0.8, 0.8)
         _glow_tween.tween_property(outline, "self_modulate:a", 0, 0.8)
     else:
-        _glow_tween.kill()
+        if _glow_tween:
+            _glow_tween.kill()
         # 停止發光，恢復原狀
         outline.self_modulate.a = 0
+
+
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    """處理遊戲內狀態變化"""
+    if new_state != GameManager.InGameState.EXECUTING:
+        set_executing(false)

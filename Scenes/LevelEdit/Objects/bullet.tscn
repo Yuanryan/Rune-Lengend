@@ -12,6 +12,7 @@ script = ExtResource("1_bullet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1")
+disabled = true
 
 [node name="Sprite2D" type="ColorRect" parent="."]
 offset_left = -6.0

@@ -21,6 +21,10 @@ func _ready():
     # 連接動物切換信號
     animal_switched.connect(_on_animal_switched)
     animal_component.set_player(self)
+    
+    # 連接 GameManager 的狀態變化信號
+    if GameManager:
+        GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
 func set_available_animals(animals: Array[Animal.AnimalType]) -> void:
     """設置可用動物 - 委託給 AnimalComponent 處理"""
@@ -113,7 +117,8 @@ func _check_all_actions_completed() -> void:
     if _current_action == null and action_queue.size() == 0 and is_executing_actions:
         is_executing_actions = false
         print("所有動作執行完成")
-        UIManager.get_in_game_ui().unlock_buttons_after_execute()
+        # 使用新的狀態系統
+        GameManager.complete_execution()
         _notify_ui_all_actions_finished()
 
 func interrupt_current_action() -> void:
@@ -169,23 +174,24 @@ func reset_to_starting_point() -> void:
     else:
         print("無法找到起始點位置")
     
-    # 重新啟用UI按鈕
-    UIManager.get_in_game_ui().enable_buttons()
+    # 使用新的狀態系統重置到規劃階段
+    GameManager.reset_to_planning()
     print("玩家已重置到起始點")
 
 func die() -> void:
     """玩家死亡處理"""
     print("玩家死亡")
-    
-    # 發出死亡信號
-    player_died.emit()
-    
+    # 使用新的狀態系統
+    GameManager.fail_execution()
     # 停止所有動作
     action_queue.clear()
     if _current_action != null:
         _current_action.interrupt(self)
         _current_action = null
     is_executing_actions = false
+    
+    # 發出死亡信號
+    player_died.emit()
     
     # 重置速度
     velocity = Vector2.ZERO
@@ -213,3 +219,58 @@ func _notify_ui_all_actions_finished() -> void:
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
     print("動物切換完成: ", target_animal.animal_data.name if target_animal and target_animal.animal_data else "未知動物")
+
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    """處理遊戲內狀態變化"""
+    print("Player: 遊戲內狀態變更為 ", new_state)
+    
+    # 根據狀態執行相應的處理
+    match new_state:
+        GameManager.InGameState.PLANNING:
+            _on_planning_state_entered()
+        GameManager.InGameState.EXECUTING:
+            _on_executing_state_entered()
+        GameManager.InGameState.COMPLETED:
+            _on_completed_state_entered()
+        GameManager.InGameState.FAILED:
+            _on_failed_state_entered()
+        GameManager.InGameState.PAUSED:
+            _on_paused_state_entered()
+
+# 狀態響應方法
+func _on_planning_state_entered() -> void:
+    """進入規劃階段時的處理"""
+    print("Player: 進入規劃階段")
+    is_executing_actions = false
+    
+    # 停止所有正在執行的動作
+    if _current_action != null:
+        _current_action.interrupt(self)
+        _current_action = null
+    
+    # 清空動作佇列
+    action_queue.clear()
+    
+    # 重置執行計數
+    _total_actions_executed = 0
+    
+
+func _on_executing_state_entered() -> void:
+    """進入執行階段時的處理"""
+    print("Player: 進入執行階段")
+    is_executing_actions = true
+
+func _on_completed_state_entered() -> void:
+    """進入完成階段時的處理"""
+    print("Player: 進入完成階段")
+    is_executing_actions = false
+
+func _on_failed_state_entered() -> void:
+    """進入失敗階段時的處理"""
+    print("Player: 進入失敗階段")
+    is_executing_actions = false
+
+func _on_paused_state_entered() -> void:
+    """進入暫停階段時的處理"""
+    print("Player: 進入暫停階段")
+    # 暫停階段不需要額外處理

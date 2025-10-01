@@ -107,8 +107,12 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 
 func _add_new_card(card: CardTile, at_position: Vector2) -> void:
     """添加新卡片到佇列"""
-    var action_type = card.get_action_type()
     var insert_index = _get_insert_index(at_position)
+    _add_card_at_index(card, insert_index)
+
+func _add_card_at_index(card: CardTile, insert_index: int) -> void:
+    """通用的卡片添加方法，在指定索引處添加卡片"""
+    var action_type = card.get_action_type()
     var animal_type = -1
     if card and card.animal_type != -1:
         # CardTile 會攜帶 animal_type（僅 SWITCH_ANIMAL 會用到）
@@ -169,6 +173,19 @@ func _remove_action_at(index: int) -> void:
         action_removed.emit(action_type, index)
 
 # ========== 公共API ==========
+
+func add_card_at_tail(card: CardTile) -> void:
+    """將卡片添加到佇列末尾的公共方法"""
+    if not card:
+        return
+    
+    # 檢查佇列是否被鎖定
+    if _is_locked:
+        print("佇列被鎖定，無法添加卡片")
+        return
+    
+    var insert_index = queue_cards.size()
+    _add_card_at_index(card, insert_index)
 
 func clear_queue() -> void:
     """清空佇列"""
