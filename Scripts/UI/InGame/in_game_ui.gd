@@ -66,7 +66,8 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     print("InGameUI: 遊戲內狀態變更為 ", new_state)
     
     # 根據狀態執行相應的處理
-    if new_state != GameManager.InGameState.EXECUTING or new_state != GameManager.InGameState.PAUSED:
+    # 當狀態不是執行中且不是暫停時，解鎖佇列允許修改
+    if new_state != GameManager.InGameState.EXECUTING and new_state != GameManager.InGameState.PAUSED:
         if action_queue:
             action_queue.unlock_queue() 
     _update_ui()

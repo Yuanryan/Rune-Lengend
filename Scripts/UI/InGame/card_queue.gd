@@ -92,6 +92,10 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
     _hide_preview_indicator()
     _is_dragging_over = false
     
+    # 如果隊列被鎖定，不允許拖放
+    if _is_locked:
+        return
+    
     var card: CardTile = data["card"]
     if not card:
         return

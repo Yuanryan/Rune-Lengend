@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqxv8y7x8y7x8"]
+
+[ext_resource type="Script" uid="uid://iei0eyiunrfk" path="res://Scripts/Level/Objects/button.gd" id="1_0x8y7"]
+[ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="2_v32ik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1x8y7"]
+size = Vector2(32, 8)
+
+[node name="Button" type="Area2D"]
+script = ExtResource("1_0x8y7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 4)
+shape = SubResource("RectangleShape2D_1x8y7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.2, 0.8, 0.2, 1)
+position = Vector2(15.999998, 4)
+scale = Vector2(0.24999999, 0.0625)
+texture = ExtResource("2_v32ik")
