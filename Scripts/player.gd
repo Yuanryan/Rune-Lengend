@@ -12,6 +12,9 @@ var _total_actions_executed: int = 0
 # 跳躍狀態追蹤
 var _air_jump_count: int = 0
 
+# 面向方向
+var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
+
 # 動物組件
 @onready var animal_component: AnimalComponent = %AnimalComponent
 
@@ -50,6 +53,10 @@ func get_max_air_jumps() -> int:
         return 1
     return 0
 
+func set_facing_direction(direction: Vector2) -> void:
+    """設置面向方向"""
+    facing_direction = direction
+
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType, animal_type: int = -1) -> Action:
     """根據動作類型和當前動物數據創建實際的動作"""
@@ -74,12 +81,13 @@ func create_action_from_type(action_type: Action.ActionType, animal_type: int = 
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("ui_accept"):
-        interrupt_current_action()
+        if GameManager.current_in_game_state == GameManager.InGameState.EXECUTING:
+            interrupt_current_action()
+        elif GameManager.current_in_game_state == GameManager.InGameState.PLANNING:
+            UIManager.get_in_game_ui().execute_sequence()
     elif event.is_action_pressed("reset_player"):
         # 調用與重置按鈕相同的邏輯
-        var in_game_ui = UIManager.get_in_game_ui()
-        if in_game_ui:
-            in_game_ui.reset_player()
+        UIManager.get_in_game_ui().reset_player()
 
 func _physics_process(delta: float) -> void:
     # 重力

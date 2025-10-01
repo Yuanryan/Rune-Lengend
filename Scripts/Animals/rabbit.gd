@@ -12,6 +12,12 @@ func _init():
 class RabbitSwitchAction extends JumpAction:
 
     func _init():
-        jump_velocity = Vector2(150, -700)
+        jump_velocity = Vector2(150, -650)
         name = "Rabbit_SuperJump"
+    
+    func start(player: CharacterBody2D) -> void:
+        # 根據玩家的面向方向調整跳躍方向
+        jump_velocity.x = abs(jump_velocity.x) * player.facing_direction.x
+        
+        super.start(player)
     

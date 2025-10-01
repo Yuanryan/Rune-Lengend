@@ -13,6 +13,12 @@ func set_velocity_x(new_velocity_x: float) -> void:
 
 func start(player: CharacterBody2D) -> void:
 	player.velocity.x = velocity_x
+	
+	# 根據移動方向設置面向方向
+	if direction > 0:
+		player.set_facing_direction(Vector2.RIGHT)
+	elif direction < 0:
+		player.set_facing_direction(Vector2.LEFT)
 
 func update(player: CharacterBody2D, delta: float) -> bool:
 	return false

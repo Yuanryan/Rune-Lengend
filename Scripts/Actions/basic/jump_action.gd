@@ -19,6 +19,12 @@ func start(player: CharacterBody2D) -> void:
 	player.velocity = jump_velocity
 	_has_left_ground = false
 	
+	# 根據跳躍方向設置面向方向
+	if direction.x > 0:
+		player.set_facing_direction(Vector2.RIGHT)
+	elif direction.x < 0:
+		player.set_facing_direction(Vector2.LEFT)
+	
 	# 增加跳躍計數（如果玩家有這個方法）
 	if not player.is_on_floor():
 		player._air_jump_count += 1

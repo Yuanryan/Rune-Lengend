@@ -36,6 +36,9 @@ func _ready() -> void:
         # 設置計時器等待時間並連接信號
         timer.wait_time = open_duration
         timer.timeout.connect(_on_timer_timeout)
+        
+        # 連接 GameManager 的狀態變化信號
+        GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
 func _on_button_pressed() -> void:
     """當按鈕被按下時"""
@@ -129,3 +132,27 @@ func set_open_duration(duration: float) -> void:
 func set_open_height(height: float) -> void:
     """設置門開啟高度"""
     open_height = height
+
+func reset_door() -> void:
+    """重置門到初始狀態"""
+    # 停止所有動畫和計時器
+    if timer:
+        timer.stop()
+    
+    # 重置狀態
+    is_open = false
+    is_opening = false
+    is_closing = false
+    
+    # 重置門的位置到初始狀態（關閉狀態）
+    if door_sprite and door_collision:
+        door_sprite.position = Vector2(0, 0)
+        door_collision.position = Vector2(0, 0)
+    
+    print("門 ", door_id, " 已重置到初始狀態")
+
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    """處理遊戲內狀態變化"""
+    # 當進入規劃階段時重置門（這通常發生在關卡重載時）
+    if new_state == GameManager.InGameState.PLANNING:
+        reset_door()
