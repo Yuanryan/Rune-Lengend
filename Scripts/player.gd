@@ -117,6 +117,7 @@ func _check_all_actions_completed() -> void:
     if _current_action == null and action_queue.size() == 0 and is_executing_actions:
         is_executing_actions = false
         print("所有動作執行完成")
+        velocity = Vector2.ZERO
         # 使用新的狀態系統
         GameManager.complete_execution()
         _notify_ui_all_actions_finished()

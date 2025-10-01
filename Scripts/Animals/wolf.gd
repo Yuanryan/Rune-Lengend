@@ -30,4 +30,5 @@ class WolfSwitchAction extends TimedAction:
 
      # 中斷時停止移動
     func interrupt(player: CharacterBody2D) -> void:
-        player.velocity = Vector2.ZERO
+        # 只停止 x 軸速度（衝刺），保持 y 軸速度不變，讓重力繼續作用
+        player.velocity.x = 0.0

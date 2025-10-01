@@ -28,4 +28,4 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
 	return _has_left_ground and player.is_on_floor()
 
 func interrupt(player: CharacterBody2D) -> void:
-	player.velocity = Vector2.ZERO
+	pass

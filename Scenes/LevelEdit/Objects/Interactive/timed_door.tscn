@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cnyimwluijpi3"]
 
-[ext_resource type="Script" uid="uid://bxr3gamy50kvl" path="res://Scripts/Level/Objects/door.gd" id="1_0x9y7"]
+[ext_resource type="Script" uid="uid://bxr3gamy50kvl" path="res://Scripts/Level/Objects/timed_door.gd" id="1_0x9y7"]
 [ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="2_0qngo"]
-[ext_resource type="PackedScene" uid="uid://bqxv8y7x8y7x8" path="res://Scenes/LevelEdit/Objects/button.tscn" id="2_0x9y7"]
+[ext_resource type="PackedScene" uid="uid://bqxv8y7x8y7x8" path="res://Scenes/LevelEdit/Objects/Interactive/button.tscn" id="2_0x9y7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1x9y7"]
 size = Vector2(16, 64)
 
-[node name="Door" type="StaticBody2D"]
+[node name="TimedDoor" type="StaticBody2D"]
 collision_mask = 2
 script = ExtResource("1_0x9y7")
 open_duration = 2.0

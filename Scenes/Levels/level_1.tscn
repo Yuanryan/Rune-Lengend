@@ -63,7 +63,6 @@ camera_target_position = Vector2(2440, 176)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(48, 208)
 offset = Vector2(0, 100)
-zoom = Vector2(0.8, 0.8)
 limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
@@ -98,7 +97,6 @@ position = Vector2(-176, 384)
 [node name="Turret" parent="." instance=ExtResource("8_jv26f")]
 position = Vector2(-24, 408)
 rotation = -3.1415882
-will_fire = false
 
 [editable path="Land"]
 [editable path="Land2"]

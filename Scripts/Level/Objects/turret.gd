@@ -5,8 +5,7 @@ class_name Turret
 
 # 砲塔屬性
 @export var fire_rate: float = 1.0  ## 每秒發射次數
-@export var bullet_speed: float = 500.0
-@export var will_fire: bool = true
+@export var bullet_speed: float = 500.0 
 @export var bullet_scene: PackedScene = preload("uid://2eslwfy76gub")
 
 # 節點引用
@@ -16,6 +15,7 @@ class_name Turret
 # 內部變數
 var _fire_timer: float = 0.0
 var _fire_direction: Vector2 = Vector2.RIGHT  # 計算出的射擊方向
+var can_fire: bool = false
 
 # 信號
 signal bullet_fired(bullet: RigidBody2D)
@@ -36,7 +36,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-    if will_fire:
+    if can_fire:
     # 如果自動射擊，更新射擊計時器
         _update_fire_timer(delta)
     else:
@@ -65,6 +65,9 @@ func _fire_bullet() -> void:
     
     # 將子彈添加到場景
     get_tree().current_scene.add_child(bullet)
+    
+    # 將子彈添加到 bullets 群組以便管理
+    bullet.add_to_group("bullets")
     
     # 設置子彈位置和方向
     bullet.global_position = fire_point.global_position
@@ -100,7 +103,7 @@ func _calculate_fire_direction() -> void:
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     if new_state == GameManager.InGameState.EXECUTING:
-        will_fire = true
+        can_fire = true
     else:
-        will_fire = false
+        can_fire = false
 

@@ -83,8 +83,19 @@ func get_all_level_ids() -> Array[String]:
 
 # ========== 核心功能 ==========
 
+# 清除所有子彈
+func _clear_all_bullets() -> void:
+    """清除場景中的所有子彈"""
+    var bullets = get_tree().get_nodes_in_group("bullets")
+    for bullet in bullets:
+        if bullet and is_instance_valid(bullet):
+            bullet.queue_free()
+    
 # 載入關卡場景
 func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector2.ZERO, camera_position: Vector2 = Vector2.ZERO) -> Level:
+    # 清除所有子彈
+    _clear_all_bullets()
+    
     # 清除當前關卡
     if current_level:
         current_level.queue_free()
