@@ -18,6 +18,10 @@ func start(player: CharacterBody2D) -> void:
 	# 設定跳躍速度（向上和水平方向）
 	player.velocity = jump_velocity
 	_has_left_ground = false
+	
+	# 增加跳躍計數（如果玩家有這個方法）
+	if not player.is_on_floor():
+		player._air_jump_count += 1
 
 func should_stop(player: CharacterBody2D, delta: float) -> bool:
 	# 檢查是否已經離開地面
@@ -29,3 +33,12 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
 
 func interrupt(player: CharacterBody2D) -> void:
 	pass
+
+# 檢查跳躍動作是否可以被執行
+func can_perform(player: CharacterBody2D) -> bool:
+	# 如果在地面上，總是允許跳躍
+	if player.is_on_floor():
+		return true	# 獲取玩家的跳躍計數和最大空中跳躍次數
+	
+	# 檢查是否還有空中跳躍次數
+	return player._air_jump_count < player.get_max_air_jumps()

@@ -9,6 +9,9 @@ var _current_action: Action = null
 var is_executing_actions: bool = false
 var _total_actions_executed: int = 0
 
+# 跳躍狀態追蹤
+var _air_jump_count: int = 0
+
 # 動物組件
 @onready var animal_component: AnimalComponent = %AnimalComponent
 
@@ -40,6 +43,12 @@ func switch_animal(target_animal: Animal) -> void:
 func is_executing() -> bool:
     """檢查是否正在執行動作"""
     return is_executing_actions
+
+func get_max_air_jumps() -> int:
+    """根據當前動物獲取最大空中跳躍次數"""
+    if animal_component and animal_component.current_animal is Rabbit:
+        return 1
+    return 0
 
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType, animal_type: int = -1) -> Action:
@@ -76,6 +85,9 @@ func _physics_process(delta: float) -> void:
     # 重力
     if not is_on_floor():
         velocity.y += GRAVITY * delta
+    else:
+        # 在地面上時重置跳躍計數
+        _air_jump_count = 0
 
     # 若沒有正在執行的 action，就從 queue 取下一個
     if _current_action == null and action_queue.size() > 0:
@@ -96,6 +108,19 @@ func _start_next_action() -> void:
     """開始執行下一個動作"""
     if action_queue.size() > 0:
         _current_action = action_queue.pop_front()
+        
+        # 檢查動作是否可以被執行
+        if not _current_action.can_perform(self):
+            print("動作無法執行: ", _current_action.name, " - 跳過此動作")
+            _notify_ui_action_finished(_total_actions_executed)
+            _total_actions_executed += 1
+            _current_action = null
+            
+            # 嘗試執行下一個動作
+            if action_queue.size() > 0:
+                _start_next_action()
+            return
+        
         # 發出動作開始信號，讓動物組件調整動作參數
         action_started.emit(_current_action)
         _current_action.start(self)
@@ -123,9 +148,22 @@ func _check_all_actions_completed() -> void:
         _notify_ui_all_actions_finished()
 
 func interrupt_current_action() -> void:
-    """中斷當前動作並執行下一個"""
+    """中斷當前動作並執行下一個（如果下一個動作可以執行的話）"""
     if _current_action != null:
-        _finish_current_action()
+        # 檢查佇列中是否有下一個動作
+        if action_queue.size() > 0:
+            var next_action = action_queue[0]  # 查看下一個動作但不移除
+            
+            # 檢查下一個動作是否可以執行
+            if next_action.can_perform(self):
+                # 下一個動作可以執行，完成當前動作並開始下一個
+                _finish_current_action()
+            else:
+                # 下一個動作無法執行，保持在當前動作
+                print("下一個動作無法執行: ", next_action.name, " - 保持在當前動作")
+        else:
+            # 沒有下一個動作，完成當前動作
+            _finish_current_action()
 
 func load_actions_from_ui(actions: Array) -> void:
     """將 UI 組好的動作轉換為實際的動作並加入 queue"""

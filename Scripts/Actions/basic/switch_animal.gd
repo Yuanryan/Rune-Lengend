@@ -29,8 +29,11 @@ func start(player):
         
         # 開始切換動作
         _switch_action = target_animal.get_switch_action()
-        if _switch_action:
+        if _switch_action and _switch_action.can_perform(player):
             _switch_action.start(player)
+        else:
+            # 如果切換動作無法執行，設置為null
+            _switch_action = null
 
 func update(player, delta: float) -> bool:
     # 如果有切換動作，更新它
@@ -42,8 +45,8 @@ func update(player, delta: float) -> bool:
             return true
         return false
     
-    # 沒有切換動作時立即完成
-    return true
+    # 沒有切換動作時，使用父類的時間檢查
+    return super.update(player, delta)
 
 func interrupt(player: CharacterBody2D) -> void:
     # 如果切換動作還在執行，中斷它
