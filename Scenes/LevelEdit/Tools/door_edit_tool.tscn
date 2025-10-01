@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://door_edit_tool"]
-
-[ext_resource type="Script" path="res://Scripts/Level/Tools/door_edit_tool.gd" id="1_door_edit"]
-
-[node name="DoorEditTool" type="Node2D"]
-script = ExtResource("1_door_edit")
