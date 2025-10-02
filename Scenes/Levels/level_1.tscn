@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=9 format=3 uid="uid://dqtphadkel0dl"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/land_edit_tool.tscn" id="2_3mqfk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/checkpoint.tscn" id="5_cyadu"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/damage_area.tscn" id="6_5f3p6"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/spike.tscn" id="6_xgxfi"]
+[ext_resource type="PackedScene" uid="uid://dhid8hboo4a2p" path="res://Scenes/LevelEdit/moving_platform.tscn" id="8_jv26f"]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0x8k9")
@@ -62,7 +63,6 @@ camera_target_position = Vector2(2440, 176)
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(48, 208)
 offset = Vector2(0, 100)
-zoom = Vector2(0.8, 0.8)
 limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
@@ -94,9 +94,16 @@ position = Vector2(-608, 408)
 [node name="Spike" parent="." instance=ExtResource("6_xgxfi")]
 position = Vector2(-176, 384)
 
+[node name="MovingPlatform" parent="." instance=ExtResource("8_jv26f")]
+sync_to_physics = false
+
+[node name="Path2D" parent="MovingPlatform" index="2"]
+position = Vector2(-556, 10)
+
 [editable path="Land"]
 [editable path="Land2"]
 [editable path="Land3"]
 [editable path="Land5"]
 [editable path="Land4"]
 [editable path="DamageArea"]
+[editable path="MovingPlatform"]
