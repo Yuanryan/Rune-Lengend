@@ -1,4 +1,5 @@
 [gd_scene load_steps=9 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=9 format=3 uid="uid://dqtphadkel0dl"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
@@ -104,3 +105,4 @@ rotation = -3.1415882
 [editable path="Land5"]
 [editable path="Land4"]
 [editable path="DamageArea"]
+[editable path="MovingPlatform"]
