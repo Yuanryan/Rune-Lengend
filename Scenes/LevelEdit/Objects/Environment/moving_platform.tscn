@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhid8hboo4a2p"]
+
+[ext_resource type="Script" uid="uid://cg5b6xnuk7vi0" path="res://Scripts/Level/Objects/moving_platform.gd" id="1_bi3rl"]
+[ext_resource type="Script" uid="uid://cfvcimqmbh715" path="res://Scripts/Level/Tools/smooth_line.gd" id="2_8l08e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(384, 64)
+
+[sub_resource type="Curve2D" id="Curve2D_default"]
+_data = {
+"points": PackedVector2Array(-86.33719, 50.4568, 86.33719, -50.4568, -11, -56, -60.41051, -79.69046, 60.41051, 79.69046, 105, 83, 90.437454, -42.67395, -90.437454, 42.67395, 130, 130, -96.83762, -24.949432, 96.83762, 24.949432, -126, 192, -98.07117, 19.54605, 98.07117, -19.54605, 359, 189, -73.715416, -67.572464, 73.715416, 67.572464, 737, 20, 94.093285, -33.859325, -94.093285, 33.859325, 419, 244, 95.86991, 28.442225, -95.86991, -28.442225, 209, 210, 63.733055, 77.05906, -63.733055, -77.05906, 28, 128, -86.33719, 50.4568, 86.33719, -50.4568, 2, 0)
+}
+point_count = 10
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+script = ExtResource("1_bi3rl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.4, 0.6, 0.8, 1)
+polygon = PackedVector2Array(-192, -32, 192, -32, 192, 32, -192, 32)
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_default")
+script = ExtResource("2_8l08e")
