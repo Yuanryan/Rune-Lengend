@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhid8hboo4a2p"]
 
-[ext_resource type="Script" uid="uid://cg5b6xnuk7vi0" path="res://Scripts/Level/moving_platform.gd" id="1_rj0f2"]
-[ext_resource type="Script" path="res://Scripts/Level/smooth_line.gd" id="2_8lfmr"]
+[ext_resource type="Script" uid="uid://cg5b6xnuk7vi0" path="res://Scripts/Level/Objects/moving_platform.gd" id="1_bi3rl"]
+[ext_resource type="Script" uid="uid://cfvcimqmbh715" path="res://Scripts/Level/Tools/smooth_line.gd" id="2_8l08e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(384, 64)
@@ -13,7 +13,7 @@ _data = {
 point_count = 10
 
 [node name="MovingPlatform" type="AnimatableBody2D"]
-script = ExtResource("1_rj0f2")
+script = ExtResource("1_bi3rl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1")
@@ -24,4 +24,4 @@ polygon = PackedVector2Array(-192, -32, 192, -32, 192, 32, -192, 32)
 
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_default")
-script = ExtResource("2_8lfmr")
+script = ExtResource("2_8l08e")
