@@ -1,3 +1,0 @@
-[gd_scene load_steps=0 format=3 uid="uid://dhid8hboo4a2p"]
-
-[node name="MovingPlatforom" type="RigidBody2D"]

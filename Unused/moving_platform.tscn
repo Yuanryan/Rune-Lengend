@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkoc56x4hasqw"]
+[gd_scene load_steps=5 format=3 uid="uid://du632o6355qhi"]
 
-[ext_resource type="Script" uid="uid://cg5b6xnuk7vi0" path="res://Scripts/Level/Objects/moving_platform.gd" id="1_bi3rl"]
-[ext_resource type="Script" uid="uid://cfvcimqmbh715" path="res://Scripts/Level/Tools/smooth_line.gd" id="2_8l08e"]
+[ext_resource type="Script" uid="uid://cg5b6xnuk7vi0" path="res://Unused/moving_platform.gd" id="1_bi3rl"]
+[ext_resource type="Script" uid="uid://cfvcimqmbh715" path="res://Unused/smooth_line.gd" id="2_8l08e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(384, 64)

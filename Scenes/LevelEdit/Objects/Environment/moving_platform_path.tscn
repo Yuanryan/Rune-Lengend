@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://ej3qajbyhnv8"]
+
+[ext_resource type="Script" uid="uid://bspbmogf57u3v" path="res://Scripts/Level/Tools/land_tool.gd" id="1_eqelh"]
+[ext_resource type="Script" uid="uid://dwuuh12ox4t1t" path="res://Scripts/Level/Objects/moving_platform_path.gd" id="1_nmk3u"]
+
+[sub_resource type="Curve2D" id="Curve2D_k5hdt"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -96, 0, 0, 0, 0, 160, -96)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_nmk3u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_eqelh"]
+resource_name = "move"
+length = 5.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(-1.56, -1.56),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yw6tl"]
+_data = {
+&"RESET": SubResource("Animation_nmk3u"),
+&"move": SubResource("Animation_eqelh")
+}
+
+[node name="MovingPlatformPath" type="Path2D"]
+curve = SubResource("Curve2D_k5hdt")
+script = ExtResource("1_nmk3u")
+movable = null
+
+[node name="MovingPlatform" type="AnimatableBody2D" parent="." groups=["Land"]]
+position = Vector2(0, -96)
+collision_mask = 2
+script = ExtResource("1_eqelh")
+
+[node name="Polygon2D" type="Polygon2D" parent="MovingPlatform"]
+position = Vector2(-39.87085, -16.061768)
+polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, 0.123535156, 32)
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, -96)
+rotates = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="PathFollow2D"]
+remote_path = NodePath("../../MovingPlatform")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_yw6tl")
+}

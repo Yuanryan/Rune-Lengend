@@ -3,10 +3,14 @@ extends StaticBody2D
 class_name LandTool
 
 @export_tool_button("Generate Collision", "CollisionPolygon2D") var generate_collision_action = generate_collision_shape
+@export_tool_button("Remove Collision", "CollisionPolygon2D") var remove_collision_action = remove_collision_shape
 var polygon_2d: Polygon2D = null
 var collision_polygon_2d: CollisionPolygon2D = null
 
 func _ready():
+    # 加入 land 群組
+    add_to_group("land")
+    
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true) 
         collision_polygon_2d = _find_collision()
@@ -69,5 +73,14 @@ func generate_collision_shape() -> void:
     
     print("已為 ", polygon_2d.name, " 生成碰撞形狀，包含 ", points.size(), " 個點")
 
-
+func remove_collision_shape() -> void:
+    if not Engine.is_editor_hint():
+        return
+    
+    if collision_polygon_2d and is_instance_valid(collision_polygon_2d):
+        collision_polygon_2d.queue_free()
+        collision_polygon_2d = null
+        print("已移除 ", name, " 的碰撞形狀")
+    else:
+        print("沒有找到可移除的碰撞形狀")
 

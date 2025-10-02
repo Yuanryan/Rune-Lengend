@@ -29,11 +29,12 @@ func clear_all_collisions() -> void:
             land_tool.collision_polygon_2d.queue_free()
 
 func _find_all_land_tools() -> Array[LandTool]:
-    # 尋找場景中所有的 LandTool 節點
+    # 使用群組尋找場景中所有的 LandTool 節點
     land_tools.clear()
-    for child in owner.get_children():
-        if child is LandTool:
-            land_tools.append(child)
+    var land_nodes = get_tree().get_nodes_in_group("Land")
+    for node in land_nodes:
+        if node is LandTool:
+            land_tools.append(node)
     return land_tools
 
 func generate_all_collisions() -> void:
