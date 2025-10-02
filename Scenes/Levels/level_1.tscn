@@ -1,31 +1,29 @@
-[gd_scene load_steps=10 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=8 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="2_4dpyx"]
 [ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_iixi8"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
-[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="6_5f3p6"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
-[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="6_xgxfi"]
-[ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="8_jv26f"]
+[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_jv26f"]
 
 [node name="Level1" type="Node2D"]
-script = ExtResource("1_xgxfi")
-level_resource = ExtResource("2_xgxfi")
+script = ExtResource("1_0x8k9")
+level_resource = ExtResource("2_iixi8")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
-[node name="LandEditTool" parent="." instance=ExtResource("3_jv26f")]
+[node name="LandEditTool" parent="." instance=ExtResource("2_3mqfk")]
 
 [node name="StartingPoint" type="Marker2D" parent="."]
 position = Vector2(-80, 256)
 
-[node name="checkpoint" parent="." instance=ExtResource("4_rb0md")]
+[node name="checkpoint" parent="." instance=ExtResource("5_cyadu")]
 position = Vector2(472, 224)
 checkpoint_id = 1
 camera_target_position = Vector2(872, 128)
 
-[node name="checkpoint2" parent="." instance=ExtResource("4_rb0md")]
+[node name="checkpoint2" parent="." instance=ExtResource("5_cyadu")]
 position = Vector2(1024, 240)
 checkpoint_id = 2
 camera_target_position = Vector2(552, 16)
@@ -38,9 +36,8 @@ limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("6_rb0md")
-zoom_speed = 0.01
 
-[node name="Land" parent="." instance=ExtResource("5_u5ghp")]
+[node name="Land" parent="." instance=ExtResource("2_4dpyx")]
 position = Vector2(304, 328)
 
 [node name="Polygon2D" parent="Land" index="0"]
@@ -51,7 +48,7 @@ polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
-[node name="Land2" parent="." instance=ExtResource("5_u5ghp")]
+[node name="Land2" parent="." instance=ExtResource("2_4dpyx")]
 position = Vector2(608, 656)
 
 [node name="Polygon2D" parent="Land2" index="0"]
@@ -62,7 +59,7 @@ polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 11
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="Door" parent="." instance=ExtResource("6_hwvp3")]
+[node name="Door" parent="." instance=ExtResource("7_jv26f")]
 position = Vector2(376, 264)
 
 [node name="GameButton" parent="Door" index="3"]
