@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqtphadkel0dl"]
+[gd_scene load_steps=10 format=3 uid="uid://dqtphadkel0dl"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_iixi8"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="6_5f3p6"]
+[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="6_xgxfi"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="8_jv26f"]
 
@@ -66,6 +67,8 @@ offset = Vector2(0, 100)
 limit_enabled = false
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+script = ExtResource("6_rb0md")
+zoom_speed = 0.01
 
 [node name="Land5" parent="." instance=ExtResource("2_4dpyx")]
 position = Vector2(2072, 432)

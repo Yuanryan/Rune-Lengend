@@ -6,7 +6,7 @@ class_name Level
 
 @export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = $StartingPoint
-@onready var camera: Camera2D = $Camera2D
+@onready var camera: ZoomableCamera = $Camera2D
 
 # 檢查點陣列
 var checkpoints: Array[Checkpoint] = []
