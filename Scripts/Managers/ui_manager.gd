@@ -83,6 +83,9 @@ func create_cards_from_level(level: Level) -> void:
         return
     if in_game_ui:
         in_game_ui.card_deck.create_cards_from_level_resource(level.level_resource)
+        # 連接卡片組到動作佇列以監聽變化
+        if in_game_ui.action_queue:
+            in_game_ui.card_deck.connect_to_action_queue(in_game_ui.action_queue)
 
 func get_in_game_ui() -> CanvasLayer:
     """獲取遊戲內UI"""

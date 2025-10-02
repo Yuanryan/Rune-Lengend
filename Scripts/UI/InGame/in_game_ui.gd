@@ -13,6 +13,7 @@ func _ready() -> void:
     _connect_signals.call_deferred()
     _update_ui.call_deferred()
     _connect_game_manager_signals()
+    _setup_card_deck_reference()
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -37,6 +38,11 @@ func _connect_game_manager_signals() -> void:
     """連接 GameManager 的狀態變化信號"""
     if GameManager:
         GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+
+func _setup_card_deck_reference() -> void:
+    """設置卡片組引用到動作佇列"""
+    # 這個方法現在在 create_cards_from_level_resource 中調用
+    pass
 
 func _on_card_selected(card: CardTile) -> void:
     """當卡片被點擊時，將其添加到動作佇列末尾"""
@@ -113,6 +119,10 @@ func reset_player() -> void:
         action_queue.unlock_queue()
         action_queue.clear_executing_action()
     
+    # 重置動作使用計數
+    if card_deck:
+        card_deck.reset_action_usage()
+    
     # 重置到規劃階段
     GameManager.reset_to_planning()
     
@@ -123,7 +133,26 @@ func restore_action_queue(action_descriptors: Array) -> void:
     """恢復動作佇列（由LevelManager調用）"""
     if action_queue:
         action_queue.restore_action_queue(action_descriptors)
+    
+    # 恢復動作使用計數
+    if card_deck:
+        _restore_action_usage_count(action_descriptors)
+    
     _update_ui()
+
+func _restore_action_usage_count(action_descriptors: Array) -> void:
+    """恢復動作使用計數"""
+    if not card_deck:
+        return
+    
+    # 重置計數
+    card_deck.reset_action_usage()
+    
+    # 根據動作描述恢復使用計數
+    for desc in action_descriptors:
+        var action_type: Action.ActionType = desc.get("action_type", -1)
+        if action_type != -1:
+            card_deck.use_action(action_type)
 
 func disable_buttons() -> void:
     execute_button.disabled = true
@@ -146,6 +175,11 @@ func unlock_buttons_after_execute() -> void:
 func _update_ui() -> void:
     var action_count = action_queue.get_action_count() if action_queue else 0
     var current_state = GameManager.current_in_game_state
+    
+    # 獲取動作使用信息
+    var usage_info = {}
+    if card_deck:
+        usage_info = card_deck.get_action_usage_info()
     
     # 根據當前狀態更新按鈕狀態
     match current_state:
@@ -190,9 +224,11 @@ func _update_ui() -> void:
         match current_state:
             GameManager.InGameState.PLANNING:
                 if action_count == 0:
-                    info_label.text = "Drag cards from above to build your action sequence"
+                    var usage_text = _get_usage_text(usage_info)
+                    info_label.text = "Drag cards from above to build your action sequence" + usage_text
                 else:
-                    info_label.text = "Ready to execute " + str(action_count) + " actions"
+                    var usage_text = _get_usage_text(usage_info)
+                    info_label.text = "Ready to execute " + str(action_count) + " actions" + usage_text
             GameManager.InGameState.EXECUTING:
                 info_label.text = "Executing actions... Queue is locked"
             GameManager.InGameState.COMPLETED:
@@ -201,6 +237,19 @@ func _update_ui() -> void:
                 info_label.text = "Execution failed! You can reset or plan new actions"
             GameManager.InGameState.PAUSED:
                 info_label.text = "Game is paused"
+
+func _get_usage_text(usage_info: Dictionary) -> String:
+    """獲取使用限制文本"""
+    if usage_info.is_empty():
+        return ""
+    
+    var total_used = usage_info.get("total_used", 0)
+    var total_max = usage_info.get("total_max", 0)
+    
+    if total_max > 0:
+        return " (" + str(total_used) + "/" + str(total_max) + " actions used)"
+    
+    return ""
 
 func _show_message(text: String) -> void:
     if info_label:

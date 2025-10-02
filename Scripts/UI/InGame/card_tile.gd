@@ -13,10 +13,17 @@ class_name CardTile
 @onready var bg: ColorRect = %ColorRect
 @onready var label: RichTextLabel = %Label
 @onready var outline: ColorRect = %OutlineColorRect
+@onready var usage_label: Label = %UsageLabel
+
 var _is_dragging: bool = false
 var _glow_tween: Tween
 # 專供 SWITCH_ANIMAL 使用：記錄目標動物類型（Animal.AnimalType 的整數值）。-1 代表未設定
 var animal_type: int = -1
+
+# 動作使用限制相關
+var _can_use: bool = true
+var _current_usage: int = 0
+var _max_usage: int = 999
 
 signal card_clicked(card: CardTile)
 signal card_dragged(card: CardTile)
@@ -109,3 +116,42 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     if new_state != GameManager.InGameState.EXECUTING:
         set_executing(false)
+
+# 設置使用信息
+func set_usage_info(usable: bool, current_usage: int, max_usage: int) -> void:
+    """設置動作使用信息"""
+    _can_use = usable
+    _current_usage = current_usage
+    _max_usage = max_usage
+    
+    _update_usage_display()
+    _update_visual_state()
+
+# 更新使用次數顯示
+func _update_usage_display() -> void:
+    """更新使用次數顯示"""
+    if not usage_label:
+        return
+    
+    if _max_usage < 999:  # 只有有限制的動作才顯示
+        usage_label.text = str(_max_usage - _current_usage)
+        usage_label.visible = true
+    else:
+        usage_label.visible = false
+
+# 更新視覺狀態
+func _update_visual_state() -> void:
+    """根據可用狀態更新視覺效果"""
+    if not _can_use:
+        # 禁用狀態：變暗並降低透明度
+        modulate = Color(0.5, 0.5, 0.5, 0.6)
+        draggable = false
+    else:
+        # 可用狀態：恢復正常
+        modulate = Color.WHITE
+        draggable = true
+
+# 檢查是否可以使用
+func can_use() -> bool:
+    """檢查卡片是否可以使用"""
+    return _can_use

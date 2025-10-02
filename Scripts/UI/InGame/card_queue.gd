@@ -34,6 +34,12 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
         
     var can_drop = typeof(data) == TYPE_DICTIONARY and data.has("type") and data["type"] == "card"
     
+    # 檢查動作限制 - 現在由 CardTile 的 can_use() 方法處理
+    if can_drop:
+        var card: CardTile = data.get("card")
+        if card and not card.can_use():
+            can_drop = false
+    
     if can_drop:
         _is_dragging_over = true
         _update_preview_indicator(at_position)
@@ -122,6 +128,8 @@ func _add_card_at_index(card: CardTile, insert_index: int) -> void:
         # CardTile 會攜帶 animal_type（僅 SWITCH_ANIMAL 會用到）
         animal_type = card.animal_type
     
+    # 動作使用計數由 CardDeck 在卡片狀態更新時處理
+    
     var queue_card = _create_queue_card(action_type, card.get_action_label(), animal_type)
     queue_cards.insert(insert_index, queue_card)
     _reorder_children()
@@ -172,6 +180,9 @@ func _remove_action_at(index: int) -> void:
     if index >= 0 and index < queue_cards.size():
         var card = queue_cards[index]
         var action_type = card.get_action_type()
+        
+        # 動作使用計數由 CardDeck 在卡片狀態更新時處理
+        
         queue_cards.remove_at(index)
         card.queue_free()
         action_removed.emit(action_type, index)
@@ -188,14 +199,21 @@ func add_card_at_tail(card: CardTile) -> void:
         print("佇列被鎖定，無法添加卡片")
         return
     
+    # 檢查卡片是否可以使用 - 現在由 CardTile 的 can_use() 方法處理
+    if not card.can_use():
+        print("卡片已達到使用限制，無法添加")
+        return
+    
     var insert_index = queue_cards.size()
     _add_card_at_index(card, insert_index)
 
 func clear_queue() -> void:
     """清空佇列"""
+    # 動作使用計數由 CardDeck 在卡片狀態更新時處理
     for card in queue_cards:
         if is_instance_valid(card):
             card.queue_free()
+    
     queue_cards.clear()
     queue_cleared.emit()
 
@@ -287,3 +305,5 @@ func unlock_queue() -> void:
 func is_locked() -> bool:
     """檢查隊列是否被鎖定"""
     return _is_locked
+
+# 不再需要設置卡片組引用，動作計數由 CardDeck 直接管理
