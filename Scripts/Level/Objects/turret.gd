@@ -92,9 +92,7 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
         can_fire = true
         if fire_timer:
             fire_timer.start()
-    elif new_state == GameManager.InGameState.COMPLETED:
-        can_fire = true
-    else:
+    elif new_state != GameManager.InGameState.COMPLETED and new_state != GameManager.InGameState.FAILED:
         can_fire = false
         if fire_timer:
-            fire_timer.stop()
+            fire_timer.stop()        

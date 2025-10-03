@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=11 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_jv26f"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="8_jv26f"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="9_rb0md"]
 
 [sub_resource type="Curve2D" id="Curve2D_jv26f"]
 resource_local_to_scene = true
@@ -52,7 +53,7 @@ position = Vector2(304, 328)
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
-[node name="@CollisionPolygon2D@26052" type="CollisionPolygon2D" parent="Land"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land"]
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
@@ -63,36 +64,41 @@ position = Vector2(608, 656)
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="@CollisionPolygon2D@26053" type="CollisionPolygon2D" parent="Land2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land2"]
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
 [node name="Door" parent="." instance=ExtResource("7_jv26f")]
 position = Vector2(376, 264)
 
-[node name="GameButton" parent="Door" index="3"]
+[node name="GameButton" parent="Door" index="2"]
 position = Vector2(-240, 24)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Door"]
+polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
 
 [node name="MovingPlatformPath" parent="." instance=ExtResource("8_jv26f")]
 position = Vector2(-64, 216)
 curve = SubResource("Curve2D_jv26f")
-movable = true
-start_delay = 2.0
 
 [node name="MovingPlatform" parent="MovingPlatformPath" index="0"]
-position = Vector2(86.919754, -93.7106)
+position = Vector2(184, -88)
 
 [node name="Polygon2D" parent="MovingPlatformPath/MovingPlatform" index="0"]
 polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, -136.12915, 40.061768)
 
-[node name="@CollisionPolygon2D@26054" type="CollisionPolygon2D" parent="MovingPlatformPath/MovingPlatform" index="1"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="MovingPlatformPath/MovingPlatform" index="1"]
 position = Vector2(-39.87085, -16.061768)
 polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, -136.12915, 40.061768)
 
 [node name="PathFollow2D" parent="MovingPlatformPath" index="1"]
 position = Vector2(184, -88)
 
+[node name="DamageArea" parent="." instance=ExtResource("9_rb0md")]
+position = Vector2(-200, 296)
+
 [editable path="Land"]
 [editable path="Land2"]
 [editable path="Door"]
 [editable path="MovingPlatformPath"]
+[editable path="DamageArea"]

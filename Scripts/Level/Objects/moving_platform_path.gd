@@ -1,7 +1,7 @@
 @tool
 extends Path2D
 
-@export var movable: bool = true : set = set_movable
+@export_tool_button("Toggle Movement") var move = func(): if animation_player.is_playing(): stop_movement() else: start_movement()
 
 ## 動畫時間 (秒)
 @export var loop_time: float = 2.0 : set = set_loop_time
@@ -9,40 +9,39 @@ extends Path2D
 ## 移動速度倍率
 @export var speed_scale: float = 1.0 : set = set_speed_scale
 
-## 是否自動開始移動
-@export var auto_start: bool = true
-
 ## 是否循環播放(Path2D 的頭尾相連時使用)
 @export var loop: bool = false : set = set_loop
-
-## 延遲開始時間 (秒)
-@export var start_delay: float = 0.0
-
 
 # 移動平台本體節點
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
-func _ready():
-    if Engine.is_editor_hint():
-        get_parent().set_editable_instance(self, true) 
+var movable: bool = false : set = set_movable
 
-    # 等待下一幀確保所有子節點都已準備好
-    await get_tree().process_frame
-    
+func _ready():
     # 確保 AnimationPlayer 存在
     if not animation_player:
         animation_player = get_node("%AnimationPlayer")
-    
+
+    if Engine.is_editor_hint():
+        get_parent().set_editable_instance(self, true) 
+        set_movable(true)
+    else:
+        if GameManager:
+            GameManager.in_game_state_changed.connect(_on_game_phase_changed)
+
+
     set_loop_time(loop_time)
     set_loop(loop)
     set_speed_scale(speed_scale)
-    
-    # 處理延遲和自動開始
-    if start_delay > 0 and is_inside_tree():
-        await get_tree().create_timer(start_delay).timeout
-    
-    if auto_start:
-        start_movement()
+
+
+# 處理遊戲階段變化
+func _on_game_phase_changed(new_state: GameManager.InGameState):
+    if new_state == GameManager.InGameState.EXECUTING:
+        movable = true
+    elif new_state == GameManager.InGameState.PLANNING:
+        stop_movement()
+        movable = false
 
 # 開始移動
 func start_movement():
@@ -52,7 +51,7 @@ func start_movement():
 # 停止移動
 func stop_movement():
     if animation_player:
-        animation_player.stop()
+        animation_player.stop.call_deferred()
 
 # 暫停移動
 func pause_movement():

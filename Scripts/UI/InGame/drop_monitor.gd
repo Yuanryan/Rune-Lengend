@@ -3,6 +3,7 @@ extends Panel
 class_name DropMonitor
 
 signal card_dropped_outside(card: CardTile)
+var is_painting: bool = false
 
 func _ready() -> void:
     # 設置為完全透明
@@ -36,3 +37,7 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
     # 直接發送信號，表示卡片被拖動到隊列外
     card_dropped_outside.emit(card)
     print("Card dropped outside queue: ", card.get_action_label())
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed("paint"):
+        is_painting = true

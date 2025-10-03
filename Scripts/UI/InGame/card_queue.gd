@@ -165,6 +165,10 @@ func _create_queue_card(action_type: Action.ActionType, label: String, animal_ty
     card.set_action_type(action_type, label)
     if animal_type != -1:
         card.animal_type = animal_type
+    
+    # 連接卡片點擊信號以處理從佇列中移除
+    card.card_clicked.connect(_on_queue_card_clicked)
+    
     add_child(card)
     return card
 
@@ -186,6 +190,16 @@ func _remove_action_at(index: int) -> void:
         queue_cards.remove_at(index)
         card.queue_free()
         action_removed.emit(action_type, index)
+
+func _on_queue_card_clicked(card: CardTile) -> void:
+    """當佇列中的卡片被點擊時，從佇列中移除它"""
+    # 如果隊列被鎖定，不允許移除卡片
+    if _is_locked:
+        return
+        
+    var card_index = queue_cards.find(card)
+    if card_index >= 0:
+        _remove_action_at(card_index)
 
 # ========== 公共API ==========
 
