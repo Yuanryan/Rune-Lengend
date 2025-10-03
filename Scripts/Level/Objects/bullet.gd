@@ -11,6 +11,8 @@ class_name Bullet
 # 傷害區域
 @onready var damage_area: DamageArea = %DamageArea
 
+
+
 # 計時器
 var _lifetime_timer: float = 0.0
 
@@ -20,7 +22,7 @@ func _physics_process(delta: float) -> void:
     _lifetime_timer += delta
     
     # 檢查是否超過生命週期
-    if _lifetime_timer >= lifetime:
+    if _lifetime_timer >= lifetime or velocity.length() < 0.1:
         _destroy_bullet()
     move_and_slide()
 

@@ -1,3 +1,4 @@
+@tool
 # Button.gd
 # 按鈕類別，當玩家踩到時會觸發信號
 extends Area2D
@@ -6,17 +7,26 @@ class_name GameButton
 signal button_pressed
 signal button_released
 
-@export var button_id: int = 0
+@export var color: Color = Color(1, 1, 1, 1) : set = set_color
 @export var auto_reset: bool = true
 @export var reset_delay: float = 0.1
+
+@onready var polygon : Polygon2D = %Polygon2D
 
 var is_pressed: bool = false
 var player_on_button: bool = false
 
 func _ready() -> void:
+    _get_polygon()
+    set_color(color)
     add_to_group("buttons")
     body_entered.connect(_on_body_entered)
     body_exited.connect(_on_body_exited)
+
+func _get_polygon() -> Polygon2D:
+    if polygon == null:
+        polygon = get_node("%Polygon2D")
+    return polygon
 
 func _on_body_entered(body: Node) -> void:
     if body is Player:
@@ -38,7 +48,6 @@ func press_button() -> void:
         return
     
     is_pressed = true
-    print("按鈕被按下: ", button_id)
     button_pressed.emit()
 
 func release_button() -> void:
@@ -46,7 +55,6 @@ func release_button() -> void:
         return
     
     is_pressed = false
-    print("按鈕被釋放: ", button_id)
     button_released.emit()
 
 func get_button_state() -> bool:
@@ -60,3 +68,8 @@ func force_press() -> void:
 func force_release() -> void:
     """強制釋放按鈕"""
     release_button()
+
+func set_color(new_color: Color) -> void:
+    color = new_color
+    if polygon:
+        polygon.color = color

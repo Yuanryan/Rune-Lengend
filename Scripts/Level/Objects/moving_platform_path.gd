@@ -20,8 +20,6 @@ extends Path2D
 
 
 # 移動平台本體節點
-@onready var animatable_body: AnimatableBody2D = $AnimatableBody2D
-@onready var path_follow: PathFollow2D = $PathFollow2D
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 func _ready():
@@ -40,7 +38,7 @@ func _ready():
     set_speed_scale(speed_scale)
     
     # 處理延遲和自動開始
-    if start_delay > 0:
+    if start_delay > 0 and is_inside_tree():
         await get_tree().create_timer(start_delay).timeout
     
     if auto_start:

@@ -67,11 +67,13 @@ func generate_collision_shape() -> void:
         push_error("Polygon2D 需要至少 3 個點來生成碰撞形狀")
         return
     
-    # 設置 CollisionPolygon2D 的位置和點
+    # 設置 CollisionPolygon2D 的位置、旋轉、縮放和點
     collision_polygon_2d.position = polygon_2d.position
+    collision_polygon_2d.rotation = polygon_2d.rotation
+    collision_polygon_2d.scale = polygon_2d.scale
     collision_polygon_2d.polygon = points
     
-    print("已為 ", polygon_2d.name, " 生成碰撞形狀，包含 ", points.size(), " 個點")
+    print("已為 ", polygon_2d.name, " 生成碰撞形狀，包含 ", points.size(), " 個點，旋轉角度：", rad_to_deg(polygon_2d.rotation), " 度，縮放：", polygon_2d.scale)
 
 func remove_collision_shape() -> void:
     if not Engine.is_editor_hint():

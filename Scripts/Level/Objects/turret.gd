@@ -43,7 +43,6 @@ func _fire_bullet() -> void:
     if not can_fire:
         return
         
-    print("砲塔射擊！射擊率: ", fire_rate, " 間隔: ", 1.0 / fire_rate)
     if not bullet_scene or not fire_point:
         print("砲塔：缺少子彈場景或發射點")
         return
@@ -86,14 +85,10 @@ func _calculate_fire_direction() -> void:
         # 計算BaseSprite的中心點
         var base_center = Vector2(base_sprite.size.x / 2, base_sprite.size.y / 2)
         
-        # 計算從BaseSprite中心到發射點的方向向量
-        var direction_vector = fire_point.position - base_center 
-        print(direction_vector)
-        # 正規化方向向量
-        if direction_vector.length() > 0:
-            _fire_direction = direction_vector.normalized()
-        else:
-            _fire_direction = Vector2.RIGHT  # 預設向右
+
+        
+        _fire_direction = ((fire_point.position - base_center) * Vector2(cos(global_rotation), sin(global_rotation))).normalized()
+        print("砲塔射擊方向：", _fire_direction)
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
@@ -105,4 +100,3 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
         can_fire = false
         if fire_timer:
             fire_timer.stop()
-

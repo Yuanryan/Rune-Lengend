@@ -12,9 +12,9 @@
 [sub_resource type="Curve2D" id="Curve2D_jv26f"]
 resource_local_to_scene = true
 _data = {
-"points": PackedVector2Array(-137.64848, -17.843323, 137.64848, 17.843323, 184, -88, 0, 0, 0, 0, 168, 48, 0, 0, 0, 0, 37.59485, 11.861435, 0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(-137.64848, -17.843323, 137.64848, 17.843323, 184, -88, 0, 0, 0, 0, 168, 48, 0, 0, 0, 0, 37.59485, 11.861435, 0, 0, 0, 0, 48, -96, 0, 0, 0, 0, 184, -88)
 }
-point_count = 4
+point_count = 5
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0x8k9")
@@ -52,7 +52,7 @@ position = Vector2(304, 328)
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land"]
+[node name="@CollisionPolygon2D@26052" type="CollisionPolygon2D" parent="Land"]
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
@@ -63,7 +63,7 @@ position = Vector2(608, 656)
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land2"]
+[node name="@CollisionPolygon2D@26053" type="CollisionPolygon2D" parent="Land2"]
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
@@ -77,17 +77,20 @@ position = Vector2(-240, 24)
 position = Vector2(-64, 216)
 curve = SubResource("Curve2D_jv26f")
 movable = true
-loop_time = 5.0
-speed_scale = 2.0
+start_delay = 2.0
 
 [node name="MovingPlatform" parent="MovingPlatformPath" index="0"]
-position = Vector2(204.31137, -84.137955)
+position = Vector2(86.919754, -93.7106)
+
+[node name="Polygon2D" parent="MovingPlatformPath/MovingPlatform" index="0"]
+polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, -136.12915, 40.061768)
+
+[node name="@CollisionPolygon2D@26054" type="CollisionPolygon2D" parent="MovingPlatformPath/MovingPlatform" index="1"]
+position = Vector2(-39.87085, -16.061768)
+polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, -136.12915, 40.061768)
 
 [node name="PathFollow2D" parent="MovingPlatformPath" index="1"]
 position = Vector2(184, -88)
-
-[node name="AnimationPlayer" parent="MovingPlatformPath" index="2"]
-speed_scale = 2.0
 
 [editable path="Land"]
 [editable path="Land2"]

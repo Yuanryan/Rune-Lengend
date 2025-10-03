@@ -42,7 +42,9 @@ folder_colors={
 "res://Assets/": "red",
 "res://Resources/": "orange",
 "res://Scenes/": "yellow",
-"res://Scripts/": "green"
+"res://Scripts/": "green",
+"res://Shaders/": "teal",
+"res://Unused/": "gray"
 }
 
 [global_group]

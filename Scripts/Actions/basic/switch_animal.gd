@@ -11,7 +11,7 @@ var _switch_action: Action = null
 func _init(_target_animal: Animal = null):
     target_animal = _target_animal
     name = "Switch Animal"
-    duration = 1.0   # 給動畫足夠的時間完成
+    duration = 0.0   # 給動畫足夠的時間完成
 
 func start(player):
     super.start(player)

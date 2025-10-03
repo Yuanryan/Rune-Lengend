@@ -1,7 +1,7 @@
 @tool
 # Door.gd
 # 門類別，可以通過按鈕控制開關
-extends StaticBody2D
+extends LandTool
 class_name Door
 
 signal door_opened
@@ -17,15 +17,19 @@ var is_opening: bool = false
 var is_closing: bool = false
 @onready var button: GameButton = %GameButton
 @onready var timer: Timer = %DoorTimer
-@onready var door_sprite: Sprite2D = %Sprite2D
-@onready var door_collision: CollisionShape2D = %CollisionShape2D
+@onready var door_polygon: Polygon2D = %Polygon2D
+@onready var door_collision: CollisionPolygon2D = _find_door_collision()
 
 func _ready() -> void:
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true)
     else:
-        add_to_group("doors")
+        # 確保門的碰撞元件存在
+        if door_collision == null:
+            door_collision = _find_door_collision()
         
+        add_to_group("doors")
+
         # 連接按鈕信號
         if button:
             button.button_pressed.connect(_on_button_pressed)
@@ -39,6 +43,13 @@ func _ready() -> void:
         
         # 連接 GameManager 的狀態變化信號
         GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+
+func _find_door_collision() -> CollisionPolygon2D:
+    """尋找門的碰撞元件"""
+    for child in get_children():
+        if child is CollisionPolygon2D:
+            return child
+    return null 
 
 func _on_button_pressed() -> void:
     """當按鈕被按下時"""
@@ -64,7 +75,7 @@ func open_door() -> void:
     
     # 播放開啟動畫
     var tween = create_tween()
-    tween.parallel().tween_property(door_sprite, "position", door_sprite.position + Vector2(0, -open_height), 1.0 / animation_speed)
+    tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, -open_height), 1.0 / animation_speed)
     tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, -open_height), 1.0 / animation_speed)
     tween.tween_callback(_on_door_opened)
 
@@ -93,7 +104,7 @@ func close_door() -> void:
     
     # 播放關閉動畫
     var tween = create_tween()
-    tween.parallel().tween_property(door_sprite, "position", door_sprite.position + Vector2(0, open_height), 1.0 / animation_speed)
+    tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, open_height), 1.0 / animation_speed)
     tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, open_height), 1.0 / animation_speed)
     tween.tween_callback(_on_door_closed)
 
@@ -110,7 +121,7 @@ func get_door_state() -> bool:
 func force_open() -> void:
     """強制開啟門"""
     if not is_open:
-        door_sprite.position += Vector2(0, -open_height)
+        door_polygon.position += Vector2(0, -open_height)
         door_collision.position += Vector2(0, -open_height)
         is_open = true
         door_opened.emit()
@@ -118,7 +129,7 @@ func force_open() -> void:
 func force_close() -> void:
     """強制關閉門"""
     if is_open:
-        door_sprite.position += Vector2(0, open_height)
+        door_polygon.position += Vector2(0, open_height)
         door_collision.position += Vector2(0, open_height)
         is_open = false
         door_closed.emit()
@@ -145,8 +156,8 @@ func reset_door() -> void:
     is_closing = false
     
     # 重置門的位置到初始狀態（關閉狀態）
-    if door_sprite and door_collision:
-        door_sprite.position = Vector2(0, 0)
+    if door_polygon and door_collision:
+        door_polygon.position = Vector2(0, 0)
         door_collision.position = Vector2(0, 0)
     
     print("門 ", door_id, " 已重置到初始狀態")

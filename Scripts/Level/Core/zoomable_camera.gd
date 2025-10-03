@@ -7,9 +7,11 @@ class_name ZoomableCamera
 @export var max_zoom: float = 3.0
 
 var original_zoom: float = 1.0
+var original_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
     original_zoom = zoom.x
+    original_position = position
 
 func _input(event: InputEvent) -> void:
     # 處理滑鼠滾輪縮放
@@ -44,4 +46,14 @@ func set_zoom_at_mouse(delta: Vector2, event: InputEventMouseButton) -> void:
     position += mouse_world_pos - new_mouse_world_pos
     
     # 重新啟用相機
+    enabled = true
+
+func set_zoom_at_origin(delta: Vector2) -> void:
+    """在原始位置縮放"""
+    position_smoothing_enabled = false
+    enabled = false
+
+    zoom += delta
+    position = original_position
+
     enabled = true

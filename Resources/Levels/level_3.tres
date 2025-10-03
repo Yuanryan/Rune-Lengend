@@ -7,11 +7,11 @@ script = ExtResource("1_sya6a")
 level_name = "Level 3"
 max_total_actions = 100
 individual_action_limits = Dictionary[int, int]({
-0: 999,
-1: 999,
-2: 999,
-3: 999,
-4: 999
+0: 4,
+1: 3,
+2: 3,
+3: 4,
+4: 3
 })
 available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bnoi35lwldban"
