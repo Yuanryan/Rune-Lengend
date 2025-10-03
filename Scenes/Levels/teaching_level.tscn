@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://cil7wwj051m4v"]
+
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_yrm0i"]
+[ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_vlkn2"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_hqnw8"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/land.tscn" id="4_hc100"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/checkpoint.tscn" id="5_rhn36"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/damage_area.tscn" id="6_knl5n"]
+
+[node name="teaching_level" type="Node2D"]
+script = ExtResource("1_yrm0i")
+level_resource = ExtResource("2_vlkn2")
+
+[node name="LandEditTool" parent="." instance=ExtResource("3_hqnw8")]
+
+[node name="StartingPoint" type="Marker2D" parent="."]
+position = Vector2(-400, 344)
+
+[node name="Land" parent="." instance=ExtResource("4_hc100")]
+
+[node name="Polygon2D" parent="Land" index="0"]
+position = Vector2(8, 152)
+polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land"]
+position = Vector2(8, 152)
+polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
+
+[node name="checkpoint" parent="." instance=ExtResource("5_rhn36")]
+position = Vector2(505, 354)
+checkpoint_id = 1
+camera_target_position = Vector2(1128, 176)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(48, 208)
+offset = Vector2(0, 100)
+zoom = Vector2(0.8, 0.8)
+limit_enabled = false
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+
+[node name="DamageArea" parent="." instance=ExtResource("6_knl5n")]
+position = Vector2(-608, 408)
+
+[node name="Land2" parent="." instance=ExtResource("4_hc100")]
+position = Vector2(1312, 408)
+
+[node name="Polygon2D" parent="Land2" index="0"]
+position = Vector2(-64, -256)
+polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land2"]
+position = Vector2(-64, -256)
+polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
+
+[editable path="Land"]
+[editable path="DamageArea"]
+[editable path="Land2"]
