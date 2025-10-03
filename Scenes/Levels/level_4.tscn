@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drmqs18i0i8j5"]
+[gd_scene load_steps=11 format=3 uid="uid://drmqs18i0i8j5"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_keyqw"]
 [ext_resource type="Resource" uid="uid://by712q5vtovrk" path="res://Resources/Levels/level_4.tres" id="2_keyqw"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_eb4ip"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="8_ecora"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_xpmn3"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_gsxik"]
 
 [node name="Level4" type="Node2D"]
 script = ExtResource("1_keyqw")
@@ -223,6 +224,12 @@ color = Color(0.43529412, 0.7372549, 0.4, 1)
 position = Vector2(0, 2)
 polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
 
+[node name="DamageArea" parent="." instance=ExtResource("10_gsxik")]
+position = Vector2(-49, 537)
+
+[node name="CollisionPolygon2D" parent="DamageArea" index="1"]
+polygon = PackedVector2Array(4, 4, 237, 4, 237, 44, 4, 44)
+
 [editable path="Turret"]
 [editable path="Turret2"]
 [editable path="LandNodes/Land3"]
@@ -238,3 +245,4 @@ polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
 [editable path="TimedDoor"]
 [editable path="TimedDoor2"]
 [editable path="TimedDoor3"]
+[editable path="DamageArea"]

@@ -30,13 +30,11 @@ func shoot(direction: Vector2) -> void:
     """發射子彈"""
     # 設置初始速度
     velocity = direction.normalized() * speed
-    print(velocity)
     # 旋轉子彈朝向移動方向
     rotation = direction.angle()
 
 func _on_player_died(player: Player) -> void:
     """當玩家死亡時銷毀子彈"""
-    print("子彈擊中玩家，銷毀子彈")
     _destroy_bullet()
 
 func _destroy_bullet() -> void:

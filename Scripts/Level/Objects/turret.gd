@@ -84,11 +84,7 @@ func _calculate_fire_direction() -> void:
     if fire_point and base_sprite:
         # 計算BaseSprite的中心點
         var base_center = Vector2(base_sprite.size.x / 2, base_sprite.size.y / 2)
-        
-
-        
         _fire_direction = ((fire_point.position - base_center) * Vector2(cos(global_rotation), sin(global_rotation))).normalized()
-        print("砲塔射擊方向：", _fire_direction)
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
@@ -96,6 +92,8 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
         can_fire = true
         if fire_timer:
             fire_timer.start()
+    elif new_state == GameManager.InGameState.COMPLETED:
+        can_fire = true
     else:
         can_fire = false
         if fire_timer:

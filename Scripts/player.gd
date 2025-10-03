@@ -41,7 +41,6 @@ func switch_animal(target_animal: Animal) -> void:
     if target_animal:
         # 發出動物切換信號，讓AnimalComponent處理實際的切換
         animal_switched.emit(target_animal)
-        print("切換到動物: ", target_animal.animal_data.name)
 
 func is_executing() -> bool:
     """檢查是否正在執行動作"""
@@ -265,12 +264,10 @@ func _notify_ui_all_actions_finished() -> void:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
-    print("動物切換完成: ", target_animal.animal_data.name if target_animal and target_animal.animal_data else "未知動物")
-
+    pass 
+    
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
-    print("Player: 遊戲內狀態變更為 ", new_state)
-    
     # 根據狀態執行相應的處理
     match new_state:
         GameManager.InGameState.PLANNING:
@@ -287,7 +284,6 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
 # 狀態響應方法
 func _on_planning_state_entered() -> void:
     """進入規劃階段時的處理"""
-    print("Player: 進入規劃階段")
     is_executing_actions = false
     
     # 停止所有正在執行的動作
@@ -304,20 +300,16 @@ func _on_planning_state_entered() -> void:
 
 func _on_executing_state_entered() -> void:
     """進入執行階段時的處理"""
-    print("Player: 進入執行階段")
     is_executing_actions = true
 
 func _on_completed_state_entered() -> void:
     """進入完成階段時的處理"""
-    print("Player: 進入完成階段")
     is_executing_actions = false
 
 func _on_failed_state_entered() -> void:
     """進入失敗階段時的處理"""
-    print("Player: 進入失敗階段")
     is_executing_actions = false
 
 func _on_paused_state_entered() -> void:
     """進入暫停階段時的處理"""
-    print("Player: 進入暫停階段")
     # 暫停階段不需要額外處理

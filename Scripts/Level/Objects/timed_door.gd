@@ -7,10 +7,12 @@ class_name Door
 signal door_opened
 signal door_closed
 
-@export var door_id: int = 0
-@export var open_duration: float = 3.0  # 門開啟持續時間
-@export var open_height: float = 64.0  # 門開啟的高度
-@export var animation_speed: float = 2.0  # 開關動畫速度
+## 門開啟持續時間
+@export var open_duration: float = 3.0  
+## 門開啟的高度
+@export var open_height: float = 64.0  
+## 開關動畫速度
+@export var animation_speed: float = 2.0  
 
 var is_open: bool = false
 var is_opening: bool = false
@@ -34,8 +36,6 @@ func _ready() -> void:
         if button:
             button.button_pressed.connect(_on_button_pressed)
             button.button_released.connect(_on_button_released)
-        else:
-            push_error("門 ", door_id, " 沒有找到按鈕子節點")
         
         # 設置計時器等待時間並連接信號
         timer.wait_time = open_duration
@@ -160,8 +160,6 @@ func reset_door() -> void:
         door_polygon.position = Vector2(0, 0)
         door_collision.position = Vector2(0, 0)
     
-    print("門 ", door_id, " 已重置到初始狀態")
-
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     # 當進入規劃階段時重置門（這通常發生在關卡重載時）

@@ -73,8 +73,6 @@ func generate_collision_shape() -> void:
     collision_polygon_2d.scale = polygon_2d.scale
     collision_polygon_2d.polygon = points
     
-    print("已為 ", polygon_2d.name, " 生成碰撞形狀，包含 ", points.size(), " 個點，旋轉角度：", rad_to_deg(polygon_2d.rotation), " 度，縮放：", polygon_2d.scale)
-
 func remove_collision_shape() -> void:
     if not Engine.is_editor_hint():
         return
@@ -82,7 +80,6 @@ func remove_collision_shape() -> void:
     if collision_polygon_2d and is_instance_valid(collision_polygon_2d):
         collision_polygon_2d.queue_free()
         collision_polygon_2d = null
-        print("已移除 ", name, " 的碰撞形狀")
     else:
         print("沒有找到可移除的碰撞形狀")
 

@@ -56,10 +56,6 @@ func _update_animal_behavior() -> void:
     """根據當前動物更新行為特性"""
     if not current_animal:
         return
-    
-    # 這裡可以添加動物特定的行為邏輯
-    # 例如：狼可能有夜視能力，兔子可能有更好的跳躍等
-    print("更新動物行為: ", current_animal.animal_data.name)
 
 func get_animal_move_speed() -> float:
     """獲取當前動物的移動速度"""

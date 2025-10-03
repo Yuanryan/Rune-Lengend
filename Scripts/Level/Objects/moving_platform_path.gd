@@ -1,7 +1,7 @@
 @tool
 extends Path2D
 
-@export var movable: bool = false : set = set_movable
+@export var movable: bool = true : set = set_movable
 
 ## 動畫時間 (秒)
 @export var loop_time: float = 2.0 : set = set_loop_time
