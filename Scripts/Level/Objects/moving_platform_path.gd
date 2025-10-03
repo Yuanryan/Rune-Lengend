@@ -1,7 +1,7 @@
 @tool
 extends Path2D
 
-@export_tool_button("Toggle Movement") var move = func(): if animation_player.is_playing(): stop_movement() else: start_movement()
+@export_tool_button("Toggle Movement", "PathFollow2D") var move = func(): if animation_player.is_playing(): stop_movement() else: start_movement()
 
 ## 動畫時間 (秒)
 @export var loop_time: float = 2.0 : set = set_loop_time

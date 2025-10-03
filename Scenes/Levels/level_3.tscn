@@ -44,10 +44,20 @@ rotation = -6.2831855
 bullet_speed = 250.0
 
 [node name="TimedDoor" parent="." instance=ExtResource("7_167vu")]
-position = Vector2(232, 104)
+position = Vector2(232, 168)
 
-[node name="GameButton" parent="TimedDoor" index="4"]
+[node name="Polygon2D" parent="TimedDoor" index="0"]
+position = Vector2(-1.199997, -63.800003)
+
+[node name="DoorTimer" parent="TimedDoor" index="1"]
+wait_time = 2.0
+
+[node name="GameButton" parent="TimedDoor" index="2"]
 position = Vector2(104, 296)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TimedDoor"]
+position = Vector2(-1.199997, -63.800003)
+polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
 
 [node name="SpikeNodes" type="Node2D" parent="."]
 

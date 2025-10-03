@@ -14,15 +14,40 @@ signal door_closed
 ## 開關動畫速度
 @export var animation_speed: float = 2.0  
 
-var is_open: bool = false
-var is_opening: bool = false
-var is_closing: bool = false
 @onready var button: GameButton = %GameButton
 @onready var timer: Timer = %DoorTimer
 @onready var door_polygon: Polygon2D = %Polygon2D
 @onready var door_collision: CollisionPolygon2D = _find_door_collision()
 
+var is_open: bool = false
+var is_opening: bool = false
+var is_closing: bool = false
+
+var open_action = open_door
+var close_action = close_door
+func _get_property_list() -> Array:
+    var properties = [        
+        {   "name": "open_action",
+            "type": TYPE_CALLABLE,
+            "usage": PROPERTY_USAGE_EDITOR ,
+            "hint": PROPERTY_HINT_TOOL_BUTTON ,
+            "hint_string": "Open Door,BackBufferCopy",
+        }]
+    if is_opening:
+        properties.clear()
+        properties.append({
+            "name": "close_action",
+            "type": TYPE_CALLABLE,
+            "usage": PROPERTY_USAGE_EDITOR ,
+            "hint": PROPERTY_HINT_TOOL_BUTTON ,
+            "hint_string": "Close Door,BackBufferCopy",
+        })
+    return properties
+
+
+
 func _ready() -> void:
+
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true)
     else:
@@ -36,11 +61,10 @@ func _ready() -> void:
         if button:
             button.button_pressed.connect(_on_button_pressed)
             button.button_released.connect(_on_button_released)
-        
         # 設置計時器等待時間並連接信號
         timer.wait_time = open_duration
         timer.timeout.connect(_on_timer_timeout)
-        
+
         # 連接 GameManager 的狀態變化信號
         GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
@@ -78,6 +102,7 @@ func open_door() -> void:
     tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, -open_height), 1.0 / animation_speed)
     tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, -open_height), 1.0 / animation_speed)
     tween.tween_callback(_on_door_opened)
+    notify_property_list_changed()
 
 func _on_door_opened() -> void:
     """門開啟完成"""
@@ -107,7 +132,9 @@ func close_door() -> void:
     tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, open_height), 1.0 / animation_speed)
     tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, open_height), 1.0 / animation_speed)
     tween.tween_callback(_on_door_closed)
-
+    if Engine.is_editor_hint():
+        notify_property_list_changed()
+        
 func _on_door_closed() -> void:
     """門關閉完成"""
     is_closing = false

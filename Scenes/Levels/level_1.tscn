@@ -80,6 +80,7 @@ polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
 [node name="MovingPlatformPath" parent="." instance=ExtResource("8_jv26f")]
 position = Vector2(-64, 216)
 curve = SubResource("Curve2D_jv26f")
+loop = true
 
 [node name="MovingPlatform" parent="MovingPlatformPath" index="0"]
 position = Vector2(184, -88)
