@@ -10,6 +10,14 @@ var land_tools: Array[LandTool] = []
 # 工具按鈕 - 生成所有碰撞
 @export_tool_button("Generate All Collisions", "CollisionPolygon2D") var generate_all_action = generate_all_collisions
 @export_tool_button("Clear All Collisions", "CollisionPolygon2D") var clear_all_action = clear_all_collisions
+@export var hide_all_polygons_in_game: bool = true
+
+func _ready() -> void:
+    if not Engine.is_editor_hint():
+        land_tools = _find_all_land_tools()
+        if hide_all_polygons_in_game:
+            for land_tool in land_tools:
+                land_tool.hide_polygon_in_game = true
 
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray = []
@@ -60,23 +68,3 @@ func generate_all_collisions() -> void:
     
     print("批量生成完成：成功 ", success_count, " 個，失敗 ", error_count, " 個")
 
-# 檢查所有 LandTool 的狀態
-func check_all_land_tools() -> void:
-    if not Engine.is_editor_hint():
-        return
-    
-    land_tools = _find_all_land_tools()
-    print("=== LandTool 狀態檢查 ===")
-    print("總共找到 ", land_tools.size(), " 個 LandTool 節點")
-    
-    for i in range(land_tools.size()):
-        var land_tool = land_tools[i]
-        var polygon = land_tool._find_polygon2d()
-        var has_collision = land_tool.collision_polygon_2d != null
-        
-        print("LandTool ", i + 1, ": ", land_tool.name)
-        print("  - Polygon2D: ", "有" if polygon else "無")
-        print("  - 碰撞形狀: ", "有" if has_collision else "無")
-        if polygon:
-            print("  - 多邊形點數: ", polygon.polygon.size())
-        print("")

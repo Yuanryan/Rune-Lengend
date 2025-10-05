@@ -4,6 +4,7 @@ class_name LandTool
 
 @export_tool_button("Generate Collision", "CollisionPolygon2D") var generate_collision_action = generate_collision_shape
 @export_tool_button("Remove Collision", "CollisionPolygon2D") var remove_collision_action = remove_collision_shape
+@export var hide_polygon_in_game: bool = false
 var polygon_2d: Polygon2D = null
 var collision_polygon_2d: CollisionPolygon2D = null
 
@@ -14,6 +15,8 @@ func _ready():
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true) 
         collision_polygon_2d = _find_collision()
+    if hide_polygon_in_game and not Engine.is_editor_hint():
+        hide_polygon()
 
 func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray = []
@@ -41,15 +44,23 @@ func _find_collision() -> CollisionPolygon2D:
 
 func _setup_collision() -> void:
     # 清除現有的 CollisionPolygon2D 節點
+    if not collision_polygon_2d:
+        collision_polygon_2d = _find_collision()
+    
     if collision_polygon_2d and is_instance_valid(collision_polygon_2d):
         collision_polygon_2d.queue_free()
-    
+
     # 創建 CollisionPolygon2D
     collision_polygon_2d = CollisionPolygon2D.new()
     collision_polygon_2d.name = "CollisionPolygon2D"
     add_child(collision_polygon_2d)
     collision_polygon_2d.owner = get_tree().edited_scene_root
 
+
+func hide_polygon() -> void:
+    polygon_2d = _find_polygon2d()
+    if polygon_2d:
+        polygon_2d.visible = false
 
 func generate_collision_shape() -> void:
     if not Engine.is_editor_hint():

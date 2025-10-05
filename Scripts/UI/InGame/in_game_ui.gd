@@ -53,11 +53,9 @@ func _on_card_selected(card: CardTile) -> void:
     action_queue.add_card_at_tail(card)
 
 func _on_action_added(action_type: Action.ActionType, index: int) -> void:
-    print("Action added to queue: ", action_type, " at index ", index)
     _update_ui()
 
 func _on_action_removed(action_type: Action.ActionType, index: int) -> void:
-    print("Action removed from queue: ", action_type, " at index ", index)
     _update_ui()
 
 func _on_queue_cleared() -> void:

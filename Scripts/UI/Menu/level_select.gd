@@ -23,19 +23,17 @@ func _connect_signals() -> void:
 
 
 func _create_level_buttons() -> void:
-    if not levels_container or not LEVEL_BUTTON_SCENE:
+    if not levels_container:
         push_error("無法創建關卡按鈕：缺少必要組件")
         return
     
     # 從 LevelManager 獲取所有關卡場景
     var level_scenes = LevelManager.get_all_level_scenes()
-    var level_ids = LevelManager.get_all_level_ids()
     
-    for i in range(level_ids.size()):
-        var level_id = level_ids[i]
-        var level_scene = level_scenes[level_id]
-        
+    var button_index = 0
+    for level_scene in level_scenes.values():
         if not level_scene:
+            push_warning("關卡場景不存在")
             continue
         
         var button: LevelButton = LEVEL_BUTTON_SCENE.instantiate()
@@ -43,9 +41,11 @@ func _create_level_buttons() -> void:
             push_error("無法實例化關卡按鈕")
             continue
         
+        # 從場景資源路徑獲取名稱
+        var scene_name = _get_scene_name_from_resource(level_scene)
+        
         # 創建配置
         var config = {
-            "level_id": level_id,
             "level_scene": level_scene,
             "unlocked": true,  # 暫時讓所有關卡都解鎖
             "completed": false
@@ -53,8 +53,8 @@ func _create_level_buttons() -> void:
         
         # 設置按鈕
         button.setup(
-            i + 1,  # 關卡編號
-            level_id.capitalize(),  # 使用關卡 ID 作為顯示名稱
+            button_index + 1,  # 關卡編號
+            scene_name,  # 使用場景名稱作為顯示名稱
             config.unlocked,
             config.completed,
             config,
@@ -63,6 +63,7 @@ func _create_level_buttons() -> void:
         
         # 添加到容器
         levels_container.add_child(button)
+        button_index += 1
 
 func _on_back_pressed() -> void:
     print("返回主選單")
@@ -135,3 +136,20 @@ func hide_level_select() -> void:
     """隱藏關卡選擇頁面"""
     visible = false
     process_mode = Node.PROCESS_MODE_DISABLED
+
+# 從場景資源獲取場景名稱的輔助函數
+func _get_scene_name_from_resource(scene: PackedScene) -> String:
+    if not scene:
+        return "Unknown Level"
+    
+    var resource_path = scene.resource_path
+    if resource_path.is_empty():
+        return "Untitled Level"
+    
+    # 從路徑中提取檔案名（不含副檔名）
+    var file_name = resource_path.get_file().get_basename()
+    
+    # 將底線替換為空格並首字母大寫
+    var display_name = file_name.replace("_", " ").capitalize()
+    
+    return display_name

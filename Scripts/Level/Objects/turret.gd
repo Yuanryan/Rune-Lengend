@@ -52,16 +52,17 @@ func _fire_bullet() -> void:
     if not bullet:
         print("砲塔：無法實例化子彈")
         return
-    
+
+    # 設置子彈位置和方向
+    bullet.global_position = fire_point.global_position
+    bullet.shoot(_fire_direction)
+
     # 將子彈添加到場景
-    get_tree().current_scene.add_child(bullet)
+    owner.add_child(bullet)
     
     # 將子彈添加到 bullets 群組以便管理
     bullet.add_to_group("bullets")
     
-    # 設置子彈位置和方向
-    bullet.global_position = fire_point.global_position
-    bullet.shoot(_fire_direction)
     
     # 發出射擊信號
     bullet_fired.emit(bullet)

@@ -13,22 +13,26 @@ script = ExtResource("1_oylv5")
 level_resource = ExtResource("2_ovj6s")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
-[node name="LandEditTool" parent="." instance=ExtResource("2_w2ac1")]
+[node name="GameObjects" type="Node2D" parent="."]
 
-[node name="StartingPoint" type="Marker2D" parent="."]
+[node name="LandEditTool" parent="GameObjects" instance=ExtResource("2_w2ac1")]
+
+[node name="StartingPoint" type="Marker2D" parent="GameObjects"]
+unique_name_in_owner = true
 position = Vector2(-80, 256)
 
-[node name="checkpoint" parent="." instance=ExtResource("3_w2ac1")]
+[node name="checkpoint" parent="GameObjects" instance=ExtResource("3_w2ac1")]
 position = Vector2(472, 224)
 checkpoint_id = 1
 camera_target_position = Vector2(872, 128)
 
-[node name="checkpoint2" parent="." instance=ExtResource("3_w2ac1")]
+[node name="checkpoint2" parent="GameObjects" instance=ExtResource("3_w2ac1")]
 position = Vector2(1024, 240)
 checkpoint_id = 2
 camera_target_position = Vector2(552, 16)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="GameObjects"]
+unique_name_in_owner = true
 position = Vector2(392, 176)
 offset = Vector2(0, 100)
 zoom = Vector2(0.8, 0.8)
@@ -37,37 +41,37 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("5_fphuk")
 
-[node name="Land" parent="." instance=ExtResource("3_ovj6s")]
+[node name="Land" parent="GameObjects" instance=ExtResource("3_ovj6s")]
 position = Vector2(304, 328)
 
-[node name="Polygon2D" parent="Land" index="0"]
+[node name="Polygon2D" parent="GameObjects/Land" index="0"]
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
-[node name="@CollisionPolygon2D@29747" type="CollisionPolygon2D" parent="Land"]
+[node name="@CollisionPolygon2D@29747" type="CollisionPolygon2D" parent="GameObjects/Land"]
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
 
-[node name="Land2" parent="." instance=ExtResource("3_ovj6s")]
+[node name="Land2" parent="GameObjects" instance=ExtResource("3_ovj6s")]
 position = Vector2(608, 656)
 
-[node name="Polygon2D" parent="Land2" index="0"]
+[node name="Polygon2D" parent="GameObjects/Land2" index="0"]
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="@CollisionPolygon2D@29748" type="CollisionPolygon2D" parent="Land2"]
+[node name="@CollisionPolygon2D@29748" type="CollisionPolygon2D" parent="GameObjects/Land2"]
 position = Vector2(112, -608)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="Door" parent="." instance=ExtResource("6_8qsmg")]
+[node name="Door" parent="GameObjects" instance=ExtResource("6_8qsmg")]
 position = Vector2(376, 264)
 
-[node name="GameButton" parent="Door" index="2"]
+[node name="GameButton" parent="GameObjects/Door" index="2"]
 position = Vector2(-240, 24)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Door"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Door"]
 polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
 
-[editable path="Land"]
-[editable path="Land2"]
-[editable path="Door"]
+[editable path="GameObjects/Land"]
+[editable path="GameObjects/Land2"]
+[editable path="GameObjects/Door"]

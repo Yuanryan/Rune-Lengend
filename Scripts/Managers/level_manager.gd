@@ -27,17 +27,35 @@ func _scan_and_load_levels() -> void:
     var scenes_dir = "res://Scenes/Levels/"
     
     # 掃描場景檔案
-    var scene_files = _get_files_in_directory(scenes_dir, ".tscn")
+    var scene_files = _get_files_in_directory(scenes_dir, "tscn")
     
     for scene_file in scene_files:
         var level_name = scene_file.replace(".tscn", "")  # 例如: "level_1"
         var scene_path = scenes_dir + scene_file
         _load_level_from_scene(level_name, scene_path)
 
+# 獲取目錄中的檔案
+func _get_files_in_directory(path: String, extension: String) -> Array[String]:
+    var files: Array[String] = []
+    var dir = DirAccess.open(path)
+    if dir:
+        dir.list_dir_begin()
+        var file_name = dir.get_next()
+        while file_name != "":
+            if file_name.get_extension() == "remap":
+                file_name = file_name.replace(".remap", "")
+            if file_name.get_extension() == extension:
+                files.append(file_name)
+            file_name = dir.get_next()
+        
+        dir.list_dir_end()
+    
+    return files
+
 # 從場景檔案載入關卡
 func _load_level_from_scene(level_id: String, scene_path: String) -> void:
     # 檢查檔案是否存在
-    if not FileAccess.file_exists(scene_path):
+    if not FileAccess.file_exists(scene_path) and not ResourceLoader.exists(scene_path):
         print("關卡場景檔案不存在: ", scene_path)
         return
     
@@ -55,31 +73,7 @@ func _load_level_from_scene(level_id: String, scene_path: String) -> void:
     # 儲存到關卡場景字典
     level_scenes[level_id] = scene
 
-# 獲取目錄中的檔案
-func _get_files_in_directory(path: String, extension: String) -> Array[String]:
-    var files: Array[String] = []
-    var dir = DirAccess.open(path)
-    
-    if dir:
-        dir.list_dir_begin()
-        var file_name = dir.get_next()
-        
-        while file_name != "":
-            if file_name.ends_with(extension):
-                files.append(file_name)
-            file_name = dir.get_next()
-        
-        dir.list_dir_end()
-    
-    return files
 
-# 獲取所有關卡 ID
-func get_all_level_ids() -> Array[String]:
-    var ids: Array[String] = []
-    for level_id in level_scenes.keys():
-        ids.append(level_id)
-    ids.sort()
-    return ids
 
 # ========== 核心功能 ==========
 

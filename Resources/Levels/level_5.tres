@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LevelResource" load_steps=2 format=3 uid="uid://0oq1jgt4en3c"]
+
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="1_t155u"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_t155u")
+level_name = "Level 5"
+max_total_actions = 100
+individual_action_limits = Dictionary[int, int]({
+0: 999,
+1: 999,
+2: 6,
+3: 6,
+4: 3
+})
+available_animals = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://bnoi35lwldban"

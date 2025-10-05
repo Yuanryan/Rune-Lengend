@@ -45,7 +45,7 @@ theme_override_constants/separation = 30
 [node name="TitleLabel" type="Label" parent="MainContainer/ContentPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "選擇關卡"
+text = "Choose a Level"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -61,4 +61,4 @@ columns = 3
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "返回主選單"
+text = "Back to Main Menu"

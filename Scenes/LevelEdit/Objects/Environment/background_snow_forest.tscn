@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://cvnwkt8tu2mdg"]
+
+[ext_resource type="Script" path="res://Scripts/Level/Core/background.gd" id="1_cfrbi"]
+[ext_resource type="Texture2D" uid="uid://b8wq0wlwg4dyt" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background_layer0b_tall.png" id="2_fxtfo"]
+[ext_resource type="Texture2D" uid="uid://bmbubq8me3s3r" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background_layer1b_tall.png" id="3_4g6kw"]
+[ext_resource type="Texture2D" uid="uid://5opvreopggtv" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background_layer2b_tall.png" id="4_h0etf"]
+[ext_resource type="Texture2D" uid="uid://bspvkiil6222e" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background_layer3b_tall.png" id="5_2osyt"]
+[ext_resource type="Shader" path="res://Shaders/blur.gdshader" id="6_4g6kw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h0etf"]
+resource_local_to_scene = true
+shader = ExtResource("6_4g6kw")
+shader_parameter/blur_amount = 1.0000000475
+
+[node name="BackgroundSnowForest" type="Node2D"]
+script = ExtResource("1_cfrbi")
+
+[node name="BackgroundLayer0bTall" type="Sprite2D" parent="." groups=["BackgroundLayer"]]
+texture = ExtResource("2_fxtfo")
+
+[node name="BackgroundLayer1bTall" type="Sprite2D" parent="." groups=["BackgroundLayer"]]
+texture = ExtResource("3_4g6kw")
+
+[node name="BackgroundLayer2bTall" type="Sprite2D" parent="." groups=["BackgroundLayer"]]
+texture = ExtResource("4_h0etf")
+
+[node name="BackgroundLayer3bTall" type="Sprite2D" parent="." groups=["BackgroundLayer"]]
+texture = ExtResource("5_2osyt")
+
+[node name="ColorRect" type="ColorRect" parent="." groups=["BackgroundLayer"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -720.0
+offset_top = -360.0
+offset_right = 720.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.35253903, 0.4195712, 0.54102784, 0.5)
+
+[node name="Blur" type="Sprite2D" parent="." groups=["BackgroundLayer"]]
+modulate = Color(0.9955804, 0.99558026, 0.99558026, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("ShaderMaterial_h0etf")
+texture = ExtResource("2_fxtfo")

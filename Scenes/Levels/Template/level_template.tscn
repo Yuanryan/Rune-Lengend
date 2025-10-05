@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://b3pcynhjblwa0"]
+
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_6w42u"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_he7qs"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_a6gbe"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_43rl3"]
+[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_l81f1"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="6_luwwe"]
+[ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="7_xgnwg"]
+
+[sub_resource type="Resource" id="Resource_xgnwg"]
+script = ExtResource("2_he7qs")
+level_name = "Template"
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
+[node name="LevelTemplate" type="Node2D"]
+script = ExtResource("1_6w42u")
+level_resource = SubResource("Resource_xgnwg")
+metadata/_custom_type_script = "uid://bfeqcf2b658ki"
+
+[node name="BackgroundSnowForest" parent="." instance=ExtResource("7_xgnwg")]
+position = Vector2(376, 344)
+background_scale = Vector2(2, 2)
+
+[node name="GameObjects" type="Node2D" parent="."]
+
+[node name="LandEditTool" parent="GameObjects" instance=ExtResource("3_a6gbe")]
+
+[node name="StartingPoint" type="Marker2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(-80, 256)
+
+[node name="checkpoint" parent="GameObjects" instance=ExtResource("4_43rl3")]
+position = Vector2(480, 240)
+checkpoint_id = 1
+camera_target_position = Vector2(872, 128)
+
+[node name="Camera2D" type="Camera2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(392, 176)
+offset = Vector2(0, 100)
+zoom = Vector2(0.8, 0.8)
+limit_enabled = false
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("5_l81f1")
+
+[node name="Land" parent="GameObjects" instance=ExtResource("6_luwwe")]
+position = Vector2(304, 328)
+
+[node name="Polygon2D" parent="GameObjects/Land" index="0"]
+position = Vector2(-464, -288)
+polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Land"]
+position = Vector2(-464, -288)
+polygon = PackedVector2Array(0, 256, 32, 296, 1016, 304, 1168, 256)
+
+[editable path="GameObjects/Land"]

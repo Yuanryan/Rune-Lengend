@@ -7,6 +7,7 @@ class_name Door
 signal door_opened
 signal door_closed
 
+@export_tool_button("Toggle Open/Close", "BackBufferCopy") var toggle_door = func(): if is_open or is_opening: close_door() else: open_door()
 ## 門開啟持續時間
 @export var open_duration: float = 3.0  
 ## 門開啟的高度
@@ -22,29 +23,6 @@ signal door_closed
 var is_open: bool = false
 var is_opening: bool = false
 var is_closing: bool = false
-
-var open_action = open_door
-var close_action = close_door
-func _get_property_list() -> Array:
-    var properties = [        
-        {   "name": "open_action",
-            "type": TYPE_CALLABLE,
-            "usage": PROPERTY_USAGE_EDITOR ,
-            "hint": PROPERTY_HINT_TOOL_BUTTON ,
-            "hint_string": "Open Door,BackBufferCopy",
-        }]
-    if is_opening:
-        properties.clear()
-        properties.append({
-            "name": "close_action",
-            "type": TYPE_CALLABLE,
-            "usage": PROPERTY_USAGE_EDITOR ,
-            "hint": PROPERTY_HINT_TOOL_BUTTON ,
-            "hint_string": "Close Door,BackBufferCopy",
-        })
-    return properties
-
-
 
 func _ready() -> void:
 
@@ -102,7 +80,6 @@ func open_door() -> void:
     tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, -open_height), 1.0 / animation_speed)
     tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, -open_height), 1.0 / animation_speed)
     tween.tween_callback(_on_door_opened)
-    notify_property_list_changed()
 
 func _on_door_opened() -> void:
     """門開啟完成"""
@@ -132,8 +109,6 @@ func close_door() -> void:
     tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, open_height), 1.0 / animation_speed)
     tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, open_height), 1.0 / animation_speed)
     tween.tween_callback(_on_door_closed)
-    if Engine.is_editor_hint():
-        notify_property_list_changed()
         
 func _on_door_closed() -> void:
     """門關閉完成"""
@@ -182,10 +157,7 @@ func reset_door() -> void:
     is_opening = false
     is_closing = false
     
-    # 重置門的位置到初始狀態（關閉狀態）
-    if door_polygon and door_collision:
-        door_polygon.position = Vector2(0, 0)
-        door_collision.position = Vector2(0, 0)
+    force_close()
     
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""

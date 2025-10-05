@@ -27,7 +27,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_eqelh"]
 resource_name = "move"
-length = 2.0
+length = 4.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -36,7 +36,7 @@ tracks/0/path = NodePath("PathFollow2D:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
@@ -54,7 +54,7 @@ script = ExtResource("1_nmk3u")
 
 [node name="MovingPlatform" type="AnimatableBody2D" parent="." groups=["Land"]]
 unique_name_in_owner = true
-position = Vector2(81.574, -96)
+position = Vector2(0, -96)
 collision_mask = 2
 script = ExtResource("1_eqelh")
 

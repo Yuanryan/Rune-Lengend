@@ -13,10 +13,12 @@ class_name LevelResource
     Action.ActionType.MOVE_RIGHT: 999,
     Action.ActionType.JUMP_LEFT: 999,
     Action.ActionType.JUMP_RIGHT: 999,
-    Action.ActionType.SWITCH_ANIMAL: 999
+    Action.ActionType.SWITCH_ANIMAL: 999,
 }
 # 可用動物列表（動物名稱）
-@export var available_animals: Array[Animal.AnimalType] = []
+@export var available_animals: Array[Animal.AnimalType] = [
+    Animal.AnimalType.MAN,
+]
 
 # 檢查是否達到動作數量限制
 func is_action_limit_reached(current_count: int) -> bool:

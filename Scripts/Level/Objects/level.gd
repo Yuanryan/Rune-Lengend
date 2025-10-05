@@ -5,8 +5,8 @@ extends Node2D
 class_name Level
 
 @export var level_resource: LevelResource = null
-@onready var starting_point: Marker2D = $StartingPoint
-@onready var camera: ZoomableCamera = $Camera2D
+@onready var starting_point: Marker2D = %StartingPoint
+@onready var camera: ZoomableCamera = %Camera2D
 
 # 檢查點陣列
 var checkpoints: Array[Checkpoint] = []
@@ -17,9 +17,9 @@ func _get_configuration_warnings() -> PackedStringArray:
     var warnings: PackedStringArray = []
     
     # 檢查是否有 StartingPoint 子節點
-    if not has_node("StartingPoint"):
+    if not has_node("%StartingPoint"):
         warnings.append("Level 缺少 Marker2D 子節點 (StartingPoint)")
-    elif not get_node("StartingPoint") is Marker2D:
+    elif not get_node("%StartingPoint") is Marker2D:
         warnings.append("StartingPoint 必須是 Marker2D 節點")
     
     return warnings
@@ -36,10 +36,10 @@ func initialize_checkpoints() -> void:
     checkpoints.clear()
     
     # 僅從本節點的直接子節點收集檢查點
-    for child in get_children():
-        if child is Checkpoint:
-            checkpoints.append(child)
-            child.checkpoint_reached.connect(_on_checkpoint_reached)
+    for checkpoint in get_tree().get_nodes_in_group("Checkpoint"):
+        if checkpoint.owner == self and checkpoint is Checkpoint:
+            checkpoints.append(checkpoint)
+            checkpoint.checkpoint_reached.connect(_on_checkpoint_reached)
     
     print("已初始化 ", checkpoints.size(), " 個檢查點")
 
