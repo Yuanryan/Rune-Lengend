@@ -34,7 +34,7 @@ metadata/_edit_lock_ = true
 [node name="GameObjects" type="Node2D" parent="."]
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("3_20kd1")]
-hide_all_polygons_in_game = false
+hide_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -44,16 +44,6 @@ position = Vector2(-441, 395)
 position = Vector2(490, -179)
 checkpoint_id = 1
 camera_target_position = Vector2(86, 131)
-
-[node name="Camera2D" type="Camera2D" parent="GameObjects"]
-unique_name_in_owner = true
-visible = false
-position = Vector2(86, 131)
-zoom = Vector2(1.2, 1.2)
-limit_enabled = false
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-script = ExtResource("5_srugb")
 
 [node name="Turret" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(-542, 71)
@@ -269,7 +259,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(208, -96)
+position = Vector2(138.4418, -96)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
 position = Vector2(-39.87085, -16.061768)
@@ -334,6 +324,15 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
 tile_set = ExtResource("13_20kd1")
 metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="TileMapLayers"]
+unique_name_in_owner = true
+position = Vector2(86, 131)
+zoom = Vector2(1.2, 1.2)
+limit_enabled = false
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("5_srugb")
 
 [editable path="GameObjects/Turret"]
 [editable path="GameObjects/Turret2"]

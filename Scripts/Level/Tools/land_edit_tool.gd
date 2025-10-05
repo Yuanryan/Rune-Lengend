@@ -10,7 +10,7 @@ var land_tools: Array[LandTool] = []
 # 工具按鈕 - 生成所有碰撞
 @export_tool_button("Generate All Collisions", "CollisionPolygon2D") var generate_all_action = generate_all_collisions
 @export_tool_button("Clear All Collisions", "CollisionPolygon2D") var clear_all_action = clear_all_collisions
-@export var hide_all_polygons_in_game: bool = true
+@export var hide_all_polygons_in_game: bool = false
 
 func _ready() -> void:
     if not Engine.is_editor_hint():
