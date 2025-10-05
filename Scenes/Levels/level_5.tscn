@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
 [ext_resource type="Resource" uid="uid://0oq1jgt4en3c" path="res://Resources/Levels/level_5.tres" id="2_evokg"]
-[ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
+[ext_resource type="PackedScene" uid="uid://cvnwkt8tu2mdg" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_gqyih"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_srugb"]
@@ -259,7 +259,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(138.4418, -96)
+position = Vector2(95.930504, -96)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
 position = Vector2(-39.87085, -16.061768)
@@ -282,15 +282,20 @@ polygon = PackedVector2Array(10, 4, 184, 4, 184, 46, 10, 44)
 [node name="TileMapLayers" type="Node2D" parent="."]
 
 [node name="Tree1" type="TileMapLayer" parent="TileMapLayers"]
-self_modulate = Color(0.4, 0.4, 0.4, 1)
-position = Vector2(16, 24)
-tile_map_data = PackedByteArray("AAD9//7/CAAMAAEAAAD9////CAAMAAIAAAD9/wAACAAMAAMAAAD9/wEACAAMAAQAAAD9/wIACAAMAAUAAAD9/wMACAAMAAYAAAD9/wQACAAMAAcAAAD9/wUACAAMAAgAAAD1////CAAEAAIAAAD1/wAACAAEAAMAAAD1/wEACAAEAAQAAAD1/wIACAAEAAUAAAD0//r/CAAIAAEAAAD1//r/CAAJAAEAAAAGAP7/DAAJAAAAAAAGAP//DAAJAAEAAAAGAAAADAAJAAIAAAAGAAEADAAJAAMAAAAGAAIADAAJAAQAAAAGAAMADAAJAAUAAAAGAAQADAAJAAYAAAAGAAUADAAJAAcAAAD2//7/CAAFAAQAAAD2////CAAFAAIAAAD2/wAACAAFAAMAAAD2/wEACAAFAAQAAAD2/wIACAAFAAUAAAD2/wMACAAFAAYAAAD2/wQACAAFAAcAAAD2/wUACAAFAAgAAAD2//3/CAAFAAMAAAD2//v/CAAFAAEAAAD2//z/CAAFAAIAAAD1/wMACAAEAAYAAAD1/wQACAAEAAcAAAD1/wUACAAEAAgAAAD1//z/CAAEAAIAAAD1//3/CAAEAAMAAAAFAAEADAAIAAMAAAAFAAIADAAIAAQAAAAFAAQADAAIAAYAAAD1//7/CAAEAAQAAAD1//v/CAAEAAEAAAD3/wUACAAGAAgAAAD0/wUACAADAAgAAAA=")
+self_modulate = Color(0.29586658, 0.29586646, 0.29586652, 1)
+position = Vector2(135, -74.00001)
+scale = Vector2(1.3, 1.3)
+tile_map_data = PackedByteArray("AAD9//7/CAAMAAEAAAD9////CAAMAAIAAAD9/wAACAAMAAMAAAD9/wEACAAMAAQAAAD9/wIACAAMAAUAAAD9/wMACAAMAAYAAAD9/wQACAAMAAcAAAD9/wUACAAMAAgAAAD1////CAAEAAIAAAD1/wAACAAEAAMAAAD1/wEACAAEAAQAAAD1/wIACAAEAAUAAAAGAP7/CAAMAAEAABAGAP//CAAMAAIAABAGAAAACAAMAAMAABAGAAEACAAMAAQAABAGAAIACAAMAAUAABAGAAMACAAMAAYAABAGAAQACAAMAAcAABAGAAUACAAMAAgAABD2//7/CAAFAAQAAAD2////CAAFAAIAAAD2/wAACAAFAAMAAAD2/wEACAAFAAQAAAD2/wIACAAFAAUAAAD2/wMACAAFAAYAAAD2/wQACAAFAAcAAAD2/wUACAAFAAgAAAD2//3/CAAFAAMAAAD2//v/CAAFAAEAAAD2//z/CAAFAAIAAAD1/wMACAAEAAYAAAD1/wQACAAEAAcAAAD1/wUACAAEAAgAAAD1//z/CAAEAAIAAAD1//3/CAAEAAMAAAD1//7/CAAEAAQAAAD1//v/CAAEAAEAAAD3/wUACAAGAAgAAAD0/wUACAADAAgAAAA=")
 tile_set = ExtResource("13_20kd1")
 
-[node name="Tree2" type="TileMapLayer" parent="TileMapLayers"]
-self_modulate = Color(0.4, 0.4, 0.4, 1)
-position = Vector2(4, 0)
-tile_map_data = PackedByteArray("AAALAAUACAADAAgAAAAOAAUACAAGAAgAAAAIAAUACQAIAAQAAAAJAAUACQAJAAQAAAD0//3/CAACAAIAAAD1//z/CAADAAEAAAD1//3/CAADAAIAAAA=")
+[node name="Bush" type="TileMapLayer" parent="TileMapLayers"]
+position = Vector2(0, 24)
+tile_map_data = PackedByteArray("AAD4/wQACQAHAAAAABD4/wUACQAHAAEAABD3//3/CQAIAAEAAAD3//z/CQAIAAAAAAA=")
+tile_set = ExtResource("13_20kd1")
+
+[node name="Bush2" type="TileMapLayer" parent="TileMapLayers"]
+position = Vector2(-33, 33)
+tile_map_data = PackedByteArray("AAD4/wQACQAGAAIAAAD5/wQACQAHAAIAAAD3//z/CQAIAAMAAAD4//z/CQAJAAMAAAA=")
 tile_set = ExtResource("13_20kd1")
 
 [node name="Bushes" type="TileMapLayer" parent="TileMapLayers"]
