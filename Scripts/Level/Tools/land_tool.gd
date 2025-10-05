@@ -4,7 +4,7 @@ class_name LandTool
 
 @export_tool_button("Generate Collision", "CollisionPolygon2D") var generate_collision_action = generate_collision_shape
 @export_tool_button("Remove Collision", "CollisionPolygon2D") var remove_collision_action = remove_collision_shape
-@export var hide_polygon_in_game: bool = false
+@export var show_polygon_in_game: bool = false
 var polygon_2d: Polygon2D = null
 var collision_polygon_2d: CollisionPolygon2D = null
 
@@ -15,7 +15,7 @@ func _ready():
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true) 
         collision_polygon_2d = _find_collision()
-    if hide_polygon_in_game and not Engine.is_editor_hint():
+    if not show_polygon_in_game and not Engine.is_editor_hint():
         hide_polygon()
 
 func _get_configuration_warnings() -> PackedStringArray:

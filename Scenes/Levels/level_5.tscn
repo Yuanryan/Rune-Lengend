@@ -28,7 +28,7 @@ shader = ExtResource("14_gqyih")
 shader_parameter/ray_angle = 0.665
 shader_parameter/ray_position = 0.41
 shader_parameter/spread = 0.0
-shader_parameter/cutoff = 0.0050000477375000685
+shader_parameter/cutoff = 0.00500004773750006
 shader_parameter/falloff = 0.2
 shader_parameter/edge_fade = 0.6450000306375
 shader_parameter/speed = 0.7
@@ -52,7 +52,6 @@ metadata/_edit_lock_ = true
 [node name="GameObjects" type="Node2D" parent="."]
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("3_20kd1")]
-hide_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -102,7 +101,6 @@ position = Vector2(-16, 192)
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
 
 [node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land3" index="0"]
 position = Vector2(8, 152)
@@ -114,7 +112,6 @@ polygon = PackedVector2Array(-904, 256, -904, 504, -19, 498, -15, 320, 8, 257)
 
 [node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(1080, 0)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
 position = Vector2(8, 152)
@@ -126,7 +123,6 @@ polygon = PackedVector2Array(-946, 257, -926, 320, -923, 513, -56, 504, -56, 232
 
 [node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(-48, 344)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]
 position = Vector2(312, -309.44)
@@ -140,7 +136,6 @@ polygon = PackedVector2Array(-53.999985, 255.66666, -40.499985, 299.41666, -12.5
 
 [node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(-21, 228)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
 position = Vector2(-104, -293)
@@ -152,7 +147,6 @@ polygon = PackedVector2Array(16, 280, 26, 319, 52, 345, 168, 344, 195, 314, 204,
 
 [node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(353, -156)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
 position = Vector2(-16, -227)
@@ -164,7 +158,6 @@ polygon = PackedVector2Array(-15, 257, -6, 292, 21, 317, 977, 318, 974, 255)
 
 [node name="Land7" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(-661, 196)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land7" index="0"]
 position = Vector2(37, -340)
@@ -176,7 +169,6 @@ polygon = PackedVector2Array(2, 248, 2, 284, 44, 311, 342, 314, 372, 284, 381, 2
 
 [node name="Land8" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(-643, -64)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land8" index="0"]
 position = Vector2(3, -256)
@@ -190,7 +182,6 @@ polygon = PackedVector2Array(-176.37793, 216, -176.37793, 360, 367.87402, 360, 3
 
 [node name="Land9" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(248, 80)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land9" index="0"]
 position = Vector2(48, -288)
@@ -202,7 +193,6 @@ polygon = PackedVector2Array(-22, 248, -12, 285, 28, 318, 64, 315, 96, 279, 105,
 
 [node name="Land10" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 position = Vector2(-575, -284)
-hide_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land10" index="0"]
 position = Vector2(-149, -300)
@@ -211,7 +201,7 @@ polygon = PackedVector2Array(1104, 211, 1108, 325, 1686, 327, 1665.7534, 255.999
 [node name="TimedDoor" parent="GameObjects" instance=ExtResource("9_27vqw")]
 position = Vector2(-280, 97)
 open_height = -120.0
-hide_polygon_in_game = true
+show_polygon_in_game = null
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor" index="0"]
 position = Vector2(24, -65)
@@ -230,7 +220,7 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0, 32, 0, 32, 8, 28, 8, -84)
 position = Vector2(-584, 161)
 open_duration = 6.0
 open_height = 120.0
-hide_polygon_in_game = true
+show_polygon_in_game = null
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor2" index="0"]
 position = Vector2(1032, -341)
@@ -251,7 +241,7 @@ polygon = PackedVector2Array(-8, -84, -8, -33.58496, -8, 45, 0, 53, 0, 53, 8, 45
 [node name="TimedDoor3" parent="GameObjects" instance=ExtResource("9_27vqw")]
 position = Vector2(422, -234)
 open_height = 120.0
-hide_polygon_in_game = true
+show_polygon_in_game = null
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor3" index="0"]
 position = Vector2(0, 2)
@@ -273,7 +263,8 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(102.00926, -96)
+position = Vector2(208, -49.573784)
+show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
 position = Vector2(-39.87085, -16.061768)
@@ -302,17 +293,17 @@ position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 script = ExtResource("5_srugb")
 
-[node name="GodRay" type="ColorRect" parent="."]
+[node name="Enviroments" type="Node2D" parent="."]
+
+[node name="GodRay" type="ColorRect" parent="Enviroments"]
 material = SubResource("ShaderMaterial_srugb")
 offset_left = -601.0
 offset_top = -284.0
 offset_right = 932.0
 offset_bottom = 595.0
 
-[node name="Enviroments" type="Node2D" parent="."]
-
 [node name="Tree1" type="TileMapLayer" parent="Enviroments"]
-self_modulate = Color(0.29586658, 0.29586646, 0.29586652, 1)
+self_modulate = Color(0.8732984, 0.8732984, 0.8732984, 1)
 position = Vector2(135, -74.00001)
 scale = Vector2(1.3, 1.3)
 tile_map_data = PackedByteArray("AAD9//7/CAAMAAEAAAD9////CAAMAAIAAAD9/wAACAAMAAMAAAD9/wEACAAMAAQAAAD9/wIACAAMAAUAAAD9/wMACAAMAAYAAAD9/wQACAAMAAcAAAD9/wUACAAMAAgAAAD1////CAAEAAIAAAD1/wAACAAEAAMAAAD1/wEACAAEAAQAAAD1/wIACAAEAAUAAAAGAP7/CAAMAAEAABAGAP//CAAMAAIAABAGAAAACAAMAAMAABAGAAEACAAMAAQAABAGAAIACAAMAAUAABAGAAMACAAMAAYAABAGAAQACAAMAAcAABAGAAUACAAMAAgAABD2//7/CAAFAAQAAAD2////CAAFAAIAAAD2/wAACAAFAAMAAAD2/wEACAAFAAQAAAD2/wIACAAFAAUAAAD2/wMACAAFAAYAAAD2/wQACAAFAAcAAAD2/wUACAAFAAgAAAD2//3/CAAFAAMAAAD2//v/CAAFAAEAAAD2//z/CAAFAAIAAAD1/wMACAAEAAYAAAD1/wQACAAEAAcAAAD1/wUACAAEAAgAAAD1//z/CAAEAAIAAAD1//3/CAAEAAMAAAD1//7/CAAEAAQAAAD1//v/CAAEAAEAAAD3/wUACAAGAAgAAAD0/wUACAADAAgAAAA=")
@@ -353,7 +344,7 @@ tile_set = ExtResource("13_20kd1")
 metadata/_edit_lock_ = true
 
 [node name="Foreground" type="TileMapLayer" parent="Enviroments"]
-self_modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
 position = Vector2(40, 0)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
