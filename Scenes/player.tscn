@@ -4,9 +4,10 @@
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://boddstgiec2f2" path="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Idle.png" id="3_6t5aa"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onrkg"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
+size = Vector2(20, 30)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Interactive"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_4flbx")
@@ -22,4 +23,4 @@ texture = ExtResource("3_6t5aa")
 hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_onrkg")
+shape = SubResource("RectangleShape2D_6t5aa")

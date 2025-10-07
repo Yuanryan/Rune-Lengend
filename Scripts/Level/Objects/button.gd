@@ -13,8 +13,8 @@ signal button_released
 
 @onready var polygon : Polygon2D = %Polygon2D
 
+var button_down: bool = false
 var is_pressed: bool = false
-var player_on_button: bool = false
 
 func _ready() -> void:
     _get_polygon()
@@ -29,37 +29,37 @@ func _get_polygon() -> Polygon2D:
     return polygon
 
 func _on_body_entered(body: Node) -> void:
-    if body is Player:
-        player_on_button = true
-        if not is_pressed:
+    if body.is_in_group("Interactive"):
+        is_pressed = true
+        if not button_down:
             press_button()
 
 func _on_body_exited(body: Node) -> void:
-    if body is Player:
-        player_on_button = false
-        if auto_reset and is_pressed:
+    if body.is_in_group("Interactive"):
+        is_pressed = false
+        if auto_reset and button_down:
             # 延遲釋放按鈕
             await get_tree().create_timer(reset_delay).timeout
-            if not player_on_button:  # 確保玩家沒有重新踩到按鈕
+            if not is_pressed:  # 確保玩家沒有重新踩到按鈕
                 release_button()
 
 func press_button() -> void:
-    if is_pressed:
+    if button_down:
         return
     
-    is_pressed = true
+    button_down = true
     button_pressed.emit()
 
 func release_button() -> void:
-    if not is_pressed:
+    if not button_down:
         return
     
-    is_pressed = false
+    button_down = false
     button_released.emit()
 
 func get_button_state() -> bool:
     """獲取按鈕當前狀態"""
-    return is_pressed
+    return button_down
 
 func force_press() -> void:
     """強制按下按鈕"""

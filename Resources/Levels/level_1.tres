@@ -13,5 +13,5 @@ individual_action_limits = Dictionary[int, int]({
 3: 2,
 4: 1
 })
-available_animals = Array[int]([1, 0])
+available_animals = Array[int]([0, 1, 2])
 metadata/_custom_type_script = "uid://bnoi35lwldban"

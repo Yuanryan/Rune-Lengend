@@ -42,6 +42,10 @@ func set_current_animal(animal: Animal) -> void:
     _update_animal_appearance()
     _update_animal_behavior()
 
+func get_current_animal() -> Animal:
+    """獲取當前動物"""
+    return current_animal
+
 func _update_animal_appearance() -> void:
     """根據當前動物更新玩家外觀"""
     if not current_animal or not current_animal.animal_data:

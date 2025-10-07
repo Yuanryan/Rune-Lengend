@@ -50,6 +50,7 @@ folder_colors={
 [global_group]
 
 Land=""
+Interactive=""
 
 [input]
 
@@ -78,6 +79,7 @@ paint={
 
 [physics]
 
+2d/physics_engine="GodotPhysics2D"
 common/physics_interpolation=true
 
 [rendering]

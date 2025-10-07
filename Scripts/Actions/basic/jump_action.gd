@@ -37,6 +37,10 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
 	# 只有在離開地面後再次觸地才結束動作
 	return _has_left_ground and player.is_on_floor()
 
+func update(player: CharacterBody2D, delta: float) -> bool:
+	player.velocity.x = jump_velocity.x
+	return false
+
 func interrupt(player: CharacterBody2D) -> void:
 	pass
 

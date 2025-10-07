@@ -21,6 +21,7 @@ func start(player: CharacterBody2D) -> void:
 		player.set_facing_direction(Vector2.LEFT)
 
 func update(player: CharacterBody2D, delta: float) -> bool:
+	player.velocity.x = velocity_x
 	return false
 
 # 中斷時停止移動

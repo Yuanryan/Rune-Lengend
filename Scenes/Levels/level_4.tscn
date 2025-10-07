@@ -21,8 +21,7 @@ level_resource = ExtResource("2_keyqw")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("11_3asqb")]
-position = Vector2(73, 113)
-background_scale = Vector2(1.3, 1.8)
+position = Vector2(50, 59)
 
 [node name="GameObjects" type="Node2D" parent="."]
 

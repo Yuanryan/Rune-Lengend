@@ -10,6 +10,7 @@ open_duration = 2.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(-0.19999981, -32.800003)
 color = Color(0.65882355, 0.7372549, 0.98039216, 1)
 polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
 
@@ -21,4 +22,3 @@ one_shot = true
 [node name="GameButton" parent="." instance=ExtResource("2_0x9y7")]
 unique_name_in_owner = true
 position = Vector2(0, 40)
-collision_mask = 2
