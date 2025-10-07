@@ -20,18 +20,16 @@ polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
 
 [node name="StandingArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-20, -20)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StandingArea"]
-polygon = PackedVector2Array(0, -8, 0, 48, 40, 48, 40, -8)
+polygon = PackedVector2Array(-15, -28, -15, 8, 15, 8, 15, -28)
 
 [node name="PushArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-20, -20)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PushArea"]
-polygon = PackedVector2Array(-30, 0, 70, 0, 70, 40, -30, 40)
+polygon = PackedVector2Array(-50, -20, 50, -20, 50, 20, -50, 20)
