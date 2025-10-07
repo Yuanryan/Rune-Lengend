@@ -122,6 +122,7 @@ texture_region_size = Vector2i(64, 64)
 9:7/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6df26"]
+resource_name = " Bushes"
 texture = ExtResource("4_0q36c")
 margins = Vector2i(0, 10)
 texture_region_size = Vector2i(64, 64)

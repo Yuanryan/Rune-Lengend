@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://c13sgnl1cphcs"]
+
+[ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/godray.gdshader" id="1_lbboy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_srugb"]
+resource_local_to_scene = true
+shader = ExtResource("1_lbboy")
+shader_parameter/ray_angle = 0.665
+shader_parameter/ray_position = 0.41
+shader_parameter/spread = 0.0
+shader_parameter/cutoff = 0.30000006175000005
+shader_parameter/falloff = 0.400000019
+shader_parameter/edge_fade = 0.6000000285
+shader_parameter/speed = 0.5
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 25.0
+shader_parameter/ray2_intensity = 0.30000001425
+shader_parameter/color = Color(0.8204, 0.84, 0.672, 0.7921569)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
+[node name="GodRay" type="ColorRect"]
+material = SubResource("ShaderMaterial_srugb")
+offset_left = -601.0
+offset_top = -284.0
+offset_right = 932.0
+offset_bottom = 595.0

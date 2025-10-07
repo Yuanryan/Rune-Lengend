@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=12 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_jv26f"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="8_jv26f"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="9_rb0md"]
+[ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="10_u5ghp"]
 
 [sub_resource type="Curve2D" id="Curve2D_jv26f"]
 resource_local_to_scene = true
@@ -87,7 +88,7 @@ curve = SubResource("Curve2D_jv26f")
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(115.30511, -92.04088)
+position = Vector2(102.83691, 29.94165)
 
 [node name="Polygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="0"]
 polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, -136.12915, 40.061768)
@@ -101,6 +102,12 @@ position = Vector2(184, -88)
 
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("9_rb0md")]
 position = Vector2(-200, 296)
+
+[node name="BackgroundSnowForest" parent="." instance=ExtResource("10_u5ghp")]
+position = Vector2(587, 163)
+
+[node name="BackgroundSnowForest2" parent="." instance=ExtResource("10_u5ghp")]
+position = Vector2(2027, 164)
 
 [editable path="GameObjects/Land"]
 [editable path="GameObjects/Land2"]
