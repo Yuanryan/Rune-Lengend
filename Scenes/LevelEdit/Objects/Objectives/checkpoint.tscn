@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
 [ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="2_8jbrj"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_gtr1l"]
+[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="3_gtr1l"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]

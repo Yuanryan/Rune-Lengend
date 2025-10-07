@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_keyqw"]
 [ext_resource type="Resource" uid="uid://by712q5vtovrk" path="res://Resources/Levels/level_4.tres" id="2_keyqw"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_3asqb"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_i5g5g"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_slbhm"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_3osng"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_i5g5g"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_3osng"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_eb4ip"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="8_ecora"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_i5g5g"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_xpmn3"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_gsxik"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="11_3asqb"]
@@ -38,7 +38,7 @@ position = Vector2(-441, 395)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
-script = ExtResource("4_i5g5g")
+script = ExtResource("5_i5g5g")
 tween_resource = SubResource("Resource_eb4ip")
 tween_on_load = false
 draw_limits = true
@@ -49,16 +49,16 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_slbhm")]
 position = Vector2(633, -179)
 checkpoint_id = 1
-activate_camera = null
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
-unique_name_in_owner = true
-position = Vector2(86, 131)
-zoom = Vector2(1.3, 1.3)
-limit_enabled = false
-position_smoothing_enabled = true
-position_smoothing_speed = 8.0
-script = ExtResource("5_i5g5g")
+position = Vector2(2.0967484, 3.7079315)
+zoom = Vector2(1.0088284, 1.0088284)
+
+[node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_i5g5g")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Turret" parent="GameObjects" instance=ExtResource("6_3osng")]
 position = Vector2(-543, 84)

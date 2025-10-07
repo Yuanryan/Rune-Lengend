@@ -1,6 +1,7 @@
+@tool
 # ZoomableCamera.gd
 # 可縮放的相機腳本
-extends Camera2D
+extends PhantomCamera2D
 class_name ZoomableCamera
 
 @export var zoom_speed: float = 0.1
@@ -10,7 +11,7 @@ var original_zoom: float = 1.0
 var original_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
-    original_zoom = zoom.x
+    original_zoom = get_zoom().x
     original_position = position
 
 func _input(event: InputEvent) -> void:
@@ -23,37 +24,28 @@ func _input(event: InputEvent) -> void:
 
 func zoom_in_at_mouse(event: InputEventMouseButton) -> void:
     """在滑鼠位置放大"""
-    var new_zoom = min(zoom.x + zoom_speed, max_zoom)
-    if new_zoom != zoom.x:
-        set_zoom_at_mouse(Vector2(new_zoom - zoom.x, new_zoom - zoom.x), event)
+    var cur_zoom = get_zoom()
+    var new_zoom = min(cur_zoom.x + zoom_speed, max_zoom)
+    if new_zoom != cur_zoom.x:
+        set_zoom_at_mouse(Vector2(new_zoom - cur_zoom.x, new_zoom - cur_zoom.x), event)
 
 func zoom_out_at_mouse(event: InputEventMouseButton) -> void:
     """在滑鼠位置縮小"""
-    var new_zoom = max(zoom.x - zoom_speed, original_zoom)
-    if new_zoom != zoom.x:
-        set_zoom_at_mouse(Vector2(new_zoom - zoom.x, new_zoom - zoom.x), event)
+    var cur_zoom = get_zoom()
+    var new_zoom = max(cur_zoom.x - zoom_speed, original_zoom)
+    if new_zoom != cur_zoom.x:
+        set_zoom_at_mouse(Vector2(new_zoom - cur_zoom.x, new_zoom - cur_zoom.x), event)
 
 func set_zoom_at_mouse(delta: Vector2, event: InputEventMouseButton) -> void:
     """在滑鼠位置設置縮放"""
-    # 完全關閉所有平滑
-    position_smoothing_enabled = false
-    enabled = false
-    
-    var screen_size = get_viewport().get_visible_rect().size
-    var mouse_world_pos = ((event.position - Vector2(screen_size.x/2, screen_size.y/2)) / zoom) + position
-    zoom += delta
-    var new_mouse_world_pos = ((event.position - Vector2(screen_size.x/2, screen_size.y/2)) / zoom) + position
+    var cur_zoom = get_zoom()
+    var mouse_world_pos = get_global_mouse_position()
+    set_zoom(cur_zoom + delta)
+    var new_mouse_world_pos = get_global_mouse_position()
     position += mouse_world_pos - new_mouse_world_pos
     
-    # 重新啟用相機
-    enabled = true
-
+  
 func set_zoom_at_origin(delta: Vector2) -> void:
-    """在原始位置縮放"""
-    position_smoothing_enabled = false
-    enabled = false
-
-    zoom += delta
+    set_zoom(get_zoom() + delta)
     position = original_position
 
-    enabled = true

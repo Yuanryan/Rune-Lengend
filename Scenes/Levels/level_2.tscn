@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://crejoacv1bekc"]
+[gd_scene load_steps=11 format=3 uid="uid://crejoacv1bekc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_oylv5"]
 [ext_resource type="Resource" uid="uid://ctd8etfsbs10v" path="res://Resources/Levels/level_2.tres" id="2_ovj6s"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_w2ac1"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="3_ovj6s"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="3_w2ac1"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_1jlnc"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_fphuk"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_u40f0"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="6_8qsmg"]
@@ -32,7 +31,7 @@ position = Vector2(-80, 256)
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(140, 228)
-script = ExtResource("4_1jlnc")
+script = ExtResource("5_fphuk")
 tween_resource = SubResource("Resource_uqiic")
 tween_on_load = false
 draw_limits = true
@@ -41,7 +40,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="checkpoint" parent="GameObjects" instance=ExtResource("3_w2ac1")]
 position = Vector2(472, 224)
 checkpoint_id = 1
-activate_camera = null
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint" index="2"]
 position = Vector2(223, 16)
@@ -49,18 +47,13 @@ position = Vector2(223, 16)
 [node name="checkpoint2" parent="GameObjects" instance=ExtResource("3_w2ac1")]
 position = Vector2(1024, 240)
 checkpoint_id = 2
-activate_camera = null
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint2" index="2"]
 position = Vector2(360, -18)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
-unique_name_in_owner = true
 position = Vector2(140, 228)
-limit_enabled = false
-position_smoothing_speed = 8.0
 editor_draw_limits = true
-script = ExtResource("5_fphuk")
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
 process_priority = 300

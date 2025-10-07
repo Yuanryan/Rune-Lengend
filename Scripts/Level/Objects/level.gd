@@ -6,7 +6,6 @@ class_name Level
 
 @export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = %StartingPoint
-@onready var camera: ZoomableCamera = %Camera2D
 @onready var starting_camera: PhantomCamera2D = %StartingCamera
 
 # 檢查點陣列
@@ -53,8 +52,7 @@ func initialize_checkpoints() -> void:
 # 初始化相機狀態
 func _initialize_camera_state() -> void:
     # 隱藏所有檢查點的 PhantomCamera2D
-    for checkpoint in checkpoints:
-        checkpoint.set_camera_visible(false)
+    PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): pcam.visible = false)
     _activate_starting_camera()
 
 
@@ -76,13 +74,7 @@ func _on_checkpoint_reached(checkpoint_id: int, checkpoint_pos: Vector2) -> void
 
 # 切換到指定檢查點的 PhantomCamera2D
 func _switch_to_checkpoint_camera(target: Checkpoint) -> void:
-    # 隱藏所有檢查點的 PhantomCamera2D 和起始相機
-    for checkpoint in checkpoints:
-        checkpoint.set_camera_visible(false)
-    
-    # 隱藏起始相機
-    if starting_camera:
-        starting_camera.visible = false
+    PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): pcam.visible = false)
     
     # 顯示指定檢查點的 PhantomCamera2D
     if target and target.phantom_camera:

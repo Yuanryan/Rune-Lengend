@@ -11,7 +11,7 @@ signal checkpoint_reached(checkpoint_id, checkpoint_pos)
 
 func _ready() -> void:
     if Engine.is_editor_hint():
-        owner.set_editable_instance(self, true)
+        get_parent().set_editable_instance(self, true)
     add_to_group("checkpoints")
     body_entered.connect(_on_body_entered)
 
