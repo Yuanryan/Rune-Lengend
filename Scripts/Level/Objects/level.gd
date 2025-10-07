@@ -7,6 +7,7 @@ class_name Level
 @export var level_resource: LevelResource = null
 @onready var starting_point: Marker2D = %StartingPoint
 @onready var camera: ZoomableCamera = %Camera2D
+@onready var starting_camera: PhantomCamera2D = %StartingCamera
 
 # 檢查點陣列
 var checkpoints: Array[Checkpoint] = []
@@ -22,6 +23,11 @@ func _get_configuration_warnings() -> PackedStringArray:
     elif not get_node("%StartingPoint") is Marker2D:
         warnings.append("StartingPoint 必須是 Marker2D 節點")
     
+    if not has_node("%StartingCamera"):
+        warnings.append("Level 缺少 PhantomCamera2D 子節點 (StartingCamera)")
+    elif not get_node("%StartingCamera") is PhantomCamera2D:
+        warnings.append("StartingCamera 必須是 PhantomCamera2D 節點")
+    
     return warnings
 
 func _ready() -> void:
@@ -30,6 +36,7 @@ func _ready() -> void:
     # 只在非編輯器模式下生成玩家
     if not Engine.is_editor_hint():
         initialize_checkpoints()
+        _initialize_camera_state()
 
 # 初始化檢查點陣列
 func initialize_checkpoints() -> void:
@@ -43,18 +50,50 @@ func initialize_checkpoints() -> void:
     
     print("已初始化 ", checkpoints.size(), " 個檢查點")
 
-func _on_checkpoint_reached(checkpoint_id: int, camera_target_position: Vector2, checkpoint_pos: Vector2) -> void:
+# 初始化相機狀態
+func _initialize_camera_state() -> void:
+    # 隱藏所有檢查點的 PhantomCamera2D
+    for checkpoint in checkpoints:
+        checkpoint.set_camera_visible(false)
+    _activate_starting_camera()
+
+
+func _on_checkpoint_reached(checkpoint_id: int, checkpoint_pos: Vector2) -> void:
     # 更新當前檢查點ID
     current_checkpoint_id = checkpoint_id
     
-    # 更新相機和起始點位置
-    camera.global_position = camera_target_position
+    # 獲取檢查點並檢查是否需要激活相機
+    var target_checkpoint = get_checkpoint_by_id(checkpoint_id)
+    if target_checkpoint and target_checkpoint.activate_camera:
+        _switch_to_checkpoint_camera(target_checkpoint)
+   
     starting_point.global_position = checkpoint_pos
     
     # 重置遊戲狀態到規劃階段
     GameManager.reset_to_planning()
     
     print("到達檢查點: ", checkpoint_id)
+
+# 切換到指定檢查點的 PhantomCamera2D
+func _switch_to_checkpoint_camera(target: Checkpoint) -> void:
+    # 隱藏所有檢查點的 PhantomCamera2D 和起始相機
+    for checkpoint in checkpoints:
+        checkpoint.set_camera_visible(false)
+    
+    # 隱藏起始相機
+    if starting_camera:
+        starting_camera.visible = false
+    
+    # 顯示指定檢查點的 PhantomCamera2D
+    if target and target.phantom_camera:
+        target.set_camera_visible(true)
+    else:
+        _activate_starting_camera()
+
+# 啟動起始相機
+func _activate_starting_camera() -> void:
+    if starting_camera:
+        starting_camera.visible = true
 
 # 在起始點生成玩家
 func spawn_player() -> Player:
@@ -123,8 +162,8 @@ func set_starting_point_to_checkpoint(checkpoint: Checkpoint) -> void:
     """將起始點設置到指定檢查點的位置"""
     if checkpoint:
         starting_point.global_position = checkpoint.global_position
-        camera.global_position = checkpoint.camera_target_position
-        print("起始點已設置到檢查點: ", checkpoint.checkpoint_id)
+        # 使用 PhantomCamera2D 切換相機
+        _switch_to_checkpoint_camera(get_checkpoint_by_id(checkpoint.checkpoint_id))
 
 func set_starting_point_to_checkpoint_by_id(checkpoint_id: int) -> void:
     """根據ID將起始點設置到指定檢查點的位置"""

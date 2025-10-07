@@ -1,12 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://wo0qqd2opgp1"]
+[gd_scene load_steps=12 format=3 uid="uid://wo0qqd2opgp1"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_yrm0i"]
 [ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_vlkn2"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_hqnw8"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="4_hc100"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_hqnw8"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_hc100"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_rhn36"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_garkr"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="6_knl5n"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="9_rhn36"]
+
+[sub_resource type="Resource" id="Resource_knl5n"]
+script = ExtResource("5_hc100")
+transition = 4
+metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="teaching_level" type="Node2D"]
 script = ExtResource("1_yrm0i")
@@ -19,6 +27,16 @@ level_resource = ExtResource("2_vlkn2")
 [node name="StartingPoint" type="Marker2D" parent="Node2D"]
 unique_name_in_owner = true
 position = Vector2(-400, 344)
+
+[node name="StartingCamera" type="Node2D" parent="Node2D"]
+unique_name_in_owner = true
+position = Vector2(504, 373)
+script = ExtResource("4_hqnw8")
+priority_override = true
+tween_resource = SubResource("Resource_knl5n")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Land" parent="Node2D" instance=ExtResource("4_hc100")]
 
@@ -33,17 +51,25 @@ polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
 [node name="checkpoint" parent="Node2D" instance=ExtResource("5_rhn36")]
 position = Vector2(505, 354)
 checkpoint_id = 1
-camera_target_position = Vector2(1128, 176)
+activate_camera = false
+
+[node name="PhantomCamera2D" parent="Node2D/checkpoint" index="2"]
+visible = false
+position = Vector2(949, -228)
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
 unique_name_in_owner = true
-position = Vector2(48, 208)
-offset = Vector2(0, 100)
-zoom = Vector2(0.8, 0.8)
+position = Vector2(504, 373)
 limit_enabled = false
-position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+editor_draw_limits = true
 script = ExtResource("6_garkr")
+
+[node name="PhantomCameraHost" type="Node" parent="Node2D/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("9_rhn36")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="DamageArea" parent="Node2D" instance=ExtResource("6_knl5n")]
 position = Vector2(-608, 408)
@@ -60,5 +86,6 @@ position = Vector2(-64, -256)
 polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
 
 [editable path="Node2D/Land"]
+[editable path="Node2D/checkpoint"]
 [editable path="Node2D/DamageArea"]
 [editable path="Node2D/Land2"]

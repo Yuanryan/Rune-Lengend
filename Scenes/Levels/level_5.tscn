@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=25 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
 [ext_resource type="Resource" uid="uid://0oq1jgt4en3c" path="res://Resources/Levels/level_5.tres" id="2_evokg"]
@@ -6,16 +6,23 @@
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_gqyih"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_srugb"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_27vqw"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_vdq4f"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="7_633d5"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_rw7sn"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="11_b7yer"]
 [ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="13_20kd1"]
 [ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/godray.gdshader" id="14_gqyih"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_b7yer"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
+
+[sub_resource type="Resource" id="Resource_27vqw"]
+script = ExtResource("7_jd0ia")
+transition = 4
 
 [sub_resource type="Curve2D" id="Curve2D_3asqb"]
 resource_local_to_scene = true
@@ -85,10 +92,24 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 position = Vector2(-441, 395)
 
+[node name="StartingCamera" type="Node2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(69, 131)
+script = ExtResource("6_27vqw")
+zoom = Vector2(1.225, 1.225)
+tween_resource = SubResource("Resource_27vqw")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
 [node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_gqyih")]
 position = Vector2(490, -179)
 checkpoint_id = 1
-camera_target_position = Vector2(86, 131)
+activate_camera = null
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoint1" index="2"]
+position = Vector2(-403, 349)
+zoom = Vector2(1.075, 1.075)
 
 [node name="Turret" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(-542, 71)
@@ -288,7 +309,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(18.3956, -8)
+position = Vector2(20.767914, -8)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -311,12 +332,18 @@ polygon = PackedVector2Array(10, 4, 184, 4, 184, 46, 10, 44)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(86, 131)
-zoom = Vector2(1.2, 1.2)
+position = Vector2(69, 131)
+zoom = Vector2(1.225, 1.225)
 limit_enabled = false
-position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+editor_draw_limits = true
 script = ExtResource("5_srugb")
+
+[node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("15_b7yer")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Enviroments" type="Node2D" parent="."]
 
@@ -373,6 +400,7 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP7/CwACAAEAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAAGAP//CwACAAIAAAAHAP//CwADAAIAAAAGAP3/CwACAAMAAAA=")
 tile_set = ExtResource("13_20kd1")
 
+[editable path="GameObjects/Checkpoint1"]
 [editable path="GameObjects/Turret"]
 [editable path="GameObjects/Turret2"]
 [editable path="GameObjects/LandNodes/Land3"]

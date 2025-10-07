@@ -112,9 +112,8 @@ func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector
     if spawn_position != Vector2.ZERO:
         current_level.starting_point.global_position = spawn_position
     
-    # 如果指定了相機位置，設置相機位置
-    if camera_position != Vector2.ZERO:
-        current_level.camera.global_position = camera_position
+    # 注意：相機位置現在由 PhantomCamera2D 系統自動處理
+    # 不再需要手動設定 camera.global_position
     
     current_level.spawn_player()
     
@@ -189,25 +188,23 @@ func reload_level_from_last_checkpoint() -> Level:
     # 保存當前檢查點ID和動作佇列狀態
     var saved_checkpoint_id = 0
     var spawn_position = Vector2.ZERO
-    var camera_position = Vector2.ZERO
     
     if current_level:
         saved_checkpoint_id = current_level.get_current_checkpoint_id()
         print("保存的檢查點ID: ", saved_checkpoint_id)
         
-        # 獲取檢查點位置和相機位置
+        # 獲取檢查點位置
         if saved_checkpoint_id > 0:
             var checkpoint = current_level.get_checkpoint_by_id(saved_checkpoint_id)
             if checkpoint:
                 spawn_position = checkpoint.global_position
-                camera_position = checkpoint.camera_target_position
                 print("檢查點位置: ", spawn_position)
-                print("相機位置: ", camera_position)
     
     var saved_action_queue = _save_action_queue()
     
-    # 重新載入關卡並在檢查點位置生成玩家，同時設置相機位置
-    var reloaded_level = load_level_scene(current_level_scene, spawn_position, camera_position)
+    # 重新載入關卡並在檢查點位置生成玩家
+    # 相機位置由 PhantomCamera2D 系統自動處理
+    var reloaded_level = load_level_scene(current_level_scene, spawn_position)
     
     # 恢復動作佇列
     if reloaded_level:
@@ -222,23 +219,21 @@ func reload_level_from_specific_checkpoint(checkpoint_id: int) -> Level:
         push_error("沒有當前關卡場景可以重新載入")
         return null
     
-    # 獲取指定檢查點位置和相機位置
+    # 獲取指定檢查點位置
     var spawn_position = Vector2.ZERO
-    var camera_position = Vector2.ZERO
     if current_level:
         var checkpoint = current_level.get_checkpoint_by_id(checkpoint_id)
         if checkpoint:
             spawn_position = checkpoint.global_position
-            camera_position = checkpoint.camera_target_position
             print("指定檢查點位置: ", spawn_position)
-            print("指定相機位置: ", camera_position)
         else:
             print("找不到檢查點: ", checkpoint_id)
     
     var saved_action_queue = _save_action_queue()
     
-    # 重新載入關卡並在指定檢查點位置生成玩家，同時設置相機位置
-    var reloaded_level = load_level_scene(current_level_scene, spawn_position, camera_position)
+    # 重新載入關卡並在指定檢查點位置生成玩家
+    # 相機位置由 PhantomCamera2D 系統自動處理
+    var reloaded_level = load_level_scene(current_level_scene, spawn_position)
     
     # 恢復動作佇列
     if reloaded_level:
