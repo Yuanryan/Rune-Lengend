@@ -22,6 +22,8 @@ func get_animal_data() -> AnimalResource:
 func get_switch_action() -> Action:
     return switch_action
 
+@abstract func get_animal_type() -> Animal.AnimalType
+
 static func animal_from_type(animal_type: Animal.AnimalType) -> Animal:
     match animal_type:
         Animal.AnimalType.MAN:
@@ -32,5 +34,6 @@ static func animal_from_type(animal_type: Animal.AnimalType) -> Animal:
             return Wolf.new()
         _:
             return null
+
 static func get_animal_name(animal_type: Animal.AnimalType) -> String:
     return AnimalType.keys()[animal_type]

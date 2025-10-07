@@ -39,7 +39,7 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
 
 func update(player: CharacterBody2D, delta: float) -> bool:
 	player.velocity.x = jump_velocity.x
-	return false
+	return should_stop(player, delta)
 
 func interrupt(player: CharacterBody2D) -> void:
 	pass

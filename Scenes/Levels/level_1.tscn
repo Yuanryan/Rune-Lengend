@@ -71,7 +71,8 @@ position = Vector2(394, -614)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
 [node name="Box" parent="GameObjects" instance=ExtResource("10_hwvp3")]
-position = Vector2(40, 144)
+position = Vector2(-24, 256)
+collision_layer = 9
 mass = 0.001
 
 [node name="Door" parent="GameObjects" instance=ExtResource("7_jv26f")]
@@ -90,6 +91,10 @@ polygon = PackedVector2Array(-8, -32, -8, 28, 0.2, 32, 8, 28, 8, -32)
 
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("9_rb0md")]
 position = Vector2(-200, 296)
+
+[node name="Box2" parent="GameObjects" instance=ExtResource("10_hwvp3")]
+position = Vector2(312, 256)
+collision_layer = 9
 
 [editable path="GameObjects/Land"]
 [editable path="GameObjects/Land2"]

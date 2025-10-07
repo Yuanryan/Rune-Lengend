@@ -8,6 +8,9 @@ func _init():
     super._init(rabbit_data)
     switch_action = RabbitSwitchAction.new()
 
+func get_animal_type() -> Animal.AnimalType:
+    return Animal.AnimalType.RABBIT
+
 # 兔子的彈跳切換動作
 class RabbitSwitchAction extends JumpAction:
 

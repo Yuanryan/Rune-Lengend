@@ -6,5 +6,5 @@
 script = ExtResource("1_uwort")
 name = "Wolf"
 move_speed = 200.0
-jump_velocity = Vector2(200, -300)
+jump_velocity = Vector2(400, -400)
 metadata/_custom_type_script = "uid://nplwq6xwpqwf"
