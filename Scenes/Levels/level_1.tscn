@@ -22,6 +22,7 @@ position = Vector2(675, -12)
 [node name="GameObjects" type="Node2D" parent="."]
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("2_3mqfk")]
+show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -83,9 +84,9 @@ metadata/_edit_group_ = true
 [node name="GameButton" parent="GameObjects/Door" index="2"]
 position = Vector2(-242, 23)
 
-[node name="@CollisionPolygon2D@121923" type="CollisionPolygon2D" parent="GameObjects/Door"]
-position = Vector2(0, -2)
-polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Door"]
+position = Vector2(1.2397766e-05, -2)
+polygon = PackedVector2Array(-8, -32, -8, 28, 0.2, 32, 8, 28, 8, -32)
 
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("9_rb0md")]
 position = Vector2(-200, 296)

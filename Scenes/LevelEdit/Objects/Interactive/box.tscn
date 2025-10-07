@@ -1,35 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://4p88vcgqivcu"]
+[gd_scene load_steps=2 format=3 uid="uid://4p88vcgqivcu"]
 
 [ext_resource type="Script" uid="uid://dp1x8rqbyotio" path="res://Scripts/Level/Objects/box.gd" id="1_nyu6s"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1u76t"]
-friction = 0.7
-bounce = 0.2
 
 [node name="Box" type="RigidBody2D" groups=["Interactive"]]
 collision_layer = 8
 collision_mask = 11
-mass = 5.0
-physics_material_override = SubResource("PhysicsMaterial_1u76t")
+mass = 100.0
+inertia = 100.0
 script = ExtResource("1_nyu6s")
-size_scale = Vector2(2, 2)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(2, 2)
+position = Vector2(-20, -20)
 polygon = PackedVector2Array(0, 0, 0, 40, 40, 40, 40, 0)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(2, 2)
+position = Vector2(-20, -20)
 polygon = PackedVector2Array(0, 0, 0, 40, 40, 40, 40, 0)
 
 [node name="StandingArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(2, 2)
+position = Vector2(-20, -20)
 collision_layer = 0
 collision_mask = 2
-monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StandingArea"]
-polygon = PackedVector2Array(8, -8, 8, 48, 32, 48, 32, -8)
+polygon = PackedVector2Array(0, -8, 0, 48, 40, 48, 40, -8)
