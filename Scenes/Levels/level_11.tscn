@@ -1,0 +1,186 @@
+[gd_scene load_steps=5 format=3 uid="uid://ck6jxqb0l20vf"]
+
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="1_ojusv"]
+[ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="2_06ra3"]
+[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="3_g158a"]
+[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="4_3pqps"]
+
+[node name="Land" instance=ExtResource("1_ojusv")]
+
+[node name="Polygon2D" parent="." index="0"]
+scale = Vector2(1.6230769, 1)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 390, 288, 384, 256)
+
+[node name="Turret" parent="." index="1" instance=ExtResource("2_06ra3")]
+position = Vector2(138, 0)
+rotation = -1.5707964
+bullet_speed = 100.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." index="2"]
+position = Vector2(0, -256)
+scale = Vector2(1.6230769, 1)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 375.21326, 290.99997, 384, 256)
+
+[node name="Land" parent="." index="3" instance=ExtResource("1_ojusv")]
+position = Vector2(-11, -333)
+
+[node name="Polygon2D" parent="Land" index="0"]
+position = Vector2(13, -2710.9998)
+scale = Vector2(0.25260416, 9.140624)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 378, 288.6493, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land" index="1"]
+position = Vector2(13, -2710.9998)
+scale = Vector2(0.25260416, 9.140624)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 378, 288.6493, 384, 256)
+
+[node name="Land2" parent="." index="4" instance=ExtResource("1_ojusv")]
+position = Vector2(190, -182)
+
+[node name="Polygon2D" parent="Land2" index="0"]
+position = Vector2(7, -1070)
+scale = Vector2(0.46354166, 3.53125)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land2" index="1"]
+position = Vector2(7, -1070)
+scale = Vector2(0.46354166, 3.53125)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Land3" parent="." index="5" instance=ExtResource("1_ojusv")]
+position = Vector2(130, -697)
+
+[node name="Polygon2D" parent="Land3" index="0"]
+position = Vector2(-29, -443)
+scale = Vector2(4.125, 1.71875)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land3" index="1"]
+position = Vector2(-29, -443)
+scale = Vector2(4.125, 1.71875)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Land4" parent="." index="6" instance=ExtResource("1_ojusv")]
+position = Vector2(690, -251)
+
+[node name="Polygon2D" parent="Land4" index="0"]
+position = Vector2(-68, -1722.9968)
+scale = Vector2(0.41145834, 6.3437376)
+polygon = PackedVector2Array(0, 256, 0, 320, 188.84631, 320.00003, 384, 320, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land4" index="1"]
+position = Vector2(-68, -1717.0348)
+scale = Vector2(0.41145834, 6.326161)
+polygon = PackedVector2Array(0, 256, 0, 320, 188.84631, 320.00003, 384, 320, 384, 256)
+
+[node name="Land5" parent="." index="7" instance=ExtResource("1_ojusv")]
+position = Vector2(1173, -393)
+
+[node name="Polygon2D" parent="Land5" index="0"]
+position = Vector2(-386, -478.36603)
+scale = Vector2(1.5494791, 1.6186073)
+polygon = PackedVector2Array(0, 256, 0, 320, 192, 320.87213, 384, 320, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land5" index="1"]
+position = Vector2(-386, -478.36603)
+scale = Vector2(1.5494791, 1.6186073)
+polygon = PackedVector2Array(0, 256, 0, 320, 192, 320.87213, 384, 320, 384, 256)
+
+[node name="Spike" parent="Land5" index="2" instance=ExtResource("3_g158a")]
+position = Vector2(-315, -173)
+rotation = -3.1415927
+
+[node name="Spike2" parent="Land5" index="3" instance=ExtResource("3_g158a")]
+position = Vector2(-68, -88)
+
+[node name="Spike3" parent="Land5" index="4" instance=ExtResource("3_g158a")]
+position = Vector2(-212, 366)
+
+[node name="Spike4" parent="Land5" index="5" instance=ExtResource("3_g158a")]
+position = Vector2(-177, 368)
+
+[node name="Land6" parent="." index="8" instance=ExtResource("1_ojusv")]
+position = Vector2(1715, -454)
+
+[node name="Polygon2D" parent="Land6" index="0"]
+position = Vector2(-27, -2659.0007)
+scale = Vector2(0.36458334, 9.421878)
+polygon = PackedVector2Array(0, 256, 0, 320, 192, 319.99997, 384, 320, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land6" index="1"]
+position = Vector2(-27, -2659.0007)
+scale = Vector2(0.36458334, 9.421878)
+polygon = PackedVector2Array(0, 256, 0, 320, 192, 319.99997, 384, 320, 384, 256)
+
+[node name="Land7" parent="." index="9" instance=ExtResource("1_ojusv")]
+position = Vector2(1357, -280)
+
+[node name="Polygon2D" parent="Land7" index="0"]
+position = Vector2(155.99998, -228)
+scale = Vector2(0.4583334, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land7" index="1"]
+position = Vector2(155.99998, -228)
+scale = Vector2(0.4583334, 1)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Land8" parent="." index="10" instance=ExtResource("1_ojusv")]
+position = Vector2(1031, -130)
+
+[node name="Polygon2D" parent="Land8" index="0"]
+position = Vector2(166.00003, -291)
+scale = Vector2(0.53645825, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land8" index="1"]
+position = Vector2(166.00003, -291)
+scale = Vector2(0.53645825, 1)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Land9" parent="." index="11" instance=ExtResource("1_ojusv")]
+position = Vector2(867, -216)
+
+[node name="Polygon2D" parent="Land9" index="0"]
+position = Vector2(102.00001, -289)
+scale = Vector2(0.37760413, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land9" index="1"]
+position = Vector2(102.00001, -289)
+scale = Vector2(0.37760413, 1)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="TimedDoor" parent="." index="12" instance=ExtResource("4_3pqps")]
+position = Vector2(1000, -292)
+
+[node name="Polygon2D" parent="TimedDoor" index="0"]
+position = Vector2(758.00006, 277)
+scale = Vector2(8.625003, 2.6250005)
+
+[node name="@CollisionPolygon2D@54725" type="CollisionPolygon2D" parent="TimedDoor" index="3"]
+position = Vector2(758.00006, 277)
+scale = Vector2(8.625003, 2.6250005)
+polygon = PackedVector2Array(-8, -32, -8, 28, 0.2, 32, 8, 28, 8, -32)
+
+[node name="Land10" parent="." index="13" instance=ExtResource("1_ojusv")]
+position = Vector2(826, 68)
+
+[node name="Polygon2D" parent="Land10" index="0"]
+position = Vector2(-44, -328)
+scale = Vector2(1.6145834, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Land10" index="1"]
+position = Vector2(-44, -328)
+scale = Vector2(1.6145834, 1)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Spike" parent="." index="14" instance=ExtResource("3_g158a")]
+position = Vector2(1282, -191)
+
+[editable path="Land"]
+[editable path="Land2"]
+[editable path="Land3"]
+[editable path="Land4"]
+[editable path="Land5"]
+[editable path="Land6"]
+[editable path="Land7"]
+[editable path="Land8"]
+[editable path="Land9"]
+[editable path="TimedDoor"]
+[editable path="Land10"]
