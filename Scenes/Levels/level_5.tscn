@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=26 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
 [ext_resource type="Resource" uid="uid://0oq1jgt4en3c" path="res://Resources/Levels/level_5.tres" id="2_evokg"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_b7yer"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
+[ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/snow_flakes.gdshader" id="19_27vqw"]
 
 [sub_resource type="Resource" id="Resource_27vqw"]
 script = ExtResource("7_jd0ia")
@@ -34,8 +35,8 @@ point_count = 6
 resource_local_to_scene = true
 shader = ExtResource("15_srugb")
 shader_parameter/speed = 1.0
-shader_parameter/maxStrength = 0.050000002375
-shader_parameter/minStrength = 0.01
+shader_parameter/maxStrength = 0.070000003325
+shader_parameter/minStrength = 0.02000000095
 shader_parameter/strengthScale = 80.0
 shader_parameter/interval = 5.0
 shader_parameter/detail = 2.0
@@ -47,31 +48,42 @@ shader_parameter/offset = 50.0
 resource_local_to_scene = true
 shader = ExtResource("14_gqyih")
 shader_parameter/ray_angle = 0.665
-shader_parameter/ray_position = 0.41
+shader_parameter/ray_position = 0.38
 shader_parameter/spread = 0.0
-shader_parameter/cutoff = 0.30000006175000005
-shader_parameter/falloff = 0.400000019
-shader_parameter/edge_fade = 0.6000000285
+shader_parameter/cutoff = -0.08999995677499995
+shader_parameter/falloff = 0.2400000114
+shader_parameter/edge_fade = 0.470000022325
 shader_parameter/speed = 0.5
 shader_parameter/ray1_density = 8.0
-shader_parameter/ray2_density = 25.0
-shader_parameter/ray2_intensity = 0.30000001425
+shader_parameter/ray2_density = 10.265
+shader_parameter/ray2_intensity = 0.1030000048925
 shader_parameter/color = Color(0.8204, 0.84, 0.672, 0.7921569)
 shader_parameter/hdr = false
-shader_parameter/seed = 5.0
+shader_parameter/seed = 7.25
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vdq4f"]
 resource_local_to_scene = true
 shader = ExtResource("15_srugb")
 shader_parameter/speed = 1.0
-shader_parameter/maxStrength = 0.050000002375
+shader_parameter/maxStrength = 0.0800000038
 shader_parameter/minStrength = 0.02000000095
-shader_parameter/strengthScale = 100.0
+shader_parameter/strengthScale = 120.0
 shader_parameter/interval = 0.335
 shader_parameter/detail = 2.0
 shader_parameter/distortion = 0.0
-shader_parameter/heightOffset = 0.50000002375
+shader_parameter/heightOffset = 0.6000000285
 shader_parameter/offset = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
+shader = ExtResource("19_27vqw")
+shader_parameter/spread = 1.5
+shader_parameter/size = 0.50000002305148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 0.5000000474999999
+shader_parameter/speed = 0.30000001425
+shader_parameter/wind = -1.49999997625
+shader_parameter/num_of_layers = 15
+shader_parameter/layer_start = 5
 
 [node name="Level5" type="Node2D"]
 script = ExtResource("1_evokg")
@@ -89,7 +101,7 @@ metadata/_edit_lock_ = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(-441, 395)
+position = Vector2(-429, 363)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -245,6 +257,10 @@ position = Vector2(-575, -284)
 position = Vector2(-149, -300)
 polygon = PackedVector2Array(1104, 211, 1108, 325, 1686, 327, 1665.7534, 255.99997, 1187.1521, 256)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land10"]
+position = Vector2(-149, -300)
+polygon = PackedVector2Array(1104, 211, 1108, 325, 1686, 327, 1665.7534, 255.99997, 1187.1521, 256)
+
 [node name="TimedDoor" parent="GameObjects" instance=ExtResource("9_27vqw")]
 position = Vector2(-280, 97)
 open_height = -120.0
@@ -257,7 +273,7 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0, 32, 0, 32, 8, 28, 8, -84)
 [node name="GameButton" parent="GameObjects/TimedDoor" index="2"]
 position = Vector2(534, 174)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
+[node name="@CollisionPolygon2D@26460" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
 position = Vector2(24, -65)
 rotation = -3.1415927
 polygon = PackedVector2Array(-8, -84, -8, 28, 0, 32, 0, 32, 8, 28, 8, -84)
@@ -279,7 +295,7 @@ wait_time = 14.0
 position = Vector2(155, -273)
 color = Color(0.8901961, 0.28627452, 0.31764707, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimedDoor2"]
+[node name="@CollisionPolygon2D@26461" type="CollisionPolygon2D" parent="GameObjects/TimedDoor2"]
 position = Vector2(1032, -341)
 polygon = PackedVector2Array(-8, -84, -8, -33.58496, -8, 45, 0, 53, 0, 53, 8, 45, 8, -50.88794, 8, -84)
 
@@ -296,7 +312,7 @@ polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
 position = Vector2(-101, 267)
 color = Color(0.43529412, 0.7372549, 0.4, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimedDoor3"]
+[node name="@CollisionPolygon2D@26462" type="CollisionPolygon2D" parent="GameObjects/TimedDoor3"]
 position = Vector2(0, 2)
 polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
 
@@ -307,7 +323,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(39.129807, -8)
+position = Vector2(102.9715, -8)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -329,8 +345,9 @@ offset_right = 64.0
 polygon = PackedVector2Array(10, 4, 184, 4, 184, 46, 10, 44)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
-position = Vector2(72.05152, 135.34254)
-zoom = Vector2(1.2455391, 1.2455391)
+position = Vector2(69, 131)
+zoom = Vector2(1.225, 1.225)
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
 process_priority = 300
@@ -350,6 +367,7 @@ tile_set = ExtResource("13_20kd1")
 
 [node name="GodRay" parent="Enviroments" instance=ExtResource("15_vdq4f")]
 material = SubResource("ShaderMaterial_rw7sn")
+offset_top = -324.0
 
 [node name="Bush" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(0, 24)
@@ -392,6 +410,14 @@ position = Vector2(24, 19)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP7/CwACAAEAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAAGAP//CwACAAIAAAAHAP//CwADAAIAAAAGAP3/CwACAAMAAAA=")
 tile_set = ExtResource("13_20kd1")
+
+[node name="SnowFlakes" type="ColorRect" parent="Enviroments"]
+material = SubResource("ShaderMaterial_jd0ia")
+offset_left = -845.0
+offset_top = -324.0
+offset_right = 1003.0
+offset_bottom = 657.0
+metadata/_edit_lock_ = true
 
 [editable path="GameObjects/Checkpoint1"]
 [editable path="GameObjects/Turret"]

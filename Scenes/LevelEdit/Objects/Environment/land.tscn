@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bspbmogf57u3v" path="res://Scripts/Level/Tools/land_tool.gd" id="1_s5vhh"]
 
 [node name="Land" type="StaticBody2D" groups=["Land"]]
+collision_mask = 0
 script = ExtResource("1_s5vhh")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
