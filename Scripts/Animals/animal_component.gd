@@ -3,6 +3,7 @@ extends Node2D
 class_name AnimalComponent
 
 @onready var sprite: Sprite2D = %Sprite2D
+@onready var anim_player: AnimationPlayer = %AnimationPlayer
 var player: Player = null
 
 var current_animal: Animal = null
@@ -39,27 +40,41 @@ func set_current_animal(animal: Animal) -> void:
         return
     
     current_animal = animal
-    _update_animal_appearance()
     _update_animal_behavior()
 
 func get_current_animal() -> Animal:
     """獲取當前動物"""
     return current_animal
 
-func _update_animal_appearance() -> void:
-    """根據當前動物更新玩家外觀"""
-    if not current_animal or not current_animal.animal_data:
-        return
-    
-    var animal_data = current_animal.animal_data
-    if animal_data.texture and sprite:
-        sprite.texture = animal_data.texture
-        print("更新玩家外觀為: ", animal_data.name)
 
 func _update_animal_behavior() -> void:
     """根據當前動物更新行為特性"""
     if not current_animal:
         return
+
+func play_animation(animation_name: String) -> void:
+    """播放指定的動畫"""
+    if not current_animal or not current_animal.animal_data:
+        return
+        
+    var animal_data = current_animal.animal_data
+    var full_animation_name = animal_data.name + "/" + animation_name
+    
+    if anim_player and anim_player.has_animation(full_animation_name):
+        anim_player.play(full_animation_name)
+    else:
+        print("動畫不存在: ", full_animation_name)
+
+func stop_animation() -> void:
+    """停止當前動畫"""
+    if anim_player:
+        anim_player.stop()
+
+func get_current_animation() -> String:
+    """獲取當前播放的動畫名稱"""
+    if anim_player:
+        return anim_player.current_animation
+    return ""
 
 func get_animal_move_speed() -> float:
     """獲取當前動物的移動速度"""
@@ -72,40 +87,13 @@ func get_animal_jump_velocity() -> Vector2:
     if current_animal and current_animal.animal_data:
         return current_animal.animal_data.jump_velocity
     return Vector2(0, -300)  # 默認跳躍
-
-func start_switch_animation(target_animal: Animal) -> void:
-    """開始動物切換動畫"""
-    if not target_animal:
-        return
     
-    # 根據目標動物類型選擇不同的切換動畫
-    match target_animal.animal_data.name:
-        "Wolf":
-            switch_action = Wolf.WolfSwitchAction.new()
-        "Rabbit":
-            switch_action = Rabbit.RabbitSwitchAction.new()
-        _:
-            # 默認切換動畫
-            switch_action = DefaultSwitchAction.new()
-    
-    if switch_action:
-        switch_action.start(player)
-
-func update_switch_animation(delta: float) -> bool:
-    """更新切換動畫，返回是否完成"""
-    if switch_action:
-        var finished = switch_action.update(player, delta)
-        if finished:
-            switch_action = null
-            return true
-    return false
-
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
     set_current_animal(target_animal)
 
 func _on_action_started(action: Action) -> void:
-    """當動作開始時，根據當前動物調整動作參數"""
+    """當動作開始時，根據當前動物調整動作參數並播放動畫"""
     if not current_animal or not current_animal.animal_data:
         return
     
@@ -115,24 +103,8 @@ func _on_action_started(action: Action) -> void:
     if action is MoveAction:
         var new_velocity = animal_data.move_speed * action.direction
         action.set_velocity_x(new_velocity)
-    
     # 處理跳躍動作
     elif action is JumpAction:
         var new_jump_velocity = animal_data.jump_velocity * action.direction
         action.set_jump_velocity(new_jump_velocity)
-
-# 默認切換動畫
-class DefaultSwitchAction extends TimedAction:
-    func _init():
-        duration = 0.5
-        name = "Default_Switch"
-    
-    func start(player: CharacterBody2D):
-        super.start(player)
-        player.modulate.a = 0.5
-    
-    func update(player: CharacterBody2D, delta: float) -> bool:
-        # 簡單的淡入淡出效果
-        var progress = 1.0 - (_time_left / duration)
-        player.modulate.a = lerp(0.5, 1.0, progress)
-        return super.update(player, delta)
+ 

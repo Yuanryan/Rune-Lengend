@@ -16,7 +16,8 @@ func _init(_target_animal: Animal = null):
 func start(player):
     super.start(player)
     if target_animal:
-        
+        # 播放切換動畫
+
         # 切換動物
         player.switch_animal(target_animal)
         animal_switched.emit(target_animal)

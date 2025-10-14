@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://wo0qqd2opgp1"]
+[gd_scene load_steps=12 format=3 uid="uid://wo0qqd2opgp1"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_yrm0i"]
-[ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_vlkn2"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_vlkn2"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_hqnw8"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="4_hc100"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_hqnw8"]
@@ -10,6 +10,20 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="6_knl5n"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="9_rhn36"]
 
+[sub_resource type="Resource" id="Resource_hqnw8"]
+script = ExtResource("2_vlkn2")
+level_name = "Level 1"
+max_total_actions = 8
+individual_action_limits = Dictionary[int, int]({
+0: 3,
+1: 2,
+2: 2,
+3: 2,
+4: 1
+})
+available_animals = Array[int]([0, 1, 2])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
 [sub_resource type="Resource" id="Resource_knl5n"]
 script = ExtResource("5_hc100")
 transition = 4
@@ -17,7 +31,7 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="teaching_level" type="Node2D"]
 script = ExtResource("1_yrm0i")
-level_resource = ExtResource("2_vlkn2")
+level_resource = SubResource("Resource_hqnw8")
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -56,8 +70,8 @@ visible = false
 position = Vector2(949, -228)
 
 [node name="Camera2D" type="Camera2D" parent="Node2D"]
-position = Vector2(95, 168)
-zoom = Vector2(1.4, 1.4)
+position = Vector2(504, 373)
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Node2D/Camera2D"]
 process_priority = 300

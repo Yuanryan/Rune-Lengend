@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=27 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
-[ext_resource type="Resource" uid="uid://0oq1jgt4en3c" path="res://Resources/Levels/level_5.tres" id="2_evokg"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_27vqw"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_gqyih"]
@@ -20,6 +20,21 @@
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/snow_flakes.gdshader" id="19_27vqw"]
 
+[sub_resource type="Resource" id="Resource_jd0ia"]
+resource_local_to_scene = true
+script = ExtResource("2_27vqw")
+level_name = "Level 5"
+max_total_actions = 100
+individual_action_limits = Dictionary[int, int]({
+0: 999,
+1: 999,
+2: 6,
+3: 6,
+4: 3
+})
+available_animals = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
 [sub_resource type="Resource" id="Resource_27vqw"]
 script = ExtResource("7_jd0ia")
 transition = 4
@@ -35,7 +50,7 @@ point_count = 6
 resource_local_to_scene = true
 shader = ExtResource("15_srugb")
 shader_parameter/speed = 1.0
-shader_parameter/maxStrength = 0.070000003325
+shader_parameter/maxStrength = 0.10000000475
 shader_parameter/minStrength = 0.02000000095
 shader_parameter/strengthScale = 80.0
 shader_parameter/interval = 5.0
@@ -77,7 +92,7 @@ shader_parameter/offset = 1.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
 shader = ExtResource("19_27vqw")
 shader_parameter/spread = 1.5
-shader_parameter/size = 0.50000002305148
+shader_parameter/size = 0.70000003255148
 shader_parameter/snow_color = Color(1, 1, 1, 1)
 shader_parameter/snow_transparency = 0.5000000474999999
 shader_parameter/speed = 0.30000001425
@@ -87,7 +102,7 @@ shader_parameter/layer_start = 5
 
 [node name="Level5" type="Node2D"]
 script = ExtResource("1_evokg")
-level_resource = ExtResource("2_evokg")
+level_resource = SubResource("Resource_jd0ia")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_3koi7")]
@@ -323,7 +338,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(34.412468, -8)
+position = Vector2(208, -63.084885)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]

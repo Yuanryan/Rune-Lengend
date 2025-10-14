@@ -1,7 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://drmqs18i0i8j5"]
+[gd_scene load_steps=17 format=3 uid="uid://drmqs18i0i8j5"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_keyqw"]
-[ext_resource type="Resource" uid="uid://by712q5vtovrk" path="res://Resources/Levels/level_4.tres" id="2_keyqw"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_i5g5g"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_3asqb"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_slbhm"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_3osng"]
@@ -14,6 +14,14 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_gsxik"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="11_3asqb"]
 
+[sub_resource type="Resource" id="Resource_3osng"]
+resource_local_to_scene = true
+script = ExtResource("2_i5g5g")
+level_name = "Level 4"
+max_total_actions = 100
+available_animals = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
 [sub_resource type="Resource" id="Resource_eb4ip"]
 script = ExtResource("5_3osng")
 transition = 4
@@ -24,7 +32,7 @@ tile_size = Vector2i(64, 64)
 
 [node name="Level4" type="Node2D"]
 script = ExtResource("1_keyqw")
-level_resource = ExtResource("2_keyqw")
+level_resource = SubResource("Resource_3osng")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("11_3asqb")]
@@ -51,8 +59,7 @@ position = Vector2(633, -179)
 checkpoint_id = 1
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
-position = Vector2(2.0967484, 3.7079315)
-zoom = Vector2(1.0088284, 1.0088284)
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
 process_priority = 300

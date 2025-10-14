@@ -1,9 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=15 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="2_4dpyx"]
-[ext_resource type="Resource" uid="uid://dbub6xik5cwhs" path="res://Resources/Levels/level_1.tres" id="2_iixi8"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_afv7b"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_hwvp3"]
@@ -13,6 +13,20 @@
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="10_hwvp3"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="10_u5ghp"]
 
+[sub_resource type="Resource" id="Resource_k2mw1"]
+script = ExtResource("2_afv7b")
+level_name = "Level 1"
+max_total_actions = 8
+individual_action_limits = Dictionary[int, int]({
+0: 3,
+1: 2,
+2: 2,
+3: 2,
+4: 1
+})
+available_animals = Array[int]([0, 1, 2])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
 [sub_resource type="Resource" id="Resource_7r2dd"]
 script = ExtResource("7_k2mw1")
 transition = 4
@@ -20,7 +34,7 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_0x8k9")
-level_resource = ExtResource("2_iixi8")
+level_resource = SubResource("Resource_k2mw1")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("10_u5ghp")]

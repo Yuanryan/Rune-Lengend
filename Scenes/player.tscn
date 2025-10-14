@@ -1,11 +1,82 @@
-[gd_scene load_steps=5 format=3 uid="uid://cviyl35yedewi"]
+[gd_scene load_steps=10 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://boddstgiec2f2" path="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Idle.png" id="3_6t5aa"]
+[ext_resource type="AnimationLibrary" uid="uid://ceqebhfjf7gdk" path="res://Resources/Animations/Man.res" id="4_x3wgy"]
+[ext_resource type="AnimationLibrary" uid="uid://b2fhl1q1nu25u" path="res://Resources/Animations/Rabbit.res" id="5_3smsa"]
+[ext_resource type="AnimationLibrary" uid="uid://bnc0wmnb2ew1s" path="res://Resources/Animations/Wolf.res" id="6_8erm5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(20, 30)
+
+[sub_resource type="Animation" id="Animation_f1ek2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_6t5aa")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:shape")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("RectangleShape2D_6t5aa")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:flip_h")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tx1dd"]
+_data = {
+&"RESET": SubResource("Animation_f1ek2")
+}
 
 [node name="Player" type="CharacterBody2D" groups=["Interactive"]]
 collision_layer = 2
@@ -24,3 +95,13 @@ hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6t5aa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_tx1dd"),
+&"Man": ExtResource("4_x3wgy"),
+&"Rabbit": ExtResource("5_3smsa"),
+&"Wolf": ExtResource("6_8erm5")
+}
+autoplay = "Man/Idle"

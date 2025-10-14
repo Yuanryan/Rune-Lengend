@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bi11e5ll2t1b3"]
+[gd_scene load_steps=14 format=3 uid="uid://bi11e5ll2t1b3"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_us8ef"]
-[ext_resource type="Resource" uid="uid://cxw6kgtr8yrcw" path="res://Resources/Levels/level_3.tres" id="2_x1k1j"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_osqx1"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_yy6i0"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="3_167vu"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_x1k1j"]
@@ -12,6 +12,20 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_osqx1"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_167vu"]
 
+[sub_resource type="Resource" id="Resource_sy7oa"]
+script = ExtResource("2_osqx1")
+level_name = "Level 3"
+max_total_actions = 100
+individual_action_limits = Dictionary[int, int]({
+0: 4,
+1: 3,
+2: 3,
+3: 4,
+4: 3
+})
+available_animals = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
 [sub_resource type="Resource" id="Resource_1hf40"]
 script = ExtResource("5_md4x4")
 transition = 4
@@ -19,7 +33,7 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_us8ef")
-level_resource = ExtResource("2_x1k1j")
+level_resource = SubResource("Resource_sy7oa")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="GameObjects" type="Node2D" parent="."]

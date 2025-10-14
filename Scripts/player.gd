@@ -17,7 +17,6 @@ var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
 
 # 動物組件
 @onready var animal_component: AnimalComponent = %AnimalComponent
-
 # 信號
 signal animal_switched(target_animal: Animal)
 signal action_started(action: Action)
@@ -92,9 +91,15 @@ func _physics_process(delta: float) -> void:
     # 重力
     if not is_on_floor():
         velocity.y += GRAVITY * delta
+        var dir_str = "Right" if facing_direction.x > 0 else "Left"
+        # 播放下降動畫（當速度向下且沒有正在執行動作時）
+        if velocity.y > 0:
+            animal_component.play_animation("Fall_" + dir_str)
     else:
         # 在地面上時重置跳躍計數
         _air_jump_count = 0
+        # 停止下降動畫
+        animal_component.play_animation("Idle")
 
     # 若沒有正在執行的 action，就從 queue 取下一個
     if _current_action == null and action_queue.size() > 0:
@@ -143,6 +148,8 @@ func _finish_current_action() -> void:
     # 如果還有動作，立即開始下一個
     if action_queue.size() > 0:
         _start_next_action()
+    else:
+        animal_component.play_animation("Idle")
 
 func _check_all_actions_completed() -> void:
     """檢查是否所有動作都完成了"""
@@ -222,6 +229,7 @@ func reset_to_starting_point() -> void:
     
     # 使用新的狀態系統重置到規劃階段
     GameManager.reset_to_planning()
+    animal_component.play_animation("Idle")
     print("玩家已重置到起始點")
 
 func die() -> void:
