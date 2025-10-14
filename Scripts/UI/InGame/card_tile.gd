@@ -10,7 +10,8 @@ class_name CardTile
 @export var card_size: Vector2 = Vector2(60, 60)
 
 
-@onready var bg: ColorRect = %ColorRect
+@onready var bg: NinePatchRect = %NinePatchRect
+
 @onready var label: RichTextLabel = %Label
 @onready var outline: ColorRect = %OutlineColorRect
 @onready var usage_label: Label = %UsageLabel

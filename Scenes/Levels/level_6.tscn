@@ -184,8 +184,7 @@ position = Vector2(8, -256)
 polygon = PackedVector2Array(-32, 200, 0, 320, 384, 320, 392, 200)
 
 [node name="Camera2D2" type="Camera2D" parent="GameObjects"]
-position = Vector2(95, 168)
-zoom = Vector2(1.4, 1.4)
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D2"]
 process_priority = 300
