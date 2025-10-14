@@ -2,6 +2,7 @@
 extends Path2D
 
 @export_tool_button("Toggle Movement", "PathFollow2D") var move = func(): if animation_player.is_playing(): stop_movement() else: start_movement()
+@export_tool_button("Setup Line2D", "Line2D") var setup_line = func(): setup_line_2d()
 
 ## 動畫時間 (秒)
 @export var loop_time: float = 2.0 : set = set_loop_time
@@ -14,6 +15,8 @@ extends Path2D
 
 # 移動平台本體節點
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
+@onready var line_2d: Line2D = %Line2D
+
 
 var movable: bool = false : set = set_movable
 
@@ -33,7 +36,7 @@ func _ready():
     set_loop_time(loop_time)
     set_loop(loop)
     set_speed_scale(speed_scale)
-
+    setup_line_2d()
 
 # 處理遊戲階段變化
 func _on_game_phase_changed(new_state: GameManager.InGameState):
@@ -99,3 +102,6 @@ func set_movable(new_movable: bool):
         start_movement()
     else:
         stop_movement()
+
+func setup_line_2d():
+    line_2d.points = curve.get_baked_points()

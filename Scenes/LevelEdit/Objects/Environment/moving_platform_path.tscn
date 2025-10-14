@@ -54,7 +54,7 @@ script = ExtResource("1_nmk3u")
 
 [node name="MovingPlatform" type="AnimatableBody2D" parent="." groups=["Land"]]
 unique_name_in_owner = true
-position = Vector2(0, -96)
+position = Vector2(2.7235644, -96)
 collision_mask = 2
 script = ExtResource("1_eqelh")
 
@@ -74,3 +74,7 @@ unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_yw6tl")
 }
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+width = 1.0
