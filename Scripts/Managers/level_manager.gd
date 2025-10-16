@@ -91,10 +91,9 @@ func _extract_level_name_from_scene(scene: PackedScene) -> String:
     # 實例化場景以檢查其內容
     var scene_state = scene.get_state()
     if scene_state:
-        if scene_state.get_node_type(0) == "Level" and scene_state.get_node_property_value(0, 0) is LevelResource:
-            return scene_state.get_node_property_value(0, 0).level_name
+        var level_resource : LevelResource = scene_state.get_node_property_value(0, 1)
+        return level_resource.level_name
     return ""
-
 
 # ========== 核心功能 ==========
 
