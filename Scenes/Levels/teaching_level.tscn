@@ -12,7 +12,7 @@
 
 [sub_resource type="Resource" id="Resource_hqnw8"]
 script = ExtResource("2_vlkn2")
-level_name = "Level 1"
+level_name = "教學關卡"
 max_total_actions = 8
 individual_action_limits = Dictionary[int, int]({
 0: 3,

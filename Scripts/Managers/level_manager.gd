@@ -29,10 +29,12 @@ func _scan_and_load_levels() -> void:
     # 掃描場景檔案
     var scene_files = _get_files_in_directory(scenes_dir, "tscn")
     
+    # 按檔案名稱排序，確保關卡順序一致
+    scene_files.sort()
+    
     for scene_file in scene_files:
-        var level_name = scene_file.replace(".tscn", "")  # 例如: "level_1"
         var scene_path = scenes_dir + scene_file
-        _load_level_from_scene(level_name, scene_path)
+        _load_level_from_scene(scene_path)
 
 # 獲取目錄中的檔案
 func _get_files_in_directory(path: String, extension: String) -> Array[String]:
@@ -53,7 +55,7 @@ func _get_files_in_directory(path: String, extension: String) -> Array[String]:
     return files
 
 # 從場景檔案載入關卡
-func _load_level_from_scene(level_id: String, scene_path: String) -> void:
+func _load_level_from_scene(scene_path: String) -> void:
     # 檢查檔案是否存在
     if not FileAccess.file_exists(scene_path) and not ResourceLoader.exists(scene_path):
         print("關卡場景檔案不存在: ", scene_path)
@@ -70,9 +72,28 @@ func _load_level_from_scene(level_id: String, scene_path: String) -> void:
         print("檔案不是有效的場景檔案: ", scene_path)
         return
     
-    # 儲存到關卡場景字典
-    level_scenes[level_id] = scene
+    # 從場景中提取關卡名稱
+    var level_name = _extract_level_name_from_scene(scene)
+    if level_name.is_empty():
+        # 如果無法從場景中提取名稱，使用檔案名
+        var file_name = scene_path.get_file().get_basename()
+        level_name = file_name.replace("_", " ").capitalize()
+    
+    # 儲存到關卡場景字典，使用關卡名稱作為鍵
+    level_scenes[level_name] = scene
 
+# 從場景中提取關卡名稱
+func _extract_level_name_from_scene(scene: PackedScene) -> String:
+    """從場景的 LevelResource 中提取關卡名稱"""
+    if not scene:
+        return ""
+    
+    # 實例化場景以檢查其內容
+    var scene_state = scene.get_state()
+    if scene_state:
+        if scene_state.get_node_type(0) == "Level" and scene_state.get_node_property_value(0, 0) is LevelResource:
+            return scene_state.get_node_property_value(0, 0).level_name
+    return ""
 
 
 # ========== 核心功能 ==========
@@ -141,6 +162,25 @@ func get_current_level() -> Level:
 # 獲取所有關卡場景
 func get_all_level_scenes() -> Dictionary:
     return level_scenes
+
+# 獲取按名稱排序的關卡場景列表
+func get_level_scenes_sorted() -> Array[Dictionary]:
+    """獲取按名稱排序的關卡場景列表，每個元素包含 name 和 scene"""
+    var sorted_levels: Array[Dictionary] = []
+    
+    # 獲取所有關卡名稱並排序
+    var level_names = level_scenes.keys()
+    level_names.sort()
+    
+    for level_name in level_names:
+        var scene = level_scenes[level_name]
+        if scene:
+            sorted_levels.append({
+                "name": level_name,
+                "scene": scene
+            })
+    
+    return sorted_levels
 
 # 重新載入當前關卡
 func reload_current_level() -> Level:

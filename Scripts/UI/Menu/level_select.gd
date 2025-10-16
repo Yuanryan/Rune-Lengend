@@ -27,22 +27,22 @@ func _create_level_buttons() -> void:
         push_error("無法創建關卡按鈕：缺少必要組件")
         return
     
-    # 從 LevelManager 獲取所有關卡場景
-    var level_scenes = LevelManager.get_all_level_scenes()
+    # 從 LevelManager 獲取按名稱排序的關卡場景
+    var sorted_levels = LevelManager.get_level_scenes_sorted()
     
     var button_index = 0
-    for level_scene in level_scenes.values():
+    for level_data in sorted_levels:
+        var level_name = level_data.get("name", "Unknown Level")
+        var level_scene = level_data.get("scene", null)
+        
         if not level_scene:
-            push_warning("關卡場景不存在")
+            push_warning("關卡場景不存在: " + level_name)
             continue
         
         var button: LevelButton = LEVEL_BUTTON_SCENE.instantiate()
         if not button:
             push_error("無法實例化關卡按鈕")
             continue
-        
-        # 從場景資源路徑獲取名稱
-        var scene_name = _get_scene_name_from_resource(level_scene)
         
         # 創建配置
         var config = {
@@ -51,16 +51,15 @@ func _create_level_buttons() -> void:
             "completed": false
         }
         
-        # 設置按鈕
+        # 設置按鈕，使用關卡名稱而不是數字編號
         button.setup(
-            button_index + 1,  # 關卡編號
-            scene_name,  # 使用場景名稱作為顯示名稱
+            button_index + 1,  # 關卡編號（用於排序）
+            level_name,  # 使用從場景中提取的關卡名稱
             config.unlocked,
             config.completed,
             config,
             level_scene  # 傳遞關卡場景
         )
-        
         # 添加到容器
         levels_container.add_child(button)
         button_index += 1
@@ -137,19 +136,3 @@ func hide_level_select() -> void:
     visible = false
     process_mode = Node.PROCESS_MODE_DISABLED
 
-# 從場景資源獲取場景名稱的輔助函數
-func _get_scene_name_from_resource(scene: PackedScene) -> String:
-    if not scene:
-        return "Unknown Level"
-    
-    var resource_path = scene.resource_path
-    if resource_path.is_empty():
-        return "Untitled Level"
-    
-    # 從路徑中提取檔案名（不含副檔名）
-    var file_name = resource_path.get_file().get_basename()
-    
-    # 將底線替換為空格並首字母大寫
-    var display_name = file_name.replace("_", " ").capitalize()
-    
-    return display_name
