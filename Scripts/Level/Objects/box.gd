@@ -1,3 +1,4 @@
+@icon("res://Assets/icons/box-solid-full.svg")
 @tool
 extends RigidBody2D
 class_name Box

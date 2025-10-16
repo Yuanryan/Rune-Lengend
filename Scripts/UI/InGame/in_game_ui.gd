@@ -1,13 +1,20 @@
 extends CanvasLayer
 
 
+signal transition_screen_covered
+signal transition_finished
+
 @onready var card_deck: CardDeck = %CardDeck
 @onready var action_queue: QueuePanel = %ActionQueue
 @onready var execute_button: Button = %ExecuteButton
 @onready var clear_button: Button = %ClearButton
 @onready var reset_button: Button = %ResetButton
 @onready var info_label: Label = %InfoLabel
+@onready var trans_animator: AnimationPlayer = %TransAnimator
 
+# 過渡狀態追蹤
+var is_transitioning: bool = false
+var pending_reset: bool = false
 
 func _ready() -> void:
     _connect_signals.call_deferred()
@@ -105,7 +112,41 @@ func clear_sequence() -> void:
         action_queue.clear_queue()
 
 func reset_player() -> void:
-    """重新載入關卡並保持動作佇列"""
+    """重新載入關卡並保持動作佇列，播放過渡動畫"""
+    if is_transitioning:
+        return  # 如果正在過渡中，忽略重置請求
+    
+    # 設置過渡狀態
+    is_transitioning = true
+    pending_reset = true
+    
+    # 鎖定玩家控制
+    _lock_player_control()
+    
+    # 播放過渡動畫
+    trans_animator.play("Transition/Diagnol Wipe")
+
+func _on_transition_covered() -> void:
+    """當過渡動畫覆蓋螢幕時觸發"""
+    transition_screen_covered.emit()
+    
+    # 如果有待處理的重置，現在執行
+    if pending_reset:
+        _execute_level_reset()
+
+func _on_transition_finished() -> void:
+    """當過渡動畫完成時觸發"""
+    transition_finished.emit()
+    
+    # 解鎖玩家控制
+    _unlock_player_control()
+    
+    # 重置過渡狀態
+    is_transitioning = false
+    pending_reset = false
+
+func _execute_level_reset() -> void:
+    """執行實際的關卡重置"""
     # 停止玩家正在執行的動作
     var player = GameManager.get_player()
     if player:
@@ -126,6 +167,28 @@ func reset_player() -> void:
     
     # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
     LevelManager.reload_level_from_last_checkpoint()
+
+func _lock_player_control() -> void:
+    """鎖定玩家控制"""
+    var player = GameManager.get_player()
+    if player:
+        # 禁用玩家輸入
+        player.set_process_input(false)
+        player.set_physics_process(false)
+    
+    # 禁用所有按鈕
+    disable_buttons()
+
+func _unlock_player_control() -> void:
+    """解鎖玩家控制"""
+    var player = GameManager.get_player()
+    if player:
+        # 重新啟用玩家輸入
+        player.set_process_input(true)
+        player.set_physics_process(true)
+    
+    # 重新啟用按鈕
+    enable_buttons()
 
 func restore_action_queue(action_descriptors: Array) -> void:
     """恢復動作佇列（由LevelManager調用）"""

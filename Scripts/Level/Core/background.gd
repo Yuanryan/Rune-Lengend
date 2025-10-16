@@ -6,6 +6,7 @@ extends Node2D
 var background_layers : Array[Node] = []
 
 func _ready() -> void:
+    owner.set_editable_instance(self, true)
     _set_background_layers()
     set_background_scale(background_scale)
     

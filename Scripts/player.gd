@@ -99,7 +99,8 @@ func _physics_process(delta: float) -> void:
         # 在地面上時重置跳躍計數
         _air_jump_count = 0
         # 停止下降動畫
-        animal_component.play_animation("Idle")
+        if velocity == Vector2.ZERO:
+            animal_component.play_animation("Idle")
 
     # 若沒有正在執行的 action，就從 queue 取下一個
     if _current_action == null and action_queue.size() > 0:

@@ -1,5 +1,6 @@
 # Turret.gd
 # 砲塔類別，會發射包含傷害區域的子彈
+@icon("res://Assets/icons/diagram-next-solid-full.svg")
 extends StaticBody2D
 class_name Turret
 

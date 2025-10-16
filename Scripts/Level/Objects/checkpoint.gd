@@ -1,4 +1,5 @@
 @tool
+@icon("res://Assets/icons/flag-solid-full.svg")
 extends Area2D
 class_name Checkpoint
 

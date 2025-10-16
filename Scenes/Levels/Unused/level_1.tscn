@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=17 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="2_4dpyx"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_afv7b"]
+[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/blur.gdshader" id="4_gaxdt"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_hwvp3"]
@@ -27,6 +28,11 @@ individual_action_limits = Dictionary[int, int]({
 available_animals = Array[int]([0, 1, 2])
 metadata/_custom_type_script = "uid://bnoi35lwldban"
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
+resource_local_to_scene = true
+shader = ExtResource("4_gaxdt")
+shader_parameter/blur_amount = 1.8000000855
+
 [sub_resource type="Resource" id="Resource_7r2dd"]
 script = ExtResource("7_k2mw1")
 transition = 4
@@ -39,6 +45,9 @@ metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("10_u5ghp")]
 position = Vector2(675, -12)
+
+[node name="Blur" parent="BackgroundSnowForest" index="5"]
+material = SubResource("ShaderMaterial_yjhgp")
 
 [node name="GameObjects" type="Node2D" parent="."]
 
@@ -133,6 +142,7 @@ process_physics_priority = 300
 script = ExtResource("7_hwvp3")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
+[editable path="BackgroundSnowForest"]
 [editable path="GameObjects/checkpoint"]
 [editable path="GameObjects/checkpoint2"]
 [editable path="GameObjects/Land"]

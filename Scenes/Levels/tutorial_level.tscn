@@ -1,0 +1,123 @@
+[gd_scene load_steps=13 format=3 uid="uid://wo0qqd2opgp1"]
+
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_c2yeb"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_ot486"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
+[ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ot486"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_u4lmr"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_gwj07"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="6_hj161"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="7_5pgco"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_w685s"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="9_g3l5c"]
+
+[sub_resource type="Resource" id="Resource_hqnw8"]
+script = ExtResource("2_ot486")
+level_name = "Tutorial"
+max_total_actions = 8
+individual_action_limits = Dictionary[int, int]({
+0: 3,
+1: 2,
+2: 2,
+3: 2,
+4: 1
+})
+available_animals = Array[int]([0, 1, 2])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
+[sub_resource type="Resource" id="Resource_knl5n"]
+script = ExtResource("5_gwj07")
+transition = 4
+metadata/_custom_type_script = "uid://8umksf8e80fw"
+
+[node name="Tutorial Level" type="Node2D"]
+script = ExtResource("1_c2yeb")
+level_resource = SubResource("Resource_hqnw8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -640.0
+offset_top = -344.0
+offset_right = 2360.0
+offset_bottom = 656.0
+color = Color(0.78039217, 0.8862745, 0.9411765, 1)
+
+[node name="BackgroundLayer0" type="Sprite2D" parent="."]
+position = Vector2(216.00002, 200)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_ot486")
+
+[node name="BackgroundLayer1" type="Sprite2D" parent="."]
+position = Vector2(1920.0001, 208)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_ot486")
+
+[node name="GameObject" type="Node2D" parent="."]
+
+[node name="LandEditTool" parent="GameObject" instance=ExtResource("3_8yvus")]
+show_all_polygons_in_game = true
+
+[node name="StartingPoint" type="Marker2D" parent="GameObject"]
+unique_name_in_owner = true
+position = Vector2(-400, 344)
+
+[node name="StartingCamera" type="Node2D" parent="GameObject"]
+unique_name_in_owner = true
+position = Vector2(-128, 216)
+script = ExtResource("4_u4lmr")
+zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_knl5n")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="LandNodes" type="Node2D" parent="GameObject"]
+
+[node name="Land" parent="GameObject/LandNodes" instance=ExtResource("6_hj161")]
+
+[node name="Polygon2D" parent="GameObject/LandNodes/Land" index="0"]
+position = Vector2(8, 152)
+polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObject/LandNodes/Land"]
+position = Vector2(8, 152)
+polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
+
+[node name="Land2" parent="GameObject/LandNodes" instance=ExtResource("6_hj161")]
+position = Vector2(1272, 408)
+
+[node name="Polygon2D" parent="GameObject/LandNodes/Land2" index="0"]
+position = Vector2(-64, -256)
+polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObject/LandNodes/Land2"]
+position = Vector2(-64, -256)
+polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
+
+[node name="checkpoint" parent="GameObject" instance=ExtResource("7_5pgco")]
+position = Vector2(248, 352)
+checkpoint_id = 1
+
+[node name="PhantomCamera2D" parent="GameObject/checkpoint" index="2"]
+position = Vector2(600, -248)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Camera2D" type="Camera2D" parent="GameObject"]
+position = Vector2(-128, 216)
+zoom = Vector2(2, 2)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="GameObject/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_w685s")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="DamageArea" parent="GameObject" instance=ExtResource("9_g3l5c")]
+position = Vector2(-608, 408)
+
+[node name="Environment" type="Node2D" parent="."]
+
+[editable path="GameObject/LandNodes/Land"]
+[editable path="GameObject/LandNodes/Land2"]
+[editable path="GameObject/checkpoint"]
+[editable path="GameObject/DamageArea"]
