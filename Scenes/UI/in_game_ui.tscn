@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
 [ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/InGame/card_queue.gd" id="2_queue"]
 [ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/InGame/drop_monitor.gd" id="3_2246s"]
-[ext_resource type="Shader" uid="uid://epc148y837el" path="res://Shaders/transition.gdshader" id="5_qm78u"]
+[ext_resource type="Shader" uid="uid://epc148y837el" path="res://Shaders/other/transition.gdshader" id="5_qm78u"]
 [ext_resource type="Texture2D" uid="uid://btmorjic5emta" path="res://Assets/textures/circle_albedo.png" id="6_5qd38"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_palette_bg"]
@@ -35,7 +35,7 @@ shader_parameter/stagger_frequency = Vector2i(2, 2)
 shader_parameter/flip_frequency = Vector2i(1, 1)
 shader_parameter/basic_feather = 0.0
 shader_parameter/mask_texture = ExtResource("6_5qd38")
-shader_parameter/use_mask_size = false
+shader_parameter/use_mask_size = true
 shader_parameter/mask_size = Vector2(100, 100)
 shader_parameter/edges = 64
 shader_parameter/shape_feather = 0.1
@@ -149,7 +149,7 @@ _data = {
 }
 
 [sub_resource type="Animation" id="Animation_5qd38"]
-resource_name = "Diagnol Wipe"
+resource_name = "Diagonal Wipe"
 length = 1.2
 step = 0.05
 tracks/0/type = "value"
@@ -316,10 +316,22 @@ tracks/4/keys = {
 "update": 1,
 "values": [ExtResource("6_5qd38")]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:material:shader_parameter/invert")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qm78u"]
 _data = {
-&"Diagnol Wipe": SubResource("Animation_5qd38"),
+&"Diagonal Wipe": SubResource("Animation_5qd38"),
 &"Grid Reveal": SubResource("Animation_vewak")
 }
 

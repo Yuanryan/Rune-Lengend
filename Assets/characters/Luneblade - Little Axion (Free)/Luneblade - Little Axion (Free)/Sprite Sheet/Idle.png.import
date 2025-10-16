@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cddaqw2lohttu"
-path="res://.godot/imported/Fall.png-f89b57e72ede7273ee1fc542f8f8fc6a.ctex"
+uid="uid://dfhhgvghwpd2k"
+path="res://.godot/imported/Idle.png-9b6df8ccb915b1d9c12d69499adf9daf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Fall.png"
-dest_files=["res://.godot/imported/Fall.png-f89b57e72ede7273ee1fc542f8f8fc6a.ctex"]
+source_file="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-9b6df8ccb915b1d9c12d69499adf9daf.ctex"]
 
 [params]
 

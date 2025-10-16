@@ -22,12 +22,6 @@ func start(player):
         player.switch_animal(target_animal)
         animal_switched.emit(target_animal)
         
-        # 輸出切換信息
-        var animal_data = target_animal.animal_data
-        print("動物切換完成: %s" % animal_data.name)
-        print("新移動速度: %.1f" % animal_data.move_speed)
-        print("新跳躍速度: %s" % animal_data.jump_velocity)
-        
         # 開始切換動作
         _switch_action = target_animal.get_switch_action()
         if _switch_action and _switch_action.can_perform(player):

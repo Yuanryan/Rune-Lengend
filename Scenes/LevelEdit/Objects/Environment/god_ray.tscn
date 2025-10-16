@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c13sgnl1cphcs"]
 
-[ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/godray.gdshader" id="1_lbboy"]
+[ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/environment/godray.gdshader" id="1_lbboy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_srugb"]
 resource_local_to_scene = true

@@ -32,7 +32,6 @@ position = Vector2(-80, 256)
 
 [node name="checkpoint" parent="GameObjects" instance=ExtResource("4_43rl3")]
 position = Vector2(480, 240)
-checkpoint_id = 1
 camera_target_position = Vector2(872, 128)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]

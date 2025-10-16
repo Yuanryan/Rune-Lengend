@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://docp66i6hlsin"
-path="res://.godot/imported/Death.png-aea3511c0a9ae9f152e6b7f55ed2d2b5.ctex"
+uid="uid://duuiy672ffx8n"
+path="res://.godot/imported/Death.png-508d51b54ab15d97c418ed79aac71481.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Death.png"
-dest_files=["res://.godot/imported/Death.png-aea3511c0a9ae9f152e6b7f55ed2d2b5.ctex"]
+source_file="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Death.png"
+dest_files=["res://.godot/imported/Death.png-508d51b54ab15d97c418ed79aac71481.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bihub7l0dx7ix"
-path="res://.godot/imported/Hurt.png-0c80b16e733ff8e49858ac4a5e660db4.ctex"
+uid="uid://vpccfcxn20lw"
+path="res://.godot/imported/Attack 1.png-211a4217415e772d510075fb8216233e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Hurt.png"
-dest_files=["res://.godot/imported/Hurt.png-0c80b16e733ff8e49858ac4a5e660db4.ctex"]
+source_file="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Attack 1.png"
+dest_files=["res://.godot/imported/Attack 1.png-211a4217415e772d510075fb8216233e.ctex"]
 
 [params]
 

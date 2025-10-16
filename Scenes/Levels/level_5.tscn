@@ -1,25 +1,26 @@
-[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=31 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_27vqw"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_gqyih"]
-[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/blur.gdshader" id="4_jd0ia"]
+[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_jd0ia"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_srugb"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_vdq4f"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="7_633d5"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_rw7sn"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
+[ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="9_b7yer"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="11_b7yer"]
 [ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="13_20kd1"]
-[ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/godray.gdshader" id="14_gqyih"]
+[ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/environment/godray.gdshader" id="14_gqyih"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_b7yer"]
-[ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/wind_sway.gdshader" id="15_srugb"]
+[ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
-[ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/snow_flakes.gdshader" id="19_27vqw"]
+[ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
 
 [sub_resource type="Resource" id="Resource_jd0ia"]
 resource_local_to_scene = true
@@ -37,6 +38,14 @@ shader_parameter/blur_amount = 1.8000000855
 [sub_resource type="Resource" id="Resource_27vqw"]
 script = ExtResource("7_jd0ia")
 transition = 4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhtsi"]
+resource_local_to_scene = true
+shader = ExtResource("9_b7yer")
+shader_parameter/rect_size = Vector2(0.1, 0.1)
+shader_parameter/bness = 1.07
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
 
 [sub_resource type="Curve2D" id="Curve2D_3asqb"]
 resource_local_to_scene = true
@@ -151,9 +160,11 @@ draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_gqyih")]
-position = Vector2(490, -179)
-checkpoint_id = 1
+position = Vector2(490, -156)
 activate_camera = false
+
+[node name="Sprite2D" parent="GameObjects/Checkpoint1" index="0"]
+material = SubResource("ShaderMaterial_yhtsi")
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint1" index="2"]
 visible = false
@@ -362,7 +373,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(147.558, -8)
+position = Vector2(37.217686, -96)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -422,6 +433,7 @@ tile_map_data = PackedByteArray("AAD4/wQACQAGAAIAAAD5/wQACQAHAAIAAAD3//z/CQAIAAM
 tile_set = ExtResource("13_20kd1")
 
 [node name="Bushes" type="TileMapLayer" parent="Enviroments"]
+visible = false
 self_modulate = Color(0.8862616, 0.88626146, 0.8862615, 1)
 material = SubResource("ShaderMaterial_vdq4f")
 position = Vector2(0, 24)

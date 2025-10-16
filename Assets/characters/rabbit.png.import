@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfalbbmatp2v8"
-path="res://.godot/imported/Dash.png-2dc145a7c7de6ad6cd9f0429e962943b.ctex"
+uid="uid://dwytjll2ncuon"
+path="res://.godot/imported/rabbit.png-f1db1c84cadeb7d0d51db15d19aa978f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Dash.png"
-dest_files=["res://.godot/imported/Dash.png-2dc145a7c7de6ad6cd9f0429e962943b.ctex"]
+source_file="res://Assets/characters/rabbit.png"
+dest_files=["res://.godot/imported/rabbit.png-f1db1c84cadeb7d0d51db15d19aa978f.ctex"]
 
 [params]
 

@@ -1,10 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://2eslwfy76gub"]
+[gd_scene load_steps=14 format=3 uid="uid://2eslwfy76gub"]
 
 [ext_resource type="Script" uid="uid://cnm3xun2xj52v" path="res://Scripts/Level/Objects/bullet.gd" id="1_bullet"]
 [ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/Objects/damage_area.gd" id="2_5lsg6"]
+[ext_resource type="Shader" uid="uid://c1dhdpdbfyib8" path="res://Shaders/environment/fireball.gdshader" id="2_8de35"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(8, 4)
+
+[sub_resource type="Curve" id="Curve_8de35"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24634147, 0.4113924), -1.1205411, 0.0, 0, 0, Vector2(0.60487807, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ivgr4"]
+texture_mode = 1
+curve = SubResource("Curve_8de35")
+
+[sub_resource type="Gradient" id="Gradient_8de35"]
+offsets = PackedFloat32Array(0.5, 1)
+colors = PackedColorArray(0.7764706, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_0mc1b"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fe3du"]
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_0mc1b")
+color_ramp = SubResource("Gradient_8de35")
+
+[sub_resource type="Gradient" id="Gradient_ivgr4"]
+offsets = PackedFloat32Array(0.22222222, 1)
+colors = PackedColorArray(0.4392157, 0.40392157, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ki14b"]
+noise_type = 2
+seed = 200
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rtyqd"]
+noise = SubResource("FastNoiseLite_ki14b")
+color_ramp = SubResource("Gradient_ivgr4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vs4o"]
+shader = ExtResource("2_8de35")
+shader_parameter/s_scale_y = -0.97
+shader_parameter/l_s_scale_y = 1.22
+shader_parameter/lness = 2.89
+shader_parameter/lness2 = 0.015
+shader_parameter/noise = SubResource("NoiseTexture2D_fe3du")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_rtyqd")
+shader_parameter/colo_curve = SubResource("CurveTexture_ivgr4")
 
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 8
@@ -14,6 +56,8 @@ script = ExtResource("1_bullet")
 shape = SubResource("RectangleShape2D_1")
 
 [node name="Sprite2D" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_2vs4o")
+use_parent_material = true
 offset_left = -6.0
 offset_top = -4.0
 offset_right = 6.0

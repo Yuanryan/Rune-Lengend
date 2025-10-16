@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="2_4dpyx"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_afv7b"]
-[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/blur.gdshader" id="4_gaxdt"]
+[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_gaxdt"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_hwvp3"]
@@ -69,7 +69,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="checkpoint" parent="GameObjects" instance=ExtResource("5_cyadu")]
 position = Vector2(472, 224)
-checkpoint_id = 1
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint" index="2"]
 position = Vector2(160, -96)
@@ -77,7 +76,6 @@ zoom = Vector2(1.6, 1.6)
 
 [node name="checkpoint2" parent="GameObjects" instance=ExtResource("5_cyadu")]
 position = Vector2(1024, 240)
-checkpoint_id = 2
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint2" index="2"]
 visible = false

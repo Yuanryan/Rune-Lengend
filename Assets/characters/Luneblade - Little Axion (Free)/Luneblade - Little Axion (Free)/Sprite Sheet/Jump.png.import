@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://boddstgiec2f2"
-path="res://.godot/imported/Idle.png-05091362c2550555cc02d89196b172af.ctex"
+uid="uid://csyxo7brsqg0i"
+path="res://.godot/imported/Jump.png-44fe22e3de6c95351cd5762a31fd160b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Idle.png"
-dest_files=["res://.godot/imported/Idle.png-05091362c2550555cc02d89196b172af.ctex"]
+source_file="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Jump.png"
+dest_files=["res://.godot/imported/Jump.png-44fe22e3de6c95351cd5762a31fd160b.ctex"]
 
 [params]
 

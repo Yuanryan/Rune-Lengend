@@ -1,12 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctp1234l38t1a"]
+[gd_scene load_steps=9 format=3 uid="uid://ctp1234l38t1a"]
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
+[ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="2_1q831"]
 [ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="2_8jbrj"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="3_gtr1l"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41icc"]
+resource_local_to_scene = true
+shader = ExtResource("2_1q831")
+shader_parameter/rect_size = Vector2(0.1, 0.1)
+shader_parameter/bness = 1.07
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
-size = Vector2(38.5, 52.5)
+size = Vector2(34, 53)
 
 [sub_resource type="Resource" id="Resource_gtr1l"]
 script = ExtResource("4_1q831")
@@ -16,14 +25,14 @@ transition = 4
 collision_mask = 2
 script = ExtResource("1_5xexx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(22.75, 26.75)
-shape = SubResource("RectangleShape2D_ddtxo")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(21.5, 27)
+material = SubResource("ShaderMaterial_41icc")
+use_parent_material = true
 scale = Vector2(0.3359375, 0.421875)
 texture = ExtResource("2_8jbrj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ddtxo")
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 unique_name_in_owner = true

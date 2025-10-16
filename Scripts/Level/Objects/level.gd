@@ -10,8 +10,8 @@ class_name Level
 
 # 檢查點陣列
 var checkpoints: Array[Checkpoint] = []
-# 當前檢查點ID（最後到達的檢查點）
-var current_checkpoint_id: int = 0
+# 當前檢查點索引（最後到達的檢查點）
+var current_checkpoint_index: int = -1
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -56,21 +56,20 @@ func _initialize_camera_state() -> void:
 	_activate_starting_camera()
 
 
-func _on_checkpoint_reached(checkpoint_id: int, checkpoint_pos: Vector2) -> void:
-	# 更新當前檢查點ID
-	current_checkpoint_id = checkpoint_id
+func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> void:
+	# 找到檢查點在陣列中的索引
+	current_checkpoint_index = checkpoints.find(checkpoint)
 	
-	# 獲取檢查點並檢查是否需要激活相機
-	var target_checkpoint = get_checkpoint_by_id(checkpoint_id)
-	if target_checkpoint and target_checkpoint.activate_camera:
-		_switch_to_checkpoint_camera(target_checkpoint)
+	# 檢查是否需要激活相機
+	if checkpoint and checkpoint.activate_camera:
+		_switch_to_checkpoint_camera(checkpoint)
    
 	starting_point.global_position = checkpoint_pos
 	
 	# 重置遊戲狀態到規劃階段
 	GameManager.reset_to_planning()
 	
-	print("到達檢查點: ", checkpoint_id)
+	print("到達檢查點: ", current_checkpoint_index)
 
 # 切換到指定檢查點的 PhantomCamera2D
 func _switch_to_checkpoint_camera(target: Checkpoint) -> void:
@@ -127,11 +126,10 @@ func get_checkpoint_count() -> int:
 	"""獲取檢查點數量"""
 	return checkpoints.size()
 
-func get_checkpoint_by_id(checkpoint_id: int) -> Checkpoint:
-	"""根據ID獲取檢查點"""
-	for checkpoint in checkpoints:
-		if checkpoint.checkpoint_id == checkpoint_id:
-			return checkpoint
+func get_checkpoint_by_index(index: int) -> Checkpoint:
+	"""根據索引獲取檢查點"""
+	if index >= 0 and index < checkpoints.size():
+		return checkpoints[index]
 	return null
 
 func get_active_checkpoints() -> Array[Checkpoint]:
@@ -142,32 +140,32 @@ func get_active_checkpoints() -> Array[Checkpoint]:
 			active_checkpoints.append(checkpoint)
 	return active_checkpoints
 
-func get_current_checkpoint_id() -> int:
-	"""獲取當前檢查點ID（最後到達的檢查點）"""
-	return current_checkpoint_id
+func get_current_checkpoint_index() -> int:
+	"""獲取當前檢查點索引（最後到達的檢查點）"""
+	return current_checkpoint_index
 
 func get_current_checkpoint() -> Checkpoint:
 	"""獲取當前檢查點物件（最後到達的檢查點）"""
-	return get_checkpoint_by_id(current_checkpoint_id)
+	return get_checkpoint_by_index(current_checkpoint_index)
 
 func set_starting_point_to_checkpoint(checkpoint: Checkpoint) -> void:
 	"""將起始點設置到指定檢查點的位置"""
 	if checkpoint:
 		starting_point.global_position = checkpoint.global_position
 		# 使用 PhantomCamera2D 切換相機
-		_switch_to_checkpoint_camera(get_checkpoint_by_id(checkpoint.checkpoint_id))
+		_switch_to_checkpoint_camera(checkpoint)
 
-func set_starting_point_to_checkpoint_by_id(checkpoint_id: int) -> void:
-	"""根據ID將起始點設置到指定檢查點的位置"""
-	var checkpoint = get_checkpoint_by_id(checkpoint_id)
+func set_starting_point_to_checkpoint_by_index(index: int) -> void:
+	"""根據索引將起始點設置到指定檢查點的位置"""
+	var checkpoint = get_checkpoint_by_index(index)
 	if checkpoint:
 		set_starting_point_to_checkpoint(checkpoint)
 	else:
-		print("找不到檢查點: ", checkpoint_id)
+		print("找不到檢查點索引: ", index)
 
 func set_starting_point_to_current_checkpoint() -> void:
 	"""將起始點設置到當前檢查點的位置"""
-	if current_checkpoint_id > 0:
-		set_starting_point_to_checkpoint_by_id(current_checkpoint_id)
+	if current_checkpoint_index >= 0:
+		set_starting_point_to_checkpoint_by_index(current_checkpoint_index)
 	else:
 		print("沒有當前檢查點，保持原始起始點位置")

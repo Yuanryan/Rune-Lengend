@@ -74,7 +74,6 @@ func _on_execute_pressed() -> void:
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
-    print("InGameUI: 遊戲內狀態變更為 ", new_state)
     
     # 根據狀態執行相應的處理
     # 當狀態不是執行中且不是暫停時，解鎖佇列允許修改
@@ -94,9 +93,7 @@ func _on_reset_pressed() -> void:
 func execute_sequence() -> void:
     if action_queue:
         var actions = action_queue.get_action_descriptors()
-        print("Actions: ", actions)
         if actions.size() > 0:
-            print("Executing sequence with ", actions.size(), " actions")
             # 鎖定隊列防止修改
             action_queue.lock_queue()
             GameManager.get_player().load_actions_from_ui(actions)
@@ -124,7 +121,7 @@ func reset_player() -> void:
     _lock_player_control()
     
     # 播放過渡動畫
-    trans_animator.play("Transition/Diagnol Wipe")
+    trans_animator.play("Transition/Diagonal Wipe")
 
 func _on_transition_covered() -> void:
     """當過渡動畫覆蓋螢幕時觸發"""

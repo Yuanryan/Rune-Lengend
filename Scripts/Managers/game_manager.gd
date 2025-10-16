@@ -82,11 +82,9 @@ func set_in_game_state(new_state: InGameState) -> void:
     if current_in_game_state == new_state:
         return
     
-    var previous_state = current_in_game_state
     current_in_game_state = new_state
     in_game_state_changed.emit(new_state)
     
-    print("遊戲內狀態從 %s 變更為 %s" % [_get_state_name(previous_state), _get_state_name(new_state)])
 
 # 輔助方法
 func _get_state_name(state: InGameState) -> String:

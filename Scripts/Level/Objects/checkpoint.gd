@@ -3,12 +3,11 @@
 extends Area2D
 class_name Checkpoint
 
-@export var checkpoint_id: int = 0
 @export var activate_camera: bool = true : set = set_activate_camera
 @onready var phantom_camera: PhantomCamera2D = %PhantomCamera2D
 var active: bool = false
 
-signal checkpoint_reached(checkpoint_id, checkpoint_pos)
+signal checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2)
 
 func _ready() -> void:
     if Engine.is_editor_hint():
@@ -18,11 +17,12 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
     if active:
+        print("檢查點已激活!")
         return
     if body is Player:
         active = true
         print("通過檢查點!") 
-        checkpoint_reached.emit(checkpoint_id, self.global_position)
+        checkpoint_reached.emit(self, self.global_position)
 
 # 設定 PhantomCamera2D 的可見性
 func set_camera_visible(should_show: bool) -> void:

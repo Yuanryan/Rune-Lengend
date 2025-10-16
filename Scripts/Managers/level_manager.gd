@@ -224,20 +224,25 @@ func reload_level_from_last_checkpoint() -> Level:
         push_error("沒有當前關卡場景可以重新載入")
         return null
     
-    # 保存當前檢查點ID和動作佇列狀態
-    var saved_checkpoint_id = 0
+    # 保存當前檢查點索引、檢查點狀態和動作佇列狀態
+    var saved_checkpoint_index = -1
+    var saved_checkpoint_states: Dictionary = {}
     var spawn_position = Vector2.ZERO
     
     if current_level:
-        saved_checkpoint_id = current_level.get_current_checkpoint_id()
-        print("保存的檢查點ID: ", saved_checkpoint_id)
+        saved_checkpoint_index = current_level.get_current_checkpoint_index()
+        
+        # 保存所有檢查點的 active 狀態
+        for i in range(current_level.get_checkpoint_count()):
+            var checkpoint = current_level.get_checkpoint_by_index(i)
+            if checkpoint:
+                saved_checkpoint_states[i] = checkpoint.active
         
         # 獲取檢查點位置
-        if saved_checkpoint_id > 0:
-            var checkpoint = current_level.get_checkpoint_by_id(saved_checkpoint_id)
+        if saved_checkpoint_index >= 0:
+            var checkpoint = current_level.get_checkpoint_by_index(saved_checkpoint_index)
             if checkpoint:
                 spawn_position = checkpoint.global_position
-                print("檢查點位置: ", spawn_position)
     
     var saved_action_queue = _save_action_queue()
     
@@ -245,14 +250,15 @@ func reload_level_from_last_checkpoint() -> Level:
     # 相機位置由 PhantomCamera2D 系統自動處理
     var reloaded_level = load_level_scene(current_level_scene, spawn_position)
     
-    # 恢復動作佇列
+    # 恢復動作佇列和檢查點狀態
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
+        _restore_checkpoint_states(reloaded_level, saved_checkpoint_states, saved_checkpoint_index)
     
     return reloaded_level
 
 # 從指定檢查點重新載入關卡
-func reload_level_from_specific_checkpoint(checkpoint_id: int) -> Level:
+func reload_level_from_specific_checkpoint(checkpoint_index: int) -> Level:
     """從指定檢查點重新載入關卡"""
     if not current_level_scene:
         push_error("沒有當前關卡場景可以重新載入")
@@ -261,12 +267,11 @@ func reload_level_from_specific_checkpoint(checkpoint_id: int) -> Level:
     # 獲取指定檢查點位置
     var spawn_position = Vector2.ZERO
     if current_level:
-        var checkpoint = current_level.get_checkpoint_by_id(checkpoint_id)
+        var checkpoint = current_level.get_checkpoint_by_index(checkpoint_index)
         if checkpoint:
             spawn_position = checkpoint.global_position
-            print("指定檢查點位置: ", spawn_position)
         else:
-            print("找不到檢查點: ", checkpoint_id)
+            print("找不到檢查點索引: ", checkpoint_index)
     
     var saved_action_queue = _save_action_queue()
     
@@ -279,3 +284,21 @@ func reload_level_from_specific_checkpoint(checkpoint_id: int) -> Level:
         await _restore_action_queue(saved_action_queue)
     
     return reloaded_level
+
+# 恢復檢查點狀態
+func _restore_checkpoint_states(level: Level, checkpoint_states: Dictionary, current_index: int = -1) -> void:
+    """恢復檢查點的 active 狀態和當前檢查點索引"""
+    if not level:
+        return
+    
+    # 恢復所有檢查點的 active 狀態
+    if not checkpoint_states.is_empty():
+        for i in range(level.get_checkpoint_count()):
+            if i in checkpoint_states:
+                var checkpoint = level.get_checkpoint_by_index(i)
+                if checkpoint:
+                    checkpoint.active = checkpoint_states[i]
+    
+    # 恢復當前檢查點索引
+    if current_index >= 0:
+        level.current_checkpoint_index = current_index

@@ -56,7 +56,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_x1k1j")]
 position = Vector2(124, 78)
-checkpoint_id = 1
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint1" index="2"]
 position = Vector2(95, 168)
@@ -64,7 +63,6 @@ zoom = Vector2(1.4, 1.4)
 
 [node name="Checkpoint2" parent="GameObjects" instance=ExtResource("4_x1k1j")]
 position = Vector2(184, -72)
-checkpoint_id = 2
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint2" index="2"]
 position = Vector2(95, 168)
