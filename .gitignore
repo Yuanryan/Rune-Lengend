@@ -2,6 +2,7 @@
 .godot/
 /android/
 .cursor/
+.vscode/
 
 # Temp files
 *.tmp
