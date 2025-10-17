@@ -1,51 +1,51 @@
 [gd_scene load_steps=13 format=3 uid="uid://chih41cnwx5pj"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_amuwe"]
-[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="1_ojusv"]
-[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_6b28d"]
-[ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="2_06ra3"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_aff08"]
-[ext_resource type="PackedScene" uid="uid://m78ohatsav31" path="res://Scenes/LevelEdit/Objects/Objectives/starting_point.tscn" id="3_aff08"]
-[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="3_g158a"]
-[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="4_3pqps"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_w3tbt"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_maul3"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_xd1qq"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_i0rpk"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_333je"]
+[ext_resource type="PackedScene" uid="uid://m78ohatsav31" path="res://Scenes/LevelEdit/Objects/Objectives/starting_point.tscn" id="4_5ybus"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_veebk"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_6uyrc"]
+[ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="7_13s47"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_qy762"]
+[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_dmdeq"]
+[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="10_2kjif"]
 
 [sub_resource type="Resource" id="Resource_w3tbt"]
-script = ExtResource("2_aff08")
+script = ExtResource("2_i0rpk")
 level_name = "Level 11"
 metadata/_custom_type_script = "uid://bnoi35lwldban"
 
 [sub_resource type="Resource" id="Resource_oaj46"]
-script = ExtResource("5_maul3")
+script = ExtResource("6_6uyrc")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level" type="Node2D"]
-script = ExtResource("1_amuwe")
+script = ExtResource("1_xd1qq")
 level_resource = SubResource("Resource_w3tbt")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
-[node name="LandEditTool" parent="." instance=ExtResource("2_6b28d")]
+[node name="LandEditTool" parent="." instance=ExtResource("3_333je")]
 
-[node name="StartingPoint" parent="." instance=ExtResource("3_aff08")]
+[node name="StartingPoint" parent="." instance=ExtResource("4_5ybus")]
 unique_name_in_owner = true
 position = Vector2(49, -52)
 
 [node name="StartingCamera" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("4_w3tbt")
+script = ExtResource("5_veebk")
 tween_resource = SubResource("Resource_oaj46")
 tween_on_load = false
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="Turret" parent="." instance=ExtResource("2_06ra3")]
+[node name="Turret" parent="." instance=ExtResource("7_13s47")]
 position = Vector2(138, 0)
 rotation = -1.5707964
 bullet_speed = 100.0
 
-[node name="Land" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(-11, -333)
 
 [node name="Polygon2D" parent="Land" index="0"]
@@ -58,7 +58,7 @@ position = Vector2(13, -2710.9998)
 scale = Vector2(0.25260416, 9.140624)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 378, 288.6493, 384, 256)
 
-[node name="Land2" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land2" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(190, -182)
 
 [node name="Polygon2D" parent="Land2" index="0"]
@@ -70,7 +70,7 @@ position = Vector2(7, -1070)
 scale = Vector2(0.46354166, 3.53125)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="Land3" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land3" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(130, -697)
 
 [node name="Polygon2D" parent="Land3" index="0"]
@@ -82,7 +82,7 @@ position = Vector2(-29, -443)
 scale = Vector2(4.125, 1.71875)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="Land4" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land4" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(690, -251)
 
 [node name="Polygon2D" parent="Land4" index="0"]
@@ -95,7 +95,7 @@ position = Vector2(-68, -1722.9968)
 scale = Vector2(0.41145834, 6.3437376)
 polygon = PackedVector2Array(0, 256, 0, 320, 188.84631, 320.00003, 384, 320, 384, 256)
 
-[node name="Land5" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land5" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(1173, -393)
 
 [node name="Polygon2D" parent="Land5" index="0"]
@@ -103,17 +103,17 @@ position = Vector2(-386, -478.36603)
 scale = Vector2(1.5494791, 1.6186073)
 polygon = PackedVector2Array(0, 256, 0, 320, 192, 320.87213, 384, 320, 384, 256)
 
-[node name="Spike" parent="Land5" instance=ExtResource("3_g158a")]
+[node name="Spike" parent="Land5" instance=ExtResource("9_dmdeq")]
 position = Vector2(-315, -173)
 rotation = -3.1415927
 
-[node name="Spike2" parent="Land5" instance=ExtResource("3_g158a")]
+[node name="Spike2" parent="Land5" instance=ExtResource("9_dmdeq")]
 position = Vector2(-68, -88)
 
-[node name="Spike3" parent="Land5" instance=ExtResource("3_g158a")]
+[node name="Spike3" parent="Land5" instance=ExtResource("9_dmdeq")]
 position = Vector2(-212, 366)
 
-[node name="Spike4" parent="Land5" instance=ExtResource("3_g158a")]
+[node name="Spike4" parent="Land5" instance=ExtResource("9_dmdeq")]
 position = Vector2(-177, 368)
 
 [node name="@CollisionPolygon2D@57882" type="CollisionPolygon2D" parent="Land5"]
@@ -121,7 +121,7 @@ position = Vector2(-386, -478.36603)
 scale = Vector2(1.5494791, 1.6186073)
 polygon = PackedVector2Array(0, 256, 0, 320, 192, 320.87213, 384, 320, 384, 256)
 
-[node name="Land6" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land6" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(1715, -454)
 
 [node name="Polygon2D" parent="Land6" index="0"]
@@ -134,7 +134,7 @@ position = Vector2(-27, -2659.0007)
 scale = Vector2(0.36458334, 9.421878)
 polygon = PackedVector2Array(0, 256, 0, 320, 192, 319.99997, 384, 320, 384, 256)
 
-[node name="Land7" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land7" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(1357, -280)
 
 [node name="Polygon2D" parent="Land7" index="0"]
@@ -146,7 +146,7 @@ position = Vector2(155.99998, -228)
 scale = Vector2(0.4583334, 1)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="Land8" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land8" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(1031, -130)
 
 [node name="Polygon2D" parent="Land8" index="0"]
@@ -158,7 +158,7 @@ position = Vector2(166.00003, -291)
 scale = Vector2(0.53645825, 1)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="Land9" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land9" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(867, -216)
 
 [node name="Polygon2D" parent="Land9" index="0"]
@@ -170,7 +170,7 @@ position = Vector2(102.00001, -289)
 scale = Vector2(0.37760413, 1)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="TimedDoor" parent="." instance=ExtResource("4_3pqps")]
+[node name="TimedDoor" parent="." instance=ExtResource("10_2kjif")]
 position = Vector2(1000, -292)
 
 [node name="Polygon2D" parent="TimedDoor" index="0"]
@@ -182,7 +182,7 @@ position = Vector2(758.00006, 277)
 scale = Vector2(8.625003, 2.6250005)
 polygon = PackedVector2Array(-8, -32, -8, 28, 0.2, 32, 8, 28, 8, -32)
 
-[node name="Land10" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land10" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(826, 68)
 
 [node name="Polygon2D" parent="Land10" index="0"]
@@ -194,10 +194,10 @@ position = Vector2(-44, -328)
 scale = Vector2(1.6145834, 1)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="Spike" parent="." instance=ExtResource("3_g158a")]
+[node name="Spike" parent="." instance=ExtResource("9_dmdeq")]
 position = Vector2(1282, -191)
 
-[node name="Land11" parent="." instance=ExtResource("1_ojusv")]
+[node name="Land11" parent="." instance=ExtResource("8_qy762")]
 position = Vector2(-2, -5)
 
 [node name="Polygon2D" parent="Land11" index="0"]
