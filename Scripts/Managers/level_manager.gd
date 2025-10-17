@@ -106,7 +106,7 @@ func _clear_all_bullets() -> void:
             bullet.queue_free()
     
 # 載入關卡場景
-func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector2.ZERO, camera_position: Vector2 = Vector2.ZERO) -> Level:
+func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector2.ZERO) -> Level:
     # 清除所有子彈
     _clear_all_bullets()
     
@@ -287,7 +287,7 @@ func reload_level_from_specific_checkpoint(checkpoint_index: int) -> Level:
 
 # 恢復檢查點狀態
 func _restore_checkpoint_states(level: Level, checkpoint_states: Dictionary, current_index: int = -1) -> void:
-    """恢復檢查點的 active 狀態和當前檢查點索引"""
+    """恢復檢查點的 active 狀態和當前檢查點索引，並切換到對應的攝影機"""
     if not level:
         return
     
@@ -302,3 +302,16 @@ func _restore_checkpoint_states(level: Level, checkpoint_states: Dictionary, cur
     # 恢復當前檢查點索引
     if current_index >= 0:
         level.current_checkpoint_index = current_index
+        
+        # 切換到當前檢查點的攝影機
+        var current_checkpoint = level.get_checkpoint_by_index(current_index)
+        if current_checkpoint:
+            print("重置時切換到檢查點攝影機: ", current_checkpoint.name)
+            level._switch_to_checkpoint_camera(current_checkpoint, false)
+        else:
+            print("重置時使用起始攝影機")
+            level._activate_starting_camera()
+    else:
+        # 如果沒有檢查點，使用起始攝影機
+        print("重置時沒有檢查點，使用起始攝影機")
+        level._activate_starting_camera()

@@ -4,8 +4,10 @@ extends Area2D
 class_name Checkpoint
 
 @export var activate_camera: bool = true : set = set_activate_camera
+@export var tween_duration: float = 1.0
 @onready var phantom_camera: PhantomCamera2D = %PhantomCamera2D
 var active: bool = false
+
 
 signal checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2)
 
@@ -27,21 +29,15 @@ func _on_body_entered(body: Node) -> void:
         checkpoint_reached.emit(self, self.global_position)
 
 # 設定 PhantomCamera2D 的優先級
-func set_camera_priority(priority_value: int) -> void:
+func set_camera_priority(priority_value: int, should_tween: bool = true) -> void:
     if phantom_camera:
+        if should_tween:
+            phantom_camera.set_tween_duration(tween_duration)
+        else:
+            phantom_camera.set_tween_duration(0)
         # 設置當前相機的優先級
         phantom_camera.visible = true
         phantom_camera.priority = priority_value
-        print("檢查點相機優先級已設置: ", name, ", 優先級: ", phantom_camera.priority)
-        
-        # # 將所有其他相機的優先級設為 -1
-        # PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): 
-        #     if pcam != phantom_camera:  # 不是當前相機
-        #         pcam.priority = 0
-        #         print(pcam.name, " 優先級設為: ", pcam.priority)
-        # )
-        
-
 
 
 # 獲取 PhantomCamera2D 的可見性

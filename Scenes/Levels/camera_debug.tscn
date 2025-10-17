@@ -82,6 +82,7 @@ draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
+unique_name_in_owner = true
 position = Vector2(-136, 216)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
@@ -145,16 +146,6 @@ material = SubResource("ShaderMaterial_8yvus")
 position = Vector2(342, -160)
 zoom = Vector2(2, 2)
 
-[node name="Checkpoint4" parent="GameObjects" instance=ExtResource("10_bwp46")]
-position = Vector2(58, 373)
-
-[node name="Sprite2D" parent="GameObjects/Checkpoint4" index="0"]
-material = SubResource("ShaderMaterial_8yvus")
-
-[node name="PhantomCamera2D" parent="GameObjects/Checkpoint4" index="2"]
-position = Vector2(342, -160)
-zoom = Vector2(2, 2)
-
 [node name="Checkpoint5" parent="GameObjects" instance=ExtResource("10_bwp46")]
 position = Vector2(-6, 380)
 
@@ -162,6 +153,16 @@ position = Vector2(-6, 380)
 material = SubResource("ShaderMaterial_8yvus")
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint5" index="2"]
+position = Vector2(342, -160)
+zoom = Vector2(2, 2)
+
+[node name="Checkpoint4" parent="GameObjects" instance=ExtResource("10_bwp46")]
+position = Vector2(58, 373)
+
+[node name="Sprite2D" parent="GameObjects/Checkpoint4" index="0"]
+material = SubResource("ShaderMaterial_8yvus")
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoint4" index="2"]
 position = Vector2(342, -160)
 zoom = Vector2(2, 2)
 
@@ -175,5 +176,5 @@ position = Vector2(296, 378)
 [editable path="GameObjects/Checkpoint"]
 [editable path="GameObjects/Checkpoint2"]
 [editable path="GameObjects/Checkpoint3"]
-[editable path="GameObjects/Checkpoint4"]
 [editable path="GameObjects/Checkpoint5"]
+[editable path="GameObjects/Checkpoint4"]
