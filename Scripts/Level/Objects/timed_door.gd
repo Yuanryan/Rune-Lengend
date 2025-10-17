@@ -1,4 +1,5 @@
 @tool
+@icon("res://Assets/icons/door-closed-solid-full.svg")
 # Door.gd
 # 門類別，可以通過按鈕控制開關
 extends LandTool

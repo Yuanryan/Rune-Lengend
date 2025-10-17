@@ -12,6 +12,8 @@ signal checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2)
 func _ready() -> void:
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true)
+    if not phantom_camera:
+        phantom_camera = %PhantomCamera2D
     add_to_group("checkpoints")
     body_entered.connect(_on_body_entered)
 
@@ -28,6 +30,7 @@ func _on_body_entered(body: Node) -> void:
 func set_camera_priority(priority_value: int) -> void:
     if phantom_camera:
         # 設置當前相機的優先級
+        phantom_camera.visible = true
         phantom_camera.priority = priority_value
         print("檢查點相機優先級已設置: ", name, ", 優先級: ", phantom_camera.priority)
         

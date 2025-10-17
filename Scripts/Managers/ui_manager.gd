@@ -7,16 +7,18 @@ extends Node
 var main_menu_ui: MainMenu = null
 var in_game_ui: CanvasLayer = null
 var level_select: LevelSelect = null
+var victory_ui: CanvasLayer = null
 
 # 當前顯示的UI
 var current_ui: Node = null
 
 
 # 設置UI引用
-func set_ui_references(main_menu: MainMenu, level_select_ui: LevelSelect, game_ui: CanvasLayer) -> void:
+func set_ui_references(main_menu: MainMenu, level_select_ui: LevelSelect, game_ui: CanvasLayer, victory_ui_ref: CanvasLayer = null) -> void:
     main_menu_ui = main_menu
     level_select = level_select_ui
     in_game_ui = game_ui
+    victory_ui = victory_ui_ref
 
 # 初始化UI狀態
 func initialize_ui() -> void:
@@ -32,6 +34,15 @@ func initialize_ui() -> void:
     if level_select:
         level_select.visible = false
         level_select.process_mode = Node.PROCESS_MODE_DISABLED
+    
+    if victory_ui:
+        victory_ui.visible = false
+        victory_ui.process_mode = Node.PROCESS_MODE_DISABLED
+    
+    # 連接GameManager信號
+    if GameManager:
+        GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+    
 
 # 顯示主選單
 func show_main_menu() -> void:
@@ -90,3 +101,45 @@ func create_cards_from_level(level: Level) -> void:
 func get_in_game_ui() -> CanvasLayer:
     """獲取遊戲內UI"""
     return in_game_ui
+
+# 顯示勝利UI
+func show_victory() -> void:
+    """顯示勝利UI"""
+    if victory_ui:
+        victory_ui.process_mode = Node.PROCESS_MODE_INHERIT
+        victory_ui.show_victory()
+        # 連接返回按鈕信號
+        if not victory_ui.return_to_level_select_requested.is_connected(_on_return_to_level_select_requested):
+            victory_ui.return_to_level_select_requested.connect(_on_return_to_level_select_requested)
+
+# 隱藏勝利UI
+func hide_victory() -> void:
+    """隱藏勝利UI"""
+    if victory_ui:
+        victory_ui.hide_victory()
+        victory_ui.process_mode = Node.PROCESS_MODE_DISABLED
+
+# 處理遊戲內狀態變化
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    """響應遊戲內狀態變化"""
+    match new_state:
+        GameManager.InGameState.VICTORY:
+            show_victory()
+        _:
+            # 其他狀態時隱藏勝利UI
+            if victory_ui and victory_ui.visible:
+                hide_victory()
+
+# 處理返回關卡選擇請求
+func _on_return_to_level_select_requested() -> void:
+    """當勝利UI的返回按鈕被按下時"""
+    # 隱藏勝利UI
+    hide_victory()
+    
+    # 卸載當前關卡
+    LevelManager.unload_level()
+    
+    # 設置遊戲狀態為關卡選擇
+    GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
+    
+    print("已回到關卡選擇畫面")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d055chr3oqj4h"]
+[gd_scene load_steps=6 format=3 uid="uid://d055chr3oqj4h"]
 
 [ext_resource type="PackedScene" uid="uid://cak3m4n5o6p7q" path="res://Scenes/UI/main_menu.tscn" id="1_main_menu"]
 [ext_resource type="PackedScene" uid="uid://b71a6pjju4cpw" path="res://Scenes/UI/level_select.tscn" id="2_level_select"]
 [ext_resource type="PackedScene" uid="uid://dmavjrcww2c2h" path="res://Scenes/UI/in_game_ui.tscn" id="3_8gbba"]
 [ext_resource type="Script" uid="uid://clxlke3nfb8uv" path="res://Scripts/main_scene.gd" id="4_main_scene"]
+[ext_resource type="PackedScene" uid="uid://cjdeafs68s51h" path="res://Scenes/UI/InGame/victory_ui.tscn" id="5_kry3j"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("4_main_scene")
@@ -15,4 +16,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="InGameUI" parent="." instance=ExtResource("3_8gbba")]
+unique_name_in_owner = true
+
+[node name="VictoryUI" parent="." instance=ExtResource("5_kry3j")]
 unique_name_in_owner = true

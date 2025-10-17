@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjdeafs68s51h"]
+
+[ext_resource type="Script" uid="uid://8x688lrr6lmo" path="res://Scripts/UI/InGame/victory_ui.gd" id="1_victory"]
+
+[sub_resource type="Gradient" id="Gradient_particles"]
+offsets = PackedFloat32Array(0, 0, 1)
+colors = PackedColorArray(1, 0.84, 0, 1, 1, 0.5, 0, 1, 1, 1, 0, 1)
+
+[node name="VictoryUI" type="CanvasLayer"]
+script = ExtResource("1_victory")
+
+[node name="VictoryControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="VictoryControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.3)
+
+[node name="VictoryLabel" type="Label" parent="VictoryControl"]
+unique_name_in_owner = true
+modulate = Color(1, 0.84313726, 0, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "恭喜！關卡完成！"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReturnButton" type="Button" parent="VictoryControl"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "回到關卡選擇"
+
+[node name="Particles" type="CPUParticles2D" parent="VictoryControl"]
+unique_name_in_owner = true
+position = Vector2(955, 532)
+emitting = false
+amount = 100
+lifetime = 3.0
+explosiveness = 0.5
+direction = Vector2(0, -1)
+gravity = Vector2(0, 200)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+color = Color(1, 0.84, 0, 1)
+color_ramp = SubResource("Gradient_particles")

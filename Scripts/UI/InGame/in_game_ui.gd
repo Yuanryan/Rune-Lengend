@@ -80,6 +80,11 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     if new_state != GameManager.InGameState.EXECUTING and new_state != GameManager.InGameState.PAUSED:
         if action_queue:
             action_queue.unlock_queue() 
+    
+    # 勝利狀態時禁用所有按鈕
+    if new_state == GameManager.InGameState.VICTORY:
+        disable_buttons()
+    
     _update_ui()
 
 func _on_clear_pressed() -> void:
@@ -276,6 +281,15 @@ func _update_ui() -> void:
                 clear_button.disabled = false
             if reset_button:
                 reset_button.disabled = false
+                
+        GameManager.InGameState.VICTORY:
+            # 勝利階段：禁用所有按鈕
+            if execute_button:
+                execute_button.disabled = true
+            if clear_button:
+                clear_button.disabled = true
+            if reset_button:
+                reset_button.disabled = true
     
     # 更新信息標籤
     if info_label:
@@ -295,6 +309,8 @@ func _update_ui() -> void:
                 info_label.text = "Execution failed! You can reset or plan new actions"
             GameManager.InGameState.PAUSED:
                 info_label.text = "Game is paused"
+            GameManager.InGameState.VICTORY:
+                info_label.text = "Level completed! Congratulations!"
 
 func _get_usage_text(usage_info: Dictionary) -> String:
     """獲取使用限制文本"""

@@ -1,4 +1,5 @@
 @tool
+@icon("res://Assets/icons/land-mine-on-solid-full.svg")
 # Button.gd
 # 按鈕類別，當玩家踩到時會觸發信號
 extends Area2D

@@ -55,6 +55,7 @@ func _initialize_camera_state() -> void:
 	PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): 
 		if pcam != starting_camera:
 			pcam.priority = 0
+			pcam.visible = false
 			print("初始化相機 ", pcam.name, " 優先級設為: ", pcam.priority)
 	)
 	_activate_starting_camera()
@@ -91,7 +92,7 @@ func _switch_to_checkpoint_camera(target: Checkpoint) -> void:
 	# 直接設置指定檢查點相機的優先級（使用陣列索引）
 	if target and target.phantom_camera:
 		var checkpoint_index = checkpoints.find(target)
-		var priority_value = checkpoint_index + 10  # 索引從0開始，優先級從1開始
+		var priority_value = checkpoint_index + 11  # 索引從0開始，優先級從1開始
 		print("激活檢查點相機: ", target.name, " (索引: ", checkpoint_index, ")")
 		target.set_camera_priority(priority_value)
 		print("檢查點相機優先級設為: ", target.phantom_camera.priority)
@@ -104,6 +105,7 @@ func _activate_starting_camera() -> void:
 	if starting_camera:
 		# 設置起始相機優先級
 		starting_camera.priority = 10  # 起始相機優先級設為0
+		starting_camera.visible = true
 		print("起始相機優先級設為: ", starting_camera.priority)
 
 
@@ -168,8 +170,12 @@ func get_current_checkpoint_index() -> int:
 	return current_checkpoint_index
 
 func get_current_checkpoint() -> Checkpoint:
-	"""獲取當前檢查點物件（最後到達的檢查點）"""
-	return get_checkpoint_by_index(current_checkpoint_index)
+	"""獲取當前檢查點"""
+	if current_checkpoint_index >= 0 and current_checkpoint_index < checkpoints.size():
+		return checkpoints[current_checkpoint_index]
+	return null
+
+
 
 func set_starting_point_to_checkpoint(checkpoint: Checkpoint) -> void:
 	"""將起始點設置到指定檢查點的位置"""

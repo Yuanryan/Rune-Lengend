@@ -16,7 +16,8 @@ enum InGameState {
     EXECUTING,     # 執行階段：動作正在執行中
     COMPLETED,     # 完成階段：動作執行完成
     PAUSED,        # 暫停階段：遊戲暫停
-    FAILED         # 失敗階段：玩家死亡或失敗
+    FAILED,        # 失敗階段：玩家死亡或失敗
+    VICTORY        # 勝利階段：關卡完成
 }
 
 # 玩家實例記錄
@@ -170,6 +171,10 @@ func resume_game() -> void:
     if is_in_paused_state():
         # 恢復到之前的狀態，預設為規劃階段
         set_in_game_state(InGameState.PLANNING)
+
+func achieve_victory() -> void:
+    """達成勝利"""
+    set_in_game_state(InGameState.VICTORY)
 
 # 處理ESC鍵輸入
 func handle_escape_key() -> void:

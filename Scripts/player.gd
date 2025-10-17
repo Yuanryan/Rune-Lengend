@@ -1,3 +1,4 @@
+@icon("res://Assets/icons/person-solid-full.svg")
 # Player/Player.gd
 extends CharacterBody2D
 class_name Player
@@ -289,6 +290,8 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
             _on_failed_state_entered()
         GameManager.InGameState.PAUSED:
             _on_paused_state_entered()
+        GameManager.InGameState.VICTORY:
+            _on_victory_state_entered()
 
 # 狀態響應方法
 func _on_planning_state_entered() -> void:
@@ -325,3 +328,23 @@ func _on_failed_state_entered() -> void:
 func _on_paused_state_entered() -> void:
     """進入暫停階段時的處理"""
     # 暫停階段不需要額外處理
+
+func _on_victory_state_entered() -> void:
+    """進入勝利階段時的處理"""
+    is_executing_actions = false
+    
+    # 停止所有正在執行的動作
+    if _current_action != null:
+        _current_action.interrupt(self)
+        _current_action = null
+    
+    # 清空動作佇列
+    action_queue.clear()
+    
+    # 將玩家速度設為零
+    velocity = Vector2.ZERO
+    
+    # 播放勝利動畫（如果有的話）
+    animal_component.play_animation("Idle")
+    
+    print("玩家進入勝利狀態")
