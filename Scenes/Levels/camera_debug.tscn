@@ -1,0 +1,206 @@
+[gd_scene load_steps=17 format=3 uid="uid://ch17b7bd12o2y"]
+
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0shog"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_qt88x"]
+[ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ygiry"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_0hcbc"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_msebd"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_cke64"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_y8vlu"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_qq6er"]
+[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_1215i"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="10_bwp46"]
+[ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="11_8ssqb"]
+
+[sub_resource type="Resource" id="Resource_hqnw8"]
+script = ExtResource("2_qt88x")
+level_name = "Camera Debug"
+max_total_actions = 8
+available_animals = Array[int]([0, 1, 2])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
+[sub_resource type="Resource" id="Resource_knl5n"]
+script = ExtResource("6_cke64")
+transition = 4
+metadata/_custom_type_script = "uid://8umksf8e80fw"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yvus"]
+shader = ExtResource("11_8ssqb")
+shader_parameter/rect_size = Vector2(0.2, 0.5)
+shader_parameter/bness = 0.5
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ot486"]
+resource_local_to_scene = true
+shader = ExtResource("11_8ssqb")
+shader_parameter/rect_size = Vector2(0.1, 0.1)
+shader_parameter/bness = 1.07
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4lmr"]
+resource_local_to_scene = true
+shader = ExtResource("11_8ssqb")
+shader_parameter/rect_size = Vector2(0.1, 0.1)
+shader_parameter/bness = 1.07
+shader_parameter/fall_off_scale = 3.0
+shader_parameter/b_offset = 0.0
+
+[node name="Tutorial Level" type="Node2D"]
+script = ExtResource("1_0shog")
+level_resource = SubResource("Resource_hqnw8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -640.0
+offset_top = -344.0
+offset_right = 4552.0
+offset_bottom = 656.0
+color = Color(0.78039217, 0.8862745, 0.9411765, 1)
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="BackgroundLayer0" type="Sprite2D" parent="BG"]
+position = Vector2(216.00002, 200)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_ygiry")
+
+[node name="BackgroundLayer1" type="Sprite2D" parent="BG"]
+position = Vector2(1920.0001, 208)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_ygiry")
+
+[node name="BackgroundLayer2" type="Sprite2D" parent="BG"]
+position = Vector2(3624, 216.00002)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_ygiry")
+
+[node name="GameObjects" type="Node2D" parent="."]
+
+[node name="Essential" type="Node2D" parent="GameObjects"]
+
+[node name="LandEditTool" parent="GameObjects/Essential" instance=ExtResource("4_0hcbc")]
+show_all_polygons_in_game = true
+
+[node name="StartingPoint" type="Marker2D" parent="GameObjects/Essential"]
+unique_name_in_owner = true
+position = Vector2(-400, 344)
+
+[node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
+unique_name_in_owner = true
+position = Vector2(-136, 216)
+script = ExtResource("5_msebd")
+zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_knl5n")
+tween_on_load = false
+inactive_update_mode = 1
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
+position = Vector2(-136, 216)
+zoom = Vector2(2, 2)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="GameObjects/Essential/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("7_y8vlu")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="LandNodes" type="Node2D" parent="GameObjects"]
+
+[node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("8_qq6er")]
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
+position = Vector2(-80, 152)
+polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land"]
+position = Vector2(-80, 152)
+polygon = PackedVector2Array(-576, 256, -576, 320, 1040, 320, 1040, 256)
+
+[node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("8_qq6er")]
+position = Vector2(1168, 408)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
+position = Vector2(-64, -256)
+polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
+
+[node name="@CollisionPolygon2D@192310" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land2"]
+position = Vector2(-64, -256)
+polygon = PackedVector2Array(-56, 256, -56, 320, 384, 320, 384, 256)
+
+[node name="SpikeNodes" type="Node2D" parent="GameObjects"]
+position = Vector2(3256, 384)
+
+[node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+position = Vector2(-144, 0)
+
+[node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+position = Vector2(-120, 0)
+
+[node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+position = Vector2(-96, 0)
+
+[node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+position = Vector2(-72, 0)
+
+[node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+position = Vector2(-48, 0)
+
+[node name="Spike6" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+position = Vector2(-24, 0)
+
+[node name="Spike7" parent="GameObjects/SpikeNodes" instance=ExtResource("9_1215i")]
+
+[node name="Checkpoint" parent="GameObjects" instance=ExtResource("10_bwp46")]
+position = Vector2(-281, 374)
+
+[node name="Sprite2D" parent="GameObjects/Checkpoint" index="0"]
+material = SubResource("ShaderMaterial_8yvus")
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoint" index="2"]
+position = Vector2(342, -160)
+zoom = Vector2(2, 2)
+
+[node name="Checkpoint2" parent="GameObjects" instance=ExtResource("10_bwp46")]
+position = Vector2(-177, 376)
+
+[node name="Sprite2D" parent="GameObjects/Checkpoint2" index="0"]
+material = SubResource("ShaderMaterial_8yvus")
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoint2" index="2"]
+position = Vector2(608, -256)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Checkpoint3" parent="GameObjects" instance=ExtResource("10_bwp46")]
+position = Vector2(-69, 374)
+
+[node name="Sprite2D" parent="GameObjects/Checkpoint3" index="0"]
+material = SubResource("ShaderMaterial_ot486")
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoint3" index="2"]
+position = Vector2(506, -96)
+zoom = Vector2(1.7, 1.7)
+
+[node name="Checkpoint4" parent="GameObjects" instance=ExtResource("10_bwp46")]
+position = Vector2(113, 374)
+activate_camera = false
+
+[node name="Sprite2D" parent="GameObjects/Checkpoint4" index="0"]
+material = SubResource("ShaderMaterial_u4lmr")
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoint4" index="2"]
+visible = false
+position = Vector2(816, 80)
+zoom = Vector2(2, 2)
+
+[node name="Environment" type="Node2D" parent="."]
+
+[editable path="GameObjects/LandNodes/Land"]
+[editable path="GameObjects/LandNodes/Land2"]
+[editable path="GameObjects/Checkpoint"]
+[editable path="GameObjects/Checkpoint2"]
+[editable path="GameObjects/Checkpoint3"]
+[editable path="GameObjects/Checkpoint4"]

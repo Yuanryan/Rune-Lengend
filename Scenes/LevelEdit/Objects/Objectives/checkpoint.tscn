@@ -38,5 +38,6 @@ shape = SubResource("RectangleShape2D_ddtxo")
 unique_name_in_owner = true
 script = ExtResource("3_gtr1l")
 tween_resource = SubResource("Resource_gtr1l")
+inactive_update_mode = 1
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

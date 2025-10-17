@@ -51,8 +51,12 @@ func initialize_checkpoints() -> void:
 
 # 初始化相機狀態
 func _initialize_camera_state() -> void:
-	# 隱藏所有檢查點的 PhantomCamera2D
-	PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): pcam.visible = false)
+	# 將所有相機的優先級設為 0
+	PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): 
+		if pcam != starting_camera:
+			pcam.priority = 0
+			print("初始化相機 ", pcam.name, " 優先級設為: ", pcam.priority)
+	)
 	_activate_starting_camera()
 
 
@@ -60,9 +64,15 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
 	# 找到檢查點在陣列中的索引
 	current_checkpoint_index = checkpoints.find(checkpoint)
 	
+	print("檢查點到達: ", checkpoint.name, " (索引: ", current_checkpoint_index, ")")
+	print("檢查點激活相機設置: ", checkpoint.activate_camera)
+	
 	# 檢查是否需要激活相機
 	if checkpoint and checkpoint.activate_camera:
+		print("嘗試切換到檢查點相機")
 		_switch_to_checkpoint_camera(checkpoint)
+	else:
+		print("檢查點不激活相機，保持當前相機")
    
 	starting_point.global_position = checkpoint_pos
 	
@@ -73,18 +83,31 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
 
 # 切換到指定檢查點的 PhantomCamera2D
 func _switch_to_checkpoint_camera(target: Checkpoint) -> void:
-	PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): pcam.visible = false)
-	
-	# 顯示指定檢查點的 PhantomCamera2D
-	if target and target.phantom_camera:
-		target.set_camera_visible(true)
+	if target:
+		print("切換到檢查點相機: ", target.name)
 	else:
+		print("切換到檢查點相機: null")
+	
+	# 直接設置指定檢查點相機的優先級（使用陣列索引）
+	if target and target.phantom_camera:
+		var checkpoint_index = checkpoints.find(target)
+		var priority_value = checkpoint_index + 10  # 索引從0開始，優先級從1開始
+		print("激活檢查點相機: ", target.name, " (索引: ", checkpoint_index, ")")
+		target.set_camera_priority(priority_value)
+		print("檢查點相機優先級設為: ", target.phantom_camera.priority)
+	else:
+		print("檢查點沒有相機，使用起始相機")
 		_activate_starting_camera()
 
 # 啟動起始相機
 func _activate_starting_camera() -> void:
 	if starting_camera:
-		starting_camera.visible = true
+		# 設置起始相機優先級
+		starting_camera.priority = 10  # 起始相機優先級設為0
+		print("起始相機優先級設為: ", starting_camera.priority)
+
+
+
 
 # 在起始點生成玩家
 func spawn_player() -> Player:

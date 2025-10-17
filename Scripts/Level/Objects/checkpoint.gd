@@ -24,10 +24,22 @@ func _on_body_entered(body: Node) -> void:
         print("通過檢查點!") 
         checkpoint_reached.emit(self, self.global_position)
 
-# 設定 PhantomCamera2D 的可見性
-func set_camera_visible(should_show: bool) -> void:
+# 設定 PhantomCamera2D 的優先級
+func set_camera_priority(priority_value: int) -> void:
     if phantom_camera:
-        phantom_camera.visible = should_show
+        # 設置當前相機的優先級
+        phantom_camera.priority = priority_value
+        print("檢查點相機優先級已設置: ", name, ", 優先級: ", phantom_camera.priority)
+        
+        # # 將所有其他相機的優先級設為 -1
+        # PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): 
+        #     if pcam != phantom_camera:  # 不是當前相機
+        #         pcam.priority = 0
+        #         print(pcam.name, " 優先級設為: ", pcam.priority)
+        # )
+        
+
+
 
 # 獲取 PhantomCamera2D 的可見性
 func is_camera_visible() -> bool:

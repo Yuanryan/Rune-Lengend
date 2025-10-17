@@ -306,6 +306,9 @@ func _on_planning_state_entered() -> void:
     # 重置執行計數
     _total_actions_executed = 0
     
+    # 將玩家速度設為零
+    velocity = Vector2.ZERO
+    
 
 func _on_executing_state_entered() -> void:
     """進入執行階段時的處理"""
