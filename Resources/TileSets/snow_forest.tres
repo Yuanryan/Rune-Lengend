@@ -1,13 +1,13 @@
 [gd_resource type="TileSet" load_steps=19 format=3 uid="uid://bo1nfi637rx1g"]
 
-[ext_resource type="Texture2D" uid="uid://brqlyrjjcevak" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tileset.png" id="1_7p76b"]
-[ext_resource type="Texture2D" uid="uid://d33run5cvqq7c" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree03.png" id="1_gldv0"]
-[ext_resource type="Texture2D" uid="uid://r8y26yk5nf8x" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/grass.png" id="2_5hsyc"]
-[ext_resource type="Texture2D" uid="uid://t4r3j61rmlu6" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree01.png" id="2_io8ty"]
-[ext_resource type="Texture2D" uid="uid://dxa48bxg44dya" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree02.png" id="3_vk3hr"]
-[ext_resource type="Texture2D" uid="uid://bvak6acpkpw7x" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/bush tree.png" id="4_0q36c"]
-[ext_resource type="Texture2D" uid="uid://84e6anxdh5cj" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/Build Your Tree.png" id="7_mqyie"]
-[ext_resource type="Texture2D" uid="uid://cvtdnjpqep8g4" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/Build Your Tree 2.png" id="8_cadul"]
+[ext_resource type="Texture2D" uid="uid://brqlyrjjcevak" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tileset.png" id="1_7p76b"]
+[ext_resource type="Texture2D" uid="uid://d33run5cvqq7c" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree03.png" id="1_gldv0"]
+[ext_resource type="Texture2D" uid="uid://r8y26yk5nf8x" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/grass.png" id="2_5hsyc"]
+[ext_resource type="Texture2D" uid="uid://t4r3j61rmlu6" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree01.png" id="2_io8ty"]
+[ext_resource type="Texture2D" uid="uid://dxa48bxg44dya" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree02.png" id="3_vk3hr"]
+[ext_resource type="Texture2D" uid="uid://bvak6acpkpw7x" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/bush tree.png" id="4_0q36c"]
+[ext_resource type="Texture2D" uid="uid://84e6anxdh5cj" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/Build Your Tree.png" id="7_mqyie"]
+[ext_resource type="Texture2D" uid="uid://cvtdnjpqep8g4" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/Build Your Tree 2.png" id="8_cadul"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gldv0"]
 

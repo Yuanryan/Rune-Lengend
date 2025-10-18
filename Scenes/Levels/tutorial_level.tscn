@@ -1,16 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=16 format=3 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_c2yeb"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_ot486"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
-[ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ot486"]
+[ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ot486"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_u4lmr"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_gwj07"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="6_hj161"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="7_5pgco"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_w685s"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_8yvus"]
-[ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="9_ot486"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="12_u4lmr"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_gwj07"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
@@ -26,29 +25,6 @@ metadata/_custom_type_script = "uid://bnoi35lwldban"
 script = ExtResource("5_gwj07")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8yvus"]
-shader = ExtResource("9_ot486")
-shader_parameter/rect_size = Vector2(0.2, 0.5)
-shader_parameter/bness = 0.5
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c2yeb"]
-resource_local_to_scene = true
-shader = ExtResource("9_ot486")
-shader_parameter/rect_size = Vector2(0.1, 0.1)
-shader_parameter/bness = 1.07
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4lmr"]
-resource_local_to_scene = true
-shader = ExtResource("9_ot486")
-shader_parameter/rect_size = Vector2(0.1, 0.1)
-shader_parameter/bness = 1.07
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
 
 [node name="Tutorial Level" type="Node2D"]
 script = ExtResource("1_c2yeb")
@@ -283,18 +259,12 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0.2, 32, 8, 28, 8, -84)
 [node name="Checkpoint" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(304, 376)
 
-[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="0"]
-material = SubResource("ShaderMaterial_8yvus")
-
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="2"]
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
 
 [node name="Checkpoint2" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(1080, 376)
-
-[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="0"]
-material = SubResource("ShaderMaterial_8yvus")
 
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
 position = Vector2(608, -256)
@@ -303,18 +273,12 @@ zoom = Vector2(1.5, 1.5)
 [node name="Checkpoint3" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(2264, 264)
 
-[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="0"]
-material = SubResource("ShaderMaterial_c2yeb")
-
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="2"]
 position = Vector2(506, -101)
 zoom = Vector2(1.7, 1.7)
 
 [node name="Checkpoint4" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(3264, 240)
-
-[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="0"]
-material = SubResource("ShaderMaterial_u4lmr")
 
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="2"]
 position = Vector2(416, -24)

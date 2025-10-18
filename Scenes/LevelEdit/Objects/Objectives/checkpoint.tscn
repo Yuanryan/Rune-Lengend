@@ -1,18 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctp1234l38t1a"]
+[gd_scene load_steps=23 format=3 uid="uid://ctp1234l38t1a"]
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
-[ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="2_1q831"]
-[ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="2_8jbrj"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="3_gtr1l"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_41icc"]
-resource_local_to_scene = true
-shader = ExtResource("2_1q831")
-shader_parameter/rect_size = Vector2(0.1, 0.1)
-shader_parameter/bness = 1.07
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
+[ext_resource type="Texture2D" uid="uid://daudawng7f2vi" path="res://Assets/particles/rune-short.png" id="6_41icc"]
+[ext_resource type="Texture2D" uid="uid://d1w1yaqqkmnmx" path="res://Assets/environment/free_asset_pixel_runes_byArijkx_v1/asset32x32/1-32x32.png" id="7_a3k8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
@@ -21,15 +13,194 @@ size = Vector2(34, 53)
 script = ExtResource("4_1q831")
 transition = 4
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_41icc"]
+particles_animation = true
+particles_anim_h_frames = 14
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_41icc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99273616, 0.3412162), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xes5i"]
+curve = SubResource("Curve_41icc")
+
+[sub_resource type="Curve" id="Curve_a3k8k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.74276066), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_a3k8k"]
+curve = SubResource("Curve_a3k8k")
+
+[sub_resource type="Gradient" id="Gradient_36qrw"]
+colors = PackedColorArray(0.72464263, 0.72464263, 0.72464246, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3qim0"]
+gradient = SubResource("Gradient_36qrw")
+
+[sub_resource type="Curve" id="Curve_xes5i"]
+_limits = [-50.0, 50.0, 0.0, 1.0]
+_data = [Vector2(0, 50), 0.0, 0.0, 0, 0, Vector2(0.755, 0), 0.0, 0.0, 0, 0, Vector2(1, -50), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_36qrw"]
+curve = SubResource("Curve_xes5i")
+
+[sub_resource type="Curve" id="Curve_6igsd"]
+_limits = [0.0, 1.2, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.08474576, 1.2), 0.0, -0.3254087, 0, 1, Vector2(0.7094431, 0.9967181), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ryjs7"]
+curve = SubResource("Curve_6igsd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a3k8k"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 25, 0)
+emission_shape_scale = Vector3(1.5, 1.5, 1)
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector3(0, -1, 0)
+spread = 5.0
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, -50, 0)
+linear_accel_min = 4.9999976
+linear_accel_max = 4.9999976
+linear_accel_curve = SubResource("CurveTexture_36qrw")
+damping_min = 45.000004
+damping_max = 50.000004
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_ryjs7")
+color = Color(1, 1, 1, 0.5882353)
+color_initial_ramp = SubResource("GradientTexture1D_3qim0")
+alpha_curve = SubResource("CurveTexture_xes5i")
+anim_offset_min = 0.099999994
+anim_offset_max = 0.099999994
+anim_offset_curve = SubResource("CurveTexture_a3k8k")
+turbulence_enabled = true
+turbulence_noise_speed = Vector3(0, 20, 0)
+
+[sub_resource type="Animation" id="Animation_1q831"]
+resource_name = "Activated"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.49354547, 0.49354553, 0.49354553, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:randomness")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/path = NodePath("Sprite2D:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.49354547, 0.49354553, 0.49354553, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_41icc"]
+resource_name = "Floating"
+length = 3.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -5), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xes5i"]
+_data = {
+&"Activated": SubResource("Animation_1q831"),
+&"Floating": SubResource("Animation_41icc")
+}
+
 [node name="Checkpoint" type="Area2D" groups=["Checkpoint"]]
 collision_mask = 2
 script = ExtResource("1_5xexx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_41icc")
-use_parent_material = true
-scale = Vector2(0.3359375, 0.421875)
-texture = ExtResource("2_8jbrj")
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+texture = ExtResource("7_a3k8k")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -43,3 +214,19 @@ tween_resource = SubResource("Resource_gtr1l")
 inactive_update_mode = 1
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_41icc")
+amount = 5
+texture = ExtResource("6_41icc")
+lifetime = 2.0
+visibility_rect = Rect2(0, 0, 0, 0)
+process_material = SubResource("ParticleProcessMaterial_a3k8k")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_xes5i")
+}
+autoplay = "Floating"
+blend_times = [&"Activated", &"Activated", 0.5]

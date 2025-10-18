@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=30 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_27vqw"]
@@ -98,6 +98,10 @@ shader_parameter/speed = 0.30000001425
 shader_parameter/wind = -1.49999997625
 shader_parameter/num_of_layers = 15
 shader_parameter/layer_start = 5
+
+[sub_resource type="Environment" id="Environment_jd0ia"]
+glow_enabled = true
+glow_hdr_threshold = 0.0
 
 [node name="Level5" type="Node2D"]
 script = ExtResource("1_evokg")
@@ -352,7 +356,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(8, -52.780525)
+position = Vector2(109.783585, -8)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -455,6 +459,9 @@ offset_top = -324.0
 offset_right = 1003.0
 offset_bottom = 657.0
 metadata/_edit_lock_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroments"]
+environment = SubResource("Environment_jd0ia")
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/Turret"]

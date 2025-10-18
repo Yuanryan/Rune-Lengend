@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bi11e5ll2t1b3"]
+[gd_scene load_steps=14 format=3 uid="uid://bi11e5ll2t1b3"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_us8ef"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_osqx1"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_dl55b"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_osqx1"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_167vu"]
-[ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="7_sy7oa"]
 
 [sub_resource type="Resource" id="Resource_sy7oa"]
 script = ExtResource("2_osqx1")
@@ -31,22 +30,6 @@ metadata/_custom_type_script = "uid://bnoi35lwldban"
 script = ExtResource("5_md4x4")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_md4x4"]
-resource_local_to_scene = true
-shader = ExtResource("7_sy7oa")
-shader_parameter/rect_size = Vector2(0.1, 0.1)
-shader_parameter/bness = 1.07
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1hf40"]
-resource_local_to_scene = true
-shader = ExtResource("7_sy7oa")
-shader_parameter/rect_size = Vector2(0.1, 0.1)
-shader_parameter/bness = 1.07
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
 
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_us8ef")
@@ -74,18 +57,12 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_x1k1j")]
 position = Vector2(124, 78)
 
-[node name="Sprite2D" parent="GameObjects/Checkpoint1" index="0"]
-material = SubResource("ShaderMaterial_md4x4")
-
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint1" index="2"]
 position = Vector2(95, 168)
 zoom = Vector2(1.4, 1.4)
 
 [node name="Checkpoint2" parent="GameObjects" instance=ExtResource("4_x1k1j")]
 position = Vector2(184, -72)
-
-[node name="Sprite2D" parent="GameObjects/Checkpoint2" index="0"]
-material = SubResource("ShaderMaterial_1hf40")
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint2" index="2"]
 position = Vector2(95, 168)

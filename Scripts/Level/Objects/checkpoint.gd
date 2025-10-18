@@ -6,6 +6,7 @@ class_name Checkpoint
 @export var activate_camera: bool = true : set = set_activate_camera
 @export var tween_duration: float = 1.0
 @onready var phantom_camera: PhantomCamera2D = %PhantomCamera2D
+@onready var anim_player: AnimationPlayer = %AnimationPlayer
 var active: bool = false
 
 
@@ -27,6 +28,8 @@ func _on_body_entered(body: Node) -> void:
         active = true
         print("通過檢查點!") 
         checkpoint_reached.emit(self, self.global_position)
+        # 播放激活動畫
+        anim_player.play("Activated")
 
 # 設定 PhantomCamera2D 的優先級
 func set_camera_priority(priority_value: int, should_tween: bool = true) -> void:
