@@ -30,29 +30,41 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 script = ExtResource("1_c2yeb")
 level_resource = SubResource("Resource_hqnw8")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="BG" type="Node2D" parent="."]
+
+[node name="ColorRect2" type="ColorRect" parent="BG"]
 offset_left = -640.0
 offset_top = -344.0
 offset_right = 4552.0
-offset_bottom = 656.0
+offset_bottom = 86.0
 color = Color(0.78039217, 0.8862745, 0.9411765, 1)
+metadata/_edit_lock_ = true
 
-[node name="BG" type="Node2D" parent="."]
+[node name="ColorRect" type="ColorRect" parent="BG"]
+offset_left = -652.0
+offset_top = 403.0
+offset_right = 4540.0
+offset_bottom = 833.0
+color = Color(0.3019608, 0.41568628, 0.60784316, 1)
+metadata/_edit_lock_ = true
 
 [node name="BackgroundLayer0" type="Sprite2D" parent="BG"]
 position = Vector2(216.00002, 200)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_ot486")
+metadata/_edit_lock_ = true
 
 [node name="BackgroundLayer1" type="Sprite2D" parent="BG"]
 position = Vector2(1920.0001, 208)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_ot486")
+metadata/_edit_lock_ = true
 
 [node name="BackgroundLayer2" type="Sprite2D" parent="BG"]
 position = Vector2(3624, 216.00002)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_ot486")
+metadata/_edit_lock_ = true
 
 [node name="GameObjects" type="Node2D" parent="."]
 
@@ -143,7 +155,7 @@ position = Vector2(0, -256)
 polygon = PackedVector2Array(0, 256, 0, 360, 384, 360, 920, 360, 920, 296, 736, 296, 736, 256, 248, 256, 248, 280, 160, 280, 160, 256)
 
 [node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
-position = Vector2(2632, 192)
+position = Vector2(2633, 217)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
 position = Vector2(-56, -248)

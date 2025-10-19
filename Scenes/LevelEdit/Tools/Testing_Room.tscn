@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0vnfxm35tt3j"]
+
+[ext_resource type="Script" uid="uid://cq7dwrrbahfmf" path="res://Scripts/Level/Tools/testing_room.gd" id="1_ldeqs"]
+[ext_resource type="PackedScene" uid="uid://dmavjrcww2c2h" path="res://Scenes/UI/in_game_ui.tscn" id="1_rxa5r"]
+[ext_resource type="PackedScene" uid="uid://dg4aqqbs2gsyq" path="res://Scenes/Levels/tutorial_level.tscn" id="3_pb4uj"]
+[ext_resource type="PackedScene" uid="uid://cviyl35yedewi" path="res://Scenes/player.tscn" id="4_7chxf"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_415vg"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_85jps"]
+
+[sub_resource type="Resource" id="Resource_occfj"]
+script = ExtResource("6_85jps")
+
+[node name="TestingRoom" type="Node2D" node_paths=PackedStringArray("testing_level", "player")]
+script = ExtResource("1_ldeqs")
+testing_level = NodePath("Tutorial Level")
+player = NodePath("Player")
+
+[node name="InGameUI" parent="." instance=ExtResource("1_rxa5r")]
+unique_name_in_owner = true
+
+[node name="Tutorial Level" parent="." instance=ExtResource("3_pb4uj")]
+position = Vector2(-36, -3)
+
+[node name="Player" parent="." instance=ExtResource("4_7chxf")]
+unique_name_in_owner = true
+position = Vector2(1975, 277)
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(1975, 277)
+script = ExtResource("5_415vg")
+priority = 1000
+follow_mode = 2
+follow_target = NodePath("../Player")
+zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_occfj")
+tween_on_load = false
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="TestingUI" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="TestingPanel" type="Panel" parent="TestingUI"]
+custom_minimum_size = Vector2(300, 300)
+offset_right = 160.0
+offset_bottom = 300.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TestingUI/TestingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TestingUI/TestingPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "測試控制面板"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LevelInfo" type="Label" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "當前關卡:"
+
+[node name="LevelName" type="Label" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "教學關卡"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ControlsLabel" type="Label" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "測試控制:"
+
+[node name="ResetButton" type="Button" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "重置關卡"
+
+[node name="CheckpointButton" type="Button" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "從檢查點重新載入"
+
+[node name="MouseMovementButton" type="Button" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "切換滑鼠移動模式"
+
+[node name="CameraVisibilityButton" type="Button" parent="TestingUI/TestingPanel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "相機跟隨玩家"

@@ -71,12 +71,6 @@ func _set_player_state(new_state: PlayerState) -> void:
     """設置玩家狀態並播放對應動畫"""
     if _player_state == new_state:
         return
-    print("===================")
-    print("新狀態: ", PlayerState.keys()[new_state])
-    print("速度: ", velocity)
-    print("在地面上: ", is_on_floor())
-
-
     _player_state = new_state
     var animation_name = _get_animation_name_from_state(new_state)
     animal_component.play_animation(animation_name)
@@ -131,8 +125,9 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
          # 重力
-    velocity.y += GRAVITY * delta
+
     if not is_on_floor():  
+        velocity.y += GRAVITY * delta
         # 根據速度變化檢測狀態
         if velocity.y > 0 and _player_state != PlayerState.FALLING:
             _set_player_state(PlayerState.FALLING)

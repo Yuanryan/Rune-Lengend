@@ -40,7 +40,7 @@ func initialize_ui() -> void:
         victory_ui.process_mode = Node.PROCESS_MODE_DISABLED
     
     # 連接GameManager信號
-    if GameManager:
+    if GameManager and not GameManager.in_game_state_changed.is_connected(_on_in_game_state_changed):
         GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
     
 
