@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_jd0ia"]
-[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="5_srugb"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_vdq4f"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="7_633d5"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_jd0ia"]
@@ -34,9 +34,8 @@ resource_local_to_scene = true
 shader = ExtResource("4_jd0ia")
 shader_parameter/blur_amount = 1.8000000855
 
-[sub_resource type="Resource" id="Resource_27vqw"]
+[sub_resource type="Resource" id="Resource_b7yer"]
 script = ExtResource("7_jd0ia")
-transition = 4
 
 [sub_resource type="Curve2D" id="Curve2D_3asqb"]
 resource_local_to_scene = true
@@ -147,12 +146,23 @@ position = Vector2(-429, 363)
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(69, 131)
-script = ExtResource("5_srugb")
+script = ExtResource("6_jd0ia")
 zoom = Vector2(1.225, 1.225)
-tween_resource = SubResource("Resource_27vqw")
+tween_resource = SubResource("Resource_b7yer")
 tween_on_load = false
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(95, 168)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("15_b7yer")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Turret" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(-542, 71)
@@ -356,7 +366,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(109.783585, -8)
+position = Vector2(8, -64.17155)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -379,18 +389,6 @@ offset_right = 64.0
 
 [node name="CollisionPolygon2D" parent="GameObjects/DamageArea" index="1"]
 polygon = PackedVector2Array(10, 4, 184, 4, 184, 46, 10, 44)
-
-[node name="Camera2D" type="Camera2D" parent="GameObjects"]
-unique_name_in_owner = true
-position = Vector2(69, 131)
-zoom = Vector2(1.225, 1.225)
-editor_draw_limits = true
-
-[node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("15_b7yer")
-metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="EndingPoint" parent="GameObjects" instance=ExtResource("15_jd0ia")]
 position = Vector2(518, -154)

@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ch17b7bd12o2y"]
+[gd_scene load_steps=11 format=3 uid="uid://ch17b7bd12o2y"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0shog"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_qt88x"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ygiry"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_0hcbc"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_msebd"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_cke64"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="5_1yqce"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_y8vlu"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_qq6er"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="10_bwp46"]
@@ -17,11 +16,6 @@ level_name = "Camera Debug"
 max_total_actions = 8
 available_animals = Array[int]([0, 1, 2])
 metadata/_custom_type_script = "uid://bnoi35lwldban"
-
-[sub_resource type="Resource" id="Resource_knl5n"]
-script = ExtResource("6_cke64")
-transition = 4
-metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Tutorial Level" type="Node2D"]
 script = ExtResource("1_0shog")
@@ -62,20 +56,14 @@ show_all_polygons_in_game = true
 unique_name_in_owner = true
 position = Vector2(-400, 344)
 
-[node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
+[node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("5_1yqce")]
 unique_name_in_owner = true
 position = Vector2(-136, 216)
-script = ExtResource("5_msebd")
 zoom = Vector2(2, 2)
-tween_resource = SubResource("Resource_knl5n")
-tween_on_load = false
-inactive_update_mode = 1
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-136, 216)
+position = Vector2(61, 214)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 

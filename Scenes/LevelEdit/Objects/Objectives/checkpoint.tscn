@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://ctp1234l38t1a"]
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
-[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="3_gtr1l"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_1q831"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
 [ext_resource type="Texture2D" uid="uid://daudawng7f2vi" path="res://Assets/particles/rune-short.png" id="6_41icc"]
 [ext_resource type="Texture2D" uid="uid://d1w1yaqqkmnmx" path="res://Assets/environment/free_asset_pixel_runes_byArijkx_v1/asset32x32/1-32x32.png" id="7_a3k8k"]
@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
 
-[sub_resource type="Resource" id="Resource_gtr1l"]
+[sub_resource type="Resource" id="Resource_41icc"]
 script = ExtResource("4_1q831")
 transition = 4
 
@@ -209,9 +209,8 @@ metadata/_edit_lock_ = true
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("3_gtr1l")
-tween_resource = SubResource("Resource_gtr1l")
-inactive_update_mode = 1
+script = ExtResource("3_1q831")
+tween_resource = SubResource("Resource_41icc")
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 

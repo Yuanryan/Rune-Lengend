@@ -130,10 +130,7 @@ func _input(event: InputEvent) -> void:
         UIManager.get_in_game_ui().reset_player()
 
 func _physics_process(delta: float) -> void:
-    move_and_slide()
-
-func _process(delta: float) -> void:
-    # 重力
+         # 重力
     velocity.y += GRAVITY * delta
     if not is_on_floor():  
         # 根據速度變化檢測狀態
@@ -150,7 +147,9 @@ func _process(delta: float) -> void:
             _set_player_state(PlayerState.IDLE)
         elif velocity.x != 0 and _player_state != PlayerState.RUNNING:
             _set_player_state(PlayerState.RUNNING)
+    move_and_slide()
 
+func _process(delta: float) -> void:
     # 若沒有正在執行的 action，就從 queue 取下一個
     if _current_action == null and action_queue.size() > 0:
         _start_next_action()
