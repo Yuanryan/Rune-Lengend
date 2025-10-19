@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ctp1234l38t1a"]
+[gd_scene load_steps=24 format=3 uid="uid://ctp1234l38t1a"]
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_1q831"]
@@ -186,11 +186,39 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a3k8k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xes5i"]
 _data = {
 &"Activated": SubResource("Animation_1q831"),
-&"Floating": SubResource("Animation_41icc")
+&"Floating": SubResource("Animation_41icc"),
+&"RESET": SubResource("Animation_a3k8k")
 }
 
 [node name="Checkpoint" type="Area2D" groups=["Checkpoint"]]
@@ -199,6 +227,7 @@ script = ExtResource("1_5xexx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, -5)
 scale = Vector2(2, 2)
 texture = ExtResource("7_a3k8k")
 metadata/_edit_lock_ = true
@@ -216,7 +245,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_41icc")
-emitting = false
 amount = 5
 texture = ExtResource("6_41icc")
 lifetime = 2.0

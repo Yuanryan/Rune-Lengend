@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=34 format=3 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_c2yeb"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_ot486"]
@@ -25,6 +25,221 @@ metadata/_custom_type_script = "uid://bnoi35lwldban"
 script = ExtResource("5_gwj07")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
+size = Vector2(34, 53)
+
+[sub_resource type="Resource" id="Resource_41icc"]
+script = ExtResource("5_gwj07")
+transition = 4
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_41icc"]
+particles_animation = true
+particles_anim_h_frames = 14
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_41icc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99273616, 0.3412162), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xes5i"]
+curve = SubResource("Curve_41icc")
+
+[sub_resource type="Curve" id="Curve_a3k8k"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 0.74276066), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_a3k8k"]
+curve = SubResource("Curve_a3k8k")
+
+[sub_resource type="Gradient" id="Gradient_36qrw"]
+colors = PackedColorArray(0.72464263, 0.72464263, 0.72464246, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3qim0"]
+gradient = SubResource("Gradient_36qrw")
+
+[sub_resource type="Curve" id="Curve_xes5i"]
+_limits = [-50.0, 50.0, 0.0, 1.0]
+_data = [Vector2(0, 50), 0.0, 0.0, 0, 0, Vector2(0.755, 0), 0.0, 0.0, 0, 0, Vector2(1, -50), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_36qrw"]
+curve = SubResource("Curve_xes5i")
+
+[sub_resource type="Curve" id="Curve_6igsd"]
+_limits = [0.0, 1.2, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.08474576, 1.2), 0.0, -0.3254087, 0, 1, Vector2(0.7094431, 0.9967181), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_ryjs7"]
+curve = SubResource("Curve_6igsd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a3k8k"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 25, 0)
+emission_shape_scale = Vector3(1.5, 1.5, 1)
+emission_shape = 1
+emission_sphere_radius = 10.0
+direction = Vector3(0, -1, 0)
+spread = 5.0
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, -50, 0)
+linear_accel_min = 4.9999976
+linear_accel_max = 4.9999976
+linear_accel_curve = SubResource("CurveTexture_36qrw")
+damping_min = 45.000004
+damping_max = 50.000004
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_ryjs7")
+color = Color(1, 1, 1, 0.5882353)
+color_initial_ramp = SubResource("GradientTexture1D_3qim0")
+alpha_curve = SubResource("CurveTexture_xes5i")
+anim_offset_min = 0.099999994
+anim_offset_max = 0.099999994
+anim_offset_curve = SubResource("CurveTexture_a3k8k")
+turbulence_enabled = true
+turbulence_noise_speed = Vector3(0, 20, 0)
+
+[sub_resource type="Animation" id="Animation_1q831"]
+resource_name = "Activated"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.49354547, 0.49354553, 0.49354553, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GPUParticles2D:randomness")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = false
+tracks/5/path = NodePath("Sprite2D:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.49354547, 0.49354553, 0.49354553, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_41icc"]
+resource_name = "Floating"
+length = 3.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -5), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_a3k8k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xes5i"]
+_data = {
+&"Activated": SubResource("Animation_1q831"),
+&"Floating": SubResource("Animation_41icc"),
+&"RESET": SubResource("Animation_a3k8k")
+}
 
 [node name="Tutorial Level" type="Node2D"]
 script = ExtResource("1_c2yeb")
@@ -75,12 +290,13 @@ show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-400, 344)
+position = Vector2(-325, 373)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
 position = Vector2(-136, 216)
 script = ExtResource("4_u4lmr")
+priority = 10
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_knl5n")
 tween_on_load = false
@@ -89,7 +305,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-136, 216)
+position = Vector2(3680, 216)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 
@@ -102,6 +318,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
 
 [node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
 position = Vector2(-80, 152)
@@ -113,6 +330,7 @@ polygon = PackedVector2Array(-576, 256, -576, 320, 728, 320, 728, 256)
 
 [node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(1168, 408)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
 position = Vector2(-64, -256)
@@ -124,6 +342,7 @@ polygon = PackedVector2Array(-400, 256, -400, 320, 360, 320, 360, 256)
 
 [node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(32, 96)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land3" index="0"]
 position = Vector2(1560, -48)
@@ -135,6 +354,7 @@ polygon = PackedVector2Array(-40, 304, -40, 320, 304, 320, 304, 304)
 
 [node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(1920, 272)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]
 position = Vector2(24, -256)
@@ -146,6 +366,7 @@ polygon = PackedVector2Array(0, 280, 0, 304, 384, 304, 384, 280)
 
 [node name="Land5" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(2376, 368)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land5" index="0"]
 polygon = PackedVector2Array(0, 256, 0, 360, 384, 360, 920, 360, 920, 296, 736, 296, 736, 256, 248, 256, 248, 280, 160, 280, 160, 256)
@@ -155,7 +376,8 @@ position = Vector2(0, -256)
 polygon = PackedVector2Array(0, 256, 0, 360, 384, 360, 920, 360, 920, 296, 736, 296, 736, 256, 248, 256, 248, 280, 160, 280, 160, 256)
 
 [node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
-position = Vector2(2633, 217)
+position = Vector2(2637.3506, 196.70465)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
 position = Vector2(-56, -248)
@@ -166,7 +388,8 @@ position = Vector2(-56, -248)
 polygon = PackedVector2Array(88, -104, 88, 368, 480, 368, 480, 360, 384, 352, 448, -104)
 
 [node name="Land7" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
-position = Vector2(3088, 192)
+position = Vector2(3077.8489, 192)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land7" index="0"]
 position = Vector2(48, -216)
@@ -178,6 +401,7 @@ polygon = PackedVector2Array(0, 296, 0, 320, 384, 320, 384, 296)
 
 [node name="Land8" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(3872, -96)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land8" index="0"]
 position = Vector2(40, -232)
@@ -189,6 +413,7 @@ polygon = PackedVector2Array(0, 256, 0, 488, 392, 488, 384, 256)
 
 [node name="Land10" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(3896, 184)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land10" index="0"]
 position = Vector2(-16, -168)
@@ -200,6 +425,7 @@ polygon = PackedVector2Array(0, 256, 0, 408, 384, 408, 384, 256)
 
 [node name="Land11" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(3296, 368)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land11" index="0"]
 polygon = PackedVector2Array(0, 256, 0, 368, 944, 368, 944, 256)
@@ -210,6 +436,7 @@ polygon = PackedVector2Array(0, 256, 0, 368, 944, 368, 944, 256)
 
 [node name="Land12" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(3616, 184)
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land12" index="0"]
 position = Vector2(0, -240)
@@ -254,10 +481,14 @@ position = Vector2(-656, -16)
 [node name="TimedDoor" parent="GameObjects" instance=ExtResource("13_gwj07")]
 position = Vector2(3768, 152)
 open_height = 110.0
+show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor" index="0"]
 position = Vector2(175.99994, 92)
 polygon = PackedVector2Array(-8, -84, -8, 28, 0.2, 32, 8, 28, 8, -84)
+
+[node name="DoorTimer" parent="GameObjects/TimedDoor" index="1"]
+wait_time = 2.0
 
 [node name="GameButton" parent="GameObjects/TimedDoor" index="2"]
 position = Vector2(0, 56)
@@ -271,36 +502,103 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0.2, 32, 8, 28, 8, -84)
 [node name="Checkpoint" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(304, 376)
 
+[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="0"]
+position = Vector2(0, -0.6677152)
+
+[node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="1"]
+shape = SubResource("RectangleShape2D_ddtxo")
+
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="2"]
+visible = false
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_41icc")
+
+[node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="3"]
+material = SubResource("CanvasItemMaterial_41icc")
+process_material = SubResource("ParticleProcessMaterial_a3k8k")
+
+[node name="AnimationPlayer" parent="GameObjects/CheckpointNodes/Checkpoint" index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_xes5i")
+}
 
 [node name="Checkpoint2" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(1080, 376)
 
+[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="0"]
+position = Vector2(0, -0.6677152)
+
+[node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="1"]
+shape = SubResource("RectangleShape2D_ddtxo")
+
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
+visible = false
 position = Vector2(608, -256)
 zoom = Vector2(1.5, 1.5)
+tween_resource = SubResource("Resource_41icc")
+
+[node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
+material = SubResource("CanvasItemMaterial_41icc")
+process_material = SubResource("ParticleProcessMaterial_a3k8k")
+
+[node name="AnimationPlayer" parent="GameObjects/CheckpointNodes/Checkpoint2" index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_xes5i")
+}
 
 [node name="Checkpoint3" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(2264, 264)
 
+[node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="1"]
+shape = SubResource("RectangleShape2D_ddtxo")
+
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="2"]
 position = Vector2(506, -101)
+priority = 13
 zoom = Vector2(1.7, 1.7)
+tween_resource = SubResource("Resource_41icc")
+
+[node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
+material = SubResource("CanvasItemMaterial_41icc")
+process_material = SubResource("ParticleProcessMaterial_a3k8k")
+
+[node name="AnimationPlayer" parent="GameObjects/CheckpointNodes/Checkpoint3" index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_xes5i")
+}
 
 [node name="Checkpoint4" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(3264, 240)
 
+[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="0"]
+position = Vector2(0, 5)
+
+[node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="1"]
+shape = SubResource("RectangleShape2D_ddtxo")
+
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="2"]
 position = Vector2(416, -24)
+priority = 14
 zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_41icc")
+
+[node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="3"]
+material = SubResource("CanvasItemMaterial_41icc")
+emitting = false
+process_material = SubResource("ParticleProcessMaterial_a3k8k")
+
+[node name="AnimationPlayer" parent="GameObjects/CheckpointNodes/Checkpoint4" index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_xes5i")
+}
 
 [node name="EndingPoint" parent="GameObjects/CheckpointNodes" instance=ExtResource("13_hj161")]
 position = Vector2(4024, 248)
 
 [node name="Box" parent="." instance=ExtResource("12_u4lmr")]
-position = Vector2(3656, 344)
+position = Vector2(3656, 348.07425)
+sleeping = true
 
 [node name="Environment" type="Node2D" parent="."]
 

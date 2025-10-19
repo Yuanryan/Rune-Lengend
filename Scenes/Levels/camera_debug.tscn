@@ -63,7 +63,7 @@ zoom = Vector2(2, 2)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(61, 214)
+position = Vector2(-136, 216)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 
