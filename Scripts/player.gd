@@ -5,6 +5,14 @@ class_name Player
 
 const GRAVITY := 1000.0
 
+# 玩家狀態枚舉
+enum PlayerState {
+    IDLE,
+    RUNNING,
+    JUMPING,
+    FALLING
+}
+
 var action_queue: Array[Action] = []
 var _current_action: Action = null
 var is_executing_actions: bool = false
@@ -12,6 +20,9 @@ var _total_actions_executed: int = 0
 
 # 跳躍狀態追蹤
 var _air_jump_count: int = 0
+
+# 玩家狀態機
+var _player_state: PlayerState = PlayerState.IDLE
 
 # 面向方向
 var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
@@ -56,6 +67,36 @@ func set_facing_direction(direction: Vector2) -> void:
     """設置面向方向"""
     facing_direction = direction
 
+func _set_player_state(new_state: PlayerState) -> void:
+    """設置玩家狀態並播放對應動畫"""
+    if _player_state == new_state:
+        return
+    print("===================")
+    print("新狀態: ", PlayerState.keys()[new_state])
+    print("速度: ", velocity)
+    print("在地面上: ", is_on_floor())
+
+
+    _player_state = new_state
+    var animation_name = _get_animation_name_from_state(new_state)
+    animal_component.play_animation(animation_name)
+    
+func _get_animation_name_from_state(state: PlayerState) -> String:
+    """根據狀態獲取對應的動畫名稱"""
+    var dir_str = "Right" if facing_direction.x > 0 else "Left"
+    
+    match state:
+        PlayerState.IDLE:
+            return "Idle"
+        PlayerState.RUNNING:
+            return "Move_" + dir_str
+        PlayerState.JUMPING:
+            return "Jump_" + dir_str
+        PlayerState.FALLING:
+            return "Fall_" + dir_str
+        _:
+            return "Idle"
+
 # 根據動作類型創建實際的動作
 func create_action_from_type(action_type: Action.ActionType, animal_type: int = -1) -> Action:
     """根據動作類型和當前動物數據創建實際的動作"""
@@ -89,19 +130,26 @@ func _input(event: InputEvent) -> void:
         UIManager.get_in_game_ui().reset_player()
 
 func _physics_process(delta: float) -> void:
+    move_and_slide()
+
+func _process(delta: float) -> void:
     # 重力
-    if not is_on_floor():
-        velocity.y += GRAVITY * delta
-        var dir_str = "Right" if facing_direction.x > 0 else "Left"
-        # 播放下降動畫（當速度向下且沒有正在執行動作時）
-        if velocity.y > 0:
-            animal_component.play_animation("Fall_" + dir_str)
+    velocity.y += GRAVITY * delta
+    if not is_on_floor():  
+        # 根據速度變化檢測狀態
+        if velocity.y > 0 and _player_state != PlayerState.FALLING:
+            _set_player_state(PlayerState.FALLING)
+        elif velocity.y < 0 and _player_state != PlayerState.JUMPING:
+            _set_player_state(PlayerState.JUMPING)
     else:
         # 在地面上時重置跳躍計數
         _air_jump_count = 0
-        # 停止下降動畫
-        if velocity == Vector2.ZERO:
-            animal_component.play_animation("Idle")
+        
+        # 根據水平速度決定狀態
+        if velocity.x == 0 and _player_state != PlayerState.IDLE:
+            _set_player_state(PlayerState.IDLE)
+        elif velocity.x != 0 and _player_state != PlayerState.RUNNING:
+            _set_player_state(PlayerState.RUNNING)
 
     # 若沒有正在執行的 action，就從 queue 取下一個
     if _current_action == null and action_queue.size() > 0:
@@ -115,7 +163,6 @@ func _physics_process(delta: float) -> void:
 
     # 檢查是否所有動作都完成了
     _check_all_actions_completed()
-    move_and_slide()
 
 # 輔助方法
 func _start_next_action() -> void:
@@ -151,7 +198,7 @@ func _finish_current_action() -> void:
     if action_queue.size() > 0:
         _start_next_action()
     else:
-        animal_component.play_animation("Idle")
+        _set_player_state(PlayerState.IDLE)
 
 func _check_all_actions_completed() -> void:
     """檢查是否所有動作都完成了"""
@@ -231,7 +278,7 @@ func reset_to_starting_point() -> void:
     
     # 使用新的狀態系統重置到規劃階段
     GameManager.reset_to_planning()
-    animal_component.play_animation("Idle")
+    _set_player_state(PlayerState.IDLE)
     print("玩家已重置到起始點")
 
 func die() -> void:
@@ -345,6 +392,6 @@ func _on_victory_state_entered() -> void:
     velocity = Vector2.ZERO
     
     # 播放勝利動畫（如果有的話）
-    animal_component.play_animation("Idle")
+    _set_player_state(PlayerState.IDLE)
     
     print("玩家進入勝利狀態")

@@ -39,6 +39,7 @@ metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 [node name="GameObjects" type="Node2D" parent="."]
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("2_yy6i0")]
+show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true

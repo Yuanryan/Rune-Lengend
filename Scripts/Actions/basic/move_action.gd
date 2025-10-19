@@ -20,8 +20,6 @@ func start(player: CharacterBody2D) -> void:
     elif direction < 0:
         player.set_facing_direction(Vector2.LEFT)
     
-    player.animal_component.play_animation(name)
-
 func update(player: CharacterBody2D, delta: float) -> bool:
     player.velocity.x = velocity_x
     return false

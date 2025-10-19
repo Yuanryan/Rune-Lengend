@@ -56,12 +56,14 @@ func play_animation(animation_name: String) -> void:
     """播放指定的動畫"""
     if not current_animal or not current_animal.animal_data:
         return
-        
-    var animal_data = current_animal.animal_data
-    var full_animation_name = animal_data.name + "/" + animation_name
-    
+
+    var full_animation_name = current_animal.animal_data.name + "/" + animation_name
+    if anim_player.current_animation == full_animation_name:
+        return
+
     if anim_player and anim_player.has_animation(full_animation_name):
         anim_player.play(full_animation_name)
+    print("Animal_Component 播放動畫: ", anim_player.current_animation)
 
 
 func stop_animation() -> void:

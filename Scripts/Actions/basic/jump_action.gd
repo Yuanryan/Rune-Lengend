@@ -28,7 +28,6 @@ func start(player: CharacterBody2D) -> void:
     # 增加跳躍計數（如果玩家有這個方法）
     if not player.is_on_floor():
         player._air_jump_count += 1
-    player.animal_component.play_animation(name)
 
 func should_stop(player: CharacterBody2D, delta: float) -> bool:
     # 檢查是否已經離開地面
