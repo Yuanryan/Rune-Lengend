@@ -18,6 +18,7 @@ testing_level = NodePath("Tutorial Level")
 unique_name_in_owner = true
 
 [node name="Tutorial Level" parent="." instance=ExtResource("3_e4iw3")]
+position = Vector2(160, 85)
 
 [node name="Player" parent="." instance=ExtResource("4_cgfo7")]
 unique_name_in_owner = true
