@@ -11,6 +11,24 @@ class_name CardTile
 @export var card_size: Vector2 = Vector2(60, 60)
 
 
+@export_group("Assets")
+@export_subgroup("Images")
+@export var run_left_image: Texture2D = null
+@export var run_right_image: Texture2D = null
+@export var jump_left_image: Texture2D = null
+@export var jump_right_image: Texture2D = null
+@export var switch_man_image: Texture2D = null
+@export var switch_rabbit_image: Texture2D = null
+@export var switch_wolf_image: Texture2D = null
+@export var template_image: Texture2D = null
+@export_subgroup("Frames")
+@export var frame_switch_man: Texture2D = null
+@export var frame_switch_rabbit: Texture2D = null 
+@export var frame_switch_wolf: Texture2D = null
+@export var frame_default: Texture2D = null
+
+
+
 @onready var bg: NinePatchRect = %NinePatchRect
 @onready var image: TextureRect = %TextureRect
 @onready var label: RichTextLabel = %Label
@@ -68,38 +86,41 @@ func _update_card_image() -> void:
 	if not image:
 		return
 
-	var texture_path: String = ""
+	var selected_texture: Texture2D = null
 
 	match action_type:
 		Action.ActionType.MOVE_LEFT:
-			texture_path = "res://Assets/cards/run_left.png"
+			if self.run_left_image:
+				selected_texture = self.run_left_image
 		Action.ActionType.MOVE_RIGHT:
-			texture_path = "res://Assets/cards/run_right.png"
+			if self.run_right_image:
+				selected_texture = self.run_right_image
 		Action.ActionType.JUMP_LEFT:
-			texture_path = "res://Assets/cards/jump_left.png"
+			if self.jump_left_image:
+				selected_texture = self.jump_left_image
 		Action.ActionType.JUMP_RIGHT:
-			texture_path = "res://Assets/cards/jump_right.png"
+			if self.jump_right_image:
+				selected_texture = self.jump_right_image
 		Action.ActionType.SWITCH_ANIMAL:
-			# 根據動物類型選擇對應的切換圖片
 			match animal_type:
 				Animal.AnimalType.MAN:
-					texture_path = "res://Assets/RUNE/RUNE_SwitchMan_mini.png"
+					if self.switch_man_image:
+						selected_texture = self.switch_man_image
 				Animal.AnimalType.RABBIT:
-					texture_path = "res://Assets/RUNE/RUNE_SwitchRabbit_mini.png"
+					if self.switch_rabbit_image:
+						selected_texture = self.switch_rabbit_image
 				Animal.AnimalType.WOLF:
-					texture_path = "res://Assets/RUNE/RUNE_SwitchWolf_mini.png"
+					if self.switch_wolf_image:
+						selected_texture = self.switch_wolf_image
 				_:
-					texture_path = "res://Assets/RUNE/RUNE_template.png"
+					if self.template_image:
+						selected_texture = self.template_image
 		_:
-			texture_path = "res://Assets/RUNE/RUNE_template.png"
+			if self.template_image:
+				selected_texture = self.template_image
 
-	# 載入並設置圖片
-	if ResourceLoader.exists(texture_path):
-		var card_texture = load(texture_path) as Texture2D
-		if card_texture:
-			image.texture = card_texture
-	else:
-		print("找不到圖片資源: ", texture_path)
+	# 設置圖片（僅使用變數，不做後援載入）
+	image.texture = selected_texture
 
 func _update_card_color() -> void:
 	"""根據動作類型設置卡片背景顏色"""
@@ -133,30 +154,30 @@ func _update_card_frame() -> void:
 	if not bg:
 		return
 
-	var frame_path: String = ""
+	var selected_frame: Texture2D = null
 
 	# 只有切換動物的卡片才使用不同的外框
 	if action_type == Action.ActionType.SWITCH_ANIMAL:
 		match animal_type:
 			Animal.AnimalType.MAN:
-				frame_path = "res://Assets/RUNE/frame_SwitchMan.png"
+				if self.frame_switch_man:
+					selected_frame = self.frame_switch_man
 			Animal.AnimalType.RABBIT:
-				frame_path = "res://Assets/RUNE/frame_SwitchRabbit.png"
+				if self.frame_switch_rabbit:
+					selected_frame = self.frame_switch_rabbit
 			Animal.AnimalType.WOLF:
-				frame_path = "res://Assets/RUNE/frame_SwitchWolf.png"
+				if self.frame_switch_wolf:
+					selected_frame = self.frame_switch_wolf
 			_:
-				frame_path = "res://Assets/RUNE/RUNE_template.png"
+				if self.frame_default:
+					selected_frame = self.frame_default
 	else:
 		# 其他動作使用預設外框
-		frame_path = "res://Assets/RUNE/RUNE_template.png"
+		if self.frame_default:
+			selected_frame = self.frame_default
 
-	# 載入並設置外框圖片
-	if ResourceLoader.exists(frame_path):
-		var frame_texture = load(frame_path) as Texture2D
-		if frame_texture:
-			bg.texture = frame_texture
-	else:
-		print("找不到外框圖片: ", frame_path)
+	# 設置外框圖片（僅使用變數，不做後援載入）
+	bg.texture = selected_frame
 
 func _update_label() -> void:
 	# 在 _ready 完成後更新 label
