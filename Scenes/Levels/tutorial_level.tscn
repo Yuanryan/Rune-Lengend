@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=33 format=3 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_c2yeb"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_ot486"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="7_5pgco"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_w685s"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_8yvus"]
-[ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="12_u4lmr"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_gwj07"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
 
@@ -305,8 +304,8 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(1670, 236)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(3680, 216)
+zoom = Vector2(2, 2)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Essential/Camera2D"]
@@ -428,11 +427,11 @@ position = Vector2(3296, 368)
 show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land11" index="0"]
-polygon = PackedVector2Array(0, 256, 0, 368, 944, 368, 944, 256)
+polygon = PackedVector2Array(0, 216, 0, 368, 944, 368, 944, 216)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land11"]
 position = Vector2(0, -256)
-polygon = PackedVector2Array(0, 256, 0, 368, 944, 368, 944, 256)
+polygon = PackedVector2Array(0, 216, 0, 368, 944, 368, 944, 216)
 
 [node name="Land12" parent="GameObjects/LandNodes" instance=ExtResource("6_hj161")]
 position = Vector2(3616, 184)
@@ -535,7 +534,6 @@ shape = SubResource("RectangleShape2D_ddtxo")
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
 visible = false
 position = Vector2(590, -140)
-priority_override = true
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
 
@@ -596,10 +594,6 @@ libraries = {
 
 [node name="EndingPoint" parent="GameObjects/CheckpointNodes" instance=ExtResource("13_hj161")]
 position = Vector2(4024, 248)
-
-[node name="Box" parent="." instance=ExtResource("12_u4lmr")]
-position = Vector2(3656, 348.07425)
-sleeping = true
 
 [node name="Environment" type="Node2D" parent="."]
 
