@@ -99,11 +99,23 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
 
 # 啟動起始相機
 func _activate_starting_camera() -> void:
-    if starting_camera:
-        # 設置起始相機優先級
-        starting_camera.priority = 10  # 起始相機優先級設為10
-        starting_camera.visible = true
-        # 根據 should_tween 設定 tween_duration
+    if not starting_camera:
+        return
+    
+    # 重置所有 PhantomCamera2D，確保只有起始相機具有較高優先級
+    PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D):
+        if pcam == starting_camera:
+            return
+        pcam.priority = 0
+        pcam.visible = false
+    )
+    
+    # 起始相機不需要補間：設定為即時切換
+    starting_camera.tween_duration = 0.0
+    
+    # 設置起始相機為可見並提升優先級
+    starting_camera.visible = true
+    starting_camera.priority = 10
 
 
 

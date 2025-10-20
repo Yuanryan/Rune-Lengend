@@ -216,7 +216,8 @@ polygon = PackedVector2Array(-32, 200, 0, 320, 384, 320, 392, 200)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(95, 168)
+position = Vector2(74, 100)
+zoom = Vector2(1.2, 1.2)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]

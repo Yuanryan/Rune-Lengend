@@ -18,7 +18,7 @@ var _current_action: Action = null
 var is_executing_actions: bool = false
 var _total_actions_executed: int = 0
 
-# 跳躍狀態追蹤
+# 跳躍狀態追蹤 
 var _air_jump_count: int = 0
 
 # 玩家狀態機

@@ -41,7 +41,7 @@ offset_right = 200.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "恭喜！關卡完成！"
+text = "Level Finished!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -59,7 +59,7 @@ offset_right = 100.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "回到關卡選擇"
+text = "Back to Level Select"
 
 [node name="Particles" type="CPUParticles2D" parent="VictoryControl"]
 unique_name_in_owner = true
