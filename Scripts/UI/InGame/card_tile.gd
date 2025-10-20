@@ -1,6 +1,7 @@
 extends TextureRect
 class_name CardTile
 
+
 @export var action_type: Action.ActionType
 @export var action_label: String = ""
 @export var draggable: bool = true
@@ -11,10 +12,12 @@ class_name CardTile
 
 
 @onready var bg: NinePatchRect = %NinePatchRect
-
+@onready var image: TextureRect = %TextureRect
 @onready var label: RichTextLabel = %Label
 @onready var outline: ColorRect = %OutlineColorRect
 @onready var usage_label: Label = %UsageLabel
+
+
 
 var _is_dragging: bool = false
 var _glow_tween: Tween
@@ -32,6 +35,13 @@ signal card_dragged(card: CardTile)
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_PASS
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+    
+    # 隱藏標籤，使用圖片顯示
+    if label:
+        label.visible = false
+    
+    # 確保圖片正確設置
+    _update_card_image()
 
 func get_action_type() -> Action.ActionType:
     return action_type
@@ -39,12 +49,46 @@ func get_action_type() -> Action.ActionType:
 func set_action_type(new_action_type: Action.ActionType, new_label: String = "") -> void:
     action_type = new_action_type
     action_label = new_label
-    # 確保 label 已經初始化
-    if label:
-        label.text = get_action_label()
+    # 設置對應的圖片
+    _update_card_image()
+
+func _update_card_image() -> void:
+    """根據動作類型和動物類型設置對應的圖片"""
+    if not image:
+        return
+    
+    var texture_path: String = ""
+    
+    match action_type:
+        Action.ActionType.MOVE_LEFT:
+            texture_path = "res://Assets/cards/run_left.png"
+        Action.ActionType.MOVE_RIGHT:
+            texture_path = "res://Assets/cards/run_right.png"
+        Action.ActionType.JUMP_LEFT:
+            texture_path = "res://Assets/cards/jump_left.png"
+        Action.ActionType.JUMP_RIGHT:
+            texture_path = "res://Assets/cards/jump_right.png"
+        Action.ActionType.SWITCH_ANIMAL:
+            # 根據動物類型選擇對應的切換圖片
+            match animal_type:
+                Animal.AnimalType.MAN:
+                    texture_path = "res://Assets/RUNE/RUNE_SwitchMan-export.png"
+                Animal.AnimalType.RABBIT:
+                    texture_path = "res://Assets/RUNE/RUNE_SwitchRabbit-export.png"
+                Animal.AnimalType.WOLF:
+                    texture_path = "res://Assets/RUNE/RUNE_SwitchWolf-export.png"
+                _:
+                    texture_path = "res://Assets/RUNE/RUNE_template.png"
+        _:
+            texture_path = "res://Assets/RUNE/RUNE_template.png"
+    
+    # 載入並設置圖片
+    if ResourceLoader.exists(texture_path):
+        var card_texture = load(texture_path) as Texture2D
+        if card_texture:
+            image.texture = card_texture
     else:
-        # 如果 label 還沒初始化，延遲設置
-        _update_label.call_deferred()
+        print("找不到圖片資源: ", texture_path)
 
 func _update_label() -> void:
     # 在 _ready 完成後更新 label

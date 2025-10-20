@@ -115,6 +115,11 @@ polygon = PackedVector2Array(-8, -32, -8, -10.740845, -8, 28, 0, 32, 0, 32, 8, 2
 [node name="GameButton" parent="TimedDoor" index="2"]
 position = Vector2(32, 28)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TimedDoor"]
+position = Vector2(818, -127)
+scale = Vector2(1, 2.046875)
+polygon = PackedVector2Array(-8, -32, -8, -10.740845, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
+
 [node name="Land6" parent="." instance=ExtResource("3_2fy10")]
 position = Vector2(1231, -240)
 
