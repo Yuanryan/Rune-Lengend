@@ -1,0 +1,265 @@
+[gd_scene load_steps=16 format=4 uid="uid://dyev0ja3pu1j0"]
+
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_voi1r"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_4fles"]
+[ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
+[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_q8jeo"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_h8ebw"]
+[ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="5_n4wof"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="6_bqdxl"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="8_6l1a3"]
+[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="8_voi1r"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="10_0w7cf"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_voi1r"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_vq762"]
+[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="12_oab8u"]
+
+[sub_resource type="Resource" id="Resource_bt86y"]
+script = ExtResource("2_4fles")
+level_name = "Tutotial_rabbit"
+max_total_actions = 20
+available_animals = Array[int]([0, 1])
+metadata/_custom_type_script = "uid://bnoi35lwldban"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
+resource_local_to_scene = true
+shader = ExtResource("4_q8jeo")
+shader_parameter/blur_amount = 1.8000000855
+
+[node name="Tutorial_rabbit" type="Node2D"]
+script = ExtResource("1_voi1r")
+level_resource = SubResource("Resource_bt86y")
+metadata/_custom_type_script = "uid://bfeqcf2b658ki"
+
+[node name="BackgroundSnowForest" parent="." instance=ExtResource("3_xpj4h")]
+visible = false
+position = Vector2(79, 121)
+background_scale = Vector2(1.3, 1.3)
+metadata/_edit_lock_ = true
+
+[node name="BackgroundLayer0bTall" parent="BackgroundSnowForest" index="0"]
+scale = Vector2(1.3, 1.3)
+
+[node name="BackgroundLayer1bTall" parent="BackgroundSnowForest" index="1"]
+scale = Vector2(1.3, 1.3)
+
+[node name="BackgroundLayer2bTall" parent="BackgroundSnowForest" index="2"]
+scale = Vector2(1.3, 1.3)
+
+[node name="BackgroundLayer3bTall" parent="BackgroundSnowForest" index="3"]
+scale = Vector2(1.3, 1.3)
+
+[node name="ColorRect" parent="BackgroundSnowForest" index="4"]
+offset_left = -935.99994
+offset_top = -467.99997
+offset_right = 504.00006
+offset_bottom = 252.00003
+scale = Vector2(1.3, 1.3)
+
+[node name="Blur" parent="BackgroundSnowForest" index="5"]
+material = SubResource("ShaderMaterial_xab48")
+scale = Vector2(1.3, 1.3)
+
+[node name="BG" type="Node2D" parent="."]
+position = Vector2(-8, -256)
+
+[node name="ColorRect2" type="ColorRect" parent="BG"]
+offset_left = -640.0
+offset_top = -344.0
+offset_right = 4552.0
+offset_bottom = 86.0
+color = Color(0.78039217, 0.8862745, 0.9411765, 1)
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+offset_left = -652.0
+offset_top = 403.0
+offset_right = 4540.0
+offset_bottom = 833.0
+color = Color(0.3019608, 0.41568628, 0.60784316, 1)
+metadata/_edit_lock_ = true
+
+[node name="BackgroundLayer0" type="Sprite2D" parent="BG"]
+position = Vector2(216.00002, 200)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_n4wof")
+metadata/_edit_lock_ = true
+
+[node name="BackgroundLayer1" type="Sprite2D" parent="BG"]
+position = Vector2(1920.0001, 208)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_n4wof")
+metadata/_edit_lock_ = true
+
+[node name="BackgroundLayer2" type="Sprite2D" parent="BG"]
+position = Vector2(3624, 216.00002)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("5_n4wof")
+metadata/_edit_lock_ = true
+
+[node name="GameObjects" type="Node2D" parent="."]
+
+[node name="LandEditTool" parent="GameObjects" instance=ExtResource("5_h8ebw")]
+show_all_polygons_in_game = true
+
+[node name="StartingPoint" type="Marker2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(-416, 144)
+
+[node name="StartingCamera" parent="GameObjects" instance=ExtResource("6_bqdxl")]
+unique_name_in_owner = true
+position = Vector2(74, 100)
+zoom = Vector2(1.5, 1.5)
+
+[node name="SpikeNodes" type="Node2D" parent="GameObjects"]
+position = Vector2(88, 0)
+
+[node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(920, 8)
+rotation = -3.1415927
+
+[node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(944, 8)
+rotation = -3.1415927
+
+[node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(968, 8)
+rotation = -3.1415927
+
+[node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(992, 8)
+rotation = -3.1415927
+
+[node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1016, 8)
+rotation = 3.1415925
+
+[node name="LandNodes" type="Node2D" parent="GameObjects"]
+
+[node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
+position = Vector2(-736, 224)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
+position = Vector2(152, -256)
+polygon = PackedVector2Array(0, 256, 0, 528, 1328, 528, 1328, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land"]
+position = Vector2(152, -256)
+polygon = PackedVector2Array(0, 256, 0, 528, 1328, 528, 1328, 256)
+
+[node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
+position = Vector2(-232, 56)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
+position = Vector2(-64, -248)
+polygon = PackedVector2Array(0, 232, 0, 432, 264, 432, 264, 232)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land2"]
+position = Vector2(-64, -248)
+polygon = PackedVector2Array(0, 232, 0, 432, 264, 432, 264, 232)
+
+[node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
+position = Vector2(128, 136)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land3" index="0"]
+position = Vector2(192, -200)
+polygon = PackedVector2Array(0, 0, 0, 344, 400, 344, 400, 0)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land3"]
+position = Vector2(192, -200)
+polygon = PackedVector2Array(0, 0, 0, 344, 400, 344, 400, 0)
+
+[node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
+position = Vector2(976, -80)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]
+polygon = PackedVector2Array(-656, 48, -656, 104, -88, 106.85121, -88, 320, 128, 320, 128, 48)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land4"]
+position = Vector2(0, -256)
+polygon = PackedVector2Array(-656, 48, -656, 104, -88, 106.85121, -88, 320, 128, 320, 128, 48)
+
+[node name="Land5" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
+position = Vector2(712, 48)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land5" index="0"]
+position = Vector2(8, -248)
+polygon = PackedVector2Array(0, 256, 0, 504, 304, 504, 304, 256)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land5"]
+position = Vector2(8, -248)
+polygon = PackedVector2Array(0, 256, 0, 504, 304, 504, 304, 256)
+
+[node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
+position = Vector2(1152, 0)
+
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
+position = Vector2(48, -184)
+polygon = PackedVector2Array(-8, 248, -8, 488, 496, 488, 496, 128, 280, 128, 280, 248)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land6"]
+position = Vector2(48, -184)
+polygon = PackedVector2Array(-8, 248, -8, 488, 496, 488, 496, 128, 280, 128, 280, 248)
+
+[node name="DamageArea" parent="GameObjects" instance=ExtResource("10_voi1r")]
+position = Vector2(1024, 272)
+
+[node name="CollisionPolygon2D" parent="GameObjects/DamageArea" index="1"]
+position = Vector2(-3, -4)
+polygon = PackedVector2Array(4, 4, 172, 4, 172, 44, 4, 44)
+
+[node name="Checkpoints" type="Node2D" parent="GameObjects"]
+
+[node name="Checkpoint" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
+position = Vector2(520, -88)
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint" index="2"]
+position = Vector2(520, 16)
+zoom = Vector2(1.5, 1.5)
+
+[node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
+position = Vector2(1576, -80)
+
+[node name="Sprite2D" parent="GameObjects/Checkpoints/Checkpoint2" index="0"]
+position = Vector2(0, 0)
+
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint2" index="2"]
+position = Vector2(528, -8)
+zoom = Vector2(1.6, 1.6)
+
+[node name="AnimationPlayer" parent="GameObjects/Checkpoints/Checkpoint2" index="4"]
+root_node = NodePath("../../Checkpoint2")
+
+[node name="Camera2D" type="Camera2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(74, 100)
+zoom = Vector2(1.5, 1.5)
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("11_vq762")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="Enviroments" type="Node2D" parent="."]
+visible = false
+
+[node name="Foreground" type="TileMapLayer" parent="Enviroments"]
+self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
+position = Vector2(40, 0)
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
+tile_set = ExtResource("12_oab8u")
+metadata/_edit_lock_ = true
+
+[editable path="BackgroundSnowForest"]
+[editable path="GameObjects/LandNodes/Land"]
+[editable path="GameObjects/LandNodes/Land2"]
+[editable path="GameObjects/LandNodes/Land3"]
+[editable path="GameObjects/LandNodes/Land4"]
+[editable path="GameObjects/LandNodes/Land5"]
+[editable path="GameObjects/LandNodes/Land6"]
+[editable path="GameObjects/DamageArea"]
+[editable path="GameObjects/Checkpoints/Checkpoint"]
+[editable path="GameObjects/Checkpoints/Checkpoint2"]
