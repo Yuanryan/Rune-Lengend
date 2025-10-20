@@ -1,29 +1,17 @@
-[gd_scene load_steps=19 format=3 uid="uid://dmavjrcww2c2h"]
+[gd_scene load_steps=15 format=3 uid="uid://dmavjrcww2c2h"]
 
 [ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
 [ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/InGame/card_queue.gd" id="2_queue"]
 [ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/InGame/drop_monitor.gd" id="3_2246s"]
-[ext_resource type="Texture2D" uid="uid://enmmbafs2tyf" path="res://Assets/cards/run_left.png" id="3_hj7ba"]
-[ext_resource type="Texture2D" uid="uid://brjyunsqeioh3" path="res://Assets/cards/run_right.png" id="4_who3r"]
-[ext_resource type="Texture2D" uid="uid://chwfkiip7erfg" path="res://Assets/cards/jump_left.png" id="5_a4uew"]
 [ext_resource type="Shader" uid="uid://epc148y837el" path="res://Shaders/other/transition.gdshader" id="5_qm78u"]
 [ext_resource type="Texture2D" uid="uid://btmorjic5emta" path="res://Assets/textures/circle_albedo.png" id="6_5qd38"]
-[ext_resource type="Texture2D" uid="uid://7w1dxnaqfdlo" path="res://Assets/cards/jump_right.png" id="6_f466h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_palette_bg"]
 bg_color = Color(0.2, 0.2, 0.3, 0.8)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_queue_bg"]
 bg_color = Color(0.1, 0.1, 0.2, 0.9)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5qd38"]
 shader = ExtResource("5_qm78u")
@@ -378,12 +366,6 @@ size_flags_vertical = 3
 theme_override_constants/separation = 15
 alignment = 1
 script = ExtResource("2_lujqu")
-images_array = Dictionary[int, Texture]({
-0: ExtResource("3_hj7ba"),
-1: ExtResource("4_who3r"),
-2: ExtResource("5_a4uew"),
-3: ExtResource("6_f466h")
-})
 
 [node name="DropMonitor" type="Panel" parent="MainContainer"]
 unique_name_in_owner = true
