@@ -31,7 +31,7 @@ func _on_standing_area_body_exited(body: Player):
     enable_push()
 
 func _on_push_area_body_entered(body: Player):
-    if body == GameManager.player and (body.animal_component.current_animal.get_animal_type() == Animal.AnimalType.MAN or body.velocity.length() >= 500):
+    if body == GameManager.player and (body.animal_component.current_animal.get_animal_type() == Animal.AnimalType.MAN):
         enable_push()
     else:
         disable_push()

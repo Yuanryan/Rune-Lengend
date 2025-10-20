@@ -333,6 +333,48 @@ color = Color(0.972549, 0.77254903, 0.14901961, 1)
 position = Vector2(103.999954, -146)
 polygon = PackedVector2Array(-8, -86, -8, 28, 0.2, 32, 8, 28, 8, -86)
 
+[node name="TutorialText" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -288.0
+offset_top = 40.0
+offset_right = -248.0
+offset_bottom = 80.0
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="TutorialText"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 3430.0
+offset_top = -342.0
+offset_right = 3944.0
+offset_bottom = -242.0
+theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+text = "Rabbits dont have strength to push boxes
+"
+fit_content = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="TutorialText"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 1219.0
+offset_top = -137.0
+offset_right = 1733.0
+offset_bottom = -37.0
+theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+text = "Rabbit can also double jump in the air "
+fit_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialText"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 101.0
+offset_top = -102.0
+offset_right = 615.0
+offset_bottom = -2.0
+theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+text = "Transform into rabbit to use super jump"
+fit_content = true
+
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land2"]

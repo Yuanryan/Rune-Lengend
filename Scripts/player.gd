@@ -142,11 +142,11 @@ func _physics_process(delta: float) -> void:
         if velocity.x == 0 and _player_state != PlayerState.IDLE:
             _set_player_state(PlayerState.IDLE)
         elif velocity.x != 0:
-            var current_animation = animal_component.get_current_animation().split("/").get(1)
+            var current_animation = animal_component.get_current_animation().split("/").get(1) if animal_component.get_current_animation().split("/").size() > 1 else ""
             # 檢查方向是否改變
             if _player_state != PlayerState.RUNNING:
                 _set_player_state(PlayerState.RUNNING)
-            elif current_animation != _get_animation_name_from_state(PlayerState.RUNNING):
+            elif current_animation != "" and current_animation != _get_animation_name_from_state(PlayerState.RUNNING):
                 # 方向改變時，強制更新狀態以觸發動畫變化
                 _set_player_state(PlayerState.RUNNING, true)
     move_and_slide()
