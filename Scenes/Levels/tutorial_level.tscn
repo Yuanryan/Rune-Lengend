@@ -290,7 +290,7 @@ show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-325, 373)
+position = Vector2(-512, 352)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
@@ -305,8 +305,8 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(3680, 216)
-zoom = Vector2(2, 2)
+position = Vector2(1670, 236)
+zoom = Vector2(1.5, 1.5)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Essential/Camera2D"]
@@ -527,14 +527,15 @@ libraries = {
 position = Vector2(1080, 376)
 
 [node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="0"]
-position = Vector2(0, -0.6677152)
+position = Vector2(0, 0)
 
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
 visible = false
-position = Vector2(608, -256)
+position = Vector2(590, -140)
+priority_override = true
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
 
