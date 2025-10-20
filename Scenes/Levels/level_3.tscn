@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bi11e5ll2t1b3"]
+[gd_scene load_steps=13 format=3 uid="uid://bi11e5ll2t1b3"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_us8ef"]
 [ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_osqx1"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="5_4ahh4"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_dl55b"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_osqx1"]
+[ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="6_sy7oa"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_167vu"]
 
 [sub_resource type="Resource" id="Resource_sy7oa"]
@@ -31,6 +32,8 @@ level_resource = SubResource("Resource_sy7oa")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="GameObjects" type="Node2D" parent="."]
+position = Vector2(-147, -458)
+scale = Vector2(2, 2)
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("2_yy6i0")]
 show_all_polygons_in_game = true
@@ -41,9 +44,11 @@ position = Vector2(88, 384)
 
 [node name="StartingCamera" parent="GameObjects" instance=ExtResource("4_dl55b")]
 unique_name_in_owner = true
+position = Vector2(56.5, 161.5)
+zoom = Vector2(0.9, 0.9)
 
 [node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_x1k1j")]
-position = Vector2(124, 78)
+position = Vector2(137, 105)
 activate_camera = false
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoint1" index="2"]
@@ -51,17 +56,13 @@ visible = false
 position = Vector2(95, 168)
 zoom = Vector2(1.4, 1.4)
 
-[node name="Checkpoint2" parent="GameObjects" instance=ExtResource("4_x1k1j")]
-position = Vector2(184, -72)
-activate_camera = false
-
-[node name="PhantomCamera2D" parent="GameObjects/Checkpoint2" index="2"]
-visible = false
-position = Vector2(95, 168)
-zoom = Vector2(1.4, 1.4)
+[node name="EndingPoint" parent="GameObjects" instance=ExtResource("6_sy7oa")]
+position = Vector2(192, -43.5)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
+position = Vector2(56.5, 161.5)
+zoom = Vector2(0.9, 0.9)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -246,7 +247,6 @@ position = Vector2(-272, -296)
 polygon = PackedVector2Array(32, 328, 32, 344, 104, 344, 104, 328, 75.934235, 328)
 
 [editable path="GameObjects/Checkpoint1"]
-[editable path="GameObjects/Checkpoint2"]
 [editable path="GameObjects/TimedDoor"]
 [editable path="GameObjects/LandNodes/Land5"]
 [editable path="GameObjects/LandNodes/Land9"]

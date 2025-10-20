@@ -65,10 +65,12 @@ func _create_four_cards() -> void:
 
 func _create_switch_animal_card(available_animals: Array[Animal.AnimalType]) -> void:
     for animal in available_animals:
-        name = Animal.get_animal_name(animal)
-        var card = _create_card(Action.ActionType.SWITCH_ANIMAL, "Switch " + name)
+        var animal_name = Animal.get_animal_name(animal)
+        var card = _create_card(Action.ActionType.SWITCH_ANIMAL, "Switch " + animal_name)
         if card:
             card.animal_type = animal
+            # 確保圖片正確更新
+            card._update_card_image()
 
 # 初始化動作使用計數
 func _initialize_action_usage_count(resource: LevelResource) -> void:
