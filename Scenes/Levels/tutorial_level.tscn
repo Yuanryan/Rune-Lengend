@@ -508,7 +508,6 @@ position = Vector2(0, -0.6677152)
 shape = SubResource("RectangleShape2D_ddtxo")
 
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="2"]
-visible = false
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
@@ -532,7 +531,6 @@ position = Vector2(0, 0)
 shape = SubResource("RectangleShape2D_ddtxo")
 
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
-visible = false
 position = Vector2(590, -140)
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
@@ -597,8 +595,7 @@ position = Vector2(4024, 248)
 
 [node name="Environment" type="Node2D" parent="."]
 
-[node name="Control" type="Control" parent="."]
-visible = false
+[node name="TutorialText" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -288.0
@@ -606,13 +603,52 @@ offset_top = 40.0
 offset_right = -248.0
 offset_bottom = 80.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+[node name="RichTextLabel2" type="RichTextLabel" parent="TutorialText"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 36.0
+offset_top = -40.0
+offset_right = 550.0
+offset_bottom = 60.0
 theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
-text = "alwjdlawjdslkawldskjalwkjd"
+text = "↑ Action cards deck"
+fit_content = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialText"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = -169.0
+offset_top = 134.0
+offset_right = 345.0
+offset_bottom = 234.0
+theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+text = "Drag the action cards into the queue to execute actions"
+fit_content = true
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="TutorialText"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 730.0
+offset_top = 1.0
+offset_right = 1244.0
+offset_bottom = 101.0
+theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+text = "Press space to execute next action
+Move actions wont stop until you interrupt
+Jump actions stops when touched the ground
+ "
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="TutorialText"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 0
+offset_left = 61.0
+offset_top = 363.0
+offset_right = 575.0
+offset_bottom = 463.0
+theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+text = "↓ Action queue
+"
 fit_content = true
 
 [editable path="GameObjects/LandNodes/Land"]

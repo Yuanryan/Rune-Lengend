@@ -67,14 +67,15 @@ func set_facing_direction(direction: Vector2) -> void:
     """設置面向方向"""
     facing_direction = direction
 
-func _set_player_state(new_state: PlayerState) -> void:
+func _set_player_state(new_state: PlayerState, force_update: bool = false) -> void:
     """設置玩家狀態並播放對應動畫"""
-    if _player_state == new_state:
+    if _player_state == new_state and not force_update:
         return
     _player_state = new_state
     var animation_name = _get_animation_name_from_state(new_state)
     animal_component.play_animation(animation_name)
-    
+    print("Player 播放動畫: ", animal_component.get_current_animation())
+
 func _get_animation_name_from_state(state: PlayerState) -> String:
     """根據狀態獲取對應的動畫名稱"""
     var dir_str = "Right" if facing_direction.x > 0 else "Left"
@@ -137,11 +138,17 @@ func _physics_process(delta: float) -> void:
         # 在地面上時重置跳躍計數
         _air_jump_count = 0
         
-        # 根據水平速度決定狀態
+        # 根據水平速度和方向變化決定狀態
         if velocity.x == 0 and _player_state != PlayerState.IDLE:
             _set_player_state(PlayerState.IDLE)
-        elif velocity.x != 0 and _player_state != PlayerState.RUNNING:
-            _set_player_state(PlayerState.RUNNING)
+        elif velocity.x != 0:
+            var current_animation = animal_component.get_current_animation().split("/").get(1)
+            # 檢查方向是否改變
+            if _player_state != PlayerState.RUNNING:
+                _set_player_state(PlayerState.RUNNING)
+            elif current_animation != _get_animation_name_from_state(PlayerState.RUNNING):
+                # 方向改變時，強制更新狀態以觸發動畫變化
+                _set_player_state(PlayerState.RUNNING, true)
     move_and_slide()
 
 func _process(delta: float) -> void:

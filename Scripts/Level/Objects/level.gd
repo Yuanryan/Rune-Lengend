@@ -81,6 +81,9 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
    
     starting_point.global_position = checkpoint_pos
     
+    # 觸碰檢查點時自動切換到人類
+    GameManager.player.switch_animal(Animal.animal_from_type(Animal.AnimalType.MAN))
+    
     # 重置遊戲狀態到規劃階段
     GameManager.reset_to_planning()
     

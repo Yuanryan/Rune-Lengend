@@ -64,7 +64,6 @@ func play_animation(animation_name: String) -> void:
     if anim_player and anim_player.has_animation(full_animation_name):
         anim_player.play(full_animation_name)
 
-
 func stop_animation() -> void:
     """停止當前動畫"""
     if anim_player:
