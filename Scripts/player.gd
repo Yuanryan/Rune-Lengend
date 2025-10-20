@@ -146,7 +146,7 @@ func _physics_process(delta: float) -> void:
             # 檢查方向是否改變
             if _player_state != PlayerState.RUNNING:
                 _set_player_state(PlayerState.RUNNING)
-            elif current_animation != "" and current_animation != _get_animation_name_from_state(PlayerState.RUNNING):
+            elif current_animation != _get_animation_name_from_state(PlayerState.RUNNING):
                 # 方向改變時，強制更新狀態以觸發動畫變化
                 _set_player_state(PlayerState.RUNNING, true)
     move_and_slide()
