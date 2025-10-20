@@ -1,7 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://c2nq82l2n1e8q"]
+[gd_scene load_steps=14 format=3 uid="uid://c2nq82l2n1e8q"]
 
 [ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/InGame/card_tile.gd" id="1_jw68n"]
+[ext_resource type="Texture2D" uid="uid://brjyunsqeioh3" path="res://Assets/cards/run_right.png" id="3_ei6wv"]
 [ext_resource type="Texture2D" uid="uid://enmmbafs2tyf" path="res://Assets/cards/run_left.png" id="3_hkkj1"]
+[ext_resource type="Texture2D" uid="uid://chwfkiip7erfg" path="res://Assets/cards/jump_left.png" id="4_q2j24"]
+[ext_resource type="Texture2D" uid="uid://7w1dxnaqfdlo" path="res://Assets/cards/jump_right.png" id="5_tahqo"]
+[ext_resource type="Texture2D" uid="uid://b7hbeqc1h2imt" path="res://Assets/RUNE/RUNE_SwitchMan_mini.png" id="6_waj1t"]
+[ext_resource type="Texture2D" uid="uid://4jprtlnrrax8" path="res://Assets/RUNE/RUNE_SwitchRabbit_mini.png" id="7_hbl0i"]
+[ext_resource type="Texture2D" uid="uid://biapwcp1mv7uf" path="res://Assets/RUNE/RUNE_SwitchWolf_mini.png" id="8_hglia"]
+[ext_resource type="Texture2D" uid="uid://b4uevrbok5ujg" path="res://Assets/RUNE/RUNE_template.png" id="9_piqp0"]
+[ext_resource type="Texture2D" uid="uid://cf1h8iq58kqku" path="res://Assets/RUNE/frame_SwitchMan.png" id="10_0t30g"]
+[ext_resource type="Texture2D" uid="uid://43b4l522ydef" path="res://Assets/RUNE/frame_SwitchRabbit.png" id="11_hcwxd"]
+[ext_resource type="Texture2D" uid="uid://c8bipb0l5ebir" path="res://Assets/RUNE/frame_SwitchWolf.png" id="12_defqa"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_jw68n"]
 
@@ -12,6 +22,18 @@ offset_bottom = 40.0
 mouse_default_cursor_shape = 6
 texture = SubResource("ImageTexture_jw68n")
 script = ExtResource("1_jw68n")
+run_left_image = ExtResource("3_hkkj1")
+run_right_image = ExtResource("3_ei6wv")
+jump_left_image = ExtResource("4_q2j24")
+jump_right_image = ExtResource("5_tahqo")
+switch_man_image = ExtResource("6_waj1t")
+switch_rabbit_image = ExtResource("7_hbl0i")
+switch_wolf_image = ExtResource("8_hglia")
+template_image = ExtResource("9_piqp0")
+frame_switch_man = ExtResource("10_0t30g")
+frame_switch_rabbit = ExtResource("11_hcwxd")
+frame_switch_wolf = ExtResource("12_defqa")
+frame_default = ExtResource("9_piqp0")
 
 [node name="OutlineColorRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
