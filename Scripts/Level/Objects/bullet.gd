@@ -22,9 +22,10 @@ func _physics_process(delta: float) -> void:
     _lifetime_timer += delta
     
     # 檢查是否超過生命週期
-    if _lifetime_timer >= lifetime or velocity.length() < 0.1:
+    if _lifetime_timer >= lifetime or is_on_wall() :
         _destroy_bullet()
     move_and_slide()
+
 
 func shoot(direction: Vector2) -> void:
     """發射子彈"""

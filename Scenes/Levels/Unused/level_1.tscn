@@ -109,6 +109,8 @@ position = Vector2(-200, 296)
 
 [node name="Box2" parent="GameObjects" instance=ExtResource("10_hwvp3")]
 position = Vector2(312, 256)
+push_force = 100.0
+friction = 0.9
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true

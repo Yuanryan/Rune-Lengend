@@ -177,7 +177,7 @@ func _update_ui_display() -> void:
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
-    # 在測試關卡中，當狀態不是執行中且不是暫停時，確保解鎖動作佇列
+   # 在測試關卡中，當狀態不是執行中且不是暫停時，確保解鎖動作佇列
     if new_state != GameManager.InGameState.EXECUTING:
         GameManager.set_in_game_state(GameManager.InGameState.PLANNING)
     

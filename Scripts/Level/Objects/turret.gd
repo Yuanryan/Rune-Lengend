@@ -64,7 +64,6 @@ func _fire_bullet() -> void:
     # 將子彈添加到 bullets 群組以便管理
     bullet.add_to_group("bullets")
     
-    
     # 發出射擊信號
     bullet_fired.emit(bullet)
     
@@ -92,6 +91,7 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     if new_state == GameManager.InGameState.EXECUTING:
         can_fire = true
+        _fire_bullet()
         if fire_timer:
             fire_timer.start()
     elif new_state != GameManager.InGameState.COMPLETED and new_state != GameManager.InGameState.FAILED:
