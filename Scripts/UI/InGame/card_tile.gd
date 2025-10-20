@@ -132,18 +132,17 @@ func _update_card_color() -> void:
 func _get_action_color() -> Color:
 	"""根據動作類型返回對應的顏色"""
 	match action_type:
-		Action.ActionType.MOVE_LEFT, Action.ActionType.MOVE_RIGHT:
+		Action.ActionType.MOVE_LEFT, Action.ActionType.MOVE_RIGHT, Action.ActionType.JUMP_LEFT, Action.ActionType.JUMP_RIGHT:
 			# 移動動作 - 藍綠色
 			return Color(0.11372549, 0.4745098, 0.45882353, 0.6862745)
-		Action.ActionType.JUMP_LEFT, Action.ActionType.JUMP_RIGHT:
-			# 跳躍動作 - 橙色
-			return Color(0.8, 0.4, 0.1, 0.6862745)
-		Action.ActionType.SWITCH_ANIMAL:
-			# 切換動物 - 紫色
-			return Color(0.6, 0.2, 0.7, 0.6862745)
+		Animal.AnimalType.MAN:
+			return Color(75, 73, 68, 175)
+		Animal.AnimalType.RABBIT:
+			return Color(75, 68, 75, 175)
+		Animal.AnimalType.WOLF:
+			return Color(68, 73, 75, 175)
 		_:
-			# 預設顏色 - 灰色
-			return Color(0.3, 0.3, 0.3, 0.6862745)
+			return Color(0.3, 0.3, 0.3, 175)
 
 func _update_card_frame() -> void:
 	"""根據動作類型和動物類型設置外框圖片"""
