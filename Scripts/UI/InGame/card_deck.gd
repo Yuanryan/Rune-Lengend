@@ -71,6 +71,7 @@ func _create_switch_animal_card(available_animals: Array[Animal.AnimalType]) -> 
             card.animal_type = animal
             # 確保圖片和外框都正確更新
             card._update_card_image()
+            card._update_card_color()
             card._update_card_frame()
 
 # 初始化動作使用計數
