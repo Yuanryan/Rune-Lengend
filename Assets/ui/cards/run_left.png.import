@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chwfkiip7erfg"
-path="res://.godot/imported/jump_left.png-6fd145bf00fdcde3dde7b30bf671244c.ctex"
+uid="uid://enmmbafs2tyf"
+path="res://.godot/imported/run_left.png-55e82ec570bdbae54319a0846857b3eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cards/jump_left.png"
-dest_files=["res://.godot/imported/jump_left.png-6fd145bf00fdcde3dde7b30bf671244c.ctex"]
+source_file="res://Assets/ui/cards/run_left.png"
+dest_files=["res://.godot/imported/run_left.png-55e82ec570bdbae54319a0846857b3eb.ctex"]
 
 [params]
 

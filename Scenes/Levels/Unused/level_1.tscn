@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=16 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
 [ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_hwvp3"]
-[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_jv26f"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_k2mw1"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="9_rb0md"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="10_hwvp3"]
@@ -105,25 +104,6 @@ polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 11
 position = Vector2(394, -614)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="Box" parent="GameObjects" instance=ExtResource("10_hwvp3")]
-position = Vector2(288, 144)
-mass = 0.001
-size_scale = Vector2(2, 2)
-
-[node name="Door" parent="GameObjects" instance=ExtResource("7_jv26f")]
-position = Vector2(376, 264)
-
-[node name="Polygon2D" parent="GameObjects/Door" index="0"]
-position = Vector2(1.2397766e-05, -2)
-metadata/_edit_group_ = true
-
-[node name="GameButton" parent="GameObjects/Door" index="2"]
-position = Vector2(-242, 23)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Door"]
-position = Vector2(1.2397766e-05, -2)
-polygon = PackedVector2Array(-8, -32, -8, 28, 0.2, 32, 8, 28, 8, -32)
-
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("9_rb0md")]
 position = Vector2(-200, 296)
 
@@ -131,6 +111,7 @@ position = Vector2(-200, 296)
 position = Vector2(312, 256)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
+unique_name_in_owner = true
 position = Vector2(45.995, 104)
 editor_draw_limits = true
 
@@ -145,5 +126,4 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 [editable path="GameObjects/checkpoint2"]
 [editable path="GameObjects/Land"]
 [editable path="GameObjects/Land2"]
-[editable path="GameObjects/Door"]
 [editable path="GameObjects/DamageArea"]

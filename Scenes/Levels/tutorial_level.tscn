@@ -529,9 +529,6 @@ libraries = {
 [node name="Checkpoint2" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(1080, 376)
 
-[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="0"]
-position = Vector2(0, 0)
-
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 

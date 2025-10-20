@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://enmmbafs2tyf"
-path="res://.godot/imported/run_left.png-9c34e094462d1a0029beb4ef2a1fc9c0.ctex"
+uid="uid://carbbt5v2qwj8"
+path="res://.godot/imported/RUNE_MoveRight-export.png-9c4084f239380419c16910632aac313c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cards/run_left.png"
-dest_files=["res://.godot/imported/run_left.png-9c34e094462d1a0029beb4ef2a1fc9c0.ctex"]
+source_file="res://Assets/ui/RUNE/RUNE_MoveRight-export.png"
+dest_files=["res://.godot/imported/RUNE_MoveRight-export.png-9c4084f239380419c16910632aac313c.ctex"]
 
 [params]
 

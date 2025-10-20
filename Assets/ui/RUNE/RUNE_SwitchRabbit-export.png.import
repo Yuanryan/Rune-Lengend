@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://6tqxf3cvwnj"
-path="res://.godot/imported/RUNE_JumpLeft-export.png-cfdbad65ccc38899e6ad514316341680.ctex"
+uid="uid://d15tfqv8k5yo3"
+path="res://.godot/imported/RUNE_SwitchRabbit-export.png-c2140ee6c498161fa49d7404f75b55a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/RUNE/RUNE_JumpLeft-export.png"
-dest_files=["res://.godot/imported/RUNE_JumpLeft-export.png-cfdbad65ccc38899e6ad514316341680.ctex"]
+source_file="res://Assets/ui/RUNE/RUNE_SwitchRabbit-export.png"
+dest_files=["res://.godot/imported/RUNE_SwitchRabbit-export.png-c2140ee6c498161fa49d7404f75b55a3.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7hbeqc1h2imt"
-path="res://.godot/imported/RUNE_SwitchMan_mini.png-d83f1215522a604d31c3b488bf58c00d.ctex"
+uid="uid://7w1dxnaqfdlo"
+path="res://.godot/imported/jump_right.png-603c1d7a36f8230d962fa484689469bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/RUNE/RUNE_SwitchMan_mini.png"
-dest_files=["res://.godot/imported/RUNE_SwitchMan_mini.png-d83f1215522a604d31c3b488bf58c00d.ctex"]
+source_file="res://Assets/ui/cards/jump_right.png"
+dest_files=["res://.godot/imported/jump_right.png-603c1d7a36f8230d962fa484689469bd.ctex"]
 
 [params]
 

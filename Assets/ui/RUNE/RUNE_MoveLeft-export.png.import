@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://carbbt5v2qwj8"
-path="res://.godot/imported/RUNE_MoveRight-export.png-8cdba14019212b9e0a6d11d07bae46ab.ctex"
+uid="uid://yuhl53ah4f7a"
+path="res://.godot/imported/RUNE_MoveLeft-export.png-3b0b50f936d4a099a79ddd2401295071.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/RUNE/RUNE_MoveRight-export.png"
-dest_files=["res://.godot/imported/RUNE_MoveRight-export.png-8cdba14019212b9e0a6d11d07bae46ab.ctex"]
+source_file="res://Assets/ui/RUNE/RUNE_MoveLeft-export.png"
+dest_files=["res://.godot/imported/RUNE_MoveLeft-export.png-3b0b50f936d4a099a79ddd2401295071.ctex"]
 
 [params]
 

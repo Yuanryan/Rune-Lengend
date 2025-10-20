@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brjyunsqeioh3"
-path="res://.godot/imported/run_right.png-e82e7418bdd1fe0081122168e50097ef.ctex"
+uid="uid://b4uevrbok5ujg"
+path="res://.godot/imported/RUNE_template.png-c17dc017f180a1abeb82e00d3ababa8e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/cards/run_right.png"
-dest_files=["res://.godot/imported/run_right.png-e82e7418bdd1fe0081122168e50097ef.ctex"]
+source_file="res://Assets/ui/RUNE/RUNE_template.png"
+dest_files=["res://.godot/imported/RUNE_template.png-c17dc017f180a1abeb82e00d3ababa8e.ctex"]
 
 [params]
 

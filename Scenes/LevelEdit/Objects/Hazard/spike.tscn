@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cjnqrwfc3b3qd"]
+[gd_scene load_steps=5 format=3 uid="uid://cjnqrwfc3b3qd"]
 
 [ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/Objects/damage_area.gd" id="1_gkjvs"]
 [ext_resource type="Script" uid="uid://dpqomwat16x22" path="res://Scripts/Level/Objects/spike.gd" id="1_k2tii"]
+[ext_resource type="Texture2D" uid="uid://di0sr5r26ibns" path="res://Assets/environment/ice_spike.png" id="3_qjwrq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dnriv"]
 
@@ -13,13 +14,6 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_gkjvs")
 
-[node name="ColorRect" type="ColorRect" parent="DamageArea"]
-visible = false
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(1, 0, 0, 0.3)
-metadata/_edit_use_anchors_ = true
-
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DamageArea"]
 position = Vector2(-11, -23)
 polygon = PackedVector2Array(23, 23, 35, 47, 11, 47)
@@ -29,6 +23,7 @@ visible = false
 shape = SubResource("RectangleShape2D_dnriv")
 disabled = true
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color(1, 0.2, 0.11764706, 0.38431373)
-polygon = PackedVector2Array(12, 0, 0, 24, 24, 24)
+[node name="IceSpike" type="Sprite2D" parent="."]
+position = Vector2(12, 13)
+scale = Vector2(0.6796875, 0.609375)
+texture = ExtResource("3_qjwrq")

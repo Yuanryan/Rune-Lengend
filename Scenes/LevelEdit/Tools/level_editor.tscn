@@ -2,23 +2,22 @@
 
 [ext_resource type="Script" uid="uid://cq7dwrrbahfmf" path="res://Scripts/Level/Tools/level_editor.gd" id="1_p8j3p"]
 [ext_resource type="PackedScene" uid="uid://dmavjrcww2c2h" path="res://Scenes/UI/in_game_ui.tscn" id="2_trikr"]
+[ext_resource type="PackedScene" uid="uid://dsq2p8lnac1qg" path="res://Scenes/Levels/Unused/level_1.tscn" id="3_p8j3p"]
 [ext_resource type="PackedScene" uid="uid://cviyl35yedewi" path="res://Scenes/player.tscn" id="4_cgfo7"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_2t07n"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_11h83"]
-[ext_resource type="PackedScene" uid="uid://dyev0ja3pu1j0" path="res://Scenes/Levels/tutorial_rabbit.tscn" id="6_p8j3p"]
 
 [sub_resource type="Resource" id="Resource_occfj"]
 script = ExtResource("6_11h83")
 
 [node name="LevelEditor" type="Node2D" node_paths=PackedStringArray("testing_level")]
 script = ExtResource("1_p8j3p")
-testing_level = NodePath("Tutorial_rabbit")
+testing_level = NodePath("Level1")
 
 [node name="InGameUI" parent="." instance=ExtResource("2_trikr")]
 unique_name_in_owner = true
 
-[node name="Tutorial_rabbit" parent="." instance=ExtResource("6_p8j3p")]
-position = Vector2(2, 541)
+[node name="Level1" parent="." instance=ExtResource("3_p8j3p")]
 
 [node name="Player" parent="." instance=ExtResource("4_cgfo7")]
 unique_name_in_owner = true

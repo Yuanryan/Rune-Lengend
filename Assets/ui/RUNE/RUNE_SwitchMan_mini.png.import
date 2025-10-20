@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://43b4l522ydef"
-path="res://.godot/imported/frame_SwitchRabbit.png-fd4d847f4a47966546ccd896b47596f6.ctex"
+uid="uid://b7hbeqc1h2imt"
+path="res://.godot/imported/RUNE_SwitchMan_mini.png-9f60c6d6a42d12e63bbb6bd549ed5d84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/RUNE/frame_SwitchRabbit.png"
-dest_files=["res://.godot/imported/frame_SwitchRabbit.png-fd4d847f4a47966546ccd896b47596f6.ctex"]
+source_file="res://Assets/ui/RUNE/RUNE_SwitchMan_mini.png"
+dest_files=["res://.godot/imported/RUNE_SwitchMan_mini.png-9f60c6d6a42d12e63bbb6bd549ed5d84.ctex"]
 
 [params]
 

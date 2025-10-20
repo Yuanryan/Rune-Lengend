@@ -3,8 +3,6 @@
 extends CharacterBody2D
 class_name Player
 
-const GRAVITY := 1000.0
-
 # 玩家狀態枚舉
 enum PlayerState {
     IDLE,
@@ -126,9 +124,8 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
          # 重力
-
     if not is_on_floor():  
-        velocity.y += GRAVITY * delta
+        velocity.y += get_gravity().y * delta
         # 根據速度變化檢測狀態
         if velocity.y > 0 and _player_state != PlayerState.FALLING:
             _set_player_state(PlayerState.FALLING)
