@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2nq82l2n1e8q"]
+[gd_scene load_steps=4 format=3 uid="uid://c2nq82l2n1e8q"]
 
 [ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/InGame/card_tile.gd" id="1_jw68n"]
-[ext_resource type="Texture2D" uid="uid://b4uevrbok5ujg" path="res://Assets/RUNE/RUNE_template.png" id="2_sdcdu"]
 [ext_resource type="Texture2D" uid="uid://enmmbafs2tyf" path="res://Assets/cards/run_left.png" id="3_hkkj1"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_jw68n"]
@@ -57,7 +56,6 @@ offset_left = 1.0
 offset_top = 1.0
 offset_right = 60.0
 offset_bottom = 60.0
-texture = ExtResource("2_sdcdu")
 region_rect = Rect2(0, 0, 80, 80)
 patch_margin_left = 10
 patch_margin_top = 10
@@ -104,6 +102,11 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -19.0
+offset_right = -15.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_hkkj1")
