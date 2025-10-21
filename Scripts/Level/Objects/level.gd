@@ -76,9 +76,7 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
     # 檢查是否需要激活相機
     if checkpoint and checkpoint.activate_camera:
         _switch_to_checkpoint_camera(checkpoint)
-    else:
-        print("檢查點不激活相機，保持當前相機")
-   
+
     starting_point.global_position = checkpoint_pos
     
     # 觸碰檢查點時自動切換到人類
@@ -96,7 +94,6 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
         var priority_value = checkpoint_index + 11  # 索引從0開始，優先級從1開始
         target.set_camera_priority(priority_value, should_tween)
     else:
-        print("檢查點沒有相機，使用起始相機")
         _activate_starting_camera()
 
 
@@ -201,12 +198,8 @@ func set_starting_point_to_checkpoint_by_index(index: int) -> void:
     var checkpoint = get_checkpoint_by_index(index)
     if checkpoint:
         set_starting_point_to_checkpoint(checkpoint)
-    else:
-        print("找不到檢查點索引: ", index)
 
 func set_starting_point_to_current_checkpoint() -> void:
     """將起始點設置到當前檢查點的位置"""
     if current_checkpoint_index >= 0:
         set_starting_point_to_checkpoint_by_index(current_checkpoint_index)
-    else:
-        print("沒有當前檢查點，保持原始起始點位置")

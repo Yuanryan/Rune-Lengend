@@ -72,7 +72,6 @@ func _set_player_state(new_state: PlayerState, force_update: bool = false) -> vo
     _player_state = new_state
     var animation_name = _get_animation_name_from_state(new_state)
     animal_component.play_animation(animation_name)
-    print("Player 播放動畫: ", animal_component.get_current_animation())
 
 func _get_animation_name_from_state(state: PlayerState) -> String:
     """根據狀態獲取對應的動畫名稱"""

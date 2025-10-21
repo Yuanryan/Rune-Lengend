@@ -48,7 +48,6 @@ func _detect_player_push():
             if collision.get_collider() == self:
                 player_still_colliding = true
                 break 
-        print("player_still_colliding: ", player_still_colliding)
         if player_still_colliding and player_ref.animal_component.current_animal is Man:
             _apply_push_from_player(player_ref)
         else:
@@ -126,8 +125,7 @@ func _apply_friction():
     if is_on_floor():
         velocity.x *= friction
         # 當速度很小時停止
-        if abs(velocity.x) < 1.0:
-            velocity.x = 0
+
 
 func _on_box_pushed():
     """箱子被推動時的回調"""

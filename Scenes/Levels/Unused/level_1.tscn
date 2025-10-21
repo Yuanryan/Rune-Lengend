@@ -1,20 +1,20 @@
 [gd_scene load_steps=16 format=3 uid="uid://dsq2p8lnac1qg"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x8k9"]
-[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_3mqfk"]
-[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="2_4dpyx"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_afv7b"]
-[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_gaxdt"]
-[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_cyadu"]
-[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_rb0md"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_hwvp3"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_k2mw1"]
-[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="9_rb0md"]
-[ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="10_hwvp3"]
-[ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="10_u5ghp"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_afv7b"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_7r2dd"]
+[ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_k2mw1"]
+[ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_tjl6l"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_3628d"]
+[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_irw6p"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_31phq"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="8_7hll7"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_fayjm"]
+[ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_nojx8"]
+[ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="11_vvknj"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_ad63i"]
 
 [sub_resource type="Resource" id="Resource_k2mw1"]
-script = ExtResource("2_afv7b")
+script = ExtResource("2_7r2dd")
 level_name = "Level 1"
 max_total_actions = 8
 individual_action_limits = Dictionary[int, int]({
@@ -29,20 +29,20 @@ metadata/_custom_type_script = "uid://bnoi35lwldban"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
 resource_local_to_scene = true
-shader = ExtResource("4_gaxdt")
+shader = ExtResource("4_tjl6l")
 shader_parameter/blur_amount = 1.8000000855
 
 [sub_resource type="Resource" id="Resource_7r2dd"]
-script = ExtResource("7_k2mw1")
+script = ExtResource("7_31phq")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level1" type="Node2D"]
-script = ExtResource("1_0x8k9")
+script = ExtResource("1_afv7b")
 level_resource = SubResource("Resource_k2mw1")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
-[node name="BackgroundSnowForest" parent="." instance=ExtResource("10_u5ghp")]
+[node name="BackgroundSnowForest" parent="." instance=ExtResource("3_k2mw1")]
 position = Vector2(675, -12)
 
 [node name="Blur" parent="BackgroundSnowForest" index="5"]
@@ -50,30 +50,30 @@ material = SubResource("ShaderMaterial_yjhgp")
 
 [node name="GameObjects" type="Node2D" parent="."]
 
-[node name="LandEditTool" parent="GameObjects" instance=ExtResource("2_3mqfk")]
+[node name="LandEditTool" parent="GameObjects" instance=ExtResource("5_3628d")]
 show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(-80, 256)
+position = Vector2(213, 256)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(45.995, 104)
-script = ExtResource("6_rb0md")
+script = ExtResource("6_irw6p")
 tween_resource = SubResource("Resource_7r2dd")
 tween_on_load = false
 draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
-[node name="checkpoint" parent="GameObjects" instance=ExtResource("5_cyadu")]
+[node name="checkpoint" parent="GameObjects" instance=ExtResource("8_7hll7")]
 position = Vector2(472, 224)
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint" index="2"]
 position = Vector2(160, -96)
 zoom = Vector2(1.6, 1.6)
 
-[node name="checkpoint2" parent="GameObjects" instance=ExtResource("5_cyadu")]
+[node name="checkpoint2" parent="GameObjects" instance=ExtResource("8_7hll7")]
 position = Vector2(1024, 240)
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint2" index="2"]
@@ -82,7 +82,7 @@ position = Vector2(376, -96)
 zoom = Vector2(1.28, 1.28)
 frame_preview = false
 
-[node name="Land" parent="GameObjects" instance=ExtResource("2_4dpyx")]
+[node name="Land" parent="GameObjects" instance=ExtResource("9_fayjm")]
 position = Vector2(304, 328)
 
 [node name="Polygon2D" parent="GameObjects/Land" index="0"]
@@ -93,7 +93,7 @@ polygon = PackedVector2Array(0, 256, 32, 300, 1016, 300, 1168, 256)
 position = Vector2(-464, -288)
 polygon = PackedVector2Array(0, 256, 32, 300, 1016, 300, 1168, 256)
 
-[node name="Land2" parent="GameObjects" instance=ExtResource("2_4dpyx")]
+[node name="Land2" parent="GameObjects" instance=ExtResource("9_fayjm")]
 position = Vector2(608, 656)
 
 [node name="Polygon2D" parent="GameObjects/Land2" index="0"]
@@ -104,10 +104,10 @@ polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 11
 position = Vector2(394, -614)
 polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 1168, 256)
 
-[node name="DamageArea" parent="GameObjects" instance=ExtResource("9_rb0md")]
+[node name="DamageArea" parent="GameObjects" instance=ExtResource("10_nojx8")]
 position = Vector2(-200, 296)
 
-[node name="Box2" parent="GameObjects" instance=ExtResource("10_hwvp3")]
+[node name="Box2" parent="GameObjects" instance=ExtResource("11_vvknj")]
 position = Vector2(312, 256)
 push_force = 100.0
 friction = 0.9
@@ -120,7 +120,7 @@ editor_draw_limits = true
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
 process_priority = 300
 process_physics_priority = 300
-script = ExtResource("7_hwvp3")
+script = ExtResource("12_ad63i")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [editable path="BackgroundSnowForest"]

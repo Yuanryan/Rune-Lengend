@@ -311,7 +311,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-physics_interpolation_mode = 2
 position = Vector2(2704, 176)
 zoom = Vector2(1.5, 1.5)
 editor_draw_limits = true
@@ -656,6 +655,8 @@ polygon = PackedVector2Array(-8.234619, -31.940369, -7.7943115, 28.058014, 0.2, 
 [node name="Turret6" parent="." instance=ExtResource("14_t27xo")]
 position = Vector2(3288, 392)
 rotation = -3.1415927
+fire_rate = 0.5
+bullet_speed = 300.0
 
 [node name="TimedDoor3" parent="." instance=ExtResource("10_iunut")]
 position = Vector2(2552, -56)

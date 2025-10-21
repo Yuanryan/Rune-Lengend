@@ -45,7 +45,6 @@ func _fire_bullet() -> void:
         return
         
     if not bullet_scene or not fire_point:
-        print("砲塔：缺少子彈場景或發射點")
         return
     
     # 實例化子彈

@@ -11,11 +11,11 @@ signal button_released
 @export var color: Color = Color(1, 1, 1, 1) : set = set_color
 @export var auto_reset: bool = true
 @export var reset_delay: float = 0.1
-
 @onready var polygon : Polygon2D = %Polygon2D
 
 var button_down: bool = false
 var is_pressed: bool = false
+var entered_count: int = 0
 
 func _ready() -> void:
     _get_polygon()
@@ -31,12 +31,14 @@ func _get_polygon() -> Polygon2D:
 
 func _on_body_entered(body: Node) -> void:
     if body.is_in_group("Interactive"):
+        entered_count += 1
         is_pressed = true
         if not button_down:
             press_button()
 
 func _on_body_exited(body: Node) -> void:
-    if body.is_in_group("Interactive"):
+    if body.is_in_group("Interactive") and entered_count == 1:
+        entered_count -= 1
         is_pressed = false
         if auto_reset and button_down:
             # 延遲釋放按鈕
