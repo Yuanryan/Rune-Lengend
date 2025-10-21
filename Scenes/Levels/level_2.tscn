@@ -17,7 +17,7 @@
 
 [sub_resource type="Resource" id="Resource_hqnw8"]
 script = ExtResource("2_uqiic")
-level_name = "Level 2"
+level_name = "Level Easy"
 max_total_actions = 20
 individual_action_limits = Dictionary[int, int]({
 0: 999,
@@ -311,6 +311,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
+physics_interpolation_mode = 2
 position = Vector2(2704, 176)
 zoom = Vector2(1.5, 1.5)
 editor_draw_limits = true

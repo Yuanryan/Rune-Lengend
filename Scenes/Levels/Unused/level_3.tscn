@@ -1,20 +1,20 @@
 [gd_scene load_steps=13 format=3 uid="uid://bi11e5ll2t1b3"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_us8ef"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_osqx1"]
-[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="2_yy6i0"]
-[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="3_167vu"]
-[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="4_dl55b"]
-[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="4_x1k1j"]
-[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="5_4ahh4"]
-[ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_dl55b"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_osqx1"]
-[ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="6_sy7oa"]
-[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="7_167vu"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_rjpaf"]
+[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_wdseg"]
+[ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_t5xtw"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="4_itn8k"]
+[ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_vkgks"]
+[ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="6_lijvo"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_ossfk"]
+[ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="8_5k526"]
+[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_amtcp"]
+[ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="10_qruxj"]
+[ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="11_s8ns2"]
 
 [sub_resource type="Resource" id="Resource_sy7oa"]
-script = ExtResource("2_osqx1")
-level_name = "Level 1"
+script = ExtResource("2_wdseg")
+level_name = "Level 3"
 max_total_actions = 100
 individual_action_limits = Dictionary[int, int]({
 0: 4,
@@ -27,7 +27,7 @@ available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bnoi35lwldban"
 
 [node name="Level3" type="Node2D"]
-script = ExtResource("1_us8ef")
+script = ExtResource("1_rjpaf")
 level_resource = SubResource("Resource_sy7oa")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
@@ -35,19 +35,19 @@ metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 position = Vector2(-147, -458)
 scale = Vector2(2, 2)
 
-[node name="LandEditTool" parent="GameObjects" instance=ExtResource("2_yy6i0")]
+[node name="LandEditTool" parent="GameObjects" instance=ExtResource("3_t5xtw")]
 show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(88, 384)
 
-[node name="StartingCamera" parent="GameObjects" instance=ExtResource("4_dl55b")]
+[node name="StartingCamera" parent="GameObjects" instance=ExtResource("4_itn8k")]
 unique_name_in_owner = true
 position = Vector2(56.5, 161.5)
 zoom = Vector2(0.9, 0.9)
 
-[node name="Checkpoint1" parent="GameObjects" instance=ExtResource("4_x1k1j")]
+[node name="Checkpoint1" parent="GameObjects" instance=ExtResource("5_vkgks")]
 position = Vector2(137, 105)
 activate_camera = false
 
@@ -56,7 +56,7 @@ visible = false
 position = Vector2(95, 168)
 zoom = Vector2(1.4, 1.4)
 
-[node name="EndingPoint" parent="GameObjects" instance=ExtResource("6_sy7oa")]
+[node name="EndingPoint" parent="GameObjects" instance=ExtResource("6_lijvo")]
 position = Vector2(192, -43.5)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
@@ -68,14 +68,14 @@ editor_draw_limits = true
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
 process_priority = 300
 process_physics_priority = 300
-script = ExtResource("6_osqx1")
+script = ExtResource("7_ossfk")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="Turret" parent="GameObjects" instance=ExtResource("6_dl55b")]
+[node name="Turret" parent="GameObjects" instance=ExtResource("8_5k526")]
 position = Vector2(-128, 376)
 bullet_speed = 250.0
 
-[node name="TimedDoor" parent="GameObjects" instance=ExtResource("7_167vu")]
+[node name="TimedDoor" parent="GameObjects" instance=ExtResource("9_amtcp")]
 position = Vector2(232, 168)
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor" index="0"]
@@ -93,41 +93,41 @@ polygon = PackedVector2Array(-8, -32, -8, 28, 0, 32, 0, 32, 8, 28, 8, -32)
 
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 
-[node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(304, 96)
 rotation = -3.1415925
 
-[node name="Spike9" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike9" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(-160, -40)
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Spike8" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike8" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(-197.99997, 15.000015)
 rotation = -1.9254323
 scale = Vector2(0.99999994, 0.99999994)
 
-[node name="Spike6" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike6" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(11, 112)
 
-[node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(192, 288)
 rotation = -3.1415925
 
-[node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(360, 344)
 rotation = -3.1415925
 
-[node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(240, 288)
 rotation = -3.1415925
 
-[node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("5_4ahh4")]
+[node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("10_qruxj")]
 position = Vector2(216, 288)
 rotation = -3.1415925
 
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
 
-[node name="Land5" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land5" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(-488, 168)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land5" index="0"]
@@ -138,7 +138,7 @@ polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 position = Vector2(24, -304)
 polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 
-[node name="Land9" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land9" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(-528.33167, -54.59726)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land9" index="0"]
@@ -149,7 +149,7 @@ polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 position = Vector2(-135.66833, -161.40274)
 polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 
-[node name="Land7" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land7" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(-493.68958, 51.20784)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land7" index="0"]
@@ -160,7 +160,7 @@ polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 position = Vector2(-122.310425, -67.20784)
 polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 
-[node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(-385.76703, 182.66183)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
@@ -171,7 +171,7 @@ polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 position = Vector2(-174.23297, -278.66183)
 polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 
-[node name="Land11" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land11" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(-869.5685, 93.64616)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land11" index="0"]
@@ -182,7 +182,7 @@ polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 position = Vector2(381.56848, -317.64615)
 polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 
-[node name="Land8" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land8" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(-381.56845, -74.35384)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land8" index="0"]
@@ -193,7 +193,7 @@ polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 position = Vector2(-162.43158, -229.64615)
 polygon = PackedVector2Array(200, 296, 200, 320, 264, 320, 264, 296)
 
-[node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
 position = Vector2(8, 152)
@@ -203,7 +203,7 @@ polygon = PackedVector2Array(-576, 256, -576, 320, 640, 320, 640, 168, 384, 168,
 position = Vector2(8, 152)
 polygon = PackedVector2Array(-576, 256, -576, 320, 640, 320, 640, 168, 384, 168, 384, 256)
 
-[node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(0, 8)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
@@ -214,7 +214,7 @@ polygon = PackedVector2Array(40, 184, 40, 368, 368, 368, 384, 344, 384, 312, 456
 position = Vector2(-216, -56)
 polygon = PackedVector2Array(40, 184, 40, 368, 368, 368, 384, 344, 384, 312, 456, 312, 456, 184)
 
-[node name="Land10" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land10" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(264, -16)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land10" index="0"]
@@ -224,7 +224,7 @@ polygon = PackedVector2Array(-448, 256, -416, 344, -400, 344, -392, 336, -382, 3
 position = Vector2(0, -256)
 polygon = PackedVector2Array(-448, 256, -416, 344, -400, 344, -392, 336, -382, 330, -370, 326, -360, 324, -352, 323, -344, 324, -334, 326, -322, 330, -312, 336, -304, 344, -288, 344, -280, 336, -270, 330, -258, 326, -248, 324, -240, 323, -232, 324, -222, 326, -210, 330, -200, 336, -192, 344, -176, 344, -168, 336, -158, 330, -146, 326, -136, 324, -128, 323, -120, 324, -110, 326, -98, 330, -88, 336, -80, 344, -40, 344, 384, 344, 384, 256)
 
-[node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(296, 264)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land3" index="0"]
@@ -235,7 +235,7 @@ polygon = PackedVector2Array(136, 376, 136, 392, 464, 392, 464, 144, 184, 144, 1
 position = Vector2(-112, -336)
 polygon = PackedVector2Array(136, 376, 136, 392, 464, 392, 464, 144, 184, 144, 184, 376)
 
-[node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("3_167vu")]
+[node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("11_s8ns2")]
 position = Vector2(464, 320)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]

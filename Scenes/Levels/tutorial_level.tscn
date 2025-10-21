@@ -15,7 +15,7 @@
 
 [sub_resource type="Resource" id="Resource_hqnw8"]
 script = ExtResource("2_ot486")
-level_name = "Tutorial"
+level_name = "Tutorial Basic"
 max_total_actions = 8
 individual_action_limits = Dictionary[int, int]({
 0: 999,

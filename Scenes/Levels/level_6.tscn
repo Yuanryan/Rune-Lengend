@@ -19,7 +19,7 @@
 
 [sub_resource type="Resource" id="Resource_bt86y"]
 script = ExtResource("2_cjb10")
-level_name = "Level 6"
+level_name = "Level Medium"
 max_total_actions = 20
 individual_action_limits = Dictionary[int, int]({
 0: 999,
