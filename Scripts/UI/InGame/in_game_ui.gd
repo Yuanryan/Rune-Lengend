@@ -10,6 +10,7 @@ signal transition_finished
 @onready var clear_button: Button = %ClearButton
 @onready var reset_button: Button = %ResetButton
 @onready var menu_button: Button = %MenuButton
+@onready var full_screen: Button = %FullScreenButton
 @onready var info_label: Label = %InfoLabel
 @onready var trans_animator: AnimationPlayer = %TransAnimator
 
@@ -43,6 +44,9 @@ func _connect_signals() -> void:
         reset_button.pressed.connect(_on_reset_pressed)
     if menu_button:
         menu_button.pressed.connect(_on_menu_pressed)
+    if full_screen:
+        full_screen.pressed.connect(_on_fullscreen_pressed)
+    
 
 func _connect_game_manager_signals() -> void:
     """連接 GameManager 的狀態變化信號"""
@@ -102,6 +106,21 @@ func _on_menu_pressed() -> void:
     menu_button.release_focus()
     LevelManager.unload_level()
     GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
+
+func _on_fullscreen_pressed() -> void:
+    full_screen.release_focus()
+    toggle_fullscreen()
+
+func toggle_fullscreen() -> void:
+    """切換全螢幕模式"""
+    if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+        # 目前是全螢幕，切換到視窗模式
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+        full_screen.text = "Fullscreen (F11)"
+    else:
+        # 目前是視窗模式，切換到全螢幕
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+        full_screen.text = "Windowed (F11)"
 
 func execute_sequence() -> void:
     if action_queue:

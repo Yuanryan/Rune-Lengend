@@ -117,8 +117,8 @@ func _apply_push_from_player(player: Player):
         # 觸發推動事件
         _on_box_pushed()
     else:
-        # 推動方向不正確或玩家沒有移動，停止箱子
-        velocity.x = 0
+        is_pushing = false
+        push_direction = Vector2.ZERO
 
 func _apply_friction():
     """應用摩擦力"""
