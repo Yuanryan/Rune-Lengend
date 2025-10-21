@@ -23,6 +23,7 @@ func _ready() -> void:
     _update_ui.call_deferred()
     _connect_game_manager_signals()
     _setup_card_deck_reference()
+    update_fullscreen_button_text()
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -109,18 +110,12 @@ func _on_menu_pressed() -> void:
 
 func _on_fullscreen_pressed() -> void:
     full_screen.release_focus()
-    toggle_fullscreen()
+    UIManager.toggle_fullscreen()
 
-func toggle_fullscreen() -> void:
-    """切換全螢幕模式"""
-    if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
-        # 目前是全螢幕，切換到視窗模式
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-        full_screen.text = "Fullscreen (F11)"
-    else:
-        # 目前是視窗模式，切換到全螢幕
-        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-        full_screen.text = "Windowed (F11)"
+func update_fullscreen_button_text() -> void:
+    """更新全螢幕按鈕文字（由UIManager調用）"""
+    if full_screen:
+        full_screen.text = UIManager.get_fullscreen_button_text()
 
 func execute_sequence() -> void:
     if action_queue:

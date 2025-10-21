@@ -12,6 +12,9 @@ var victory_ui: CanvasLayer = null
 # 當前顯示的UI
 var current_ui: Node = null
 
+# 全螢幕狀態
+var is_fullscreen: bool = false
+
 
 # 設置UI引用
 func set_ui_references(main_menu: MainMenu, level_select_ui: LevelSelect, game_ui: CanvasLayer, victory_ui_ref: CanvasLayer = null) -> void:
@@ -143,3 +146,41 @@ func _on_return_to_level_select_requested() -> void:
     GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
     
     print("已回到關卡選擇畫面")
+
+# 全螢幕相關功能
+func toggle_fullscreen() -> void:
+    """切換全螢幕模式"""
+    if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN:
+        # 目前是全螢幕，切換到視窗模式
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+        is_fullscreen = false
+    else:
+        # 目前是視窗模式，切換到全螢幕
+        DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+        is_fullscreen = true
+    
+    # 更新所有UI中的全螢幕按鈕文字
+    _update_fullscreen_buttons()
+
+func is_in_fullscreen() -> bool:
+    """檢查是否處於全螢幕模式"""
+    return DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN
+
+func get_fullscreen_button_text() -> String:
+    """獲取全螢幕按鈕應該顯示的文字"""
+    if is_in_fullscreen():
+        return "Windowed (F11)"
+    else:
+        return "Fullscreen (F11)"
+
+func _update_fullscreen_buttons() -> void:
+    """更新所有UI中的全螢幕按鈕文字"""
+    # 更新遊戲內UI的全螢幕按鈕
+    if in_game_ui and in_game_ui.has_method("update_fullscreen_button_text"):
+        in_game_ui.update_fullscreen_button_text()
+
+func _input(event: InputEvent) -> void:
+    """處理輸入事件"""
+    if event is InputEventKey and event.pressed:
+        if event.keycode == KEY_F11:
+            toggle_fullscreen()

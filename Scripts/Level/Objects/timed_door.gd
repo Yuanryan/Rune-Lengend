@@ -56,7 +56,7 @@ func _find_door_collision() -> CollisionPolygon2D:
 
 func _on_button_pressed() -> void:
     """當按鈕被按下時"""
-    if not is_open and not is_opening:
+    if not is_open:
         open_door()
 
 func _on_button_released() -> void:
@@ -67,7 +67,7 @@ func _on_button_released() -> void:
 
 func open_door() -> void:
     """開啟門"""
-    if is_opening or is_open:
+    if is_open:
         return
     
     is_opening = true
@@ -95,7 +95,7 @@ func start_close_timer() -> void:
 
 func _on_timer_timeout() -> void:
     """計時器超時，關閉門"""
-    if is_open and not is_closing:
+    if is_open and not is_closing and not is_opening:
         close_door()
 
 func close_door() -> void:

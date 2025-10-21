@@ -215,6 +215,7 @@ polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
 [node name="TimedDoor2" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-2202, 208)
 open_height = 110.0
+animation_speed = 10.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor2" index="0"]
 position = Vector2(311.99994, 20)
@@ -228,6 +229,7 @@ polygon = PackedVector2Array(-8, -60, -8, 28, 0.2, 32, 8, 28, 8, -60)
 position = Vector2(-2258, 208)
 open_duration = 0.5
 open_height = 110.0
+animation_speed = 10.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor3" index="0"]
 position = Vector2(399.99994, 19)
