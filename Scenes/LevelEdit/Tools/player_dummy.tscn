@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://crpfih71fyhk6"]
+
+[ext_resource type="Texture2D" uid="uid://dfhhgvghwpd2k" path="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Idle.png" id="1_1kuyg"]
+[ext_resource type="Script" uid="uid://isfaopq8276k" path="res://Scripts/Level/Tools/player_dummy.gd" id="1_6ys3l"]
+
+[node name="PlayerDummy" type="Node2D"]
+script = ExtResource("1_6ys3l")
+max_draw_duration = 2.0
+animal_type = 2
+
+[node name="Line2D" type="Line2D" parent="."]
+unique_name_in_owner = true
+points = PackedVector2Array(0, 0, 8, -7.6, 16, -14.799999, 24, -21.599998, 32, -27.999998, 40, -34, 48, -39.6, 56, -44.8, 64, -49.6, 72, -54, 80, -58, 88, -61.6, 96, -64.799995, 104, -67.6, 112, -70, 120, -72, 128, -73.6, 136, -74.799995, 144, -75.6, 152, -76, 160, -76, 168, -75.6, 176, -74.799995, 184, -73.6, 192, -72, 200, -70, 208, -67.6, 216, -64.799995, 224, -61.599995, 232, -57.999996, 240, -53.999996, 248, -49.599995, 256, -44.799995, 264, -39.599995, 272, -33.999996, 280, -27.999996, 288, -21.599997, 296, -14.799997, 304, -7.5999975, 312, 2.3841858e-06)
+width = 1.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+texture = ExtResource("1_1kuyg")
+hframes = 7

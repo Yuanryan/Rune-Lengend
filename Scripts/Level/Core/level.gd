@@ -4,7 +4,21 @@
 extends Node2D
 class_name Level
 
-@export var level_resource: LevelResource = null
+@export var level_name: String = "Unnamed Level"
+@export var level_description: String = ""
+@export var max_total_actions: int = 5  # 最多可放置的動作數量
+@export var individual_action_limits: Dictionary[Action.ActionType, int] = {
+    Action.ActionType.MOVE_LEFT: 999,
+    Action.ActionType.MOVE_RIGHT: 999,
+    Action.ActionType.JUMP_LEFT: 999,
+    Action.ActionType.JUMP_RIGHT: 999,
+    Action.ActionType.SWITCH_ANIMAL: 999,
+}
+@export var available_animals: Array[Animal.AnimalType] = [
+    Animal.AnimalType.MAN,
+]
+
+
 @onready var starting_point: Marker2D = %StartingPoint
 @onready var starting_camera: PhantomCamera2D = %StartingCamera
 @onready var camera: Camera2D = %Camera2D
@@ -81,7 +95,7 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
     
     # 觸碰檢查點時自動切換到人類
     GameManager.player.switch_animal(Animal.animal_from_type(Animal.AnimalType.MAN))
-    
+    UIManager.get_in_game_ui().action_queue.clear_queue()
     # 重置遊戲狀態到規劃階段
     GameManager.reset_to_planning()
     
@@ -132,7 +146,7 @@ func spawn_player() -> Player:
     # 實例化玩家
     var player = GameManager.player_scene.instantiate()
     GameManager.set_player(player)
-    player.set_available_animals.call_deferred(level_resource.available_animals)
+    player.set_available_animals.call_deferred(available_animals)
     if not player:
         push_error("無法實例化玩家場景")
         return null

@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=14 format=3 uid="uid://dsq2p8lnac1qg"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_afv7b"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_7r2dd"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_afv7b"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_k2mw1"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_tjl6l"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_3628d"]
@@ -12,20 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_nojx8"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="11_vvknj"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_ad63i"]
-
-[sub_resource type="Resource" id="Resource_k2mw1"]
-script = ExtResource("2_7r2dd")
-level_name = "Level 1"
-max_total_actions = 8
-individual_action_limits = Dictionary[int, int]({
-0: 3,
-1: 2,
-2: 2,
-3: 2,
-4: 1
-})
-available_animals = Array[int]([0, 1, 2])
-metadata/_custom_type_script = "uid://bnoi35lwldban"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
 resource_local_to_scene = true
@@ -39,7 +24,6 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_afv7b")
-level_resource = SubResource("Resource_k2mw1")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_k2mw1")]

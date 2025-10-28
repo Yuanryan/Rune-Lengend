@@ -1,7 +1,6 @@
-[gd_scene load_steps=30 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_evokg"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_27vqw"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_jd0ia"]
@@ -20,14 +19,7 @@
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
-
-[sub_resource type="Resource" id="Resource_jd0ia"]
-resource_local_to_scene = true
-script = ExtResource("2_27vqw")
-level_name = "Level Hard!!"
-max_total_actions = 100
-available_animals = Array[int]([0, 1])
-metadata/_custom_type_script = "uid://bnoi35lwldban"
+[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="21_b7yer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
@@ -104,7 +96,9 @@ glow_hdr_threshold = 0.0
 
 [node name="Level5" type="Node2D"]
 script = ExtResource("1_evokg")
-level_resource = SubResource("Resource_jd0ia")
+level_name = "Level Hard!!"
+max_total_actions = 100
+available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_3koi7")]
@@ -367,7 +361,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(8, -22.852013)
+position = Vector2(149.08092, -96)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -375,8 +369,8 @@ position = Vector2(-39.87085, -16.061768)
 polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, 0.123535156, 32)
 
 [node name="PathFollow2D" parent="GameObjects/MovingPlatformPath" index="1"]
-position = Vector2(8, -22.852013)
-progress = 273.1199
+position = Vector2(149.08092, -96)
+progress = 58.919136
 
 [node name="Line2D" parent="GameObjects/MovingPlatformPath" index="3"]
 points = PackedVector2Array(208, -96, 205.7539, -96, 203.05615, -96, 199.40625, -96, 194.87744, -96, 192.30634, -96, 189.54297, -96, 186.5965, -96, 183.47607, -96, 180.19086, -96, 176.75, -96, 173.16266, -96, 169.43799, -96, 165.58514, -96, 161.61328, -96, 157.53156, -96, 153.34912, -96, 149.07513, -96, 144.71875, -96, 140.28912, -96, 135.79541, -96, 131.24677, -96, 126.65234, -96, 122.0213, -96, 117.36279, -96, 112.685974, -96, 108, -96, 103.314026, -96, 98.63721, -96, 93.9787, -96, 89.34766, -96, 84.753235, -96, 80.20459, -96, 75.71088, -96, 71.28125, -96, 66.924866, -96, 62.65088, -96, 58.468445, -96, 54.38672, -96, 50.414856, -96, 46.56201, -96, 42.83734, -96, 39.25, -96, 35.809143, -96, 32.523926, -96, 29.403503, -96, 26.457031, -96, 23.693665, -96, 21.122559, -96, 16.59375, -96, 12.943848, -96, 10.246094, -96, 8, -96, 8, -92.21875, 8, -87.87891, 8, -85.20947, 8, -82.25, 8, -79.032715, 8, -75.58984, 8, -71.95361, 8, -68.15625, 8, -64.22998, 8, -60.20703, 8, -56.11963, 8, -52, 8, -47.88037, 8, -43.79297, 8, -39.77002, 8, -35.84375, 8, -32.046387, 8, -28.410156, 8, -24.967285, 8, -21.75, 8, -18.790527, 8, -16.121094, 8, -11.78125, 8, -8, 10.246094, -8, 12.943848, -8, 16.59375, -8, 21.122559, -8, 23.693665, -8, 26.457031, -8, 29.403503, -8, 32.523926, -8, 35.809143, -8, 39.25, -8, 42.83734, -8, 46.56201, -8, 50.414856, -8, 54.38672, -8, 58.468445, -8, 62.65088, -8, 66.924866, -8, 71.28125, -8, 75.71088, -8, 80.20459, -8, 84.753235, -8, 89.34766, -8, 93.9787, -8, 98.63721, -8, 103.314026, -8, 108, -8, 112.685974, -8, 117.36279, -8, 122.0213, -8, 126.65234, -8, 131.24677, -8, 135.79541, -8, 140.28912, -8, 144.71875, -8, 149.07513, -8, 153.34912, -8, 157.53156, -8, 161.61328, -8, 165.58514, -8, 169.43799, -8, 173.16266, -8, 176.75, -8, 180.19086, -8, 183.47607, -8, 186.5965, -8, 189.54297, -8, 192.30634, -8, 194.87744, -8, 199.40625, -8, 203.05615, -8, 205.7539, -8, 208, -8, 208, -13, 208, -15.421875, 208, -18.125, 208, -21.015625, 208, -24, 208, -26.984375, 208, -29.875, 208, -32.578125, 208, -35, 208, -40, 208, -42.40625, 208, -45.16797, 208, -48.75, 208, -52.98828, 208, -57.71875, 208, -60.217285, 208, -62.777344, 208, -65.37842, 208, -68, 208, -70.62158, 208, -73.22266, 208, -75.782715, 208, -78.28125, 208, -83.01172, 208, -87.25, 208, -90.83203, 208, -93.59375, 208, -96)
@@ -463,6 +457,15 @@ metadata/_edit_lock_ = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroments"]
 environment = SubResource("Environment_jd0ia")
 
+[node name="PlayerDummy" parent="." instance=ExtResource("21_b7yer")]
+visible = false
+position = Vector2(-331, 401)
+animal_type = 1
+rabbit_jump_type = 0
+
+[node name="Line2D" parent="PlayerDummy" index="0"]
+points = PackedVector2Array(0, 0, 3.5, -9.599999, 7, -18.8, 10.5, -27.599998, 14, -36, 17.5, -44, 21, -51.6, 24.5, -58.8, 28, -65.6, 31.5, -72, 35, -78, 38.5, -83.6, 42, -88.799995, 45.5, -93.6, 49, -98, 52.5, -102, 56, -105.6, 59.5, -108.799995, 63, -111.6, 66.5, -114, 70, -116, 73.5, -117.6, 77, -118.799995, 80.5, -119.6, 84, -120, 87.5, -120, 91, -119.6, 94.5, -118.799995, 98, -117.6, 101.5, -116, 105, -114, 108.5, -111.6, 112, -108.799995, 115.5, -105.6, 119, -102, 122.5, -98, 126, -93.6, 129.5, -88.799995, 133, -83.6, 136.5, -78, 140, -72, 143.5, -65.6, 147, -58.8, 150.5, -51.6, 154, -44, 157.5, -36, 161, -27.6, 164.5, -18.8, 168, -9.599999, 171.5, 0, 175, 10)
+
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/Turret"]
 [editable path="GameObjects/Turret2"]
@@ -480,3 +483,4 @@ environment = SubResource("Environment_jd0ia")
 [editable path="GameObjects/TimedDoor3"]
 [editable path="GameObjects/MovingPlatformPath"]
 [editable path="GameObjects/DamageArea"]
+[editable path="PlayerDummy"]

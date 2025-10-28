@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://c7au3pqv2hj36"]
+[gd_scene load_steps=17 format=4 uid="uid://c7au3pqv2hj36"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_xab48"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_cjb10"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_xab48"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_a2hlh"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_2khew"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_b574l"]
@@ -17,8 +16,13 @@
 [ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="14_vlj4u"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="14_xab48"]
 
-[sub_resource type="Resource" id="Resource_bt86y"]
-script = ExtResource("2_cjb10")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
+resource_local_to_scene = true
+shader = ExtResource("4_2khew")
+shader_parameter/blur_amount = 1.8000000855
+
+[node name="Level6" type="Node2D"]
+script = ExtResource("1_xab48")
 level_name = "Level Medium"
 max_total_actions = 20
 individual_action_limits = Dictionary[int, int]({
@@ -29,16 +33,6 @@ individual_action_limits = Dictionary[int, int]({
 4: 1
 })
 available_animals = Array[int]([0, 1])
-metadata/_custom_type_script = "uid://bnoi35lwldban"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
-resource_local_to_scene = true
-shader = ExtResource("4_2khew")
-shader_parameter/blur_amount = 1.8000000855
-
-[node name="Level6" type="Node2D"]
-script = ExtResource("1_xab48")
-level_resource = SubResource("Resource_bt86y")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BG" type="Node2D" parent="."]
@@ -96,7 +90,6 @@ offset_bottom = 252.00003
 scale = Vector2(1.3, 1.3)
 
 [node name="Blur" parent="BG/BackgroundSnowForest2" index="5"]
-visible = false
 material = SubResource("ShaderMaterial_xab48")
 position = Vector2(8, 0)
 scale = Vector2(1.3, 1.3)
@@ -128,7 +121,6 @@ offset_bottom = 252.00003
 scale = Vector2(1.3, 1.3)
 
 [node name="Blur" parent="BG/BackgroundSnowForest3" index="5"]
-visible = false
 material = SubResource("ShaderMaterial_xab48")
 position = Vector2(8, 0)
 scale = Vector2(1.3, 1.3)

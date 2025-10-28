@@ -1,7 +1,6 @@
-[gd_scene load_steps=33 format=3 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=31 format=3 uid="uid://dg4aqqbs2gsyq"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_c2yeb"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_ot486"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ot486"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_u4lmr"]
@@ -12,18 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_8yvus"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_gwj07"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
-
-[sub_resource type="Resource" id="Resource_hqnw8"]
-script = ExtResource("2_ot486")
-level_name = "Tutorial Basic"
-max_total_actions = 8
-individual_action_limits = Dictionary[int, int]({
-0: 999,
-1: 999,
-2: 999,
-3: 999
-})
-metadata/_custom_type_script = "uid://bnoi35lwldban"
 
 [sub_resource type="Resource" id="Resource_knl5n"]
 script = ExtResource("5_gwj07")
@@ -247,7 +234,14 @@ _data = {
 
 [node name="Tutorial Level" type="Node2D"]
 script = ExtResource("1_c2yeb")
-level_resource = SubResource("Resource_hqnw8")
+level_name = "Tutorial Basic"
+max_total_actions = 8
+individual_action_limits = Dictionary[int, int]({
+0: 999,
+1: 999,
+2: 999,
+3: 999
+})
 
 [node name="BG" type="Node2D" parent="."]
 

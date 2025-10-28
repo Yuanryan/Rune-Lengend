@@ -3,8 +3,7 @@ extends Animal
 class_name Wolf
 
 func _init():
-    var wolf_data = load("uid://dhl4h4f80cuu3") as AnimalResource
-    super._init(wolf_data)
+    super._init()
     switch_action = WolfSwitchAction.new()
     
 func get_animal_type() -> Animal.AnimalType:

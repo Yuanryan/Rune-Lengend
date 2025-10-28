@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://bi11e5ll2t1b3"]
+[gd_scene load_steps=11 format=3 uid="uid://bi11e5ll2t1b3"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_rjpaf"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_wdseg"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_rjpaf"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_t5xtw"]
 [ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="4_itn8k"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="5_vkgks"]
@@ -12,23 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="10_qruxj"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="11_s8ns2"]
 
-[sub_resource type="Resource" id="Resource_sy7oa"]
-script = ExtResource("2_wdseg")
-level_name = "Level 3"
-max_total_actions = 100
-individual_action_limits = Dictionary[int, int]({
-0: 4,
-1: 3,
-2: 3,
-3: 4,
-4: 3
-})
-available_animals = Array[int]([0, 1])
-metadata/_custom_type_script = "uid://bnoi35lwldban"
-
 [node name="Level3" type="Node2D"]
 script = ExtResource("1_rjpaf")
-level_resource = SubResource("Resource_sy7oa")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="GameObjects" type="Node2D" parent="."]

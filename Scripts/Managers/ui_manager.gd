@@ -91,12 +91,12 @@ func get_current_ui() -> Node:
 
 # 從關卡創建卡片
 func create_cards_from_level(level: Level) -> void:
-    """根據關卡資源創建卡片"""
-    if not level or not level.level_resource:
-        push_error("關卡或關卡資源不存在，無法創建卡片")
+    """根據關卡創建卡片"""
+    if not level:
+        push_error("關卡不存在，無法創建卡片")
         return
     if in_game_ui:
-        in_game_ui.card_deck.create_cards_from_level_resource(level.level_resource)
+        in_game_ui.card_deck.create_cards_from_level(level)
         # 連接卡片組到動作佇列以監聽變化
         if in_game_ui.action_queue:
             in_game_ui.card_deck.connect_to_action_queue(in_game_ui.action_queue)

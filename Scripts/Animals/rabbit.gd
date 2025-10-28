@@ -4,8 +4,7 @@ class_name Rabbit
 
 
 func _init():
-    var rabbit_data = load("uid://vk62uradafkf") as AnimalResource
-    super._init(rabbit_data)
+    super._init()
     switch_action = RabbitSwitchAction.new()
 
 func get_animal_type() -> Animal.AnimalType:
@@ -13,7 +12,7 @@ func get_animal_type() -> Animal.AnimalType:
 
 # 兔子的彈跳切換動作
 class RabbitSwitchAction extends JumpAction:
-
+    
     func _init():
         jump_velocity = Vector2(150, -650)
         name = "Jump_Right"  # 使用現有的跳躍動畫

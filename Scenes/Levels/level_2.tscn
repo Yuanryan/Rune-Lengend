@@ -1,7 +1,6 @@
-[gd_scene load_steps=35 format=3 uid="uid://bkcegcx75ii7n"]
+[gd_scene load_steps=33 format=3 uid="uid://bkcegcx75ii7n"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_0x4y1"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_uqiic"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_0x4y1"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_eopvx"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_t27xo"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_yxf76"]
@@ -14,18 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="11_jd2hh"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_jip10"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="14_t27xo"]
-
-[sub_resource type="Resource" id="Resource_hqnw8"]
-script = ExtResource("2_uqiic")
-level_name = "Level Easy"
-max_total_actions = 20
-individual_action_limits = Dictionary[int, int]({
-0: 999,
-1: 999,
-2: 999,
-3: 999
-})
-metadata/_custom_type_script = "uid://bnoi35lwldban"
 
 [sub_resource type="Resource" id="Resource_knl5n"]
 script = ExtResource("6_ia1lp")
@@ -249,7 +236,14 @@ _data = {
 
 [node name="Level 2" type="Node2D"]
 script = ExtResource("1_0x4y1")
-level_resource = SubResource("Resource_hqnw8")
+level_name = "Level Easy"
+max_total_actions = 20
+individual_action_limits = Dictionary[int, int]({
+0: 999,
+1: 999,
+2: 999,
+3: 999
+})
 
 [node name="BG" type="Node2D" parent="."]
 

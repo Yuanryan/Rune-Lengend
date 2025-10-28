@@ -1,7 +1,6 @@
-[gd_scene load_steps=19 format=4 uid="uid://dyev0ja3pu1j0"]
+[gd_scene load_steps=18 format=4 uid="uid://dyev0ja3pu1j0"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_voi1r"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_4fles"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_q8jeo"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_h8ebw"]
@@ -16,13 +15,7 @@
 [ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="12_oab8u"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="15_xpj4h"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="16_q8jeo"]
-
-[sub_resource type="Resource" id="Resource_bt86y"]
-script = ExtResource("2_4fles")
-level_name = "Tutotial Rabbit"
-max_total_actions = 20
-available_animals = Array[int]([0, 1])
-metadata/_custom_type_script = "uid://bnoi35lwldban"
+[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="17_h8ebw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
 resource_local_to_scene = true
@@ -31,7 +24,9 @@ shader_parameter/blur_amount = 1.8000000855
 
 [node name="Tutorial_rabbit" type="Node2D"]
 script = ExtResource("1_voi1r")
-level_resource = SubResource("Resource_bt86y")
+level_name = "Tutotial Rabbit"
+max_total_actions = 20
+available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_xpj4h")]
@@ -371,6 +366,17 @@ offset_bottom = -2.0
 theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
 text = "Transform into rabbit to use super jump"
 fit_content = true
+
+[node name="PlayerDummy" parent="." instance=ExtResource("17_h8ebw")]
+position = Vector2(1263, 231)
+animal_type = 1
+rabbit_jump_type = 1
+
+[node name="PlayerDummy2" parent="." instance=ExtResource("17_h8ebw")]
+position = Vector2(1359, 27)
+show_sprite = false
+animal_type = 1
+rabbit_jump_type = 0
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/LandNodes/Land"]

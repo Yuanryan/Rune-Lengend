@@ -56,7 +56,7 @@ func _connect_game_manager_signals() -> void:
 
 func _setup_card_deck_reference() -> void:
     """設置卡片組引用到動作佇列"""
-    # 這個方法現在在 create_cards_from_level_resource 中調用
+    # 這個方法現在在 create_cards_from_level 中調用
     pass
 
 func _on_card_selected(card: CardTile) -> void:

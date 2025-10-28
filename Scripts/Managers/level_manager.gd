@@ -20,79 +20,41 @@ func _ready() -> void:
 
 # 初始化關卡場景
 func _initialize_level_scenes() -> void:
-    _scan_and_load_levels()
+    _load_levels_from_list()
 
-# 掃描並載入所有關卡
-func _scan_and_load_levels() -> void:
-    var scenes_dir = "res://Scenes/Levels/"
-    
-    # 掃描場景檔案
-    var scene_files = _get_files_in_directory(scenes_dir, "tscn")
-    
-    # 按檔案名稱排序，確保關卡順序一致
-    scene_files.sort()
-    
-    for scene_file in scene_files:
-        var scene_path = scenes_dir + scene_file
-        _load_level_from_scene(scene_path)
-
-# 獲取目錄中的檔案
-func _get_files_in_directory(path: String, extension: String) -> Array[String]:
-    var files: Array[String] = []
-    var dir = DirAccess.open(path)
-    if dir:
-        dir.list_dir_begin()
-        var file_name = dir.get_next()
-        while file_name != "":
-            if file_name.get_extension() == "remap":
-                file_name = file_name.replace(".remap", "")
-            if file_name.get_extension() == extension:
-                files.append(file_name)
-            file_name = dir.get_next()
-        
-        dir.list_dir_end()
-    
-    return files
-
-# 從場景檔案載入關卡
-func _load_level_from_scene(scene_path: String) -> void:
-    # 檢查檔案是否存在
-    if not FileAccess.file_exists(scene_path) and not ResourceLoader.exists(scene_path):
-        print("關卡場景檔案不存在: ", scene_path)
-        return
-    
-    # 載入關卡場景
-    var scene = load(scene_path)
-    if not scene:
-        print("無法載入關卡場景: ", scene_path)
-        return
-    
-    # 檢查是否為 PackedScene
-    if not scene is PackedScene:
-        print("檔案不是有效的場景檔案: ", scene_path)
-        return
-    
-    # 從場景中提取關卡名稱
-    var level_name = _extract_level_name_from_scene(scene)
-    if level_name.is_empty():
-        # 如果無法從場景中提取名稱，使用檔案名
-        var file_name = scene_path.get_file().get_basename()
-        level_name = file_name.replace("_", " ").capitalize()
-    
-    # 儲存到關卡場景字典，使用關卡名稱作為鍵
-    level_scenes[level_name] = scene
+# 從 LevelList 載入所有關卡
+func _load_levels_from_list() -> void:
+    # 從 LevelList 資源獲取所有關卡類別
+    for category_name in LevelList.LEVEL_LISTS.keys():
+        var scenes = LevelList.LEVEL_LISTS[category_name] as Array
+        for scene in scenes:
+            if scene is PackedScene:
+                # 從場景中提取關卡名稱
+                var level_name = _extract_level_name_from_scene(scene)
+                if level_name.is_empty():
+                    # 如果無法從場景中提取名稱，使用場景資源路徑
+                    var scene_path = scene.resource_path
+                    var file_name = scene_path.get_file().get_basename()
+                    level_name = file_name.replace("_", " ").capitalize()
+                
+                if not level_scenes.has(category_name):
+                    level_scenes[category_name] = []
+                # 儲存到關卡場景字典，使用關卡名稱作為鍵
+                level_scenes[category_name].append({
+                    "name": level_name,
+                    "scene": scene
+                })
 
 # 從場景中提取關卡名稱
 func _extract_level_name_from_scene(scene: PackedScene) -> String:
-    """從場景的 LevelResource 中提取關卡名稱"""
+    """從場景的 Level 中提取關卡名稱"""
     if not scene:
         return ""
     
     # 實例化場景以檢查其內容
     var scene_state = scene.get_state()
     if scene_state:
-        var level_resource : LevelResource = scene_state.get_node_property_value(0, 1)
-        return level_resource.level_name
+        return scene_state.get_node_property_value(0, 1)
     return ""
 
 # ========== 核心功能 ==========
@@ -161,25 +123,6 @@ func get_current_level() -> Level:
 # 獲取所有關卡場景
 func get_all_level_scenes() -> Dictionary:
     return level_scenes
-
-# 獲取按名稱排序的關卡場景列表
-func get_level_scenes_sorted() -> Array[Dictionary]:
-    """獲取按名稱排序的關卡場景列表，每個元素包含 name 和 scene"""
-    var sorted_levels: Array[Dictionary] = []
-    
-    # 獲取所有關卡名稱並排序
-    var level_names = level_scenes.keys()
-    level_names.sort()
-    
-    for level_name in level_names:
-        var scene = level_scenes[level_name]
-        if scene:
-            sorted_levels.append({
-                "name": level_name,
-                "scene": scene
-            })
-    
-    return sorted_levels
 
 # 重新載入當前關卡
 func reload_current_level() -> Level:

@@ -15,12 +15,10 @@ func _ready() -> void:
 	
 	# 設置勝利文字
 	if victory_label:
-		victory_label.text = "恭喜！關卡完成！"
 		victory_label.modulate = Color.GOLD
 	
 	# 設置返回按鈕
 	if return_button:
-		return_button.text = "回到關卡選擇"
 		return_button.pressed.connect(_on_return_button_pressed)
 
 func show_victory() -> void:
@@ -31,7 +29,6 @@ func show_victory() -> void:
 	if particles:
 		particles.emitting = true
 	
-	print("勝利UI已顯示")
 
 func hide_victory() -> void:
 	"""隱藏勝利UI"""
@@ -40,8 +37,7 @@ func hide_victory() -> void:
 	# 停止粒子效果
 	if particles:
 		particles.emitting = false
-	
-	print("勝利UI已隱藏")
+
 
 func _on_animation_finished() -> void:
 	"""當慶祝動畫完成時觸發"""

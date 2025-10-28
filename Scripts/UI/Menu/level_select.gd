@@ -27,42 +27,41 @@ func _create_level_buttons() -> void:
         push_error("無法創建關卡按鈕：缺少必要組件")
         return
     
-    # 從 LevelManager 獲取按名稱排序的關卡場景
-    var sorted_levels = LevelManager.get_level_scenes_sorted()
+    var level_scenes = LevelManager.get_all_level_scenes()
     
     var button_index = 0
-    for level_data in sorted_levels:
-        var level_name = level_data.get("name", "Unknown Level")
-        var level_scene = level_data.get("scene", null)
-        
-        if not level_scene:
-            push_warning("關卡場景不存在: " + level_name)
-            continue
-        
-        var button: LevelButton = LEVEL_BUTTON_SCENE.instantiate()
-        if not button:
-            push_error("無法實例化關卡按鈕")
-            continue
-        
-        # 創建配置
-        var config = {
-            "level_scene": level_scene,
-            "unlocked": true,  # 暫時讓所有關卡都解鎖
-            "completed": false
-        }
-        
-        # 設置按鈕，使用關卡名稱而不是數字編號
-        button.setup(
-            button_index + 1,  # 關卡編號（用於排序）
-            level_name,  # 使用從場景中提取的關卡名稱
-            config.unlocked,
-            config.completed,
-            config,
-            level_scene  # 傳遞關卡場景
-        )
-        # 添加到容器
-        levels_container.add_child(button)
-        button_index += 1
+    for category_name in level_scenes.keys():
+        for level_data in level_scenes[category_name]:
+            var level_name = level_data.get("name", "Unknown Level")
+            var level_scene = level_data.get("scene", null)
+            
+            if not level_scene:
+                push_warning("關卡場景不存在: " + level_name)
+                continue
+            
+            var button: LevelButton = LEVEL_BUTTON_SCENE.instantiate()
+            if not button:
+                push_error("無法實例化關卡按鈕")
+                continue
+            
+            var config = {
+                "level_scene": level_scene,
+                "unlocked": true,
+                "completed": false
+            }
+
+            button.setup(
+                button_index + 1, 
+                level_name, 
+                config["unlocked"], 
+                config["completed"], 
+                config, 
+                config["level_scene"]
+            )
+       
+            
+            levels_container.add_child(button)
+            button_index += 1
 
 func _on_back_pressed() -> void:
     print("返回主選單")

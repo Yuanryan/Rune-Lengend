@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://chih41cnwx5pj"]
+[gd_scene load_steps=11 format=3 uid="uid://chih41cnwx5pj"]
 
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_xd1qq"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_i0rpk"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_xd1qq"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_333je"]
 [ext_resource type="PackedScene" uid="uid://m78ohatsav31" path="res://Scenes/LevelEdit/Objects/Objectives/starting_point.tscn" id="4_5ybus"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_veebk"]
@@ -11,11 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_dmdeq"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="10_2kjif"]
 
-[sub_resource type="Resource" id="Resource_w3tbt"]
-script = ExtResource("2_i0rpk")
-level_name = "Level 11"
-metadata/_custom_type_script = "uid://bnoi35lwldban"
-
 [sub_resource type="Resource" id="Resource_oaj46"]
 script = ExtResource("6_6uyrc")
 transition = 4
@@ -23,7 +17,6 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_xd1qq")
-level_resource = SubResource("Resource_w3tbt")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="LandEditTool" parent="." instance=ExtResource("3_333je")]

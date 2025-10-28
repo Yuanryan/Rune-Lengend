@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://drmqs18i0i8j5"]
+[gd_scene load_steps=11 format=3 uid="uid://drmqs18i0i8j5"]
 
 [ext_resource type="PackedScene" uid="uid://m78ohatsav31" path="res://Scenes/LevelEdit/Objects/Objectives/starting_point.tscn" id="1_4c8hl"]
-[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Objects/level.gd" id="1_p60k7"]
-[ext_resource type="Script" uid="uid://bnoi35lwldban" path="res://Scripts/Level/Core/level_resource.gd" id="2_bla2a"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_p60k7"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="2_snwp0"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="3_2fy10"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_du3l2"]
@@ -11,11 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="5_p60k7"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_bla2a"]
 
-[sub_resource type="Resource" id="Resource_tdopa"]
-script = ExtResource("2_bla2a")
-level_name = "Level 10"
-metadata/_custom_type_script = "uid://bnoi35lwldban"
-
 [sub_resource type="Resource" id="Resource_lwuu2"]
 script = ExtResource("5_mucg7")
 transition = 4
@@ -23,7 +17,6 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level_WU" type="Node2D"]
 script = ExtResource("1_p60k7")
-level_resource = SubResource("Resource_tdopa")
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="StartingPoint" parent="." instance=ExtResource("1_4c8hl")]
