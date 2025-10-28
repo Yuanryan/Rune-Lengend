@@ -72,8 +72,9 @@ func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector
     # 清除所有子彈
     _clear_all_bullets()
     
-    # 清除當前關卡
+    # 清除當前關卡（先從場景樹移除再釋放，避免同幀並存）
     if current_level:
+        current_level.get_parent().remove_child(current_level)
         current_level.queue_free()
         current_level = null
         GameManager.remove_player()
@@ -87,15 +88,11 @@ func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector
         push_error("無法載入關卡場景")
         return null
     
-    # 將關卡加入場景樹
     get_tree().current_scene.add_child(current_level)
     
     # 如果指定了生成位置，設置起始點並生成玩家
     if spawn_position != Vector2.ZERO:
         current_level.starting_point.global_position = spawn_position
-    
-    # 注意：相機位置現在由 PhantomCamera2D 系統自動處理
-    # 不再需要手動設定 camera.global_position
     
     current_level.spawn_player()
     
@@ -174,7 +171,7 @@ func reload_level_from_last_checkpoint() -> Level:
     
     if current_level:
         saved_checkpoint_index = current_level.get_current_checkpoint_index()
-        
+        print("saved_checkpoint_index: ", saved_checkpoint_index)
         # 保存所有檢查點的 active 狀態
         for i in range(current_level.get_checkpoint_count()):
             var checkpoint = current_level.get_checkpoint_by_index(i)
@@ -242,19 +239,7 @@ func _restore_checkpoint_states(level: Level, checkpoint_states: Dictionary, cur
                 if checkpoint:
                     checkpoint.active = checkpoint_states[i]
     
-    # 恢復當前檢查點索引
+    # # 恢復當前檢查點索引
     if current_index >= 0:
         level.current_checkpoint_index = current_index
-        
-        # 切換到當前檢查點的攝影機
-        var current_checkpoint = level.get_checkpoint_by_index(current_index)
-        if current_checkpoint:
-            print("重置時切換到檢查點攝影機: ", current_checkpoint.name)
-            level._switch_to_checkpoint_camera(current_checkpoint, false)
-        else:
-            print("重置時使用起始攝影機")
-            level._activate_starting_camera()
-    else:
-        # 如果沒有檢查點，使用起始攝影機
-        print("重置時沒有檢查點，使用起始攝影機")
-        level._activate_starting_camera()
+        level._switch_to_checkpoint_camera(level.get_checkpoint_by_index(current_index), false)

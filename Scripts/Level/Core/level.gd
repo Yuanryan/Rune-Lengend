@@ -71,13 +71,13 @@ func initialize_checkpoints() -> void:
 
 # 初始化相機狀態
 func _initialize_camera_state() -> void:
-    # 將所有相機的優先級設為 0
+    # 將本關卡內所有相機的優先級設為 0（僅限當前關卡範圍內）
     camera.make_current()
-    PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D): 
-        if pcam != starting_camera:
-            pcam.priority = 0
-            pcam.visible = false
-    )
+    for pcam in PhantomCameraManager.get_phantom_camera_2ds():
+        if self.is_ancestor_of(pcam):
+            if pcam != starting_camera:
+                pcam.priority = 0
+                pcam.visible = false
     _activate_starting_camera()
 
 
@@ -104,10 +104,16 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
 func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true) -> void:    
     # 直接設置指定檢查點相機的優先級（使用陣列索引）
     if target and target.phantom_camera:
+        print("switch_to_checkpoint_camera: ", target.name)
+        PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D):
+            print(pcam.owner.name, " priority: ", pcam.priority, " visible: ", pcam.visible)
+        )
         var checkpoint_index = checkpoints.find(target)
         var priority_value = checkpoint_index + 11  # 索引從0開始，優先級從1開始
+        target.phantom_camera.visible = true
         target.set_camera_priority(priority_value, should_tween)
     else:
+        print("switch_to_checkpoint_camera: no target")
         _activate_starting_camera()
 
 
@@ -115,7 +121,6 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
 func _activate_starting_camera() -> void:
     if not starting_camera:
         return
-    
     # 重置所有 PhantomCamera2D，確保只有起始相機具有較高優先級
     PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D):
         if pcam == starting_camera:
@@ -198,22 +203,3 @@ func get_current_checkpoint() -> Checkpoint:
         return checkpoints[current_checkpoint_index]
     return null
 
-
-
-func set_starting_point_to_checkpoint(checkpoint: Checkpoint) -> void:
-    """將起始點設置到指定檢查點的位置"""
-    if checkpoint:
-        starting_point.global_position = checkpoint.global_position
-        # 使用 PhantomCamera2D 切換相機，重新載入時禁用 tween
-        _switch_to_checkpoint_camera(checkpoint, false)
-
-func set_starting_point_to_checkpoint_by_index(index: int) -> void:
-    """根據索引將起始點設置到指定檢查點的位置"""
-    var checkpoint = get_checkpoint_by_index(index)
-    if checkpoint:
-        set_starting_point_to_checkpoint(checkpoint)
-
-func set_starting_point_to_current_checkpoint() -> void:
-    """將起始點設置到當前檢查點的位置"""
-    if current_checkpoint_index >= 0:
-        set_starting_point_to_checkpoint_by_index(current_checkpoint_index)

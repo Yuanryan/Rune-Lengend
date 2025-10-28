@@ -9,6 +9,8 @@ class_name Checkpoint
 
 @onready var phantom_camera: PhantomCamera2D = %PhantomCamera2D
 @onready var anim_player: AnimationPlayer = %AnimationPlayer
+
+var id: int = 0
 var active: bool = false
 
 
@@ -41,7 +43,6 @@ func set_camera_priority(priority_value: int, should_tween: bool = true) -> void
         else:
             phantom_camera.set_tween_duration(0)
         # 設置當前相機的優先級
-        phantom_camera.visible = true
         phantom_camera.priority = priority_value
 
 
