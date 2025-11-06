@@ -80,12 +80,12 @@ func set_game_state(new_state: GameState) -> void:
 
 # 遊戲內狀態管理
 func set_in_game_state(new_state: InGameState) -> void:
-    if current_in_game_state == new_state:
+    if current_in_game_state == new_state and new_state != InGameState.PLANNING:
         return
     
     current_in_game_state = new_state
     in_game_state_changed.emit(new_state)
-    
+
 
 # 輔助方法
 func _get_state_name(state: InGameState) -> String:

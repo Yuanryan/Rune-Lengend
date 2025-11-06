@@ -137,6 +137,8 @@ func reload_current_level() -> Level:
     # 恢復動作佇列
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
+        # 確保遊戲狀態設置為規劃階段
+        GameManager.reset_to_planning()
     
     return reloaded_level
 
@@ -194,6 +196,8 @@ func reload_level_from_last_checkpoint() -> Level:
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
         _restore_checkpoint_states(reloaded_level, saved_checkpoint_states, saved_checkpoint_index)
+        # 確保遊戲狀態設置為規劃階段
+        GameManager.reset_to_planning()
     
     return reloaded_level
 
@@ -222,6 +226,8 @@ func reload_level_from_specific_checkpoint(checkpoint_index: int) -> Level:
     # 恢復動作佇列
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
+        # 確保遊戲狀態設置為規劃階段
+        GameManager.reset_to_planning()
     
     return reloaded_level
 

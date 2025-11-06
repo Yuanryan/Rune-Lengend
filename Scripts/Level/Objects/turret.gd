@@ -88,7 +88,7 @@ func _calculate_fire_direction() -> void:
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
-    if new_state == GameManager.InGameState.EXECUTING:
+    if new_state == GameManager.InGameState.PLANNING or new_state == GameManager.InGameState.EXECUTING:
         can_fire = true
         _fire_bullet()
         if fire_timer:

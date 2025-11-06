@@ -5,7 +5,6 @@
 
 [node name="PlayerDummy" type="Node2D"]
 script = ExtResource("1_6ys3l")
-max_draw_duration = 2.0
 animal_type = 2
 
 [node name="Line2D" type="Line2D" parent="."]

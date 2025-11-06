@@ -380,6 +380,7 @@ show_polygon_in_game = true
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
 position = Vector2(-56, -248)
 polygon = PackedVector2Array(88, -104, 88, 368, 480, 368, 480, 360, 384, 352, 448, -104)
+uv = PackedVector2Array(88, -104, 88, 368, 480, 368, 480, 360, 384, 352, 448, -104)
 
 [node name="@CollisionPolygon2D@78514" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land6"]
 position = Vector2(-56, -248)

@@ -29,7 +29,7 @@ func start(player: CharacterBody2D) -> void:
     if not player.is_on_floor():
         player._air_jump_count += 1
 
-func should_stop(player: CharacterBody2D, delta: float) -> bool:
+func should_stop(player: Player, delta: float) -> bool:
     # 檢查是否已經離開地面
     if not _has_left_ground and not player.is_on_floor():
         _has_left_ground = true
@@ -37,17 +37,17 @@ func should_stop(player: CharacterBody2D, delta: float) -> bool:
     # 只有在離開地面後再次觸地才結束動作
     return _has_left_ground and player.is_on_floor()
 
-func update(player: CharacterBody2D, delta: float) -> bool:
+func update(player: Player, delta: float) -> bool:
     player.velocity.x = jump_velocity.x
     return should_stop(player, delta)
 
-func interrupt(player: CharacterBody2D) -> void:
+func interrupt(player: Player) -> void:
     player.animal_component.stop_animation()
 
 # 檢查跳躍動作是否可以被執行
-func can_perform(player: CharacterBody2D) -> bool:
-    # 如果在地面上，總是允許跳躍
-    if player.is_on_floor():
+func can_perform(player: Player) -> bool:
+    # 如果在地面上或仍在土狼時間（離地後短時間內），允許跳躍
+    if player.is_on_floor() or player.coyote_time_left > 0.0:
         return true	# 獲取玩家的跳躍計數和最大空中跳躍次數
     
     # 檢查是否還有空中跳躍次數

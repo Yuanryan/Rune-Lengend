@@ -9,7 +9,12 @@ enum RabbitJumpType {
 @export_tool_button("Toggle_Jump_Path", "Line2D") var toggle_jump_path_action = toggle_jump_path
 @export var show_sprite: bool = true : set = _set_show_sprite
 @export var time_step: float = 0.02
-@export var max_draw_duration: float = 1
+@export var max_draw_duration: float = 1.0 :
+    set(value): 
+        max_draw_duration = value; draw_jump_path()
+@export var draw_under_y_zero: bool = false :
+    set(value): 
+        draw_under_y_zero = value; draw_jump_path()
 @export_category("Animal")
 @export var animal_type : Animal.AnimalType = Animal.AnimalType.MAN : set = _set_animal_type
 
@@ -98,7 +103,7 @@ func draw_jump_path() -> void:
     
     var elapsed_time: float = 0.0
     # 模擬軌跡直到落地或超過最大時間
-    while traj_position.y <= 0 and elapsed_time < max_draw_duration:
+    while (traj_position.y <= 0 or draw_under_y_zero) and elapsed_time < max_draw_duration:
         elapsed_time += time_step
         velocity += gravity_vec * time_step
         traj_position += velocity * time_step

@@ -202,4 +202,3 @@ func get_current_checkpoint() -> Checkpoint:
     if current_checkpoint_index >= 0 and current_checkpoint_index < checkpoints.size():
         return checkpoints[current_checkpoint_index]
     return null
-

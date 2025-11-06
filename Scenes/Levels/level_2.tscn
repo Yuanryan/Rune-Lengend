@@ -657,7 +657,7 @@ position = Vector2(2552, -56)
 open_duration = 99.0
 
 [node name="Polygon2D" parent="TimedDoor3" index="0"]
-position = Vector2(207.99994, 496)
+position = Vector2(207.99994, 432)
 rotation = -3.1415927
 polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
 
@@ -665,7 +665,7 @@ polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
 position = Vector2(0, 144)
 
 [node name="@CollisionPolygon2D@50211" type="CollisionPolygon2D" parent="TimedDoor3"]
-position = Vector2(207.99994, 496)
+position = Vector2(207.99994, 432)
 rotation = -3.1415927
 polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
 
