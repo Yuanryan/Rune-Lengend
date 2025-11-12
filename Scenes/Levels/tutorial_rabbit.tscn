@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://dyev0ja3pu1j0"]
+[gd_scene load_steps=19 format=4 uid="uid://dyev0ja3pu1j0"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
@@ -21,6 +21,9 @@
 resource_local_to_scene = true
 shader = ExtResource("4_q8jeo")
 shader_parameter/blur_amount = 1.8000000855
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8jeo"]
+size = Vector2(1284, 659)
 
 [node name="Tutorial_rabbit" type="Node2D"]
 script = ExtResource("1_voi1r")
@@ -246,7 +249,12 @@ position = Vector2(-592, 0)
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint1" index="2"]
 position = Vector2(496, -32)
+priority_override = true
 zoom = Vector2(1.5, 1.5)
+
+[node name="CameraBorder" parent="GameObjects/Checkpoints/Checkpoint1/PhantomCamera2D" index="0"]
+position = Vector2(7, 5)
+shape = SubResource("RectangleShape2D_q8jeo")
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
 position = Vector2(520, -88)
@@ -267,7 +275,7 @@ position = Vector2(2656, -168)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(74, 100)
+position = Vector2(1000, -8)
 zoom = Vector2(1.5, 1.5)
 editor_draw_limits = true
 

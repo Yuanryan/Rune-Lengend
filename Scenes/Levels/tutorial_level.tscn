@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ot486"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_u4lmr"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="4_ot486"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_gwj07"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="6_hj161"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="7_5pgco"]
@@ -290,21 +290,25 @@ show_all_polygons_in_game = true
 unique_name_in_owner = true
 position = Vector2(-512, 352)
 
-[node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
+[node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_ot486")]
 unique_name_in_owner = true
 position = Vector2(-136, 216)
-script = ExtResource("4_u4lmr")
-priority = 10
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_knl5n")
-tween_on_load = false
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+inactive_update_mode = 0
+
+[node name="CameraBorder" parent="GameObjects/Essential/StartingCamera" index="0"]
+position = Vector2(5, -13)
+disabled = false
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(3680, 216)
+position = Vector2(-136, 216)
 zoom = Vector2(2, 2)
+limit_left = -613
+limit_top = -62
+limit_right = 351
+limit_bottom = 468
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Essential/Camera2D"]
@@ -511,6 +515,7 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -531,6 +536,7 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(590, -140)
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -552,6 +558,7 @@ position = Vector2(506, -101)
 priority = 13
 zoom = Vector2(1.7, 1.7)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -576,6 +583,7 @@ position = Vector2(416, -24)
 priority = 14
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -648,6 +656,7 @@ text = "↓ Action queue
 "
 fit_content = true
 
+[editable path="GameObjects/Essential/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land2"]
 [editable path="GameObjects/LandNodes/Land3"]

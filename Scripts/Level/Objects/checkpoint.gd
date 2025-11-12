@@ -7,7 +7,7 @@ class_name Checkpoint
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "Activate Camera") var activate_camera: bool = true : set = set_activate_camera
 @export var tween_duration: float = 1.0
 
-@onready var phantom_camera: PhantomCamera2D = %PhantomCamera2D
+@onready var phantom_camera: BorderedCamera = %PhantomCamera2D
 @onready var anim_player: AnimationPlayer = %AnimationPlayer
 
 var id: int = 0

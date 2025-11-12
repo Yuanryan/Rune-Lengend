@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0lort7bxt8pj"]
+[gd_scene load_steps=5 format=3 uid="uid://d0lort7bxt8pj"]
 
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="1_qqgi1"]
+[ext_resource type="Script" uid="uid://cs7mo4htw8l3t" path="res://Scripts/Level/Core/bordered_camera.gd" id="1_qqgi1"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_6fx34"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]
@@ -8,10 +8,20 @@ script = ExtResource("2_6fx34")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqgi1"]
+size = Vector2(964, 530)
+
 [node name="StartingCamera" type="Node2D"]
 script = ExtResource("1_qqgi1")
+priority = 10
 tween_resource = SubResource("Resource_knl5n")
 tween_on_load = false
 inactive_update_mode = 1
 draw_limits = true
+limit_target = NodePath("CameraBorder")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="CameraBorder" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_qqgi1")
+disabled = true

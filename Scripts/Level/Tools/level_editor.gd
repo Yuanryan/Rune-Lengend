@@ -178,7 +178,8 @@ func _update_ui_display() -> void:
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
    # 在測試關卡中，當狀態不是執行中且不是暫停時，確保解鎖動作佇列
-    if new_state != GameManager.InGameState.EXECUTING:
+    # 只有在當前狀態不是 PLANNING 時才設置，避免無限遞迴
+    if new_state != GameManager.InGameState.EXECUTING and GameManager.current_in_game_state != GameManager.InGameState.PLANNING:
         GameManager.set_in_game_state(GameManager.InGameState.PLANNING)
     
     print("測試關卡狀態變化: ", GameManager._get_state_name(new_state))

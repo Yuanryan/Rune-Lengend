@@ -176,6 +176,28 @@ func achieve_victory() -> void:
     """達成勝利"""
     set_in_game_state(InGameState.VICTORY)
 
+# 設置玩家相機優先級
+func set_player_camera_priority(priority: int) -> void:
+    """設置玩家相機的優先級"""
+    if has_player() and player.player_camera:
+        player.player_camera.priority = priority
+        player.player_camera.visible = true
+        print("玩家相機優先級已設置為: ", priority)
+
+# 設置玩家相機邊界
+func set_player_camera_border_from_checkpoint_camera(camera: BorderedCamera) -> void:
+    """從指定的 PhantomCamera2D 獲取邊界並設置到玩家相機"""
+    if not has_player() or not player.player_camera:
+        return
+    
+    # 查找 PhantomCamera2D 下的 CameraBorder 子節點
+    if camera.camera_border:
+        # 設置玩家相機的邊界
+        player.player_camera.set_border(camera.camera_border)
+    else:
+        print("警告：未找到相機邊界: ", camera.name)
+
+
 # 處理ESC鍵輸入
 func handle_escape_key() -> void:
     """處理ESC鍵返回主選單"""

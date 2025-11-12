@@ -1,9 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://bkcegcx75ii7n"]
+[gd_scene load_steps=32 format=3 uid="uid://bkcegcx75ii7n"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_0x4y1"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_eopvx"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="4_eopvx"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_t27xo"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="5_yxf76"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_ia1lp"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="7_5buja"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_wyygt"]
@@ -13,11 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="11_jd2hh"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_jip10"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="14_t27xo"]
-
-[sub_resource type="Resource" id="Resource_knl5n"]
-script = ExtResource("6_ia1lp")
-transition = 4
-metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
@@ -292,16 +287,13 @@ show_all_polygons_in_game = true
 unique_name_in_owner = true
 position = Vector2(-512, 376)
 
-[node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
+[node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_eopvx")]
 unique_name_in_owner = true
 position = Vector2(-136, 216)
-script = ExtResource("5_yxf76")
-priority = 10
 zoom = Vector2(2, 2)
-tween_resource = SubResource("Resource_knl5n")
-tween_on_load = false
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="CameraBorder" parent="GameObjects/Essential/StartingCamera" index="0"]
+position = Vector2(-68, -4)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
@@ -523,6 +515,7 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -543,6 +536,7 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(520, -144)
 zoom = Vector2(1.7, 1.7)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -564,6 +558,7 @@ position = Vector2(576, -80)
 priority = 13
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -669,6 +664,7 @@ position = Vector2(207.99994, 432)
 rotation = -3.1415927
 polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
 
+[editable path="GameObjects/Essential/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land9"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land2"]
