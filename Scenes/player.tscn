@@ -1,4 +1,3 @@
-[gd_scene load_steps=32 format=3 uid="uid://cviyl35yedewi"]
 [gd_scene load_steps=42 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
@@ -1657,9 +1656,7 @@ material = SubResource("ShaderMaterial_f1ek2")
 position = Vector2(3, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("4_x3wgy")
-texture = ExtResource("4_x3wgy")
 flip_h = true
-hframes = 4
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -1692,3 +1689,13 @@ noise = SubResource("Resource_h4iuc")
 growth_time = 0.00013454283
 duration = 0.15
 metadata/_custom_type_script = "uid://bhd4nuiu23e7l"
+
+[node name="PlayerCamera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = ExtResource("9_tx1dd")
+follow_mode = 1
+follow_target = NodePath("..")
+zoom = Vector2(2, 2)
+tween_resource = SubResource("Resource_tx1dd")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
