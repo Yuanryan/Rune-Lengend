@@ -20,7 +20,7 @@ class_name Level
 
 
 @onready var starting_point: Marker2D = %StartingPoint
-@onready var starting_camera: PhantomCamera2D = %StartingCamera
+@onready var starting_camera: BorderedCamera = %StartingCamera
 @onready var camera: Camera2D = %Camera2D
 
 # 檢查點陣列
@@ -56,6 +56,8 @@ func _ready() -> void:
     if not Engine.is_editor_hint():
         initialize_checkpoints()
         _initialize_camera_state()
+        # 連接 GameManager 的狀態變化信號
+        _connect_game_manager_signals()
 
 
 # 初始化檢查點陣列
@@ -68,6 +70,44 @@ func initialize_checkpoints() -> void:
             checkpoints.append(checkpoint)
             checkpoint.checkpoint_reached.connect(_on_checkpoint_reached)
     
+
+# 連接 GameManager 信號
+func _connect_game_manager_signals() -> void:
+    """連接 GameManager 的狀態變化信號"""
+    if GameManager:
+        GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+
+# 處理遊戲內狀態變化
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    """當遊戲內狀態變化時，根據狀態調整相機"""
+    if new_state == GameManager.InGameState.EXECUTING:
+        # 在設置玩家相機優先級之前，先找到關卡中的活動相機（起始相機或檢查點相機）
+        var level_camera = _get_active_level_camera()
+        if level_camera:
+            # 設置玩家相機邊界為關卡相機的邊界
+            GameManager.set_player_camera_border_from_checkpoint_camera(level_camera)
+        
+        # 當狀態變為 EXECUTING 時，通過 GameManager 設置玩家相機優先級為 100
+        GameManager.set_player_camera_priority(100)
+
+# 獲取關卡中的活動相機（不包括玩家相機）
+func _get_active_level_camera() -> BorderedCamera:
+    """獲取關卡中的活動相機（優先級最高的可見相機，不包括玩家相機）"""
+    var highest_priority: int = -1
+    var active_camera: BorderedCamera = null
+    
+    for pcam in PhantomCameraManager.get_phantom_camera_2ds():
+        if pcam is BorderedCamera:
+            # 只查找關卡中的相機，排除玩家相機
+            if self.is_ancestor_of(pcam) and pcam.visible:
+                # 排除玩家相機（玩家相機通常是玩家的子節點）
+                if GameManager.has_player() and pcam.get_parent() == GameManager.player:
+                    continue
+                if pcam.priority > highest_priority:
+                    highest_priority = pcam.priority
+                    active_camera = pcam
+    
+    return active_camera
 
 # 初始化相機狀態
 func _initialize_camera_state() -> void:
@@ -112,6 +152,9 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
         var priority_value = checkpoint_index + 11  # 索引從0開始，優先級從1開始
         target.phantom_camera.visible = true
         target.set_camera_priority(priority_value, should_tween)
+        
+        # 設置玩家相機邊界為檢查點相機的邊界
+        GameManager.set_player_camera_border_from_checkpoint_camera(target.phantom_camera)
     else:
         print("switch_to_checkpoint_camera: no target")
         _activate_starting_camera()
@@ -135,6 +178,10 @@ func _activate_starting_camera() -> void:
     # 設置起始相機為可見並提升優先級
     starting_camera.visible = true
     starting_camera.priority = 10
+    
+    # 設置玩家相機邊界為起始相機的邊界
+    if GameManager.has_player() and GameManager.player.player_camera:
+        GameManager.set_player_camera_border_from_checkpoint_camera(starting_camera)
 
 
 

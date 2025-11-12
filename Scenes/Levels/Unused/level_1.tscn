@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="4_pbfb4"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_tjl6l"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_3628d"]
-[ext_resource type="Script" uid="uid://bet3pbm21wwfp" path="res://Scripts/Level/Core/zoomable_camera.gd" id="6_irw6p"]
+[ext_resource type="Script" uid="uid://cs7mo4htw8l3t" path="res://Scripts/Level/Core/bordered_camera.gd" id="5_pbfb4"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_31phq"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="8_7hll7"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_fayjm"]
@@ -50,7 +50,7 @@ position = Vector2(2, 266)
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(45.995, 104)
-script = ExtResource("6_irw6p")
+script = ExtResource("5_pbfb4")
 tween_resource = SubResource("Resource_7r2dd")
 tween_on_load = false
 draw_limits = true

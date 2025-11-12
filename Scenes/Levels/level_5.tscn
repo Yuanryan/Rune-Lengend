@@ -4,10 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_20kd1"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_jd0ia"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_jd0ia"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="5_b7yer"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="6_vdq4f"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="7_633d5"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_rw7sn"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
@@ -143,15 +142,10 @@ scale = Vector2(1.3, 1.3)
 unique_name_in_owner = true
 position = Vector2(-429, 363)
 
-[node name="StartingCamera" type="Node2D" parent="GameObjects"]
+[node name="StartingCamera" parent="GameObjects" instance=ExtResource("5_b7yer")]
 unique_name_in_owner = true
 position = Vector2(69, 131)
-script = ExtResource("6_jd0ia")
 zoom = Vector2(1.225, 1.225)
-tween_resource = SubResource("Resource_b7yer")
-tween_on_load = false
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -474,6 +468,7 @@ material = SubResource("ShaderMaterial_yhtsi")
 metadata/_edit_lock_ = true
 
 [editable path="BackgroundSnowForest"]
+[editable path="GameObjects/StartingCamera"]
 [editable path="GameObjects/Turret"]
 [editable path="GameObjects/Turret2"]
 [editable path="GameObjects/LandNodes/Land3"]
