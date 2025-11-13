@@ -1,10 +1,10 @@
 [gd_scene load_steps=24 format=3 uid="uid://ctp1234l38t1a"]
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
+[ext_resource type="Texture2D" uid="uid://cc5fbmlcfdmx2" path="res://Assets/environment/check_point_idle.png" id="2_1q831"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_1q831"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
 [ext_resource type="Texture2D" uid="uid://daudawng7f2vi" path="res://Assets/particles/rune-short.png" id="6_41icc"]
-[ext_resource type="Texture2D" uid="uid://d1w1yaqqkmnmx" path="res://Assets/environment/free_asset_pixel_runes_byArijkx_v1/asset32x32/1-32x32.png" id="7_a3k8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
@@ -222,20 +222,22 @@ _data = {
 }
 
 [node name="Checkpoint" type="Area2D" groups=["Checkpoint"]]
+position = Vector2(-1, -7)
 collision_mask = 2
 script = ExtResource("1_5xexx")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(2, 2)
-texture = ExtResource("7_a3k8k")
+scale = Vector2(1.3359375, 1.3448437)
+texture = ExtResource("2_1q831")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ddtxo")
 
 [node name="PhantomCamera2D" type="Node2D" parent="."]
 unique_name_in_owner = true
+z_index = -2
 script = ExtResource("3_1q831")
 tween_resource = SubResource("Resource_41icc")
 draw_limits = true
