@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuq6hxx5rtrw3"]
+
+[ext_resource type="Texture2D" uid="uid://di0sr5r26ibns" path="res://Assets/environment/ice_spike.png" id="1_7w6tr"]
+[ext_resource type="Script" uid="uid://11iqfqnk5s16" path="res://Scripts/Level/Objects/falling_ice.gd" id="1_bmuf2"]
+[ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/Objects/damage_area.gd" id="2_bmuf2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d35me"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d35me"]
+
+[node name="FallingIce" type="CharacterBody2D"]
+collision_layer = 11
+collision_mask = 9
+script = ExtResource("1_bmuf2")
+
+[node name="IceSpike" type="Sprite2D" parent="."]
+rotation = 3.1415927
+scale = Vector2(0.6796875, 0.609375)
+texture = ExtResource("1_7w6tr")
+
+[node name="DamageArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("2_bmuf2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DamageArea"]
+position = Vector2(23, 35)
+rotation = 3.1415927
+polygon = PackedVector2Array(23, 23, 35, 47, 11, 47)
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_d35me")
+target_position = Vector2(0, 200)
+max_results = 10
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_d35me")

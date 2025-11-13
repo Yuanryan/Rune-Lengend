@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=27 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -19,7 +19,6 @@
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
-[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="21_b7yer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
@@ -89,10 +88,6 @@ shader_parameter/speed = 0.30000001425
 shader_parameter/wind = -1.49999997625
 shader_parameter/num_of_layers = 15
 shader_parameter/layer_start = 5
-
-[sub_resource type="Environment" id="Environment_jd0ia"]
-glow_enabled = true
-glow_hdr_threshold = 0.0
 
 [node name="Level5" type="Node2D"]
 script = ExtResource("1_evokg")
@@ -196,6 +191,7 @@ position = Vector2(-40, 192)
 position = Vector2(-16, 192)
 
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
+visible = false
 
 [node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 
@@ -358,7 +354,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(159.41121, -8)
+position = Vector2(57.319725, -96)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -450,18 +446,6 @@ offset_right = 1003.0
 offset_bottom = 657.0
 metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroments"]
-environment = SubResource("Environment_jd0ia")
-
-[node name="PlayerDummy" parent="." instance=ExtResource("21_b7yer")]
-visible = false
-position = Vector2(-331, 401)
-animal_type = 1
-rabbit_jump_type = 0
-
-[node name="Line2D" parent="PlayerDummy" index="0"]
-points = PackedVector2Array(0, 0, 3.5, -9.599999, 7, -18.8, 10.5, -27.599998, 14, -36, 17.5, -44, 21, -51.6, 24.5, -58.8, 28, -65.6, 31.5, -72, 35, -78, 38.5, -83.6, 42, -88.799995, 45.5, -93.6, 49, -98, 52.5, -102, 56, -105.6, 59.5, -108.799995, 63, -111.6, 66.5, -114, 70, -116, 73.5, -117.6, 77, -118.799995, 80.5, -119.6, 84, -120, 87.5, -120, 91, -119.6, 94.5, -118.799995, 98, -117.6, 101.5, -116, 105, -114, 108.5, -111.6, 112, -108.799995, 115.5, -105.6, 119, -102, 122.5, -98, 126, -93.6, 129.5, -88.799995, 133, -83.6, 136.5, -78, 140, -72, 143.5, -65.6, 147, -58.8, 150.5, -51.6, 154, -44, 157.5, -36, 161, -27.6, 164.5, -18.8, 168, -9.599999, 171.5, 0, 175, 10)
-
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/Turret"]
 [editable path="GameObjects/Turret2"]
@@ -479,4 +463,3 @@ points = PackedVector2Array(0, 0, 3.5, -9.599999, 7, -18.8, 10.5, -27.599998, 14
 [editable path="GameObjects/TimedDoor3"]
 [editable path="GameObjects/MovingPlatformPath"]
 [editable path="GameObjects/DamageArea"]
-[editable path="PlayerDummy"]

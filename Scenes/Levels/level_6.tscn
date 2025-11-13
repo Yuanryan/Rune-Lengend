@@ -206,7 +206,6 @@ polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
 
 [node name="TimedDoor2" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-2202, 208)
-open_height = 110.0
 animation_speed = 10.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor2" index="0"]
@@ -220,7 +219,6 @@ polygon = PackedVector2Array(-8, -60, -8, 28, 0.2, 32, 8, 28, 8, -60)
 [node name="TimedDoor3" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-2258, 208)
 open_duration = 0.5
-open_height = 110.0
 animation_speed = 10.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor3" index="0"]
@@ -237,7 +235,6 @@ polygon = PackedVector2Array(-8, -59, -8, 28, 0.2, 32, 8, 28, 8, -59)
 
 [node name="TimedDoor4" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-1272, 344)
-open_height = 140.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor4" index="0"]
 position = Vector2(122.999954, -168.00002)
@@ -249,7 +246,6 @@ polygon = PackedVector2Array(-8, -95.999985, -8, 28, 0.2, 32, 8, 28, 8, -95.9999
 
 [node name="TimedDoor5" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-1560, 248)
-open_height = 90.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor5" index="0"]
 position = Vector2(71.999954, 112)
@@ -359,7 +355,7 @@ position = Vector2(-48, 80)
 position = Vector2(40, -240)
 polygon = PackedVector2Array(8, 256, 8, 296, 384, 296, 384, 256)
 
-[node name="@CollisionPolygon2D@53508" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land9"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land9"]
 position = Vector2(40, -240)
 polygon = PackedVector2Array(8, 256, 8, 296, 384, 296, 384, 256)
 
