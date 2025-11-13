@@ -7,6 +7,7 @@
 collision_mask = 2
 script = ExtResource("1_0x9y7")
 open_duration = 2.0
+animation_speed = 5.0
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true

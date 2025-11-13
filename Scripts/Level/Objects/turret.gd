@@ -90,10 +90,10 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     if new_state == GameManager.InGameState.PLANNING or new_state == GameManager.InGameState.EXECUTING:
         can_fire = true
-        _fire_bullet()
-        if fire_timer:
+        if fire_timer.is_stopped():
+            _fire_bullet()
             fire_timer.start()
     elif new_state != GameManager.InGameState.COMPLETED and new_state != GameManager.InGameState.FAILED:
         can_fire = false
-        if fire_timer:
+        if fire_timer.is_stopped() == false:
             fire_timer.stop()        

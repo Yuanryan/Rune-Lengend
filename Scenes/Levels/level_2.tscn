@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_wyygt"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="9_eopvx"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_u87on"]
-[ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="10_iunut"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="11_jd2hh"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_jip10"]
+[ext_resource type="PackedScene" uid="uid://c1p2o8o4q3upd" path="res://Scenes/LevelEdit/Objects/Interactive/button_platform.tscn" id="14_eopvx"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="14_t27xo"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]
@@ -427,14 +427,14 @@ polygon = PackedVector2Array(0, 296, 0, 320, 384, 320, 384, 296)
 position = Vector2(58.151123, -160)
 polygon = PackedVector2Array(0, 296, 0, 320, 384, 320, 384, 296)
 
-[node name="Land" parent="GameObjects" instance=ExtResource("8_wyygt")]
+[node name="Land10" parent="GameObjects/LandNodes" instance=ExtResource("8_wyygt")]
 position = Vector2(2560, -64)
 
-[node name="Polygon2D" parent="GameObjects/Land" index="0"]
+[node name="Polygon2D" parent="GameObjects/LandNodes/Land10" index="0"]
 position = Vector2(-72, -192)
 polygon = PackedVector2Array(80, -64, 80, 120, 128, 192, 120, 352, 56, 352, 56, 376, 56, 392, 168, 392, 168, -64)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Land"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land10"]
 position = Vector2(-72, -192)
 polygon = PackedVector2Array(80, -64, 80, 120, 128, 192, 120, 352, 56, 352, 56, 376, 56, 392, 168, 392, 168, -64)
 
@@ -453,8 +453,8 @@ position = Vector2(-304, -16)
 [node name="Spike7" parent="GameObjects/SpikeNodes" instance=ExtResource("9_u87on")]
 position = Vector2(-280, -16)
 
-[node name="Spike7" parent="GameObjects/SpikeNodes/Spike7" instance=ExtResource("9_u87on")]
-position = Vector2(24, 0)
+[node name="Spike24" parent="GameObjects/SpikeNodes" instance=ExtResource("9_u87on")]
+position = Vector2(-256, -16)
 
 [node name="Spike8" parent="GameObjects/SpikeNodes" instance=ExtResource("9_u87on")]
 position = Vector2(-712, -16)
@@ -609,65 +609,45 @@ rotation = -3.1415927
 fire_rate = 0.7
 bullet_speed = 300.0
 
-[node name="TimedDoor" parent="." instance=ExtResource("10_iunut")]
-position = Vector2(1856, 304)
-open_duration = 1.0
-open_height = 128.0
-
-[node name="Polygon2D" parent="TimedDoor" index="0"]
-position = Vector2(23.99995, 168)
-polygon = PackedVector2Array(-32, -32, -32, 24, 8, 24, 8, -32)
-
-[node name="GameButton" parent="TimedDoor" index="2"]
-position = Vector2(-512, 96)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TimedDoor"]
-position = Vector2(23.99995, 168)
-polygon = PackedVector2Array(-32, -32, -32, 24, 8, 24, 8, -32)
-
-[node name="TimedDoor2" parent="." instance=ExtResource("10_iunut")]
-position = Vector2(1432, 360)
-rotation = 0.007342294
-open_duration = 99.0
-open_height = -64.0
-
-[node name="Polygon2D" parent="TimedDoor2" index="0"]
-position = Vector2(527.89764, -15.876387)
-rotation = 3.1415927
-color = Color(0.73333335, 0, 0.73333335, 1)
-polygon = PackedVector2Array(-8.234619, -31.940369, -7.7943115, 28.058014, 0.2, 32, 8.205322, 27.940521, 7.7650146, -32.05783)
-
-[node name="GameButton" parent="TimedDoor2" index="2"]
-position = Vector2(164.87074, -18.21102)
-color = Color(0.73517936, 0.00040449083, 0.73287755, 1)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TimedDoor2"]
-position = Vector2(527.89764, -15.876387)
-rotation = 3.1415927
-polygon = PackedVector2Array(-8.234619, -31.940369, -7.7943115, 28.058014, 0.2, 32, 8.205322, 27.940521, 7.7650146, -32.05783)
-
 [node name="Turret6" parent="." instance=ExtResource("14_t27xo")]
 position = Vector2(3288, 392)
 rotation = -3.1415927
 fire_rate = 0.5
 bullet_speed = 300.0
 
-[node name="TimedDoor3" parent="." instance=ExtResource("10_iunut")]
-position = Vector2(2552, -56)
-open_duration = 99.0
+[node name="ButtonPlatform" parent="." instance=ExtResource("14_eopvx")]
+position = Vector2(1351, 344)
+moved_duration = 2.0
+original_position = Vector2(521, 112)
+moved_position = Vector2(521, -20)
+animation_speed = 1.0
 
-[node name="Polygon2D" parent="TimedDoor3" index="0"]
-position = Vector2(207.99994, 432)
-rotation = -3.1415927
-polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
+[node name="Polygon2D" parent="ButtonPlatform" index="0"]
+position = Vector2(521, 112)
+polygon = PackedVector2Array(-31, -16, -31, 24, 16, 24, 16, -16)
 
-[node name="GameButton" parent="TimedDoor3" index="2"]
-position = Vector2(0, 144)
+[node name="GameButton" parent="ButtonPlatform" index="2"]
+position = Vector2(17, 56)
 
-[node name="@CollisionPolygon2D@50211" type="CollisionPolygon2D" parent="TimedDoor3"]
-position = Vector2(207.99994, 432)
-rotation = -3.1415927
-polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ButtonPlatform"]
+position = Vector2(521, 112)
+polygon = PackedVector2Array(-31, -16, -31, 24, 16, 24, 16, -16)
+
+[node name="ButtonPlatform2" parent="." instance=ExtResource("14_eopvx")]
+position = Vector2(2550, 38)
+moved_duration = 10.0
+original_position = Vector2(200, 150)
+moved_position = Vector2(200, 335)
+
+[node name="Polygon2D" parent="ButtonPlatform2" index="0"]
+position = Vector2(200, 150)
+
+[node name="GameButton" parent="ButtonPlatform2" index="2"]
+position = Vector2(1, 50)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ButtonPlatform2"]
+position = Vector2(200, 150)
+polygon = PackedVector2Array(-31, -16, -31, 24, 33, 24, 33, -16)
 
 [editable path="GameObjects/LandNodes/Land9"]
 [editable path="GameObjects/LandNodes/Land"]
@@ -678,10 +658,9 @@ polygon = PackedVector2Array(-16, -32, -16, 32, 40, 32, 40, -32)
 [editable path="GameObjects/LandNodes/Land6"]
 [editable path="GameObjects/LandNodes/Land8"]
 [editable path="GameObjects/LandNodes/Land7"]
-[editable path="GameObjects/Land"]
+[editable path="GameObjects/LandNodes/Land10"]
 [editable path="GameObjects/CheckpointNodes/Checkpoint"]
 [editable path="GameObjects/CheckpointNodes/Checkpoint2"]
 [editable path="GameObjects/CheckpointNodes/Checkpoint3"]
-[editable path="TimedDoor"]
-[editable path="TimedDoor2"]
-[editable path="TimedDoor3"]
+[editable path="ButtonPlatform"]
+[editable path="ButtonPlatform2"]
