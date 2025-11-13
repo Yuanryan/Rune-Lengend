@@ -43,7 +43,7 @@ func update(player, delta: float) -> bool:
     # 沒有切換動作時，使用父類的時間檢查
     return super.update(player, delta)
 
-func interrupt(player: CharacterBody2D) -> void:
+func interrupt(player: Player) -> void:
     # 如果切換動作還在執行，中斷它
     if _switch_action:
         _switch_action.interrupt(player)

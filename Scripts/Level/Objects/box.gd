@@ -5,8 +5,10 @@ class_name Box
 
 
 @export_custom(PROPERTY_HINT_LINK, "") var size_scale : Vector2 = Vector2(1.0, 1.0) : set = set_size_scale
-@export var push_force: float = 0.8  # 推動力係數（相對於玩家速度）
-@export var friction: float = 0.85     # 摩擦力，讓箱子逐漸停下
+## 推動力係數（相對於玩家速度）
+@export var push_force: float = 0.8  
+## 摩擦力，讓箱子逐漸停下 
+@export var friction: float = 0.95     
 
 @onready var polygon = %Polygon2D
 @onready var collision_polygon = %CollisionPolygon2D
@@ -45,9 +47,8 @@ func _detect_player_push():
             var collision = player_ref.get_slide_collision(i)
             if collision.get_collider() == self:
                 player_still_colliding = true
-                break
-        print("player_still_colliding: ", player_still_colliding)
-        if player_still_colliding:
+                break 
+        if player_still_colliding and player_ref.animal_component.current_animal is Man:
             _apply_push_from_player(player_ref)
         else:
             # 玩家已離開，清除引用並應用摩擦力
@@ -116,16 +117,15 @@ func _apply_push_from_player(player: Player):
         # 觸發推動事件
         _on_box_pushed()
     else:
-        # 推動方向不正確或玩家沒有移動，停止箱子
-        velocity.x = 0
+        is_pushing = false
+        push_direction = Vector2.ZERO
 
 func _apply_friction():
     """應用摩擦力"""
     if is_on_floor():
-        velocity.x *= 0.95
+        velocity.x *= friction
         # 當速度很小時停止
-        if abs(velocity.x) < 1.0:
-            velocity.x = 0
+
 
 func _on_box_pushed():
     """箱子被推動時的回調"""

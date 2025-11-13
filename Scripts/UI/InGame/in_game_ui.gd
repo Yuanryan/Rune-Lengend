@@ -10,6 +10,7 @@ signal transition_finished
 @onready var clear_button: Button = %ClearButton
 @onready var reset_button: Button = %ResetButton
 @onready var menu_button: Button = %MenuButton
+@onready var full_screen: Button = %FullScreenButton
 @onready var info_label: Label = %InfoLabel
 @onready var trans_animator: AnimationPlayer = %TransAnimator
 
@@ -22,6 +23,7 @@ func _ready() -> void:
     _update_ui.call_deferred()
     _connect_game_manager_signals()
     _setup_card_deck_reference()
+    update_fullscreen_button_text()
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -43,6 +45,9 @@ func _connect_signals() -> void:
         reset_button.pressed.connect(_on_reset_pressed)
     if menu_button:
         menu_button.pressed.connect(_on_menu_pressed)
+    if full_screen:
+        full_screen.pressed.connect(_on_fullscreen_pressed)
+    
 
 func _connect_game_manager_signals() -> void:
     """連接 GameManager 的狀態變化信號"""
@@ -51,7 +56,7 @@ func _connect_game_manager_signals() -> void:
 
 func _setup_card_deck_reference() -> void:
     """設置卡片組引用到動作佇列"""
-    # 這個方法現在在 create_cards_from_level_resource 中調用
+    # 這個方法現在在 create_cards_from_level 中調用
     pass
 
 func _on_card_selected(card: CardTile) -> void:
@@ -102,6 +107,15 @@ func _on_menu_pressed() -> void:
     menu_button.release_focus()
     LevelManager.unload_level()
     GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
+
+func _on_fullscreen_pressed() -> void:
+    full_screen.release_focus()
+    UIManager.toggle_fullscreen()
+
+func update_fullscreen_button_text() -> void:
+    """更新全螢幕按鈕文字（由UIManager調用）"""
+    if full_screen:
+        full_screen.text = UIManager.get_fullscreen_button_text()
 
 func execute_sequence() -> void:
     if action_queue:

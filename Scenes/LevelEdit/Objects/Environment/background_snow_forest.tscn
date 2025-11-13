@@ -40,6 +40,7 @@ grow_vertical = 2
 color = Color(0.35253903, 0.4195712, 0.54102784, 0.5)
 
 [node name="Blur" type="Sprite2D" parent="." groups=["BackgroundLayer"]]
+visible = false
 modulate = Color(0.9955804, 0.99558026, 0.99558026, 1)
 material = SubResource("ShaderMaterial_h0etf")
 texture = ExtResource("2_fxtfo")

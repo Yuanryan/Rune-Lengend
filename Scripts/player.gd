@@ -19,6 +19,10 @@ var _total_actions_executed: int = 0
 # 跳躍狀態追蹤 
 var _air_jump_count: int = 0
 
+# 土狼時間（離地後短暫仍可起跳的寬限時間）
+var coyote_time: float = 0.12
+var coyote_time_left: float = 0.0
+
 # 玩家狀態機
 var _player_state: PlayerState = PlayerState.IDLE
 
@@ -72,7 +76,6 @@ func _set_player_state(new_state: PlayerState, force_update: bool = false) -> vo
     _player_state = new_state
     var animation_name = _get_animation_name_from_state(new_state)
     animal_component.play_animation(animation_name)
-    print("Player 播放動畫: ", animal_component.get_current_animation())
 
 func _get_animation_name_from_state(state: PlayerState) -> String:
     """根據狀態獲取對應的動畫名稱"""
@@ -126,6 +129,9 @@ func _physics_process(delta: float) -> void:
          # 重力
     if not is_on_floor():  
         velocity.y += get_gravity().y * delta
+        # 土狼時間倒數
+        if coyote_time_left > 0.0:
+            coyote_time_left = max(coyote_time_left - delta, 0.0)
         # 根據速度變化檢測狀態
         if velocity.y > 0 and _player_state != PlayerState.FALLING:
             _set_player_state(PlayerState.FALLING)
@@ -134,6 +140,8 @@ func _physics_process(delta: float) -> void:
     else:
         # 在地面上時重置跳躍計數
         _air_jump_count = 0
+        # 重置土狼時間
+        coyote_time_left = coyote_time
         
         # 根據水平速度和方向變化決定狀態
         if velocity.x == 0 and _player_state != PlayerState.IDLE:

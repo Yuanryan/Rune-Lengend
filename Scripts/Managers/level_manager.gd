@@ -20,79 +20,41 @@ func _ready() -> void:
 
 # 初始化關卡場景
 func _initialize_level_scenes() -> void:
-    _scan_and_load_levels()
+    _load_levels_from_list()
 
-# 掃描並載入所有關卡
-func _scan_and_load_levels() -> void:
-    var scenes_dir = "res://Scenes/Levels/"
-    
-    # 掃描場景檔案
-    var scene_files = _get_files_in_directory(scenes_dir, "tscn")
-    
-    # 按檔案名稱排序，確保關卡順序一致
-    scene_files.sort()
-    
-    for scene_file in scene_files:
-        var scene_path = scenes_dir + scene_file
-        _load_level_from_scene(scene_path)
-
-# 獲取目錄中的檔案
-func _get_files_in_directory(path: String, extension: String) -> Array[String]:
-    var files: Array[String] = []
-    var dir = DirAccess.open(path)
-    if dir:
-        dir.list_dir_begin()
-        var file_name = dir.get_next()
-        while file_name != "":
-            if file_name.get_extension() == "remap":
-                file_name = file_name.replace(".remap", "")
-            if file_name.get_extension() == extension:
-                files.append(file_name)
-            file_name = dir.get_next()
-        
-        dir.list_dir_end()
-    
-    return files
-
-# 從場景檔案載入關卡
-func _load_level_from_scene(scene_path: String) -> void:
-    # 檢查檔案是否存在
-    if not FileAccess.file_exists(scene_path) and not ResourceLoader.exists(scene_path):
-        print("關卡場景檔案不存在: ", scene_path)
-        return
-    
-    # 載入關卡場景
-    var scene = load(scene_path)
-    if not scene:
-        print("無法載入關卡場景: ", scene_path)
-        return
-    
-    # 檢查是否為 PackedScene
-    if not scene is PackedScene:
-        print("檔案不是有效的場景檔案: ", scene_path)
-        return
-    
-    # 從場景中提取關卡名稱
-    var level_name = _extract_level_name_from_scene(scene)
-    if level_name.is_empty():
-        # 如果無法從場景中提取名稱，使用檔案名
-        var file_name = scene_path.get_file().get_basename()
-        level_name = file_name.replace("_", " ").capitalize()
-    
-    # 儲存到關卡場景字典，使用關卡名稱作為鍵
-    level_scenes[level_name] = scene
+# 從 LevelList 載入所有關卡
+func _load_levels_from_list() -> void:
+    # 從 LevelList 資源獲取所有關卡類別
+    for category_name in LevelList.LEVEL_LISTS.keys():
+        var scenes = LevelList.LEVEL_LISTS[category_name] as Array
+        for scene in scenes:
+            if scene is PackedScene:
+                # 從場景中提取關卡名稱
+                var level_name = _extract_level_name_from_scene(scene)
+                if level_name.is_empty():
+                    # 如果無法從場景中提取名稱，使用場景資源路徑
+                    var scene_path = scene.resource_path
+                    var file_name = scene_path.get_file().get_basename()
+                    level_name = file_name.replace("_", " ").capitalize()
+                
+                if not level_scenes.has(category_name):
+                    level_scenes[category_name] = []
+                # 儲存到關卡場景字典，使用關卡名稱作為鍵
+                level_scenes[category_name].append({
+                    "name": level_name,
+                    "scene": scene
+                })
 
 # 從場景中提取關卡名稱
 func _extract_level_name_from_scene(scene: PackedScene) -> String:
-    """從場景的 LevelResource 中提取關卡名稱"""
+    """從場景的 Level 中提取關卡名稱"""
     if not scene:
         return ""
     
     # 實例化場景以檢查其內容
     var scene_state = scene.get_state()
     if scene_state:
-        var level_resource : LevelResource = scene_state.get_node_property_value(0, 1)
-        return level_resource.level_name
+        return scene_state.get_node_property_value(0, 1)
     return ""
 
 # ========== 核心功能 ==========
@@ -110,8 +72,9 @@ func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector
     # 清除所有子彈
     _clear_all_bullets()
     
-    # 清除當前關卡
+    # 清除當前關卡（先從場景樹移除再釋放，避免同幀並存）
     if current_level:
+        current_level.get_parent().remove_child(current_level)
         current_level.queue_free()
         current_level = null
         GameManager.remove_player()
@@ -125,15 +88,11 @@ func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector
         push_error("無法載入關卡場景")
         return null
     
-    # 將關卡加入場景樹
     get_tree().current_scene.add_child(current_level)
     
     # 如果指定了生成位置，設置起始點並生成玩家
     if spawn_position != Vector2.ZERO:
         current_level.starting_point.global_position = spawn_position
-    
-    # 注意：相機位置現在由 PhantomCamera2D 系統自動處理
-    # 不再需要手動設定 camera.global_position
     
     current_level.spawn_player()
     
@@ -162,25 +121,6 @@ func get_current_level() -> Level:
 func get_all_level_scenes() -> Dictionary:
     return level_scenes
 
-# 獲取按名稱排序的關卡場景列表
-func get_level_scenes_sorted() -> Array[Dictionary]:
-    """獲取按名稱排序的關卡場景列表，每個元素包含 name 和 scene"""
-    var sorted_levels: Array[Dictionary] = []
-    
-    # 獲取所有關卡名稱並排序
-    var level_names = level_scenes.keys()
-    level_names.sort()
-    
-    for level_name in level_names:
-        var scene = level_scenes[level_name]
-        if scene:
-            sorted_levels.append({
-                "name": level_name,
-                "scene": scene
-            })
-    
-    return sorted_levels
-
 # 重新載入當前關卡
 func reload_current_level() -> Level:
     """重新載入當前關卡，保持動作佇列狀態"""
@@ -197,6 +137,8 @@ func reload_current_level() -> Level:
     # 恢復動作佇列
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
+        # 確保遊戲狀態設置為規劃階段
+        GameManager.reset_to_planning()
     
     return reloaded_level
 
@@ -231,7 +173,7 @@ func reload_level_from_last_checkpoint() -> Level:
     
     if current_level:
         saved_checkpoint_index = current_level.get_current_checkpoint_index()
-        
+        print("saved_checkpoint_index: ", saved_checkpoint_index)
         # 保存所有檢查點的 active 狀態
         for i in range(current_level.get_checkpoint_count()):
             var checkpoint = current_level.get_checkpoint_by_index(i)
@@ -254,6 +196,8 @@ func reload_level_from_last_checkpoint() -> Level:
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
         _restore_checkpoint_states(reloaded_level, saved_checkpoint_states, saved_checkpoint_index)
+        # 確保遊戲狀態設置為規劃階段
+        GameManager.reset_to_planning()
     
     return reloaded_level
 
@@ -282,6 +226,8 @@ func reload_level_from_specific_checkpoint(checkpoint_index: int) -> Level:
     # 恢復動作佇列
     if reloaded_level:
         await _restore_action_queue(saved_action_queue)
+        # 確保遊戲狀態設置為規劃階段
+        GameManager.reset_to_planning()
     
     return reloaded_level
 
@@ -299,19 +245,7 @@ func _restore_checkpoint_states(level: Level, checkpoint_states: Dictionary, cur
                 if checkpoint:
                     checkpoint.active = checkpoint_states[i]
     
-    # 恢復當前檢查點索引
+    # # 恢復當前檢查點索引
     if current_index >= 0:
         level.current_checkpoint_index = current_index
-        
-        # 切換到當前檢查點的攝影機
-        var current_checkpoint = level.get_checkpoint_by_index(current_index)
-        if current_checkpoint:
-            print("重置時切換到檢查點攝影機: ", current_checkpoint.name)
-            level._switch_to_checkpoint_camera(current_checkpoint, false)
-        else:
-            print("重置時使用起始攝影機")
-            level._activate_starting_camera()
-    else:
-        # 如果沒有檢查點，使用起始攝影機
-        print("重置時沒有檢查點，使用起始攝影機")
-        level._activate_starting_camera()
+        level._switch_to_checkpoint_camera(level.get_checkpoint_by_index(current_index), false)

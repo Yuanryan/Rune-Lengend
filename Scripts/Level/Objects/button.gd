@@ -11,11 +11,10 @@ signal button_released
 @export var color: Color = Color(1, 1, 1, 1) : set = set_color
 @export var auto_reset: bool = true
 @export var reset_delay: float = 0.1
-
 @onready var polygon : Polygon2D = %Polygon2D
 
 var button_down: bool = false
-var is_pressed: bool = false
+var entered_count: int = 0
 
 func _ready() -> void:
     _get_polygon()
@@ -30,24 +29,19 @@ func _get_polygon() -> Polygon2D:
     return polygon
 
 func _on_body_entered(body: Node) -> void:
+    print(self, "body_entered", body," ", entered_count, " ", button_down)
     if body.is_in_group("Interactive"):
-        is_pressed = true
-        if not button_down:
-            press_button()
+        entered_count += 1
+        press_button()
 
 func _on_body_exited(body: Node) -> void:
+    print(self, "body_exited", body, " ", entered_count, " ", button_down)
     if body.is_in_group("Interactive"):
-        is_pressed = false
-        if auto_reset and button_down:
-            # 延遲釋放按鈕
-            await get_tree().create_timer(reset_delay).timeout
-            if not is_pressed:  # 確保玩家沒有重新踩到按鈕
-                release_button()
+        entered_count -= 1
+        if auto_reset and entered_count == 0:
+            release_button()   
 
 func press_button() -> void:
-    if button_down:
-        return
-    
     button_down = true
     button_pressed.emit()
 

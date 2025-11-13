@@ -8,7 +8,7 @@ class_name CardDeck
 var current_animal: Animal
 var card_tiles: Array[CardTile] = []
 var action_usage_count: Dictionary[Action.ActionType, int] = {}
-var current_level_resource: LevelResource
+var current_level: Level
 
 signal card_selected(card: CardTile)
 
@@ -43,18 +43,18 @@ func clear_cards() -> void:
             card.queue_free()
     card_tiles.clear()
 
-# 從關卡資源創建卡片
-func create_cards_from_level_resource(resource: LevelResource) -> void:
-    """根據關卡資源創建卡片"""
-    if not resource:
-        print("關卡資源不存在，無法創建卡片")
+# 從關卡創建卡片
+func create_cards_from_level(level: Level) -> void:
+    """根據關卡創建卡片"""
+    if not level:
+        print("關卡不存在，無法創建卡片")
         return
 
-    current_level_resource = resource
-    _initialize_action_usage_count(resource)
+    current_level = level
+    _initialize_action_usage_count(level)
     clear_cards()
     _create_four_cards()
-    _create_switch_animal_card(resource.available_animals)
+    _create_switch_animal_card(level.available_animals)
     _update_card_states()
 
 func _create_four_cards() -> void:
@@ -75,30 +75,30 @@ func _create_switch_animal_card(available_animals: Array[Animal.AnimalType]) -> 
             card._update_card_frame()
 
 # 初始化動作使用計數
-func _initialize_action_usage_count(resource: LevelResource) -> void:
+func _initialize_action_usage_count(level: Level) -> void:
     """初始化動作使用計數"""
     action_usage_count.clear()
-    if not resource:
+    if not level:
         return
 
     # 初始化所有動作類型的使用計數為 0
-    for action_type in resource.individual_action_limits.keys():
+    for action_type in level.individual_action_limits.keys():
         action_usage_count[action_type] = 0
 
 # 檢查動作是否可以使用
 func can_use_action(action_type: Action.ActionType) -> bool:
     """檢查指定動作是否還可以使用"""
-    if not current_level_resource:
+    if not current_level:
         return true
 
     # 檢查總動作數量限制
     var total_used = _get_total_actions_used()
-    if total_used >= current_level_resource.max_total_actions:
+    if total_used >= current_level.max_total_actions:
         return false
 
     # 檢查個別動作限制
     var current_usage = action_usage_count.get(action_type, 0)
-    var max_usage = current_level_resource.individual_action_limits.get(action_type, 999)
+    var max_usage = current_level.individual_action_limits.get(action_type, 999)
 
     return current_usage < max_usage
 
@@ -136,27 +136,27 @@ func _update_card_states() -> void:
             var action_type = card.get_action_type()
             var can_use = can_use_action(action_type)
             var current_usage = action_usage_count.get(action_type, 0)
-            var max_usage = current_level_resource.individual_action_limits.get(action_type, 999) if current_level_resource else 999
+            var max_usage = current_level.individual_action_limits.get(action_type, 999) if current_level else 999
 
             card.set_usage_info(can_use, current_usage, max_usage)
 
 # 重置動作使用計數
 func reset_action_usage() -> void:
     """重置所有動作使用計數"""
-    if current_level_resource:
-        _initialize_action_usage_count(current_level_resource)
+    if current_level:
+        _initialize_action_usage_count(current_level)
         _update_card_states()
 
 # 獲取動作使用信息
 func get_action_usage_info() -> Dictionary:
     """獲取動作使用信息"""
     var info = {}
-    if not current_level_resource:
+    if not current_level:
         return info
 
-    for action_type in current_level_resource.individual_action_limits.keys():
+    for action_type in current_level.individual_action_limits.keys():
         var current = action_usage_count.get(action_type, 0)
-        var max_usage = current_level_resource.individual_action_limits.get(action_type, 0)
+        var max_usage = current_level.individual_action_limits.get(action_type, 0)
         info[action_type] = {
             "current": current,
             "max": max_usage,
@@ -164,8 +164,8 @@ func get_action_usage_info() -> Dictionary:
         }
 
     info["total_used"] = _get_total_actions_used()
-    info["total_max"] = current_level_resource.max_total_actions
-    info["total_remaining"] = current_level_resource.max_total_actions - _get_total_actions_used()
+    info["total_max"] = current_level.max_total_actions
+    info["total_remaining"] = current_level.max_total_actions - _get_total_actions_used()
 
     return info
 

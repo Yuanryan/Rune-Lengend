@@ -3,7 +3,7 @@
 class_name Animal
 extends Resource
 
-@export var animal_data: AnimalResource
+var animal_data: AnimalResource
 var switch_action: Action = null
 
 enum AnimalType {
@@ -12,12 +12,8 @@ enum AnimalType {
     WOLF
 }
 
-func _init(_animal_data: AnimalResource = null):
-    if _animal_data:
-        animal_data = _animal_data
-
-func get_animal_data() -> AnimalResource:
-    return animal_data
+func _init():
+    animal_data = get_animal_data(get_animal_type())
 
 func get_switch_action() -> Action:
     return switch_action
@@ -37,3 +33,14 @@ static func animal_from_type(animal_type: Animal.AnimalType) -> Animal:
 
 static func get_animal_name(animal_type: Animal.AnimalType) -> String:
     return AnimalType.keys()[animal_type]
+
+static func get_animal_data(animal_type: Animal.AnimalType) -> AnimalResource:
+    match animal_type:
+        Animal.AnimalType.MAN:
+            return load("uid://d5a707f6axs7")
+        Animal.AnimalType.RABBIT:
+            return load("uid://vk62uradafkf")
+        Animal.AnimalType.WOLF:
+            return load("uid://dhl4h4f80cuu3")
+        _:
+            return null

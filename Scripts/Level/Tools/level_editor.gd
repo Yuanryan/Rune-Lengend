@@ -85,8 +85,8 @@ func _setup_testing_mode() -> void:
         if testing_level and testing_level.starting_point:
             player.global_position = testing_level.starting_point.global_position
         # 設置可用動物
-        if testing_level and testing_level.level_resource:
-            player.set_available_animals(testing_level.level_resource.available_animals)
+        if testing_level:
+            player.set_available_animals(testing_level.available_animals)
         
         # 重寫玩家的輸入處理（R鍵觸發從檢查點重新載入）
         _override_player_input()
@@ -170,14 +170,14 @@ func _connect_game_manager_signals() -> void:
 
 func _update_ui_display() -> void:
     """更新UI顯示"""
-    if level_name_label and testing_level and testing_level.level_resource:
-        level_name_label.text = testing_level.level_resource.level_name
+    if level_name_label and testing_level:
+        level_name_label.text = testing_level.level_name
     elif level_name_label:
         level_name_label.text = "無關卡載入"
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
-    # 在測試關卡中，當狀態不是執行中且不是暫停時，確保解鎖動作佇列
+   # 在測試關卡中，當狀態不是執行中且不是暫停時，確保解鎖動作佇列
     if new_state != GameManager.InGameState.EXECUTING:
         GameManager.set_in_game_state(GameManager.InGameState.PLANNING)
     
@@ -393,8 +393,8 @@ func _reset_player_state() -> void:
         player.global_position = testing_level.starting_point.global_position
     
     # 設置可用動物
-    if testing_level.level_resource:
-        player.set_available_animals(testing_level.level_resource.available_animals)
+    if testing_level:
+        player.set_available_animals(testing_level.available_animals)
     
     # 重置玩家狀態
     player._set_player_state(player.PlayerState.IDLE)

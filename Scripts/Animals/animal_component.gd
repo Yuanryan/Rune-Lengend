@@ -96,14 +96,13 @@ func _on_action_started(action: Action) -> void:
     if not current_animal or not current_animal.animal_data:
         return
     
-    var animal_data = current_animal.animal_data
     
     # 處理移動動作
     if action is MoveAction:
-        var new_velocity = animal_data.move_speed * action.direction
+        var new_velocity = current_animal.animal_data.move_speed * action.direction
         action.set_velocity_x(new_velocity)
     # 處理跳躍動作
     elif action is JumpAction:
-        var new_jump_velocity = animal_data.jump_velocity * action.direction
+        var new_jump_velocity = current_animal.animal_data.jump_velocity * action.direction
         action.set_jump_velocity(new_jump_velocity)
  
