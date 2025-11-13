@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bl4ucw31j7cek" path="res://Scripts/Level/Objects/ending_point.gd" id="1_cb0a4"]
 [ext_resource type="Shader" uid="uid://fnk57c76rt7t" path="res://Shaders/other/glow.gdshader" id="2_s2a3f"]
-[ext_resource type="Texture2D" uid="uid://bqqm0qxmhq7yv" path="res://icon.svg" id="3_iuaki"]
+[ext_resource type="Texture2D" uid="uid://cc5fbmlcfdmx2" path="res://Assets/environment/check_point_idle.png" id="3_qf3oq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_41icc"]
 resource_local_to_scene = true
 shader = ExtResource("2_s2a3f")
-shader_parameter/rect_size = Vector2(0.1, 0.1)
-shader_parameter/bness = 1.07
-shader_parameter/fall_off_scale = 3.0
-shader_parameter/b_offset = 0.0
+shader_parameter/bloomRadius = 1.0
+shader_parameter/bloomThreshold = 1.0
+shader_parameter/bloomIntensity = 1.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
@@ -21,8 +20,9 @@ script = ExtResource("1_cb0a4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_41icc")
-scale = Vector2(0.3359375, 0.421875)
-texture = ExtResource("3_iuaki")
+position = Vector2(1.1368684e-13, -2.0000002)
+scale = Vector2(1.1313477, 1.4207621)
+texture = ExtResource("3_qf3oq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ddtxo")
