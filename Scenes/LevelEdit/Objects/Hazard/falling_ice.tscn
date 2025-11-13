@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuq6hxx5rtrw3"]
+[gd_scene load_steps=12 format=3 uid="uid://cuq6hxx5rtrw3"]
 
 [ext_resource type="Texture2D" uid="uid://di0sr5r26ibns" path="res://Assets/environment/ice_spike.png" id="1_7w6tr"]
 [ext_resource type="Script" uid="uid://11iqfqnk5s16" path="res://Scripts/Level/Objects/falling_ice.gd" id="1_bmuf2"]
@@ -7,6 +7,38 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_d35me"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d35me"]
+
+[sub_resource type="Curve" id="Curve_bmuf2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2901235, 1), 0.0, 0.0, 0, 0, Vector2(0.75555557, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_d35me"]
+curve = SubResource("Curve_bmuf2")
+
+[sub_resource type="Curve" id="Curve_d35me"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.15020578, 9.40239), 0.0, 0.0, 0, 0, Vector2(0.27983543, 200), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_0dnyb"]
+curve = SubResource("Curve_d35me")
+
+[sub_resource type="CurveTexture" id="CurveTexture_c34t7"]
+curve = SubResource("Curve_bmuf2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0dnyb"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(7, 7, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 20, 0)
+linear_accel_min = 0.99999774
+linear_accel_max = 0.99999774
+linear_accel_curve = SubResource("CurveTexture_0dnyb")
+scale_min = 0.5
+scale_max = 1.1999999
+scale_curve = SubResource("CurveTexture_c34t7")
+alpha_curve = SubResource("CurveTexture_d35me")
 
 [node name="FallingIce" type="CharacterBody2D"]
 collision_layer = 11
@@ -38,3 +70,11 @@ collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_d35me")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+amount = 3
+lifetime = 2.0
+explosiveness = 0.3
+randomness = 0.7
+process_material = SubResource("ParticleProcessMaterial_0dnyb")

@@ -3,6 +3,7 @@ class_name FallingIce
 
 @onready var damage_area: DamageArea = %DamageArea
 @onready var shape_cast: ShapeCast2D = %ShapeCast2D
+@onready var particles: GPUParticles2D = %GPUParticles2D
 
 var is_falling: bool = false
 
@@ -15,6 +16,7 @@ func _physics_process(delta: float) -> void:
                 is_falling = true
                 shape_cast.set_enabled(false)
                 damage_area.monitoring = true
+                particles.emitting = false
                 break
     if is_falling:
         velocity.y += get_gravity().y * delta
