@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnyimwluijpi3"]
+[gd_scene load_steps=4 format=3 uid="uid://cnyimwluijpi3"]
 
 [ext_resource type="Script" uid="uid://bxr3gamy50kvl" path="res://Scripts/Level/Objects/timed_door.gd" id="1_0x9y7"]
 [ext_resource type="PackedScene" uid="uid://bqxv8y7x8y7x8" path="res://Scenes/LevelEdit/Objects/Interactive/button.tscn" id="2_0x9y7"]
+[ext_resource type="Texture2D" uid="uid://dalfaeej6cyv7" path="res://Assets/environment/Timedoor.png" id="3_4jun3"]
 
 [node name="TimedDoor" type="StaticBody2D" groups=["Land"]]
 collision_mask = 2
@@ -13,7 +14,7 @@ animation_speed = 5.0
 unique_name_in_owner = true
 position = Vector2(-0.19999981, -32.800003)
 color = Color(0.65882355, 0.7372549, 0.98039216, 1)
-polygon = PackedVector2Array(-8, -32, -8, 28, 0.2, 32, 8, 28, 8, -32)
+polygon = PackedVector2Array(-8, -32, -8, 32, 8, 32, 8, -32)
 
 [node name="DoorTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -23,3 +24,9 @@ one_shot = true
 [node name="GameButton" parent="." instance=ExtResource("2_0x9y7")]
 unique_name_in_owner = true
 position = Vector2(0, 40)
+
+[node name="Timedoor" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(16, -32)
+scale = Vector2(0.22887324, 0.3243662)
+texture = ExtResource("3_4jun3")

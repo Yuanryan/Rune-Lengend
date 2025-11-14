@@ -16,6 +16,7 @@ signal door_closed
 
 @onready var button: GameButton = %GameButton
 @onready var timer: Timer = %DoorTimer
+@onready var door_sprite: Sprite2D = %Timedoor
 @onready var door_polygon: Polygon2D = %Polygon2D
 @onready var door_collision: CollisionPolygon2D = _find_door_collision()
 
@@ -84,6 +85,7 @@ func open_door() -> void:
     var tween = create_tween()
     if door_polygon:
         tween.parallel().tween_property(door_polygon, "modulate:a", 0.0, 1.0 / animation_speed)
+        tween.parallel().tween_property(door_sprite, "modulate:a", 0.0, 1.0 / animation_speed)
     tween.tween_callback(_on_door_opened)
 
 func _on_door_opened() -> void:
@@ -124,6 +126,7 @@ func close_door() -> void:
     var tween = create_tween()
     if door_polygon:
         tween.parallel().tween_property(door_polygon, "modulate:a", 1.0, 1.0 / animation_speed)
+        tween.parallel().tween_property(door_sprite, "modulate:a", 1.0, 1.0 / animation_speed)
     tween.tween_callback(_on_door_closed)
         
 func _on_door_closed() -> void:

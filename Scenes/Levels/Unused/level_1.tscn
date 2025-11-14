@@ -29,12 +29,6 @@ metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_k2mw1")]
 position = Vector2(675, -12)
 
-[node name="ColorRect" parent="BackgroundSnowForest" index="4"]
-offset_left = -710.0
-offset_top = -447.0
-offset_right = 730.0
-offset_bottom = 273.0
-
 [node name="Blur" parent="BackgroundSnowForest" index="5"]
 material = SubResource("ShaderMaterial_yjhgp")
 

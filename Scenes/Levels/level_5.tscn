@@ -354,7 +354,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(57.319725, -96)
+position = Vector2(176.7941, -96)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
