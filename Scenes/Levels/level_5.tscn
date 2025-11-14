@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=28 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_rw7sn"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
+[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="9_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="11_b7yer"]
 [ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="13_20kd1"]
@@ -159,14 +160,33 @@ position = Vector2(-542, 71)
 bullet_speed = 250.0
 
 [node name="BaseSprite" parent="GameObjects/Turret" index="0"]
+visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="GunSprite" parent="GameObjects/Turret" index="2"]
+visible = false
 metadata/_edit_use_anchors_ = true
+
+[node name="Turret" parent="GameObjects/Turret" index="5"]
+position = Vector2(-8, 17)
+scale = Vector2(1, 1)
+
+[node name="PlayerDummy" parent="GameObjects/Turret" instance=ExtResource("9_jd0ia")]
+position = Vector2(240, 305)
 
 [node name="Turret2" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(688, 384)
 rotation = -3.1415925
+
+[node name="BaseSprite" parent="GameObjects/Turret2" index="0"]
+visible = false
+
+[node name="GunSprite" parent="GameObjects/Turret2" index="2"]
+visible = false
+
+[node name="Turret" parent="GameObjects/Turret2" index="5"]
+position = Vector2(43.000004, 28.999996)
+flip_v = true
 
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 
@@ -354,7 +374,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(176.7941, -96)
+position = Vector2(204.31479, -96)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -393,7 +413,10 @@ tile_set = ExtResource("13_20kd1")
 
 [node name="GodRay" parent="Enviroments" instance=ExtResource("15_vdq4f")]
 material = SubResource("ShaderMaterial_rw7sn")
-offset_top = -324.0
+offset_left = -600.0
+offset_top = -310.0
+offset_right = 933.0
+offset_bottom = 609.0
 
 [node name="Bush" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(0, 24)

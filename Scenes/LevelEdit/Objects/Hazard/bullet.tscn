@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://2eslwfy76gub"]
+[gd_scene load_steps=15 format=3 uid="uid://2eslwfy76gub"]
 
 [ext_resource type="Script" uid="uid://cnm3xun2xj52v" path="res://Scripts/Level/Objects/bullet.gd" id="1_bullet"]
 [ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/Objects/damage_area.gd" id="2_5lsg6"]
 [ext_resource type="Shader" uid="uid://c1dhdpdbfyib8" path="res://Shaders/environment/fireball.gdshader" id="2_8de35"]
+[ext_resource type="Texture2D" uid="uid://d0fnh4p0jbnu4" path="res://Assets/environment/bullet.png" id="4_ivgr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(8, 4)
@@ -56,6 +57,7 @@ script = ExtResource("1_bullet")
 shape = SubResource("RectangleShape2D_1")
 
 [node name="Sprite2D" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_2vs4o")
 use_parent_material = true
 offset_left = -6.0
@@ -71,5 +73,9 @@ collision_mask = 2
 script = ExtResource("2_5lsg6")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DamageArea"]
-position = Vector2(-4, -4)
-polygon = PackedVector2Array(-2, 0, 10, 0, 10, 8, -2, 8)
+position = Vector2(-3, -4)
+polygon = PackedVector2Array(-10, 2, 12, 2, 12, 7, -10, 7)
+
+[node name="Bullet" type="Sprite2D" parent="."]
+texture = ExtResource("4_ivgr4")
+flip_h = true

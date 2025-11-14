@@ -15,6 +15,19 @@ signal card_selected(card: CardTile)
 
 
 func _create_card(action_type: Action.ActionType, label: String) -> CardTile:
+    # 檢查 individual_action_limits 中是否包含該動作類型
+    if not current_level:
+        return null
+    
+    # 如果 individual_action_limits 中沒有該動作類型，不創建卡片
+    if not current_level.individual_action_limits.has(action_type):
+        return null
+    
+    # 如果 individual_action_limits 中該動作類型的值為 0，不創建卡片
+    var max_usage = current_level.individual_action_limits.get(action_type, 0)
+    if max_usage <= 0:
+        return null
+    
     var card_scene = preload("uid://c2nq82l2n1e8q")
     var card = card_scene.instantiate() as CardTile
     card.set_action_type(action_type, label)
@@ -64,6 +77,21 @@ func _create_four_cards() -> void:
     _create_card(Action.ActionType.JUMP_RIGHT, "Jump Right")
 
 func _create_switch_animal_card(available_animals: Array[Animal.AnimalType]) -> void:
+    # 如果只有一個或沒有可用動物，不創建 switch animal 卡片
+    if available_animals.size() <= 1:
+        return
+    
+    # 檢查 individual_action_limits 中是否包含 SWITCH_ANIMAL 且值大於 0
+    if not current_level:
+        return
+    
+    if not current_level.individual_action_limits.has(Action.ActionType.SWITCH_ANIMAL):
+        return
+    
+    var max_usage = current_level.individual_action_limits.get(Action.ActionType.SWITCH_ANIMAL, 0)
+    if max_usage <= 0:
+        return
+    
     for animal in available_animals:
         var animal_name = Animal.get_animal_name(animal)
         var card = _create_card(Action.ActionType.SWITCH_ANIMAL, "Switch " + animal_name)
@@ -80,8 +108,7 @@ func _initialize_action_usage_count(level: Level) -> void:
     action_usage_count.clear()
     if not level:
         return
-
-    # 初始化所有動作類型的使用計數為 0
+    # 初始化所有動作類型的當前使用計數為 0（不是最大值）
     for action_type in level.individual_action_limits.keys():
         action_usage_count[action_type] = 0
 

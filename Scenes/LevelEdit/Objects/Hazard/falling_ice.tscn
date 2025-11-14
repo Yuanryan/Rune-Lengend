@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dl2kfwpwfean7" path="res://Assets/environment/ice_spike_new.png" id="2_d35me"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d35me"]
-radius = 8.0
+radius = 7.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d35me"]
 size = Vector2(11, 32)
@@ -62,7 +62,7 @@ polygon = PackedVector2Array(23.000002, 2.9999962, 28.000002, 18.999996, 30.0000
 unique_name_in_owner = true
 shape = SubResource("CircleShape2D_d35me")
 target_position = Vector2(0, 200)
-max_results = 10
+max_results = 5
 collision_mask = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
