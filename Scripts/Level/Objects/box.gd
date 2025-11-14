@@ -67,6 +67,11 @@ func _detect_player_push():
         # 檢查是否是玩家
         if collider is Player:
             var player = collider as Player
+            
+            # 檢查是否是人類（只有人類能推動箱子）
+            if not player.animal_component.current_animal is Man:
+                continue
+            
             var player_position = player.global_position
             var box_position = global_position
             

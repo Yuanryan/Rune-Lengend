@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=15 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_afv7b"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_k2mw1"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_fayjm"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_nojx8"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_ad63i"]
+[ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="12_ovt24"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
 resource_local_to_scene = true
@@ -24,6 +25,8 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_afv7b")
+level_name = "Level Test"
+available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_k2mw1")]
@@ -42,7 +45,7 @@ show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(213, 256)
+position = Vector2(2, 266)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -114,6 +117,9 @@ position = Vector2(16, -64)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Land3"]
 position = Vector2(16, -64)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Box" parent="." instance=ExtResource("12_ovt24")]
+position = Vector2(184, 275.9925)
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/checkpoint"]
