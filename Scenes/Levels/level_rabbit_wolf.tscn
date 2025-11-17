@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://mxj4p352jd5k"]
+[gd_scene load_steps=18 format=4 uid="uid://mxj4p352jd5k"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_e66q0"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="2_kyi57"]
@@ -14,12 +14,15 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="13_4u66v"]
 [ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="13_gvijv"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="15_e66q0"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="15_pcdah"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="15_pcdah"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
 resource_local_to_scene = true
 shader = ExtResource("3_a3lfw")
 shader_parameter/blur_amount = 1.8000000855
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e66q0"]
+resource_local_to_scene = true
 
 [node name="Level rabbit wolf" type="Node2D"]
 script = ExtResource("1_e66q0")
@@ -84,10 +87,10 @@ scale = Vector2(1.3, 1.3)
 scale = Vector2(1.3, 1.3)
 
 [node name="ColorRect" parent="BG/BackgroundSnowForest2" index="4"]
-offset_left = -1049.0
-offset_top = -467.00003
-offset_right = 391.0
-offset_bottom = 252.99997
+offset_left = -935.99994
+offset_top = -467.99997
+offset_right = 504.00006
+offset_bottom = 252.00003
 scale = Vector2(1.3, 1.3)
 
 [node name="Blur" parent="BG/BackgroundSnowForest2" index="5"]
@@ -255,7 +258,6 @@ position = Vector2(-1720, 125)
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint2" index="2"]
 position = Vector2(552, -29)
-priority_override = true
 zoom = Vector2(1.5, 1.5)
 
 [node name="Boxes" type="Node2D" parent="GameObjects"]
@@ -274,6 +276,7 @@ polygon = PackedVector2Array(-8, -32, -7.999878, -0.5214844, -8, 32, 8, 32, 8, -
 position = Vector2(16, 96)
 
 [node name="Timedoor" parent="GameObjects/Timedoors/TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_e66q0")
 position = Vector2(111.99997, -192)
 scale = Vector2(1.9999967, 2)
 
@@ -345,8 +348,8 @@ position = Vector2(-1832, -64)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(-1016, 168)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(-2808, 128)
+zoom = Vector2(2.7, 2.7)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
