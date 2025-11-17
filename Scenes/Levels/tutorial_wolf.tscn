@@ -1,11 +1,11 @@
-[gd_scene load_steps=23 format=4 uid="uid://bmitdc6hc6lp7"]
+[gd_scene load_steps=21 format=4 uid="uid://co1t4pi0rj21"]
 
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="1_81stg"]
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_kbrar"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="2_xt8m0"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_aiy5f"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_0c0kq"]
-[ext_resource type="Script" uid="uid://11iqfqnk5s16" path="res://Scripts/Level/Objects/falling_ice.gd" id="4_nwe32"]
+[ext_resource type="Script" path="res://Scripts/Level/Objects/falling_ice.gd" id="4_nwe32"]
 [ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="5_ndljw"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="6_nwe32"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="7_kbrar"]
@@ -15,9 +15,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_tx6a3"]
 [ext_resource type="TileSet" uid="uid://btum3tehm7nf1" path="res://Resources/TileSets/snow_forest.tres" id="12_bu7p5"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_hw8wl"]
-[ext_resource type="PackedScene" uid="uid://2eslwfy76gub" path="res://Scenes/LevelEdit/Objects/Hazard/bullet.tscn" id="13_kbrar"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="14_574ca"]
-[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="14_o0bj5"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="15_14fws"]
 [ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="18_5ogeo"]
 
@@ -301,57 +299,82 @@ position = Vector2(-17.000008, -218)
 scale = Vector2(0.546875, 1)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
-[node name="DamageArea" parent="GameObjects" instance=ExtResource("8_o0bj5")]
-position = Vector2(2120, 296)
+[node name="DamageAreaNodes" type="Node2D" parent="GameObjects"]
+position = Vector2(1543, 10)
+scale = Vector2(0.7, 0.7)
 
-[node name="ColorRect" parent="GameObjects/DamageArea" index="0"]
+[node name="DamageArea" parent="GameObjects/DamageAreaNodes" instance=ExtResource("8_o0bj5")]
+position = Vector2(824.28564, 408.5714)
+scale = Vector2(1.4285713, 1.4285713)
+
+[node name="ColorRect" parent="GameObjects/DamageAreaNodes/DamageArea" index="0"]
 offset_left = -1672.0
 offset_top = -27.0
 offset_right = -1632.0
 offset_bottom = 13.0
 
-[node name="CollisionPolygon2D" parent="GameObjects/DamageArea" index="1"]
+[node name="CollisionPolygon2D" parent="GameObjects/DamageAreaNodes/DamageArea" index="1"]
 position = Vector2(-351, -8)
 polygon = PackedVector2Array(4, 4, 172, 4, 172, 44, 4, 44)
 
-[node name="DamageArea3" parent="GameObjects" instance=ExtResource("8_o0bj5")]
-position = Vector2(2120, 296)
+[node name="DamageArea3" parent="GameObjects/DamageAreaNodes" instance=ExtResource("8_o0bj5")]
+position = Vector2(824.28564, 408.5714)
+scale = Vector2(1.4285713, 1.4285713)
 
-[node name="ColorRect" parent="GameObjects/DamageArea3" index="0"]
+[node name="ColorRect" parent="GameObjects/DamageAreaNodes/DamageArea3" index="0"]
 offset_left = -345.0
 offset_top = -6.0
 offset_right = -305.0
 offset_bottom = 34.0
 
-[node name="CollisionPolygon2D" parent="GameObjects/DamageArea3" index="1"]
+[node name="CollisionPolygon2D" parent="GameObjects/DamageAreaNodes/DamageArea3" index="1"]
 position = Vector2(-3, -4)
 polygon = PackedVector2Array(-1699, -21, -1531, -21, -1531, 19, -1699, 19)
 
-[node name="DamageArea4" parent="GameObjects" instance=ExtResource("8_o0bj5")]
-position = Vector2(872, 267)
+[node name="DamageArea4" parent="GameObjects/DamageAreaNodes" instance=ExtResource("8_o0bj5")]
+position = Vector2(-958.5714, 367.14285)
+scale = Vector2(1.4285713, 1.4285713)
 
-[node name="ColorRect" parent="GameObjects/DamageArea4" index="0"]
+[node name="ColorRect" parent="GameObjects/DamageAreaNodes/DamageArea4" index="0"]
 offset_left = 18.0
 offset_top = 19.0
 offset_right = 58.0
 offset_bottom = 59.0
 
-[node name="CollisionPolygon2D" parent="GameObjects/DamageArea4" index="1"]
+[node name="CollisionPolygon2D" parent="GameObjects/DamageAreaNodes/DamageArea4" index="1"]
 position = Vector2(-12.999996, 13)
 scale = Vector2(8.013673, 1)
 
-[node name="DamageArea2" parent="GameObjects" instance=ExtResource("8_o0bj5")]
-position = Vector2(2120, 296)
+[node name="DamageArea2" parent="GameObjects/DamageAreaNodes" instance=ExtResource("8_o0bj5")]
+position = Vector2(824.28564, 408.5714)
+scale = Vector2(1.4285713, 1.4285713)
 
-[node name="ColorRect" parent="GameObjects/DamageArea2" index="0"]
+[node name="ColorRect" parent="GameObjects/DamageAreaNodes/DamageArea2" index="0"]
 offset_left = -854.0
 offset_top = -13.0
 offset_right = -814.0
 offset_bottom = 27.0
 
-[node name="CollisionPolygon2D" parent="GameObjects/DamageArea2" index="1"]
+[node name="CollisionPolygon2D" parent="GameObjects/DamageAreaNodes/DamageArea2" index="1"]
 position = Vector2(-861, -18)
 polygon = PackedVector2Array(4, 4, 172, 4, 172, 44, 4, 44)
+
+[node name="DamageArea5" parent="GameObjects/DamageAreaNodes" instance=ExtResource("8_o0bj5")]
+position = Vector2(2085.7139, 478.5714)
+scale = Vector2(1.4285713, 1.4285713)
+
+[node name="CollisionPolygon2D" parent="GameObjects/DamageAreaNodes/DamageArea5" index="1"]
+position = Vector2(-14, -11)
+scale = Vector2(6.078125, 1)
+
+[node name="DamageArea6" parent="GameObjects/DamageAreaNodes" instance=ExtResource("8_o0bj5")]
+position = Vector2(1082.8569, 469.99997)
+scale = Vector2(1.4285713, 1.4285713)
+
+[node name="CollisionPolygon2D" parent="GameObjects/DamageAreaNodes/DamageArea6" index="1"]
+position = Vector2(-36.999992, -37.000004)
+scale = Vector2(7.171874, 1.53125)
+polygon = PackedVector2Array(1.4241638, 3, 41.424164, 3, 41.424164, 43, 1.4241638, 43)
 
 [node name="Checkpoints" type="Node2D" parent="GameObjects"]
 position = Vector2(1096, 24)
@@ -365,6 +388,12 @@ position = Vector2(2736, -166)
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("9_14fws")]
 position = Vector2(627, 147)
 
+[node name="Checkpoint3" parent="GameObjects/Checkpoints" instance=ExtResource("9_14fws")]
+position = Vector2(1827, 80)
+
+[node name="AnimationPlayer" parent="GameObjects/Checkpoints/Checkpoint3" index="4"]
+root_node = NodePath("../../Checkpoint3")
+
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(74, 100)
@@ -377,26 +406,43 @@ process_physics_priority = 300
 script = ExtResource("11_tx6a3")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="Bullet" parent="GameObjects" instance=ExtResource("13_kbrar")]
-position = Vector2(0, 82)
-rotation = 3.1415927
-
-[node name="PlayerDummy" parent="GameObjects" instance=ExtResource("14_o0bj5")]
-position = Vector2(3382, -66)
-
 [node name="Spike" parent="GameObjects" instance=ExtResource("6_nwe32")]
 position = Vector2(3464, 16)
 
-[node name="DamageArea5" parent="GameObjects" instance=ExtResource("8_o0bj5")]
-position = Vector2(2301, 339)
-
-[node name="CollisionPolygon2D" parent="GameObjects/DamageArea5" index="1"]
-position = Vector2(-36.999992, -37.000004)
-scale = Vector2(7.171874, 1.53125)
-polygon = PackedVector2Array(1.4241638, 3, 41.424164, 3, 41.424164, 43, 1.4241638, 43)
-
 [node name="Turret" parent="GameObjects" instance=ExtResource("15_14fws")]
 position = Vector2(52, 129)
+
+[node name="Falling Ices" type="Node2D" parent="GameObjects"]
+
+[node name="FallingIce" parent="GameObjects/Falling Ices" instance=ExtResource("18_5ogeo")]
+position = Vector2(1543, 10)
+scale = Vector2(0.7, 0.7)
+
+[node name="FallingIce2" parent="GameObjects/Falling Ices" instance=ExtResource("18_5ogeo")]
+position = Vector2(1577, 10.000001)
+scale = Vector2(0.7, 0.7)
+
+[node name="Box" parent="GameObjects" instance=ExtResource("14_574ca")]
+position = Vector2(3239, 190)
+
+[node name="TimedDoor" parent="GameObjects" instance=ExtResource("13_hw8wl")]
+position = Vector2(3346, 162)
+
+[node name="Polygon2D" parent="GameObjects/TimedDoor" index="0"]
+position = Vector2(437.99994, -307)
+scale = Vector2(1, 2.7656243)
+polygon = PackedVector2Array(-8, -32, -8, 32, 8, 32, 8, -32, 0.031311035, -32.000015)
+
+[node name="Timedoor" parent="GameObjects/TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_o0bj5")
+
+[node name="TutorialText" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -288.0
+offset_top = 40.0
+offset_right = -248.0
+offset_bottom = 80.0
 
 [node name="Enviroments" type="Node2D" parent="."]
 visible = false
@@ -408,48 +454,6 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
 tile_set = ExtResource("12_bu7p5")
 metadata/_edit_lock_ = true
-
-[node name="Box" parent="." instance=ExtResource("14_574ca")]
-position = Vector2(3239, 190)
-
-[node name="Falling Ices" type="Node2D" parent="."]
-
-[node name="FallingIce" parent="Falling Ices" instance=ExtResource("18_5ogeo")]
-position = Vector2(1543, 10)
-scale = Vector2(0.7, 0.7)
-
-[node name="TutorialText" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -288.0
-offset_top = 40.0
-offset_right = -248.0
-offset_bottom = 80.0
-
-[node name="FallingIce" parent="." instance=ExtResource("18_5ogeo")]
-position = Vector2(1577, 10.000001)
-scale = Vector2(0.7, 0.7)
-
-[node name="TimedDoor" parent="." instance=ExtResource("13_hw8wl")]
-position = Vector2(3346, 162)
-
-[node name="Polygon2D" parent="TimedDoor" index="0"]
-position = Vector2(437.99994, -307)
-scale = Vector2(1, 2.7656243)
-polygon = PackedVector2Array(-8, -32, -8, 32, 8, 32, 8, -32, 0.031311035, -32.000015)
-
-[node name="Timedoor" parent="TimedDoor" index="3"]
-material = SubResource("ShaderMaterial_o0bj5")
-
-[node name="DamageArea" parent="." instance=ExtResource("8_o0bj5")]
-position = Vector2(3003, 345)
-
-[node name="CollisionPolygon2D" parent="DamageArea" index="1"]
-position = Vector2(-14, -11)
-scale = Vector2(6.078125, 1)
-
-[node name="Checkpoint" parent="." instance=ExtResource("9_14fws")]
-position = Vector2(2923, 104)
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/LandNodes/Land3"]
@@ -466,13 +470,13 @@ position = Vector2(2923, 104)
 [editable path="GameObjects/LandNodes/Land12"]
 [editable path="GameObjects/LandNodes/Land13"]
 [editable path="GameObjects/LandNodes/Land14"]
-[editable path="GameObjects/DamageArea"]
-[editable path="GameObjects/DamageArea3"]
-[editable path="GameObjects/DamageArea4"]
-[editable path="GameObjects/DamageArea2"]
+[editable path="GameObjects/DamageAreaNodes/DamageArea"]
+[editable path="GameObjects/DamageAreaNodes/DamageArea3"]
+[editable path="GameObjects/DamageAreaNodes/DamageArea4"]
+[editable path="GameObjects/DamageAreaNodes/DamageArea2"]
+[editable path="GameObjects/DamageAreaNodes/DamageArea5"]
+[editable path="GameObjects/DamageAreaNodes/DamageArea6"]
 [editable path="GameObjects/Checkpoints/Checkpoint"]
 [editable path="GameObjects/Checkpoints/Checkpoint2"]
-[editable path="GameObjects/DamageArea5"]
-[editable path="TimedDoor"]
-[editable path="DamageArea"]
-[editable path="Checkpoint"]
+[editable path="GameObjects/Checkpoints/Checkpoint3"]
+[editable path="GameObjects/TimedDoor"]
