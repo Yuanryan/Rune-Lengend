@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d0fnh4p0jbnu4" path="res://Assets/environment/bullet.png" id="4_ivgr4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(8, 4)
+size = Vector2(8.997807, 5.124529)
 
 [sub_resource type="Curve" id="Curve_8de35"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.24634147, 0.4113924), -1.1205411, 0.0, 0, 0, Vector2(0.60487807, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -54,6 +54,8 @@ collision_layer = 8
 script = ExtResource("1_bullet")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(10.47925, 0.53985524)
+scale = Vector2(0.9956317, 0.9601447)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="Sprite2D" type="ColorRect" parent="."]

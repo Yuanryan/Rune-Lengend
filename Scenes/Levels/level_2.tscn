@@ -505,7 +505,7 @@ position = Vector2(-760, -16)
 position = Vector2(-736, -16)
 
 [node name="Box" parent="GameObjects" instance=ExtResource("9_eopvx")]
-position = Vector2(576, 312)
+position = Vector2(576, 309)
 size_scale = Vector2(0.8, 0.8)
 
 [node name="CheckpointNodes" type="Node2D" parent="GameObjects"]
@@ -580,13 +580,13 @@ position = Vector2(3288, 296)
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="Turret" parent="." instance=ExtResource("14_t27xo")]
-position = Vector2(192, 408)
-rotation = 3.1415927
+position = Vector2(191, 375)
+scale = Vector2(-1, 1)
 fire_rate = 0.35
 bullet_speed = 250.0
 
 [node name="Turret3" parent="." instance=ExtResource("14_t27xo")]
-position = Vector2(992, 336)
+position = Vector2(990, 332)
 rotation = 3.1415927
 fire_rate = 0.7
 bullet_speed = 250.0
@@ -598,8 +598,8 @@ fire_rate = 0.8
 bullet_speed = 300.0
 
 [node name="Turret2" parent="." instance=ExtResource("14_t27xo")]
-position = Vector2(992, 408)
-rotation = -3.1415927
+position = Vector2(990, 389)
+scale = Vector2(-1, 1)
 fire_rate = 0.7
 bullet_speed = 250.0
 
@@ -610,8 +610,8 @@ fire_rate = 0.7
 bullet_speed = 300.0
 
 [node name="Turret6" parent="." instance=ExtResource("14_t27xo")]
-position = Vector2(3288, 392)
-rotation = -3.1415927
+position = Vector2(3265, 372)
+scale = Vector2(-1, 1)
 fire_rate = 0.5
 bullet_speed = 300.0
 
