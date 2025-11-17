@@ -48,4 +48,3 @@ func set_zoom_at_mouse(delta: Vector2, event: InputEventMouseButton) -> void:
 func set_zoom_at_origin(delta: Vector2) -> void:
     set_zoom(get_zoom() + delta)
     position = original_position
-
