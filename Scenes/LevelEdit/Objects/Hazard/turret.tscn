@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://btpopvnwbia8c"]
 
 [ext_resource type="Script" uid="uid://b6id6yl7eobqq" path="res://Scripts/Level/Objects/turret.gd" id="1_turret"]
-[ext_resource type="Texture2D" uid="uid://bqb2sh7nmtcdv" path="res://Assets/environment/turret.png" id="2_201ka"]
+[ext_resource type="Texture2D" uid="uid://c04f7twjpout2" path="res://Assets/environment/turret.png" id="2_201ka"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(56, 32)
@@ -37,3 +37,6 @@ position = Vector2(31, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("2_201ka")
 flip_h = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true

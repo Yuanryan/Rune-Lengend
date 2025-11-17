@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=38 format=4 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
@@ -19,6 +19,9 @@
 script = ExtResource("5_gwj07")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwj07"]
+resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
@@ -236,6 +239,30 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3l5c"]
+resource_local_to_scene = true
+shader = ExtResource("14_w685s")
+shader_parameter/spread = 1.5
+shader_parameter/size = 0.40000001830148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 0.5000000474999999
+shader_parameter/speed = 0.30000001425
+shader_parameter/wind = -1.49999997625
+shader_parameter/num_of_layers = 15
+shader_parameter/layer_start = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hj161"]
+resource_local_to_scene = true
+shader = ExtResource("14_w685s")
+shader_parameter/spread = 1.5
+shader_parameter/size = 0.40000001830148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 0.5000000474999999
+shader_parameter/speed = 0.30000001425
+shader_parameter/wind = -1.49999997625
+shader_parameter/num_of_layers = 15
+shader_parameter/layer_start = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5pgco"]
 resource_local_to_scene = true
 shader = ExtResource("14_w685s")
 shader_parameter/spread = 1.5
@@ -498,6 +525,7 @@ wait_time = 2.0
 position = Vector2(0, 56)
 
 [node name="Timedoor" parent="GameObjects/TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_gwj07")
 position = Vector2(201.80005, 66.8)
 scale = Vector2(1, 1.415)
 
@@ -636,7 +664,7 @@ offset_bottom = 692.0
 metadata/_edit_lock_ = true
 
 [node name="SnowFlakes2" parent="Environment" instance=ExtResource("13_5pgco")]
-material = SubResource("ShaderMaterial_g3l5c")
+material = SubResource("ShaderMaterial_hj161")
 offset_left = 1399.0
 offset_top = -371.0
 offset_right = 3662.0
@@ -644,7 +672,7 @@ offset_bottom = 706.0
 metadata/_edit_lock_ = true
 
 [node name="SnowFlakes" parent="Environment" instance=ExtResource("13_5pgco")]
-material = SubResource("ShaderMaterial_g3l5c")
+material = SubResource("ShaderMaterial_5pgco")
 offset_left = -666.0
 offset_top = -357.0
 offset_right = 1597.0

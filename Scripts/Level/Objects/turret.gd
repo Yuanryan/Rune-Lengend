@@ -13,6 +13,9 @@ class_name Turret
 @onready var fire_point: Marker2D = $FirePoint
 @onready var base_sprite: ColorRect = $BaseSprite
 @onready var fire_timer: Timer = %FireTimer
+@onready var visible_on_screen : VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
+
+var is_on_screen: bool = false
 
 # 內部變數
 var _fire_direction: Vector2 = Vector2.RIGHT  # 計算出的射擊方向
@@ -34,14 +37,18 @@ func _ready() -> void:
     
     # 連接 GameManager 的狀態變化信號
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+    visible_on_screen.screen_entered.connect(func(x): is_on_screen = true)
+    visible_on_screen.screen_exited.connect(func(x): is_on_screen = false)
 
 
 func _physics_process(delta: float) -> void:
+    if not is_on_screen:
+        return
     pass  # Timer節點會自動處理射擊計時
 
 func _fire_bullet() -> void:
     """發射子彈"""
-    if not can_fire:
+    if not can_fire or not is_on_screen:
         return
         
     if not bullet_scene or not fire_point:

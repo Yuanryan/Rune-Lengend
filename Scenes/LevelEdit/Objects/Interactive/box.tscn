@@ -16,3 +16,6 @@ polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
 unique_name_in_owner = true
 color = Color(0.60335153, 0.35153636, 0.18091404, 1)
 polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+unique_name_in_owner = true
