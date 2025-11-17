@@ -24,6 +24,7 @@ func _ready():
     add_to_group("Interactive")
     visible_on_screen.screen_entered.connect(func(): is_on_screen = true)
     visible_on_screen.screen_exited.connect(func(): is_on_screen = false)
+    is_on_screen = visible_on_screen.is_on_screen()
 
 func _physics_process(delta: float) -> void:
     # 重力
@@ -41,7 +42,6 @@ func _physics_process(delta: float) -> void:
 func _detect_player_push():
     """檢測玩家是否在推動箱子"""
     # 如果已經有保存的玩家引用，檢查該玩家是否仍在碰撞
-    print("player_ref: ", player_ref)
     if player_ref != null:
         var current_collision_count = player_ref.get_slide_collision_count()
         var player_still_colliding = false
@@ -52,9 +52,8 @@ func _detect_player_push():
             if collision.get_collider() == self:
                 player_still_colliding = true
                 break 
-        print("player_ref.animal_component.current_animal: ", player_ref.animal_component.current_animal)
+
         if player_still_colliding and player_ref.animal_component.current_animal is Man:
-            
             _apply_push_from_player(player_ref)
         else:
             # 玩家已離開，清除引用並應用摩擦力
@@ -69,30 +68,34 @@ func _detect_player_push():
     for i in range(collision_count):
         var collision = get_slide_collision(i)
         var collider = collision.get_collider()
-        
+
         # 檢查是否是玩家
-        if collider is Player:
-            var player = collider as Player
+        print("collider: ", collider)
+        if collider is not Player:
+            continue
+
+        var player = collider as Player
+        if not player.animal_component.current_animal is Man:
+            continue
             
+        var player_position = player.global_position
+        var box_position = global_position
+        
+        # 計算推動方向
+        var push_vector = (box_position - player_position).normalized()
+        
+        # 檢查是否從側面推動（不是從上方或下方）
+        var push_from_side = abs(push_vector.y) < 0.5
+        
+        if push_from_side:
+            # 保存玩家引用
+            player_ref = player
+            is_pushing = true
+            push_direction = push_vector
             
-            var player_position = player.global_position
-            var box_position = global_position
-            
-            # 計算推動方向
-            var push_vector = (box_position - player_position).normalized()
-            
-            # 檢查是否從側面推動（不是從上方或下方）
-            var push_from_side = abs(push_vector.y) < 0.5
-            
-            if push_from_side:
-                # 保存玩家引用
-                player_ref = player
-                is_pushing = true
-                push_direction = push_vector
-                
-                # 應用推動
-                _apply_push_from_player(player)
-                break
+            # 應用推動
+            _apply_push_from_player(player)
+            break
 
 func _apply_push_from_player(player: Player):
     """從玩家應用推動力"""

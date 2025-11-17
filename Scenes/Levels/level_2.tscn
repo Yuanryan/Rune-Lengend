@@ -506,7 +506,6 @@ position = Vector2(-736, -16)
 
 [node name="Box" parent="GameObjects" instance=ExtResource("9_eopvx")]
 position = Vector2(576, 309)
-size_scale = Vector2(0.8, 0.8)
 
 [node name="CheckpointNodes" type="Node2D" parent="GameObjects"]
 

@@ -39,12 +39,8 @@ func _ready() -> void:
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
     visible_on_screen.screen_entered.connect(func(): is_on_screen = true)
     visible_on_screen.screen_exited.connect(func(): is_on_screen = false)
+    is_on_screen = visible_on_screen.is_on_screen()
 
-
-func _physics_process(delta: float) -> void:
-    if not is_on_screen:
-        return
-    pass  # Timer節點會自動處理射擊計時
 
 func _fire_bullet() -> void:
     """發射子彈"""

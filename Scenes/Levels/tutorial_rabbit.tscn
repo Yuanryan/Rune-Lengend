@@ -423,7 +423,7 @@ position = Vector2(327.99994, 45)
 polygon = PackedVector2Array(-8, -85, -8, -24.69728, -8, 28, 0.2, 32, 8, 28, 8, -85)
 
 [node name="Box" parent="." instance=ExtResource("16_q8jeo")]
-position = Vector2(3503.9915, 33.430706)
+position = Vector2(3503, 33)
 
 [node name="TimedDoor2" parent="." instance=ExtResource("15_xpj4h")]
 position = Vector2(3592, 0)
