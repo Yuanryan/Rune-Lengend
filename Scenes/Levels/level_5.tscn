@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=31 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -20,7 +20,6 @@
 [ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_jd0ia"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
 [ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
-[ext_resource type="PackedScene" uid="uid://c1p2o8o4q3upd" path="res://Scenes/LevelEdit/Objects/Interactive/button_platform.tscn" id="21_b7yer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
@@ -29,6 +28,15 @@ shader_parameter/blur_amount = 1.8000000855
 
 [sub_resource type="Resource" id="Resource_b7yer"]
 script = ExtResource("7_jd0ia")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijosb"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3pc84"]
+resource_local_to_scene = true
 
 [sub_resource type="Curve2D" id="Curve2D_3asqb"]
 resource_local_to_scene = true
@@ -325,6 +333,9 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0, 32, 0, 32, 8, 28, 8, -84)
 [node name="GameButton" parent="GameObjects/TimedDoor" index="2"]
 position = Vector2(534, 174)
 
+[node name="Timedoor" parent="GameObjects/TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_jd0ia")
+
 [node name="@CollisionPolygon2D@26460" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
 position = Vector2(24, -65)
 rotation = -3.1415927
@@ -346,6 +357,9 @@ wait_time = 14.0
 position = Vector2(155, -273)
 color = Color(0.8901961, 0.28627452, 0.31764707, 1)
 
+[node name="Timedoor" parent="GameObjects/TimedDoor2" index="3"]
+material = SubResource("ShaderMaterial_ijosb")
+
 [node name="@CollisionPolygon2D@26461" type="CollisionPolygon2D" parent="GameObjects/TimedDoor2"]
 position = Vector2(1032, -341)
 polygon = PackedVector2Array(-8, -84, -8, -33.58496, -8, 45, 0, 53, 0, 53, 8, 45, 8, -50.88794, 8, -84)
@@ -362,6 +376,9 @@ polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
 position = Vector2(-101, 267)
 color = Color(0.43529412, 0.7372549, 0.4, 1)
 
+[node name="Timedoor" parent="GameObjects/TimedDoor3" index="3"]
+material = SubResource("ShaderMaterial_3pc84")
+
 [node name="@CollisionPolygon2D@26462" type="CollisionPolygon2D" parent="GameObjects/TimedDoor3"]
 position = Vector2(0, 2)
 polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
@@ -373,7 +390,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(101.64291, -96)
+position = Vector2(166.54558, -8)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -465,18 +482,6 @@ tile_set = ExtResource("16_jd0ia")
 material = SubResource("ShaderMaterial_yhtsi")
 metadata/_edit_lock_ = true
 
-[node name="ButtonPlatform" parent="Enviroments" instance=ExtResource("21_b7yer")]
-position = Vector2(-185, -180)
-original_position = Vector2(-2, 1)
-moved_position = Vector2(425, -2)
-animation_speed = 0.5
-
-[node name="Polygon2D" parent="Enviroments/ButtonPlatform" index="0"]
-position = Vector2(-2, 1)
-
-[node name="GameButton" parent="Enviroments/ButtonPlatform" index="2"]
-position = Vector2(-295, 68)
-
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/Turret"]
 [editable path="GameObjects/Turret2"]
@@ -494,4 +499,3 @@ position = Vector2(-295, 68)
 [editable path="GameObjects/TimedDoor3"]
 [editable path="GameObjects/MovingPlatformPath"]
 [editable path="GameObjects/DamageArea"]
-[editable path="Enviroments/ButtonPlatform"]
