@@ -16,14 +16,14 @@ var size_scale : Vector2 = Vector2(1.0, 1.0) : set = set_size_scale
 var player_ref : Player = null
 var is_pushing: bool = false
 var push_direction: Vector2 = Vector2.ZERO
-var is_on_screen: bool = false
+var is_on_screen: bool = true
 
 func _ready():
     set_size_scale(size_scale)
     # 加入 Interactive 群組，讓按鈕能偵測到
     add_to_group("Interactive")
-    visible_on_screen.screen_entered.connect(func(x): is_on_screen = true)
-    visible_on_screen.screen_exited.connect(func(x): is_on_screen = false)
+    visible_on_screen.screen_entered.connect(func(): is_on_screen = true)
+    visible_on_screen.screen_exited.connect(func(): is_on_screen = false)
 
 func _physics_process(delta: float) -> void:
     # 重力

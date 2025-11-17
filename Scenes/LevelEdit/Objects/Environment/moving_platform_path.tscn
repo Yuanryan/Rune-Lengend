@@ -27,8 +27,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_eqelh"]
 resource_name = "move"
-length = 4.0
-loop_mode = 1
+length = 2.0
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -36,8 +36,8 @@ tracks/0/path = NodePath("PathFollow2D:progress_ratio")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(-1.56, -1.56),
 "update": 0,
 "values": [0.0, 1.0]
 }
@@ -54,7 +54,7 @@ script = ExtResource("1_nmk3u")
 
 [node name="MovingPlatform" type="AnimatableBody2D" parent="." groups=["Land"]]
 unique_name_in_owner = true
-position = Vector2(2.7235644, -96)
+position = Vector2(158.87129, -96)
 collision_mask = 2
 script = ExtResource("1_eqelh")
 
@@ -77,4 +77,5 @@ libraries = {
 
 [node name="Line2D" type="Line2D" parent="."]
 unique_name_in_owner = true
+points = PackedVector2Array(0, -96, 1.796875, -96, 3.9550781, -96, 6.875, -96, 10.498047, -96, 14.765625, -96, 19.61914, -96, 22.247314, -96, 25, -96, 27.869873, -96, 30.84961, -96, 33.931885, -96, 37.109375, -96, 40.374756, -96, 43.720703, -96, 47.139893, -96, 50.625, -96, 54.1687, -96, 57.76367, -96, 61.402588, -96, 65.078125, -96, 68.78296, -96, 72.509766, -96, 76.25122, -96, 80, -96, 83.74878, -96, 87.490234, -96, 91.21704, -96, 94.921875, -96, 98.59741, -96, 102.23633, -96, 105.8313, -96, 109.375, -96, 112.86011, -96, 116.2793, -96, 119.625244, -96, 122.890625, -96, 126.068115, -96, 129.15039, -96, 132.13013, -96, 135, -96, 137.75269, -96, 140.38086, -96, 145.23438, -96, 149.50195, -96, 153.125, -96, 156.04492, -96, 158.20313, -96, 160, -96)
 width = 1.0

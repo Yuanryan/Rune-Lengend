@@ -15,7 +15,7 @@ class_name Turret
 @onready var fire_timer: Timer = %FireTimer
 @onready var visible_on_screen : VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 
-var is_on_screen: bool = false
+var is_on_screen: bool = true
 
 # 內部變數
 var _fire_direction: Vector2 = Vector2.RIGHT  # 計算出的射擊方向
@@ -37,8 +37,8 @@ func _ready() -> void:
     
     # 連接 GameManager 的狀態變化信號
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
-    visible_on_screen.screen_entered.connect(func(x): is_on_screen = true)
-    visible_on_screen.screen_exited.connect(func(x): is_on_screen = false)
+    visible_on_screen.screen_entered.connect(func(): is_on_screen = true)
+    visible_on_screen.screen_exited.connect(func(): is_on_screen = false)
 
 
 func _physics_process(delta: float) -> void:

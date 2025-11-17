@@ -15,6 +15,7 @@ polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 unique_name_in_owner = true
+visible = false
 color = Color(0.60335153, 0.35153636, 0.18091404, 1)
 polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
 
