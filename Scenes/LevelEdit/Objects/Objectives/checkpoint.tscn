@@ -229,7 +229,6 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-scale = Vector2(1.3359375, 1.3448437)
 texture = ExtResource("2_1q831")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

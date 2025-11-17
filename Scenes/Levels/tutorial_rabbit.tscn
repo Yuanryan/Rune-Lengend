@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://dyev0ja3pu1j0"]
+[gd_scene load_steps=23 format=4 uid="uid://dyev0ja3pu1j0"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
@@ -12,7 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_voi1r"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_vq762"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_4fles"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="12_oab8u"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="13_xpj4h"]
+[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="14_h8ebw"]
+[ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="15_bqdxl"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="15_xpj4h"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="16_q8jeo"]
 
@@ -20,6 +22,36 @@
 resource_local_to_scene = true
 shader = ExtResource("4_q8jeo")
 shader_parameter/blur_amount = 1.8000000855
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p85l2"]
+resource_local_to_scene = true
+shader = ExtResource("15_bqdxl")
+shader_parameter/spread = 1.5
+shader_parameter/size = 0.40000001830148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 0.5000000474999999
+shader_parameter/speed = 0.30000001425
+shader_parameter/wind = -1.49999997625
+shader_parameter/num_of_layers = 15
+shader_parameter/layer_start = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3jobn"]
+resource_local_to_scene = true
+shader = ExtResource("15_bqdxl")
+shader_parameter/spread = 1.5
+shader_parameter/size = 0.40000001830148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 0.5000000474999999
+shader_parameter/speed = 0.30000001425
+shader_parameter/wind = -1.49999997625
+shader_parameter/num_of_layers = 15
+shader_parameter/layer_start = 5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xpj4h"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q8jeo"]
+resource_local_to_scene = true
 
 [node name="Tutorial_rabbit" type="Node2D"]
 script = ExtResource("1_voi1r")
@@ -112,24 +144,54 @@ zoom = Vector2(1.5, 1.5)
 position = Vector2(1184, 24)
 
 [node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(920, 8)
+position = Vector2(982, 1)
 rotation = -3.1415927
 
 [node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(944, 8)
+position = Vector2(1006, 1)
 rotation = -3.1415927
 
 [node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(968, 8)
+position = Vector2(1030, 1)
 rotation = -3.1415927
 
 [node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(992, 8)
+position = Vector2(1054, 1)
 rotation = -3.1415927
 
 [node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(1016, 8)
+position = Vector2(1078, 1)
 rotation = 3.1415925
+
+[node name="Spike6" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1704, 8)
+
+[node name="Spike7" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1680, 8)
+
+[node name="Spike8" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1656, 8.000008)
+
+[node name="Spike9" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1632, 8.000008)
+
+[node name="Spike10" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1608, 8.000015)
+
+[node name="Spike11" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1824, 8)
+
+[node name="Spike12" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1800, 8)
+
+[node name="Spike13" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1776, 8)
+
+[node name="Spike14" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1752, 8)
+
+[node name="Spike15" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
+position = Vector2(1728, 8)
 
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
 position = Vector2(1096, 24)
@@ -141,7 +203,7 @@ position = Vector2(-736, 224)
 position = Vector2(152, -256)
 polygon = PackedVector2Array(-1112, 256, -1112, 528, 1328, 528, 1328, 256)
 
-[node name="@CollisionPolygon2D@131369" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land"]
 position = Vector2(152, -256)
 polygon = PackedVector2Array(-1112, 256, -1112, 528, 1328, 528, 1328, 256)
 
@@ -150,92 +212,99 @@ position = Vector2(-232, 56)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
 position = Vector2(-520, -256)
-polygon = PackedVector2Array(0, 232, 0, 432, 368, 432, 368, 232)
+polygon = PackedVector2Array(0, 232, 0, 432, 342, 430, 340, 232)
 
-[node name="@CollisionPolygon2D@131370" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land2"]
 position = Vector2(-520, -256)
-polygon = PackedVector2Array(0, 232, 0, 432, 368, 432, 368, 232)
+polygon = PackedVector2Array(0, 232, 0, 432, 342, 430, 340, 232)
 
 [node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
 position = Vector2(128, 136)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land3" index="0"]
 position = Vector2(192, -200)
-polygon = PackedVector2Array(0, 0, 0, 344, 400, 344, 400, 0)
+polygon = PackedVector2Array(-8, 3, 14, 55, 13, 341, 409, 343, 422, 4)
 
-[node name="@CollisionPolygon2D@131371" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land3"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land3"]
 position = Vector2(192, -200)
-polygon = PackedVector2Array(0, 0, 0, 344, 400, 344, 400, 0)
+polygon = PackedVector2Array(-8, 3, 14, 55, 13, 341, 409, 343, 422, 4)
 
 [node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
-position = Vector2(976, -80)
+position = Vector2(1026, -80)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]
-polygon = PackedVector2Array(-656, 48, -656, 104, -88, 106.85121, -88, 320, 128, 320, 128, 48)
+polygon = PackedVector2Array(-691, -95, -696, 119, -113, 120, -119, 311, 159, 310, 160, -92)
 
-[node name="@CollisionPolygon2D@131372" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land4"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land4"]
 position = Vector2(0, -256)
-polygon = PackedVector2Array(-656, 48, -656, 104, -88, 106.85121, -88, 320, 128, 320, 128, 48)
+polygon = PackedVector2Array(-691, -95, -696, 119, -113, 120, -119, 311, 159, 310, 160, -92)
 
 [node name="Land5" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
 position = Vector2(712, 48)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land5" index="0"]
 position = Vector2(8, -248)
-polygon = PackedVector2Array(0, 256, 0, 504, 304, 504, 304, 256)
+polygon = PackedVector2Array(-1, 263, -2, 526, 336, 528, 342, 263)
 
-[node name="@CollisionPolygon2D@131373" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land5"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land5"]
 position = Vector2(8, -248)
-polygon = PackedVector2Array(0, 256, 0, 504, 304, 504, 304, 256)
+polygon = PackedVector2Array(-1, 263, -2, 526, 336, 528, 342, 263)
 
 [node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
 position = Vector2(1152, 0)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
 position = Vector2(48, -184)
-polygon = PackedVector2Array(-8, 248, -8, 488, 496, 488, 496, 128, 280, 128, 280, 248)
+polygon = PackedVector2Array(10, 251, 32, 306, 28, 602, 473, 600, 473, 216, 498, 216, 497, 176, 519, 123, 285, 120, 288, 249)
 
-[node name="@CollisionPolygon2D@131374" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land6"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land6"]
 position = Vector2(48, -184)
-polygon = PackedVector2Array(-8, 248, -8, 488, 496, 488, 496, 128, 280, 128, 280, 248)
+polygon = PackedVector2Array(10, 251, 32, 306, 28, 602, 473, 600, 473, 216, 498, 216, 497, 176, 519, 123, 285, 120, 288, 249)
 
 [node name="Land7" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
 position = Vector2(2552, -440)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land7" index="0"]
-polygon = PackedVector2Array(0, 256, 0, 440, 200, 440, 200, 256)
+polygon = PackedVector2Array(-41, 119, -42, 438, 193, 439, 193, 120)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land7"]
 position = Vector2(0, -256)
-polygon = PackedVector2Array(0, 256, 0, 440, 200, 440, 200, 256)
+polygon = PackedVector2Array(-41, 119, -42, 438, 193, 439, 193, 120)
 
 [node name="Land8" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
 position = Vector2(1672, 32)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land8" index="0"]
-polygon = PackedVector2Array(0, 256, 0, 480, 1072, 480, 1072, 80, 880, 80, 880, 256)
+polygon = PackedVector2Array(0, 256, 0, 641, 1113, 634, 1117, 84, 880, 80, 903, 139, 904, 253)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land8"]
 position = Vector2(0, -256)
-polygon = PackedVector2Array(0, 256, 0, 480, 1072, 480, 1072, 80, 880, 80, 880, 256)
+polygon = PackedVector2Array(0, 256, 0, 641, 1113, 634, 1117, 84, 880, 80, 903, 139, 904, 253)
 
 [node name="Land9" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
 position = Vector2(2072, -168)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land9" index="0"]
-position = Vector2(-104, -256)
+position = Vector2(-134, -252)
 polygon = PackedVector2Array(0, 256, 0, 456, 272, 456, 272, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land9"]
-position = Vector2(-104, -256)
+position = Vector2(-134, -252)
 polygon = PackedVector2Array(0, 256, 0, 456, 272, 456, 272, 256)
 
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("10_voi1r")]
 position = Vector2(2120, 296)
 
+[node name="ColorRect" parent="GameObjects/DamageArea" index="0"]
+visible = false
+offset_left = 26.0
+offset_top = 4.0
+offset_right = 66.0
+offset_bottom = 44.0
+
 [node name="CollisionPolygon2D" parent="GameObjects/DamageArea" index="1"]
-position = Vector2(-3, -4)
-polygon = PackedVector2Array(4, 4, 172, 4, 172, 44, 4, 44)
+position = Vector2(14, -5)
+polygon = PackedVector2Array(4, 4, 194, 4, 195, 44, 4, 44)
 
 [node name="Checkpoints" type="Node2D" parent="GameObjects"]
 position = Vector2(1096, 24)
@@ -277,14 +346,59 @@ script = ExtResource("11_vq762")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Enviroments" type="Node2D" parent="."]
-visible = false
+z_index = 1
+
+[node name="GroundTileMapLayer" type="TileMapLayer" parent="Enviroments"]
+position = Vector2(0, -8)
+tile_map_data = PackedByteArray("AAAFAAMABQAAAAkAAAAFAAQABQAAAAYAAAAFAAIABQAAAAMAAAAFAAEABQADAAEAAAAJAAEABQABAAEAAAAKAAEABQAEAAEAAAAHAAEABQABAAEAAAAIAAEABQABAAEAAAAGAAEABQABAAEAAAAGAAIABQABAAIAAAAGAAMABQABAAkAAAAHAAIABQABAAIAAAAHAAMABQABAAMAAAAIAAIABQABAAIAAAAIAAMABQABAAMAAAAJAAIABQABAAIAAAAJAAMABQABAAMAAAAKAAMABQACAAkAAAAKAAIABQACAAMAAAAKAAQABQACAAYAAAALAAQABQABAAEAAAAMAAQABQABAAEAAAANAAQABQABAAEAAAAOAAQABQABAAEAAAAPAAQABQABAAEAAAAQAAQABQABAAEAAAARAAQABQABAAEAAAASAAQABQABAAEAAAATAAQABQABAAEAAAAUAAQABQABAAEAAAAVAAQABQABAAEAAAAWAAQABQABAAEAAAAGAAQABQABAAIAAAAHAAQABQABAAIAAAAIAAQABQABAAIAAAAJAAQABQABAAIAAAD3/wQABQABAAEAAAD4/wQABQABAAEAAAD5/wQABQABAAEAAAD6/wQABQABAAEAAAD7/wQABQABAAEAAAD8/wQABQABAAEAAAD9/wQABQABAAEAAAD+/wQABQABAAEAAAD//wQABQABAAEAAAAAAAQABQABAAEAAAABAAQABQABAAEAAAACAAQABQABAAEAAAADAAQABQABAAEAAAAEAAQABQABAAEAAAD3/wUABQABAAIAAAD3/wYABQABAAIAAAD3/wcABQABAAIAAAD4/wUABQABAAIAAAD4/wYABQABAAIAAAD4/wcABQABAAIAAAD5/wUABQABAAIAAAD5/wYABQABAAIAAAD5/wcABQABAAIAAAD6/wUABQABAAIAAAD6/wYABQABAAIAAAD6/wcABQABAAIAAAD7/wUABQABAAIAAAD7/wYABQABAAIAAAD7/wcABQABAAIAAAD8/wUABQABAAIAAAD8/wYABQABAAIAAAD8/wcABQABAAIAAAD9/wUABQABAAIAAAD9/wYABQABAAIAAAD9/wcABQABAAIAAAD+/wUABQABAAIAAAD+/wYABQABAAIAAAD+/wcABQABAAIAAAD//wUABQABAAIAAAD//wYABQABAAIAAAD//wcABQABAAIAAAAAAAUABQABAAIAAAAAAAYABQABAAIAAAAAAAcABQABAAIAAAABAAUABQABAAIAAAABAAYABQABAAIAAAABAAcABQABAAIAAAACAAUABQABAAIAAAACAAYABQABAAIAAAACAAcABQABAAIAAAADAAUABQABAAIAAAADAAYABQABAAIAAAADAAcABQABAAIAAAAEAAUABQABAAIAAAAEAAYABQABAAIAAAAEAAcABQABAAIAAAAFAAUABQABAAIAAAAFAAYABQABAAIAAAAFAAcABQABAAIAAAAGAAUABQABAAIAAAAGAAYABQABAAIAAAAGAAcABQABAAIAAAAHAAUABQABAAIAAAAHAAYABQABAAIAAAAHAAcABQABAAIAAAAIAAUABQABAAIAAAAIAAYABQABAAIAAAAIAAcABQABAAIAAAAJAAUABQABAAIAAAAJAAYABQABAAIAAAAJAAcABQABAAIAAAAKAAUABQABAAIAAAAKAAYABQABAAIAAAAKAAcABQABAAIAAAALAAUABQABAAIAAAALAAYABQABAAIAAAALAAcABQABAAIAAAAMAAUABQABAAIAAAAMAAYABQABAAIAAAAMAAcABQABAAIAAAANAAUABQABAAIAAAANAAYABQABAAIAAAANAAcABQABAAIAAAAOAAUABQABAAIAAAAOAAYABQABAAIAAAAOAAcABQABAAIAAAAPAAUABQABAAIAAAAPAAYABQABAAIAAAAPAAcABQABAAIAAAAQAAUABQABAAIAAAAQAAYABQABAAIAAAAQAAcABQABAAIAAAARAAUABQABAAIAAAARAAYABQABAAIAAAARAAcABQABAAIAAAASAAUABQABAAIAAAASAAYABQABAAIAAAASAAcABQABAAIAAAATAAUABQABAAIAAAATAAYABQABAAIAAAATAAcABQABAAIAAAAUAAUABQABAAIAAAAUAAYABQABAAIAAAAUAAcABQABAAIAAAAVAAUABQABAAIAAAAVAAYABQABAAIAAAAVAAcABQABAAIAAAAWAAUABQABAAIAAAAWAAYABQABAAIAAAAWAAcABQABAAIAAAAWAAMABQAAAAkAAAArAAEABQABAAEAAAAsAAEABQABAAEAAAAtAAEABQABAAEAAAAuAAEABQABAAEAAAAvAAEABQABAAEAAAAvAAAABQAAAAkAAAAvAP7/BQADAAEAAAAvAP//BQAAAAMAAAAwAP7/BQABAAEAAAAwAP3/BQABAAAAAAAvAP3/BQAAAAAAAAAwAP//BQABAAIAAAAwAAAABQABAAkAAAAwAAEABQABAAEAAAAxAAEABQABAAEAAAAyAAEABQABAAEAAAAxAP7/BQABAAEAAAAyAP7/BQABAAEAAAAxAP//BQABAAIAAAAxAAAABQABAAkAAAAyAP//BQABAAIAAAAyAAAABQABAAkAAAAzAP//BQACAAIAAAAzAAAABQACAAkAAAAzAAEABQABAAEAAAA0AAEABQABAAEAAAA1AAEABQABAAEAAAA2AAEABQABAAEAAAA3AAEABQABAAEAAAA4AAEABQABAAEAAAA5AAEABQABAAEAAAAzAP7/BQAEAAEAAAA=")
+tile_set = ExtResource("13_xpj4h")
+metadata/_edit_lock_ = true
 
 [node name="Foreground" type="TileMapLayer" parent="Enviroments"]
 self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
-position = Vector2(40, 0)
+position = Vector2(-1368, -64)
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
-tile_set = ExtResource("12_oab8u")
+tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
+tile_set = ExtResource("13_xpj4h")
+
+[node name="GroundTileMapLayer2" type="TileMapLayer" parent="Enviroments"]
+position = Vector2(0, 24)
+tile_map_data = PackedByteArray("AAAWAAIABQAAAAMAAAAWAP//BQAAAAEAAAAWAAAABQAAAAIAAAAWAAEABQAAAAMAAAAbAP//BQABAAEAAAAcAP//BQAEAAEAAAAXAP//BQABAAEAAAAYAP//BQABAAEAAAAZAP//BQABAAEAAAAaAP//BQABAAEAAAAcAAAABQACAAkAAAAcAAEABQABAAEAAAAdAAEABQABAAEAAAAeAAEABQABAAEAAAAfAAEABQABAAEAAAAgAAEABQABAAEAAAAgAAIABQABAAIAAAAgAAMABQABAAIAAAAgAAQABQABAAIAAAAhAAEABQAEAAEAAAAhAAIABQACAAIAAAAhAAMABQACAAIAAAAhAAQABQACAAIAAAAkAAEABQAAAAEAAAAXAAAABQABAAIAAAAXAAEABQABAAIAAAAXAAIABQABAAIAAAAXAAMABQABAAIAAAAXAAQABQABAAIAAAAXAAUABQABAAIAAAAXAAYABQABAAIAAAAXAAcABQABAAIAAAAYAAAABQABAAIAAAAYAAEABQABAAIAAAAYAAIABQABAAIAAAAYAAMABQABAAIAAAAYAAQABQABAAIAAAAYAAUABQABAAIAAAAYAAYABQABAAIAAAAYAAcABQABAAIAAAAZAAAABQABAAIAAAAZAAEABQABAAIAAAAZAAIABQABAAIAAAAZAAMABQABAAIAAAAZAAQABQABAAIAAAAZAAUABQABAAIAAAAZAAYABQABAAIAAAAZAAcABQABAAIAAAAaAAAABQABAAIAAAAaAAEABQABAAIAAAAaAAIABQABAAIAAAAaAAMABQABAAIAAAAaAAQABQABAAIAAAAaAAUABQABAAIAAAAaAAYABQABAAIAAAAaAAcABQABAAIAAAAbAAAABQABAAIAAAAbAAEABQABAAIAAAAbAAIABQABAAIAAAAbAAMABQABAAIAAAAbAAQABQABAAIAAAAbAAUABQABAAIAAAAbAAYABQABAAIAAAAbAAcABQABAAIAAAAcAAIABQABAAMAAAAcAAMABQABAAMAAAAcAAQABQABAAMAAAAcAAUABQABAAMAAAAcAAYABQABAAMAAAAcAAcABQABAAMAAAAdAAIABQABAAMAAAAdAAMABQABAAMAAAAdAAQABQABAAMAAAAdAAUABQABAAMAAAAdAAYABQABAAMAAAAdAAcABQABAAMAAAAeAAIABQABAAMAAAAeAAMABQABAAMAAAAeAAQABQABAAMAAAAeAAUABQABAAMAAAAeAAYABQABAAMAAAAeAAcABQABAAMAAAAfAAIABQABAAMAAAAfAAMABQABAAMAAAAfAAQABQABAAMAAAAfAAUABQABAAMAAAAfAAYABQABAAMAAAAfAAcABQABAAMAAAAgAAUABQABAAMAAAAgAAYABQABAAMAAAAgAAcABQABAAMAAAAhAAUABQACAAIAAAAhAAYABQACAAMAAAAhAAcABQACAAIAAAAkAAIABQAAAAIAAAAkAAMABQAAAAMAAAAkAAQABQAAAAIAAAAkAAUABQAAAAMAAAAkAAYABQAAAAIAAAAkAAcABQAAAAMAAAAlAAIABQABAAIAAAAlAAMABQABAAMAAAAlAAQABQABAAIAAAAlAAUABQABAAMAAAAlAAYABQABAAIAAAAlAAcABQABAAMAAAAmAAIABQABAAIAAAAmAAMABQABAAMAAAAmAAQABQABAAIAAAAmAAUABQABAAMAAAAmAAYABQABAAIAAAAmAAcABQABAAMAAAAnAAIABQABAAIAAAAnAAMABQABAAMAAAAnAAQABQABAAIAAAAnAAUABQABAAMAAAAnAAYABQABAAIAAAAnAAcABQABAAMAAAAoAAIABQABAAIAAAAoAAMABQABAAMAAAAoAAQABQABAAIAAAAoAAUABQABAAMAAAAoAAYABQABAAIAAAAoAAcABQABAAMAAAApAAIABQABAAIAAAApAAMABQABAAMAAAApAAQABQABAAIAAAApAAUABQABAAMAAAApAAYABQABAAIAAAApAAcABQABAAMAAAAqAAIABQABAAIAAAAqAAMABQABAAMAAAAqAAQABQABAAIAAAAqAAUABQABAAMAAAAqAAYABQABAAIAAAAqAAcABQABAAMAAAArAAIABQABAAIAAAArAAMABQABAAMAAAArAAQABQABAAIAAAArAAUABQABAAMAAAArAAYABQABAAIAAAArAAcABQABAAMAAAAsAAIABQABAAIAAAAsAAMABQABAAMAAAAsAAQABQABAAIAAAAsAAUABQABAAMAAAAsAAYABQABAAIAAAAsAAcABQABAAMAAAAtAAIABQABAAIAAAAtAAMABQABAAMAAAAtAAQABQABAAIAAAAtAAUABQABAAMAAAAtAAYABQABAAIAAAAtAAcABQABAAMAAAAuAAIABQABAAIAAAAuAAMABQABAAMAAAAuAAQABQABAAIAAAAuAAUABQABAAMAAAAuAAYABQABAAIAAAAuAAcABQABAAMAAAAvAAIABQABAAIAAAAvAAMABQABAAMAAAAvAAQABQABAAIAAAAvAAUABQABAAMAAAAvAAYABQABAAIAAAAvAAcABQABAAMAAAAwAAIABQABAAIAAAAwAAMABQABAAMAAAAwAAQABQABAAIAAAAwAAUABQABAAMAAAAwAAYABQABAAIAAAAwAAcABQABAAMAAAAxAAIABQABAAIAAAAxAAMABQABAAMAAAAxAAQABQABAAIAAAAxAAUABQABAAMAAAAxAAYABQABAAIAAAAxAAcABQABAAMAAAAyAAIABQABAAIAAAAyAAMABQABAAMAAAAyAAQABQABAAIAAAAyAAUABQABAAMAAAAyAAYABQABAAIAAAAyAAcABQABAAMAAAAzAAIABQABAAIAAAAzAAMABQABAAMAAAAzAAQABQABAAIAAAAzAAUABQABAAMAAAAzAAYABQABAAIAAAAzAAcABQABAAMAAAA0AAIABQABAAIAAAA0AAMABQABAAMAAAA0AAQABQABAAIAAAA0AAUABQABAAMAAAA0AAYABQABAAIAAAA0AAcABQABAAMAAAA1AAIABQABAAIAAAA1AAMABQABAAMAAAA1AAQABQABAAIAAAA1AAUABQABAAMAAAA1AAYABQABAAIAAAA1AAcABQABAAMAAAA2AAIABQABAAIAAAA2AAMABQABAAMAAAA2AAQABQABAAIAAAA2AAUABQABAAMAAAA2AAYABQABAAIAAAA2AAcABQABAAMAAAA3AAIABQABAAIAAAA3AAMABQABAAMAAAA3AAQABQABAAIAAAA3AAUABQABAAMAAAA3AAYABQABAAIAAAA3AAcABQABAAMAAAA4AAIABQABAAIAAAA4AAMABQABAAMAAAA4AAQABQABAAIAAAA4AAUABQABAAMAAAA4AAYABQABAAIAAAA4AAcABQABAAMAAAA5AAIABQABAAIAAAA5AAMABQABAAMAAAA5AAQABQABAAIAAAA5AAUABQABAAMAAAA5AAYABQABAAIAAAA5AAcABQABAAMAAAA6AAIABQABAAIAAAA6AAMABQABAAMAAAA6AAQABQABAAIAAAA6AAUABQABAAMAAAA6AAYABQABAAIAAAA6AAcABQABAAMAAAA7AAIABQABAAIAAAA7AAMABQABAAMAAAA7AAQABQABAAIAAAA7AAUABQABAAMAAAA7AAYABQABAAIAAAA7AAcABQABAAMAAAAlAAEABQABAAEAAAAmAAEABQABAAEAAAAnAAEABQABAAEAAAAoAAEABQABAAEAAAAoAAAABQAAAAkAAAAoAP//BQADAAEAAAApAP//BQABAAEAAAAqAP//BQABAAEAAAArAP//BQACAAEAAAArAAAABQACAAkAAAApAAAABQABAAkAAAAqAAAABQABAAkAAAApAAEABQABAAEAAAAqAAEABQABAAEAAAArAAEABQABAAIAAAAsAAEABQABAAIAAAAtAAEABQABAAIAAAAuAAEABQABAAIAAAAvAAEABQABAAIAAAAwAAEABQABAAIAAAAxAAEABQABAAIAAAAyAAEABQABAAIAAAAzAAEABQABAAIAAAA0AAEABQABAAIAAAA1AAEABQABAAIAAAA2AAEABQABAAIAAAA3AAEABQABAAIAAAA4AAEABQABAAIAAAA5AAEABQABAAIAAAA6AAEABQABAAIAAAA6AP7/BQABAAIAAAA6AP//BQABAAIAAAA6AAAABQABAAIAAAA=")
+tile_set = ExtResource("13_xpj4h")
+metadata/_edit_lock_ = true
+
+[node name="CeilingTileMapLayer" type="TileMapLayer" parent="Enviroments"]
+rotation = 3.1415927
+tile_map_data = PackedByteArray("AADp/wMABQAHAAMAAADo/wMABQABAAEAAADn/wMABQABAAEAAADm/wMABQABAAEAAADl/wMABQABAAEAAADk/wMABQABAAEAAADj/wMABQABAAEAAADi/wMABQABAAEAAADh/wMABQABAAEAAADg/wMABQABAAEAAADg/wIABQACAAkAAADg/wAABQAEAAEAAADg/wEABQACAAMAAADf/wAABQABAAEAAADe/wAABQABAAEAAADd/wAABQABAAEAAADc/wAABQADAAEAAADc/wEABQAAAAIAAADc/wIABQAAAAIAAADc/wMABQAAAAIAAADf/wIABQABAAMAAADf/wMABQABAAMAAADe/wIABQABAAMAAADe/wMABQABAAMAAADd/wIABQABAAMAAADd/wMABQABAAMAAADf/wEABQABAAIAAADe/wEABQABAAIAAADd/wEABQABAAIAAADc/wQABQAAAAMAAADc/wUABQAAAAIAAADc/wYABQAAAAMAAADc/wcABQAAAAIAAADc/wgABQAAAAIAAADc/wkABQAAAAMAAADp/wQABQACAAIAAADp/wUABQACAAMAAADp/wYABQACAAIAAADp/wcABQACAAMAAADp/wgABQACAAIAAADp/wkABQACAAMAAADd/wQABQABAAIAAADd/wUABQABAAIAAADd/wYABQABAAIAAADd/wcABQABAAIAAADd/wgABQABAAIAAADd/wkABQABAAIAAADe/wQABQABAAIAAADe/wUABQABAAIAAADe/wYABQABAAIAAADe/wcABQABAAIAAADe/wgABQABAAIAAADe/wkABQABAAIAAADf/wQABQABAAIAAADf/wUABQABAAIAAADf/wYABQABAAIAAADf/wcABQABAAIAAADf/wgABQABAAIAAADf/wkABQABAAIAAADg/wQABQABAAIAAADg/wUABQABAAIAAADg/wYABQABAAIAAADg/wcABQABAAIAAADg/wgABQABAAIAAADg/wkABQABAAIAAADh/wQABQABAAIAAADh/wUABQABAAIAAADh/wYABQABAAIAAADh/wcABQABAAIAAADh/wgABQABAAIAAADh/wkABQABAAIAAADi/wQABQABAAIAAADi/wUABQABAAIAAADi/wYABQABAAIAAADi/wcABQABAAIAAADi/wgABQABAAIAAADi/wkABQABAAIAAADj/wQABQABAAIAAADj/wUABQABAAIAAADj/wYABQABAAIAAADj/wcABQABAAIAAADj/wgABQABAAIAAADj/wkABQABAAIAAADk/wQABQABAAIAAADk/wUABQABAAIAAADk/wYABQABAAIAAADk/wcABQABAAIAAADk/wgABQABAAIAAADk/wkABQABAAIAAADl/wQABQABAAIAAADl/wUABQABAAIAAADl/wYABQABAAIAAADl/wcABQABAAIAAADl/wgABQABAAIAAADl/wkABQABAAIAAADm/wQABQABAAIAAADm/wUABQABAAIAAADm/wYABQABAAIAAADm/wcABQABAAIAAADm/wgABQABAAIAAADm/wkABQABAAIAAADn/wQABQABAAIAAADn/wUABQABAAIAAADn/wYABQABAAIAAADn/wcABQABAAIAAADn/wgABQABAAIAAADn/wkABQABAAIAAADo/wQABQABAAIAAADo/wUABQABAAIAAADo/wYABQABAAIAAADo/wcABQABAAIAAADo/wgABQABAAIAAADo/wkABQABAAIAAAA=")
+tile_set = ExtResource("13_xpj4h")
+metadata/_edit_lock_ = true
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Enviroments"]
+position = Vector2(0, 8)
+tile_map_data = PackedByteArray("AAA5AP7/BQAAAAEAAAA5AP//BQAAAAIAAAA5AAAABQAAAAkAAAA6AP7/BQABAAEAAAA7AP7/BQABAAEAAAA8AP7/BQAEAAEAAAA7AP//BQABAAIAAAA7AAAABQABAAIAAAA7AAIABQABAAIAAAA8AP//BQACAAIAAAA8AAAABQACAAMAAAA8AAEABQACAAIAAAA8AAIABQACAAMAAAA7AAEABQABAAMAAAA7AAMABQABAAMAAAA8AAMABQACAAIAAAA8AAQABQACAAMAAAA8AAUABQACAAIAAAA8AAYABQACAAIAAAA8AAcABQACAAMAAAA=")
+tile_set = ExtResource("13_xpj4h")
+metadata/_edit_lock_ = true
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="Enviroments"]
+position = Vector2(0, 24)
+rotation = 3.1415927
+tile_map_data = PackedByteArray("AADG/wQABQABAAEAAADF/wQABQABAAEAAADE/wQABQABAAEAAADH/wQABQAEAAEAAADH/wUABQACAAIAAADH/wYABQACAAMAAADH/wcABQACAAIAAADH/wgABQACAAMAAADG/wcABQABAAIAAADG/wgABQABAAMAAADG/wUABQABAAIAAADG/wYABQABAAMAAADF/wUABQABAAIAAADF/wYABQABAAMAAADE/wUABQABAAIAAADE/wYABQABAAMAAADE/wcABQABAAIAAADE/wgABQABAAMAAADF/wcABQABAAIAAADF/wgABQABAAMAAAA=")
+tile_set = ExtResource("13_xpj4h")
+
+[node name="SnowFlakes2" parent="Enviroments" instance=ExtResource("14_h8ebw")]
+material = SubResource("ShaderMaterial_p85l2")
+offset_left = 1399.0
+offset_top = -371.0
+offset_right = 3662.0
+offset_bottom = 706.0
+metadata/_edit_lock_ = true
+
+[node name="SnowFlakes" parent="Enviroments" instance=ExtResource("14_h8ebw")]
+material = SubResource("ShaderMaterial_3jobn")
+offset_left = -666.0
+offset_top = -357.0
+offset_right = 1597.0
+offset_bottom = 720.0
 metadata/_edit_lock_ = true
 
 [node name="TimedDoor" parent="." instance=ExtResource("15_xpj4h")]
@@ -292,24 +406,32 @@ position = Vector2(3344, -192)
 open_duration = 3.0
 
 [node name="Polygon2D" parent="TimedDoor" index="0"]
+visible = false
 position = Vector2(327.99994, 45)
 polygon = PackedVector2Array(-8, -85, -8, -24.69728, -8, 28, 0.2, 32, 8, 28, 8, -85)
 
 [node name="GameButton" parent="TimedDoor" index="2"]
-position = Vector2(-72, 40)
+position = Vector2(-142, 44)
+
+[node name="Timedoor" parent="TimedDoor" index="3"]
+modulate = Color(0.65882355, 0.7372549, 0.98039216, 1)
+material = SubResource("ShaderMaterial_xpj4h")
+position = Vector2(353, 15)
+scale = Vector2(1.5, 2)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TimedDoor"]
 position = Vector2(327.99994, 45)
-polygon = PackedVector2Array(-8, -85, -8, 28, 0.2, 32, 8, 28, 8, -85)
+polygon = PackedVector2Array(-8, -85, -8, -24.69728, -8, 28, 0.2, 32, 8, 28, 8, -85)
 
 [node name="Box" parent="." instance=ExtResource("16_q8jeo")]
-position = Vector2(3504, 36)
+position = Vector2(3503.9915, 33.430706)
 
 [node name="TimedDoor2" parent="." instance=ExtResource("15_xpj4h")]
 position = Vector2(3592, 0)
 open_duration = 3.0
 
 [node name="Polygon2D" parent="TimedDoor2" index="0"]
+visible = false
 position = Vector2(103.999954, -146)
 color = Color(0.9725912, 0.77223593, 0.15062097, 1)
 polygon = PackedVector2Array(-8, -86, -8, 28, 0.2, 32, 8, 28, 8, -86)
@@ -317,6 +439,12 @@ polygon = PackedVector2Array(-8, -86, -8, 28, 0.2, 32, 8, 28, 8, -86)
 [node name="GameButton" parent="TimedDoor2" index="2"]
 position = Vector2(0, 48)
 color = Color(0.972549, 0.77254903, 0.14901961, 1)
+
+[node name="Timedoor" parent="TimedDoor2" index="3"]
+modulate = Color(0.972549, 0.77254903, 0.14901961, 1)
+material = SubResource("ShaderMaterial_q8jeo")
+position = Vector2(76, -177)
+scale = Vector2(1.5, 2)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TimedDoor2"]
 position = Vector2(103.999954, -146)
@@ -329,18 +457,6 @@ offset_left = -288.0
 offset_top = 40.0
 offset_right = -248.0
 offset_bottom = 80.0
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 0
-offset_left = 3430.0
-offset_top = -342.0
-offset_right = 3944.0
-offset_bottom = -242.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
-text = "Rabbits dont have strength to push boxes
-"
-fit_content = true
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="TutorialText"]
 custom_minimum_size = Vector2(100, 100)

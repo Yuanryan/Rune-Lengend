@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqakcerromqfj"]
+
+[ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="1_kv700"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
+resource_local_to_scene = true
+shader = ExtResource("1_kv700")
+shader_parameter/spread = 1.5
+shader_parameter/size = 0.70000003255148
+shader_parameter/snow_color = Color(1, 1, 1, 1)
+shader_parameter/snow_transparency = 0.5000000474999999
+shader_parameter/speed = 0.30000001425
+shader_parameter/wind = -1.49999997625
+shader_parameter/num_of_layers = 15
+shader_parameter/layer_start = 5
+
+[node name="SnowFlakes" type="ColorRect"]
+material = SubResource("ShaderMaterial_jd0ia")
+offset_left = -845.0
+offset_top = -324.0
+offset_right = 1003.0
+offset_bottom = 657.0
