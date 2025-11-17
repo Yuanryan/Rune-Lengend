@@ -576,7 +576,7 @@ fire_rate = 0.35
 bullet_speed = 250.0
 
 [node name="Turret3" parent="GameObjects/TurretNodes" instance=ExtResource("14_t27xo")]
-position = Vector2(88, -32)
+position = Vector2(88, -24)
 rotation = 3.1415927
 scale = Vector2(1, -1)
 fire_rate = 0.7
