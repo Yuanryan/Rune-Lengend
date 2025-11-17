@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://4p88vcgqivcu"]
+[gd_scene load_steps=3 format=3 uid="uid://4p88vcgqivcu"]
 
 [ext_resource type="Script" uid="uid://dp1x8rqbyotio" path="res://Scripts/Level/Objects/box.gd" id="1_nyu6s"]
+[ext_resource type="Texture2D" uid="uid://c2tw1b2hvyaw5" path="res://Assets/environment/box.png" id="2_nyu6s"]
 
 [node name="Box" type="CharacterBody2D" groups=["Interactive"]]
 collision_layer = 9
@@ -16,3 +17,8 @@ polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
 unique_name_in_owner = true
 color = Color(0.60335153, 0.35153636, 0.18091404, 1)
 polygon = PackedVector2Array(-20, -20, -20, 20, 20, 20, 20, -20)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.536743e-07, 9.536743e-07)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_nyu6s")
