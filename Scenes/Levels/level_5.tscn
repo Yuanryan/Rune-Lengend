@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -10,16 +10,17 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_rw7sn"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
-[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="9_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="11_b7yer"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="13_20kd1"]
 [ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/environment/godray.gdshader" id="14_gqyih"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_b7yer"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="15_jd0ia"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_jd0ia"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
+[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
+[ext_resource type="PackedScene" uid="uid://c1p2o8o4q3upd" path="res://Scenes/LevelEdit/Objects/Interactive/button_platform.tscn" id="21_b7yer"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
@@ -79,7 +80,8 @@ shader_parameter/distortion = 0.0
 shader_parameter/heightOffset = 0.6000000285
 shader_parameter/offset = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhtsi"]
+resource_local_to_scene = true
 shader = ExtResource("19_27vqw")
 shader_parameter/spread = 1.5
 shader_parameter/size = 0.70000003255148
@@ -170,9 +172,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Turret" parent="GameObjects/Turret" index="5"]
 position = Vector2(-8, 17)
 scale = Vector2(1, 1)
-
-[node name="PlayerDummy" parent="GameObjects/Turret" instance=ExtResource("9_jd0ia")]
-position = Vector2(240, 305)
 
 [node name="Turret2" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(688, 384)
@@ -374,7 +373,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(208, -57.379944)
+position = Vector2(8, -89.065834)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -409,7 +408,7 @@ material = SubResource("ShaderMaterial_633d5")
 position = Vector2(135, -74.00001)
 scale = Vector2(1.3, 1.3)
 tile_map_data = PackedByteArray("AAD9//7/CAAMAAEAAAD9////CAAMAAIAAAD9/wAACAAMAAMAAAD9/wEACAAMAAQAAAD9/wIACAAMAAUAAAD9/wMACAAMAAYAAAD9/wQACAAMAAcAAAD1////CAAEAAQAAAD1/wEACAAEAAQAAAD1/wIACAAEAAUAAAAGAP7/CAAMAAEAABAGAP//CAAMAAIAABAGAAAACAAMAAMAABAGAAEACAAMAAQAABAGAAIACAAMAAUAABAGAAMACAAMAAYAABAGAAQACAAMAAcAABAGAAUACAAMAAgAABD2//7/CAAFAAMAAAD2////CAAFAAQAAAD2/wEACAAFAAQAAAD2/wIACAAFAAUAAAD2/wMACAAFAAYAAAD2/wQACAAFAAcAAAD2/wUACAAFAAgAAAD2//3/CAAFAAIAAAD2//z/CAAFAAEAAAD1/wMACAAEAAYAAAD1/wQACAAEAAcAAAD1/wUACAAEAAgAAAD1//z/CAAEAAEAAAD1//3/CAAEAAIAAAD1//7/CAAEAAMAAAD3/wUACAAGAAgAAAD0/wUACAADAAgAAAD1/wAACAAEAAUAAAD2/wAACAAFAAUAAAD9/wUACAAMAAgAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="GodRay" parent="Enviroments" instance=ExtResource("15_vdq4f")]
 material = SubResource("ShaderMaterial_rw7sn")
@@ -417,16 +416,17 @@ offset_left = -600.0
 offset_top = -310.0
 offset_right = 933.0
 offset_bottom = 609.0
+metadata/_edit_lock_ = true
 
 [node name="Bush" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(0, 24)
 tile_map_data = PackedByteArray("AAD4/wQACQAHAAAAABD4/wUACQAHAAEAABD3//3/CQAIAAEAAAD3//z/CQAIAAAAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="Bush2" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(-33, 33)
 tile_map_data = PackedByteArray("AAD4/wQACQAGAAIAAAD5/wQACQAHAAIAAAD3//z/CQAIAAMAAAD4//z/CQAJAAMAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="Bushes" type="TileMapLayer" parent="Enviroments"]
 visible = false
@@ -434,24 +434,24 @@ self_modulate = Color(0.8862616, 0.88626146, 0.8862615, 1)
 material = SubResource("ShaderMaterial_vdq4f")
 position = Vector2(0, 24)
 tile_map_data = PackedByteArray("AAAIAP3/DQAJAAMAAAAJAP3/DQAKAAMAAAAKAP3/DQALAAMAAAALAP3/DQAMAAMAAAAMAP3/DQANAAMAAAANAP3/DQAOAAMAAAAOAP3/DQAPAAMAAAAOAAUADQAVAAAAAAANAAUADQAUAAAAAAAMAAUADQATAAAAAAALAAUADQASAAAAAAD5/wYADQALAAIAAAD6/wUADQAMAAEAAAD6/wYADQAMAAIAAAD7/wUADQANAAEAAAD7/wYADQANAAIAAAD8/wUADQAOAAEAAAD8/wYADQAOAAIAAAD9/wUADQAPAAEAAAD9/wYADQAPAAIAAAD+/wUADQAQAAEAAAD+/wYADQAQAAIAAAD//wUADQARAAEAAAD//wYADQARAAIAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="Floor3" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(16, -24)
 tile_map_data = PackedByteArray("AAD6/wAABQAGAAIAAAD7/wAABQAHAAIAAAD5/wAABQAGAAIAAAD4/wAABQAGAAIAAAD3/wAABQAGAAIAAAD2/wAABQAGAAIAAAD1/wAABQAGAAIAAAD0/wAABQAGAAIAAADz/wAABQAGAAIAAAAEAAEABQAFAAAAAAAEAAIABQAFAAEAAAAFAAEABQAGAAAAAAAFAAIABQAGAAEAAAD5/wIABQAGAAIAAAD6/wIABQAGAAIAAAD7/wIABQAHAAIAAAD2/wIABQAFAAIAAAD3/wIABQAGAAIAAAD4/wIABQAGAAIAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 metadata/_edit_lock_ = true
 
 [node name="Floor1" type="TileMapLayer" parent="Enviroments"]
 tile_map_data = PackedByteArray("AAAOAPv/BQAGAAgAACANAPv/BQAGAAgAACAMAPv/BQAGAAgAACALAPv/BQAGAAgAACAKAPv/BQAGAAgAACAJAPv/BQAGAAgAACAIAPv/BQAGAAgAACALAPr/BQABAAIAAAAMAPr/BQABAAIAAAANAPr/BQABAAIAAAAOAPr/BQABAAIAAAAFAP7/BQAFAAIAAAAGAP7/BQAGAAIAAAAHAP7/BQAGAAIAAAAIAP7/BQAGAAIAAAAJAP7/BQAGAAIAAAAKAP7/BQAGAAIAAAALAP7/BQAGAAIAAAAMAP7/BQAGAAIAAAANAP7/BQAGAAIAAAAOAP7/BQAGAAIAAAAPAP7/BQAGAAIAAAAQAP7/BQAGAAIAAAARAP7/BQAGAAIAAAASAP7/BQAGAAIAAAATAP7/BQAGAAIAAAAUAP7/BQAGAAIAAAAIAAYABQABAAEAAAAJAAYABQABAAEAAAAKAAYABQABAAEAAAALAAYABQABAAEAAAAMAAYABQABAAEAAAANAAYABQABAAEAAAAOAAYABQABAAEAAAAPAAYABQABAAEAAAAHAAYABQAEAAYAAAAIAAUABgAAAAAAAAAJAAUABgAFAAAAAAAKAAUABQAAAAAAAAALAAUABQABAAAAAAAMAAUABQABAAAAAAANAAUABQABAAAAAAAPAAUABQADAAAAAAAOAAUABQADAAAAAAAGAPv/BQAGAAgAACAHAPv/BQAGAAgAACAIAPr/BQABAAIAAAAJAPr/BQABAAIAAAAKAPr/BQABAAIAAAAHAPr/BQABAAIAAAAFAPv/BQACAAEAADAFAPr/BQACAAUAADAGAPr/BQABAAIAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 metadata/_edit_lock_ = true
 
 [node name="Floor2" type="TileMapLayer" parent="Enviroments"]
 self_modulate = Color(0.8732984, 0.8732984, 0.8732984, 1)
 position = Vector2(-48, -40)
 tile_map_data = PackedByteArray("AAAAAAcABQACAAEAAAD//wcABQABAAEAAAD+/wcABQABAAEAAAD9/wcABQABAAEAAAD8/wcABQABAAEAAAD7/wcABQABAAEAAAD6/wcABQABAAEAAAD5/wcABQABAAEAAAD4/wcABQABAAEAAAD3/wcABQABAAEAAAD2/wcABQABAAEAAAD1/wcABQABAAEAAAD0/wcABQABAAEAAAD//wYABQABAAAAAAAAAAYABQACAAAAAAD+/wYABgAAAAAAAAD9/wYABgAFAAAAAAD8/wYABQABAAAAAAD7/wYABQABAAAAAAD6/wYABQAAAAAAAAD5/wYABgABAAAAAAD4/wYABgAEAAAAAAD3/wYABQADAAAAAAD2/wYABQACAAAAAAD1/wYABQABAAAAAAD0/wYABQAAAAAAAAD0/wgABQABAAIAAAD1/wgABQABAAIAAAD2/wgABQABAAIAAAD3/wgABQABAAIAAAD4/wgABQABAAIAAAD5/wgABQABAAIAAAD6/wgABQABAAIAAAD7/wgABQABAAIAAAD8/wgABQABAAIAAAD9/wgABQABAAIAAAD+/wgABQABAAIAAAD//wgABQABAAIAAAD0/wkABQABAAIAAAD0/woABQABAAIAAAD1/woABQABAAIAAAD2/woABQABAAIAAAD3/woABQABAAIAAAD4/woABQABAAIAAAD//woABQABAAIAAAD//wkABQABAAIAAAD+/wkABQABAAIAAAD9/wkABQABAAIAAAD8/wkABQABAAIAAAD7/wkABQABAAIAAAD6/wkABQABAAIAAAD5/wkABQABAAIAAAD4/wkABQABAAIAAAD3/wkABQABAAIAAAD2/wkABQABAAIAAAD1/wkABQABAAIAAAD5/woABQABAAIAAAD6/woABQABAAIAAAD7/woABQABAAIAAAD8/woABQABAAIAAAD9/woABQABAAIAAAD+/woABQABAAIAAAAAAAgABQACAAIAAAAAAAkABQACAAUAAAAAAAoABQACAAUAAAD//wQABQAFAAIAAAAAAAQABQAGAAIAAAABAAQABQAHAAIAAAADAAgABQAAAAIAAAADAAcABQAAAAEAAAAEAAcABQABAAEAAAAFAAcABQABAAEAAAAGAAcABQABAAEAAAAHAAcABQABAAEAAAAIAAcABQABAAEAAAADAAYABQAAAAAAAAAEAAYABgABAAAAAAAFAAYABgADAAAAAAAHAAYABQAAAAAAAAAIAAYABQABAAAAAAAGAAYABgAAAAAAAAADAAkABQAAAAIAAAADAAoABQAAAAIAAAAEAAgABQABAAIAAAAFAAgABQABAAIAAAAGAAgABQABAAIAAAAHAAgABQABAAIAAAAIAAgABQABAAIAAAAEAAkABQABAAIAAAAOAAkABQABAAIAAAANAAkABQABAAIAAAAMAAkABQABAAIAAAALAAkABQABAAIAAAAKAAkABQABAAIAAAAJAAkABQABAAIAAAAIAAkABQABAAIAAAAHAAkABQABAAIAAAAGAAkABQABAAIAAAAFAAkABQABAAIAAAAEAAoABQABAAIAAAAFAAoABQABAAIAAAAGAAoABQABAAIAAAAHAAoABQABAAIAAAAIAAoABQABAAIAAAAJAAoABQABAAIAAAAKAAoABQABAAIAAAALAAoABQABAAIAAAAMAAoABQABAAIAAAANAAoABQABAAIAAAAOAAoABQABAAIAAAAPAAoABQABAAIAAAAJAAcABQABAAEAAAAKAAcABQABAAEAAAALAAcABQABAAEAAAAMAAcABQABAAEAAAANAAcABQABAAEAAAAOAAcABQABAAEAAAAPAAcABQABAAEAAAAJAAgABQABAAIAAAAKAAgABQABAAIAAAALAAgABQABAAIAAAAMAAgABQABAAIAAAANAAgABQABAAIAAAAOAAgABQABAAIAAAAPAAgABQABAAIAAAAPAAkABQABAAIAAAAEAAUABQAFAAIAAAAFAAUABQAHAAIAAAAKAAYABQADAAAAAAAOAAYABQADAAAAAAAMAAYABQAAAAAAAAANAAYABQAAAAAAAAAJAAYABQACAAAAAAALAAYABgABAAAAAAD6////BQAHAAMAAAD6/wAABQACAAQAAAD5/wAABQABAAQAAAD4/wAABQABAAQAAAD5////BQAGAAMAAAD4////BQABAAEAAAD3/wAABQABAAQAAAD3////BQABAAEAAAD2////BQABAAEAAAD1////BQABAAEAAAD0////BQABAAEAAADz////BQABAAEAAAD2/wAABQABAAQAAAD1/wAABQABAAQAAAD0/wAABQABAAQAAADz/wAABQABAAQAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 metadata/_edit_lock_ = true
 
 [node name="Foreground" type="TileMapLayer" parent="Enviroments"]
@@ -459,15 +459,23 @@ self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
 position = Vector2(24, 19)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP7/CwACAAEAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAAGAP//CwACAAIAAAAHAP//CwADAAIAAAAGAP3/CwACAAMAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
-[node name="SnowFlakes" type="ColorRect" parent="Enviroments"]
-material = SubResource("ShaderMaterial_jd0ia")
-offset_left = -845.0
-offset_top = -324.0
-offset_right = 1003.0
-offset_bottom = 657.0
+[node name="SnowFlakes" parent="Enviroments" instance=ExtResource("19_jd0ia")]
+material = SubResource("ShaderMaterial_yhtsi")
 metadata/_edit_lock_ = true
+
+[node name="ButtonPlatform" parent="Enviroments" instance=ExtResource("21_b7yer")]
+position = Vector2(-185, -180)
+original_position = Vector2(-2, 1)
+moved_position = Vector2(425, -2)
+animation_speed = 0.5
+
+[node name="Polygon2D" parent="Enviroments/ButtonPlatform" index="0"]
+position = Vector2(-2, 1)
+
+[node name="GameButton" parent="Enviroments/ButtonPlatform" index="2"]
+position = Vector2(-295, 68)
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/Turret"]
@@ -486,3 +494,4 @@ metadata/_edit_lock_ = true
 [editable path="GameObjects/TimedDoor3"]
 [editable path="GameObjects/MovingPlatformPath"]
 [editable path="GameObjects/DamageArea"]
+[editable path="Enviroments/ButtonPlatform"]

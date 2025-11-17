@@ -105,9 +105,9 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
     # 直接設置指定檢查點相機的優先級（使用陣列索引）
     if target and target.phantom_camera:
         print("switch_to_checkpoint_camera: ", target.name)
-        PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D):
-            print(pcam.owner.name, " priority: ", pcam.priority, " visible: ", pcam.visible)
-        )
+        # PhantomCameraManager.get_phantom_camera_2ds().map(func(pcam: PhantomCamera2D):
+        #     print(pcam.owner.name, " priority: ", pcam.priority, " visible: ", pcam.visible)
+        # ) 
         var checkpoint_index = checkpoints.find(target)
         var priority_value = checkpoint_index + 11  # 索引從0開始，優先級從1開始
         target.phantom_camera.visible = true

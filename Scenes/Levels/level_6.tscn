@@ -14,8 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="10_qoxtb"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_qoxtb"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_2khew"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="14_vlj4u"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="14_xab48"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_a2hlh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
 resource_local_to_scene = true
@@ -556,7 +556,7 @@ self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
 position = Vector2(40, 0)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
-tile_set = ExtResource("14_vlj4u")
+tile_set = ExtResource("16_a2hlh")
 metadata/_edit_lock_ = true
 
 [editable path="BG/BackgroundSnowForest"]

@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_voi1r"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_vq762"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_4fles"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="12_oab8u"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="13_xpj4h"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="15_xpj4h"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="16_q8jeo"]
 
@@ -284,7 +284,7 @@ self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
 position = Vector2(40, 0)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
-tile_set = ExtResource("12_oab8u")
+tile_set = ExtResource("13_xpj4h")
 metadata/_edit_lock_ = true
 
 [node name="TimedDoor" parent="." instance=ExtResource("15_xpj4h")]
