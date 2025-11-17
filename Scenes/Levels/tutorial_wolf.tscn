@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=4 uid="uid://co1t4pi0rj21"]
+[gd_scene load_steps=23 format=4 uid="uid://bmitdc6hc6lp7"]
 
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="1_81stg"]
+[ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_kbrar"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="2_xt8m0"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_aiy5f"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_0c0kq"]
@@ -25,7 +26,14 @@ resource_local_to_scene = true
 shader = ExtResource("2_xt8m0")
 shader_parameter/blur_amount = 1.8000000855
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0bj5"]
+resource_local_to_scene = true
+
 [node name="Tutorial_wolf" type="Node2D"]
+script = ExtResource("1_kbrar")
+level_name = "Tutotial Wolf"
+max_total_actions = 20
+available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("1_81stg")]
@@ -129,10 +137,20 @@ position = Vector2(192, 102)
 scale = Vector2(1, 0.12209302)
 polygon = PackedVector2Array(0, 0, 0, 344, 400, 344, 400, 0)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land3"]
+position = Vector2(192, 102)
+scale = Vector2(1, 0.12209302)
+polygon = PackedVector2Array(0, 0, 0, 344, 400, 344, 400, 0)
+
 [node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("7_kbrar")]
 position = Vector2(976, -80)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]
+position = Vector2(-520.00006, -16)
+scale = Vector2(0.5158528, 0.23529412)
+polygon = PackedVector2Array(-656, 48, -656, 104, -655, 315, -88, 320, 128, 320, 128, 48)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land4"]
 position = Vector2(-520.00006, -16)
 scale = Vector2(0.5158528, 0.23529412)
 polygon = PackedVector2Array(-656, 48, -656, 104, -655, 315, -88, 320, 128, 320, 128, 48)
@@ -419,6 +437,9 @@ position = Vector2(3346, 162)
 position = Vector2(437.99994, -307)
 scale = Vector2(1, 2.7656243)
 polygon = PackedVector2Array(-8, -32, -8, 32, 8, 32, 8, -32, 0.031311035, -32.000015)
+
+[node name="Timedoor" parent="TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_o0bj5")
 
 [node name="DamageArea" parent="." instance=ExtResource("8_o0bj5")]
 position = Vector2(3003, 345)

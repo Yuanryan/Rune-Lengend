@@ -6,6 +6,7 @@ static var LEVEL_LISTS: Dictionary[String, Array] = {
 	"Tutorial": [
 		preload("uid://dg4aqqbs2gsyq"), # Tutorial Basic
 		preload("uid://dyev0ja3pu1j0"), # Tutorial Rabbit
+		preload("uid://bmitdc6hc6lp7"), # Tutorial Wolf
 	],
 	"Basic": [
 		preload("uid://bkcegcx75ii7n"), # Basic Level 1
@@ -19,6 +20,7 @@ static var LEVEL_LISTS: Dictionary[String, Array] = {
 static var TUTORIAL_LEVELS: Array[Resource] = [
 	preload("uid://dg4aqqbs2gsyq"), # Tutorial Basic
 	preload("uid://dyev0ja3pu1j0"), # Tutorial Rabbit
+	preload("uid://bmitdc6hc6lp7"), # Tutorial Wolf
 ]
 
 static var BASIC_LEVELS: Array[Resource] = [
