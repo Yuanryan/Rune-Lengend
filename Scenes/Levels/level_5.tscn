@@ -170,11 +170,9 @@ position = Vector2(-542, 71)
 bullet_speed = 250.0
 
 [node name="BaseSprite" parent="GameObjects/Turret" index="0"]
-visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="GunSprite" parent="GameObjects/Turret" index="2"]
-visible = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Turret" parent="GameObjects/Turret" index="5"]
@@ -184,12 +182,6 @@ scale = Vector2(1, 1)
 [node name="Turret2" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(688, 384)
 rotation = -3.1415925
-
-[node name="BaseSprite" parent="GameObjects/Turret2" index="0"]
-visible = false
-
-[node name="GunSprite" parent="GameObjects/Turret2" index="2"]
-visible = false
 
 [node name="Turret" parent="GameObjects/Turret2" index="5"]
 position = Vector2(43.000004, 28.999996)
@@ -390,7 +382,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(166.54558, -8)
+position = Vector2(8, -39.532196)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -407,7 +399,6 @@ points = PackedVector2Array(208, -96, 205.7539, -96, 203.05615, -96, 199.40625, 
 position = Vector2(-16, 608)
 
 [node name="ColorRect" parent="GameObjects/DamageArea" index="0"]
-visible = false
 offset_left = 24.0
 offset_right = 64.0
 

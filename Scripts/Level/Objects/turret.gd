@@ -61,7 +61,7 @@ func _fire_bullet() -> void:
     bullet.shoot(_fire_direction)
 
     # 將子彈添加到場景
-    owner.add_child(bullet)
+    owner.add_child.call_deferred(bullet)
     
     # 將子彈添加到 bullets 群組以便管理
     bullet.add_to_group("bullets")
