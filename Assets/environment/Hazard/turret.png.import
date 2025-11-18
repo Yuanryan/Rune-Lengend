@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2tw1b2hvyaw5"
-path="res://.godot/imported/box.png-d2d8e6d5f77eef3d90e1652c6f37de49.ctex"
+uid="uid://dte3xlfjrub41"
+path="res://.godot/imported/turret.png-9ef6607f39d252e7648595b92fe608bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/environment/box.png"
-dest_files=["res://.godot/imported/box.png-d2d8e6d5f77eef3d90e1652c6f37de49.ctex"]
+source_file="res://Assets/environment/Hazard/turret.png"
+dest_files=["res://.godot/imported/turret.png-9ef6607f39d252e7648595b92fe608bf.ctex"]
 
 [params]
 

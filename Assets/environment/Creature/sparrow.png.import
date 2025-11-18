@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://qt3nwh3qqr5v"
-path="res://.godot/imported/Timedoor.png-001adcd30781bb9cb5ae2d3718ddbdab.ctex"
+uid="uid://cvy48v0anvyt0"
+path="res://.godot/imported/sparrow.png-7268fb000166030d1f484723252e1095.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/environment/Timedoor.png"
-dest_files=["res://.godot/imported/Timedoor.png-001adcd30781bb9cb5ae2d3718ddbdab.ctex"]
+source_file="res://Assets/environment/Creature/sparrow.png"
+dest_files=["res://.godot/imported/sparrow.png-7268fb000166030d1f484723252e1095.ctex"]
 
 [params]
 

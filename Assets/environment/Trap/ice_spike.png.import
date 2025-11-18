@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dte3xlfjrub41"
-path="res://.godot/imported/turret.png-367c12c1eb00eb5c0f5aef9b0913cb5a.ctex"
+uid="uid://di0sr5r26ibns"
+path="res://.godot/imported/ice_spike.png-f301dda4b532690df0c6be66638f165e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/environment/turret.png"
-dest_files=["res://.godot/imported/turret.png-367c12c1eb00eb5c0f5aef9b0913cb5a.ctex"]
+source_file="res://Assets/environment/Trap/ice_spike.png"
+dest_files=["res://.godot/imported/ice_spike.png-f301dda4b532690df0c6be66638f165e.ctex"]
 
 [params]
 

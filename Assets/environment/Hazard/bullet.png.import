@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7p3uwmi2jtvr"
-path="res://.godot/imported/TimedoorButton.png-3ec57a417552bc72f17d4b3490adfd3e.ctex"
+uid="uid://d0fnh4p0jbnu4"
+path="res://.godot/imported/bullet.png-a63914796b543f63eb8c8ba7dd2b8a83.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/environment/TimedoorButton.png"
-dest_files=["res://.godot/imported/TimedoorButton.png-3ec57a417552bc72f17d4b3490adfd3e.ctex"]
+source_file="res://Assets/environment/Hazard/bullet.png"
+dest_files=["res://.godot/imported/bullet.png-a63914796b543f63eb8c8ba7dd2b8a83.ctex"]
 
 [params]
 

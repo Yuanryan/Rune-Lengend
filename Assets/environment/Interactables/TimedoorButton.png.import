@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk5jdnu7omwm8"
-path="res://.godot/imported/ice_eg.png-a5e47dde6e40cb60af000223ee52048a.ctex"
+uid="uid://b7p3uwmi2jtvr"
+path="res://.godot/imported/TimedoorButton.png-c6bc659f6a11fafd6244dc2a04963eb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/environment/ice_eg.png"
-dest_files=["res://.godot/imported/ice_eg.png-a5e47dde6e40cb60af000223ee52048a.ctex"]
+source_file="res://Assets/environment/Interactables/TimedoorButton.png"
+dest_files=["res://.godot/imported/TimedoorButton.png-c6bc659f6a11fafd6244dc2a04963eb2.ctex"]
 
 [params]
 

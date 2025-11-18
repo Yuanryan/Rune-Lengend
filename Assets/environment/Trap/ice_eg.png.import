@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://di0sr5r26ibns"
-path="res://.godot/imported/ice_spike.png-cff5fb66e52356747ddd4c2b9d34ef1a.ctex"
+uid="uid://dk5jdnu7omwm8"
+path="res://.godot/imported/ice_eg.png-56c22d1bbeea6c4bc8c463d11c239d64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/environment/ice_spike.png"
-dest_files=["res://.godot/imported/ice_spike.png-cff5fb66e52356747ddd4c2b9d34ef1a.ctex"]
+source_file="res://Assets/environment/Trap/ice_eg.png"
+dest_files=["res://.godot/imported/ice_eg.png-56c22d1bbeea6c4bc8c463d11c239d64.ctex"]
 
 [params]
 
