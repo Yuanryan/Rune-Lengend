@@ -16,7 +16,7 @@ script = ExtResource("1_gkjvs")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DamageArea"]
 position = Vector2(-11, -23)
-polygon = PackedVector2Array(23, 23, 35, 47, 11, 47)
+polygon = PackedVector2Array(23, 23, 28, 37, 33, 45, 32, 48, 23, 50, 14, 48, 13, 45, 18, 37)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

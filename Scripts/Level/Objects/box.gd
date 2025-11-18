@@ -1,10 +1,9 @@
 @icon("res://Assets/icons/box-solid-full.svg")
-@tool
 extends CharacterBody2D
 class_name Box
 
 
-@export_custom(PROPERTY_HINT_LINK, "") var size_scale : Vector2 = Vector2(1.0, 1.0) : set = set_size_scale
+var size_scale : Vector2 = Vector2(1.0, 1.0) : set = set_size_scale
 ## 推動力係數（相對於玩家速度）
 @export var push_force: float = 0.8  
 ## 摩擦力，讓箱子逐漸停下 
@@ -12,19 +11,25 @@ class_name Box
 
 @onready var polygon = %Polygon2D
 @onready var collision_polygon = %CollisionPolygon2D
+@onready var visible_on_screen : VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 
 var player_ref : Player = null
 var is_pushing: bool = false
 var push_direction: Vector2 = Vector2.ZERO
+var is_on_screen: bool = true
 
 func _ready():
     set_size_scale(size_scale)
     # 加入 Interactive 群組，讓按鈕能偵測到
     add_to_group("Interactive")
-
+    visible_on_screen.screen_entered.connect(func(): is_on_screen = true)
+    visible_on_screen.screen_exited.connect(func(): is_on_screen = false)
+    is_on_screen = visible_on_screen.is_on_screen()
 
 func _physics_process(delta: float) -> void:
     # 重力
+    if not is_on_screen:
+        return
     if not is_on_floor():
         velocity.y += get_gravity().y * delta
     
@@ -33,7 +38,6 @@ func _physics_process(delta: float) -> void:
     if player_ref == null:
         _apply_friction()
     move_and_slide()
-
 
 func _detect_player_push():
     """檢測玩家是否在推動箱子"""
@@ -48,6 +52,7 @@ func _detect_player_push():
             if collision.get_collider() == self:
                 player_still_colliding = true
                 break 
+
         if player_still_colliding and player_ref.animal_component.current_animal is Man:
             _apply_push_from_player(player_ref)
         else:
@@ -63,28 +68,33 @@ func _detect_player_push():
     for i in range(collision_count):
         var collision = get_slide_collision(i)
         var collider = collision.get_collider()
-        
+
         # 檢查是否是玩家
-        if collider is Player:
-            var player = collider as Player
-            var player_position = player.global_position
-            var box_position = global_position
+        if collider is not Player:
+            continue
+
+        var player = collider as Player
+        if not player.animal_component.current_animal is Man:
+            continue
             
-            # 計算推動方向
-            var push_vector = (box_position - player_position).normalized()
+        var player_position = player.global_position
+        var box_position = global_position
+        
+        # 計算推動方向
+        var push_vector = (box_position - player_position).normalized()
+        
+        # 檢查是否從側面推動（不是從上方或下方）
+        var push_from_side = abs(push_vector.y) < 0.5
+        
+        if push_from_side:
+            # 保存玩家引用
+            player_ref = player
+            is_pushing = true
+            push_direction = push_vector
             
-            # 檢查是否從側面推動（不是從上方或下方）
-            var push_from_side = abs(push_vector.y) < 0.5
-            
-            if push_from_side:
-                # 保存玩家引用
-                player_ref = player
-                is_pushing = true
-                push_direction = push_vector
-                
-                # 應用推動
-                _apply_push_from_player(player)
-                break
+            # 應用推動
+            _apply_push_from_player(player)
+            break
 
 func _apply_push_from_player(player: Player):
     """從玩家應用推動力"""

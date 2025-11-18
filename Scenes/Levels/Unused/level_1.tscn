@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=15 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_afv7b"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_k2mw1"]
+[ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="4_pbfb4"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_tjl6l"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_3628d"]
 [ext_resource type="Script" uid="uid://cs7mo4htw8l3t" path="res://Scripts/Level/Core/bordered_camera.gd" id="5_pbfb4"]
@@ -9,8 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="8_7hll7"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_fayjm"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_nojx8"]
-[ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="11_vvknj"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_ad63i"]
+[ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="12_ovt24"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
 resource_local_to_scene = true
@@ -24,6 +25,8 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_afv7b")
+level_name = "Level Test"
+available_animals = Array[int]([0, 1])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_k2mw1")]
@@ -32,6 +35,9 @@ position = Vector2(675, -12)
 [node name="Blur" parent="BackgroundSnowForest" index="5"]
 material = SubResource("ShaderMaterial_yjhgp")
 
+[node name="FallingIce" parent="BackgroundSnowForest" instance=ExtResource("4_pbfb4")]
+position = Vector2(-416, 164)
+
 [node name="GameObjects" type="Node2D" parent="."]
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("5_3628d")]
@@ -39,7 +45,7 @@ show_all_polygons_in_game = true
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(213, 256)
+position = Vector2(2, 266)
 
 [node name="StartingCamera" type="Node2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -91,11 +97,6 @@ polygon = PackedVector2Array(0, 256, 32, 296, 295.3371, 298.14087, 1016, 304, 11
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("10_nojx8")]
 position = Vector2(-200, 296)
 
-[node name="Box2" parent="GameObjects" instance=ExtResource("11_vvknj")]
-position = Vector2(312, 256)
-push_force = 100.0
-friction = 0.9
-
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(45.995, 104)
@@ -107,9 +108,23 @@ process_physics_priority = 300
 script = ExtResource("12_ad63i")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
+[node name="Land3" parent="GameObjects" instance=ExtResource("9_fayjm")]
+position = Vector2(90, -115)
+
+[node name="Polygon2D" parent="GameObjects/Land3" index="0"]
+position = Vector2(16, -64)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Land3"]
+position = Vector2(16, -64)
+polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+
+[node name="Box" parent="." instance=ExtResource("12_ovt24")]
+position = Vector2(184, 275.9925)
+
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/checkpoint"]
 [editable path="GameObjects/checkpoint2"]
 [editable path="GameObjects/Land"]
 [editable path="GameObjects/Land2"]
 [editable path="GameObjects/DamageArea"]
+[editable path="GameObjects/Land3"]

@@ -18,7 +18,6 @@ func _on_body_entered(body: Node2D) -> void:
     # 檢查是否為玩家
     if body is Player:
         var player = body as Player
-        print("玩家觸碰到傷害區域，玩家死亡")
         
         # 發出玩家死亡信號
         player_died.emit(player)

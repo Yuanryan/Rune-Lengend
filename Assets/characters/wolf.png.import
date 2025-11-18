@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dk2b8vhcnc78m"
-path="res://.godot/imported/rabbit_run.png-dec582223df81a6447bbfd3863514031.ctex"
+uid="uid://bxyv0nsyf80wo"
+path="res://.godot/imported/wolf.png-cc015ac2c039a1e9b7245471babc0c5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/characters/rabbit_run.png"
-dest_files=["res://.godot/imported/rabbit_run.png-dec582223df81a6447bbfd3863514031.ctex"]
+source_file="res://Assets/characters/wolf.png"
+dest_files=["res://.godot/imported/wolf.png-cc015ac2c039a1e9b7245471babc0c5f.ctex"]
 
 [params]
 

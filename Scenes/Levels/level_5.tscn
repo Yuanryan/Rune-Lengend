@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=31 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -11,19 +11,31 @@
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
 [ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="11_b7yer"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="13_20kd1"]
 [ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/environment/godray.gdshader" id="14_gqyih"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_b7yer"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="15_jd0ia"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="15_srugb"]
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_jd0ia"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
-[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="21_b7yer"]
+[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
 shader = ExtResource("4_jd0ia")
 shader_parameter/blur_amount = 1.8000000855
+
+[sub_resource type="Resource" id="Resource_b7yer"]
+script = ExtResource("7_jd0ia")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ijosb"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3pc84"]
+resource_local_to_scene = true
 
 [sub_resource type="Curve2D" id="Curve2D_3asqb"]
 resource_local_to_scene = true
@@ -75,7 +87,8 @@ shader_parameter/distortion = 0.0
 shader_parameter/heightOffset = 0.6000000285
 shader_parameter/offset = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhtsi"]
+resource_local_to_scene = true
 shader = ExtResource("19_27vqw")
 shader_parameter/spread = 1.5
 shader_parameter/size = 0.70000003255148
@@ -85,10 +98,6 @@ shader_parameter/speed = 0.30000001425
 shader_parameter/wind = -1.49999997625
 shader_parameter/num_of_layers = 15
 shader_parameter/layer_start = 5
-
-[sub_resource type="Environment" id="Environment_jd0ia"]
-glow_enabled = true
-glow_hdr_threshold = 0.0
 
 [node name="Level5" type="Node2D"]
 script = ExtResource("1_evokg")
@@ -160,9 +169,17 @@ metadata/_edit_use_anchors_ = true
 [node name="GunSprite" parent="GameObjects/Turret" index="2"]
 metadata/_edit_use_anchors_ = true
 
+[node name="Turret" parent="GameObjects/Turret" index="5"]
+position = Vector2(-8, 17)
+scale = Vector2(1, 1)
+
 [node name="Turret2" parent="GameObjects" instance=ExtResource("6_vdq4f")]
 position = Vector2(688, 384)
 rotation = -3.1415925
+
+[node name="Turret" parent="GameObjects/Turret2" index="5"]
+position = Vector2(43.000004, 28.999996)
+flip_v = true
 
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 
@@ -187,6 +204,7 @@ position = Vector2(-40, 192)
 position = Vector2(-16, 192)
 
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
+visible = false
 
 [node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("8_rw7sn")]
 
@@ -292,7 +310,6 @@ polygon = PackedVector2Array(1104, 211, 1108, 325, 1686, 327, 1665.7534, 255.999
 
 [node name="TimedDoor" parent="GameObjects" instance=ExtResource("9_27vqw")]
 position = Vector2(-280, 97)
-open_height = -120.0
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor" index="0"]
 position = Vector2(24, -65)
@@ -302,6 +319,9 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0, 32, 0, 32, 8, 28, 8, -84)
 [node name="GameButton" parent="GameObjects/TimedDoor" index="2"]
 position = Vector2(534, 174)
 
+[node name="Timedoor" parent="GameObjects/TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_jd0ia")
+
 [node name="@CollisionPolygon2D@26460" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
 position = Vector2(24, -65)
 rotation = -3.1415927
@@ -310,7 +330,6 @@ polygon = PackedVector2Array(-8, -84, -8, 28, 0, 32, 0, 32, 8, 28, 8, -84)
 [node name="TimedDoor2" parent="GameObjects" instance=ExtResource("9_27vqw")]
 position = Vector2(-584, 161)
 open_duration = 6.0
-open_height = 120.0
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor2" index="0"]
 position = Vector2(1032, -341)
@@ -324,13 +343,15 @@ wait_time = 14.0
 position = Vector2(155, -273)
 color = Color(0.8901961, 0.28627452, 0.31764707, 1)
 
+[node name="Timedoor" parent="GameObjects/TimedDoor2" index="3"]
+material = SubResource("ShaderMaterial_ijosb")
+
 [node name="@CollisionPolygon2D@26461" type="CollisionPolygon2D" parent="GameObjects/TimedDoor2"]
 position = Vector2(1032, -341)
 polygon = PackedVector2Array(-8, -84, -8, -33.58496, -8, 45, 0, 53, 0, 53, 8, 45, 8, -50.88794, 8, -84)
 
 [node name="TimedDoor3" parent="GameObjects" instance=ExtResource("9_27vqw")]
 position = Vector2(422, -234)
-open_height = 120.0
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor3" index="0"]
 position = Vector2(0, 2)
@@ -340,6 +361,9 @@ polygon = PackedVector2Array(-8, -32, -8, 97, 0, 105, 0, 105, 8, 97, 8, -32)
 [node name="GameButton" parent="GameObjects/TimedDoor3" index="2"]
 position = Vector2(-101, 267)
 color = Color(0.43529412, 0.7372549, 0.4, 1)
+
+[node name="Timedoor" parent="GameObjects/TimedDoor3" index="3"]
+material = SubResource("ShaderMaterial_3pc84")
 
 [node name="@CollisionPolygon2D@26462" type="CollisionPolygon2D" parent="GameObjects/TimedDoor3"]
 position = Vector2(0, 2)
@@ -352,7 +376,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(149.66927, -8)
+position = Vector2(8, -39.532196)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -369,7 +393,6 @@ points = PackedVector2Array(208, -96, 205.7539, -96, 203.05615, -96, 199.40625, 
 position = Vector2(-16, 608)
 
 [node name="ColorRect" parent="GameObjects/DamageArea" index="0"]
-visible = false
 offset_left = 24.0
 offset_right = 64.0
 
@@ -387,21 +410,25 @@ material = SubResource("ShaderMaterial_633d5")
 position = Vector2(135, -74.00001)
 scale = Vector2(1.3, 1.3)
 tile_map_data = PackedByteArray("AAD9//7/CAAMAAEAAAD9////CAAMAAIAAAD9/wAACAAMAAMAAAD9/wEACAAMAAQAAAD9/wIACAAMAAUAAAD9/wMACAAMAAYAAAD9/wQACAAMAAcAAAD1////CAAEAAQAAAD1/wEACAAEAAQAAAD1/wIACAAEAAUAAAAGAP7/CAAMAAEAABAGAP//CAAMAAIAABAGAAAACAAMAAMAABAGAAEACAAMAAQAABAGAAIACAAMAAUAABAGAAMACAAMAAYAABAGAAQACAAMAAcAABAGAAUACAAMAAgAABD2//7/CAAFAAMAAAD2////CAAFAAQAAAD2/wEACAAFAAQAAAD2/wIACAAFAAUAAAD2/wMACAAFAAYAAAD2/wQACAAFAAcAAAD2/wUACAAFAAgAAAD2//3/CAAFAAIAAAD2//z/CAAFAAEAAAD1/wMACAAEAAYAAAD1/wQACAAEAAcAAAD1/wUACAAEAAgAAAD1//z/CAAEAAEAAAD1//3/CAAEAAIAAAD1//7/CAAEAAMAAAD3/wUACAAGAAgAAAD0/wUACAADAAgAAAD1/wAACAAEAAUAAAD2/wAACAAFAAUAAAD9/wUACAAMAAgAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="GodRay" parent="Enviroments" instance=ExtResource("15_vdq4f")]
 material = SubResource("ShaderMaterial_rw7sn")
-offset_top = -324.0
+offset_left = -600.0
+offset_top = -310.0
+offset_right = 933.0
+offset_bottom = 609.0
+metadata/_edit_lock_ = true
 
 [node name="Bush" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(0, 24)
 tile_map_data = PackedByteArray("AAD4/wQACQAHAAAAABD4/wUACQAHAAEAABD3//3/CQAIAAEAAAD3//z/CQAIAAAAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="Bush2" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(-33, 33)
 tile_map_data = PackedByteArray("AAD4/wQACQAGAAIAAAD5/wQACQAHAAIAAAD3//z/CQAIAAMAAAD4//z/CQAJAAMAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="Bushes" type="TileMapLayer" parent="Enviroments"]
 visible = false
@@ -409,24 +436,24 @@ self_modulate = Color(0.8862616, 0.88626146, 0.8862615, 1)
 material = SubResource("ShaderMaterial_vdq4f")
 position = Vector2(0, 24)
 tile_map_data = PackedByteArray("AAAIAP3/DQAJAAMAAAAJAP3/DQAKAAMAAAAKAP3/DQALAAMAAAALAP3/DQAMAAMAAAAMAP3/DQANAAMAAAANAP3/DQAOAAMAAAAOAP3/DQAPAAMAAAAOAAUADQAVAAAAAAANAAUADQAUAAAAAAAMAAUADQATAAAAAAALAAUADQASAAAAAAD5/wYADQALAAIAAAD6/wUADQAMAAEAAAD6/wYADQAMAAIAAAD7/wUADQANAAEAAAD7/wYADQANAAIAAAD8/wUADQAOAAEAAAD8/wYADQAOAAIAAAD9/wUADQAPAAEAAAD9/wYADQAPAAIAAAD+/wUADQAQAAEAAAD+/wYADQAQAAIAAAD//wUADQARAAEAAAD//wYADQARAAIAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
 [node name="Floor3" type="TileMapLayer" parent="Enviroments"]
 position = Vector2(16, -24)
 tile_map_data = PackedByteArray("AAD6/wAABQAGAAIAAAD7/wAABQAHAAIAAAD5/wAABQAGAAIAAAD4/wAABQAGAAIAAAD3/wAABQAGAAIAAAD2/wAABQAGAAIAAAD1/wAABQAGAAIAAAD0/wAABQAGAAIAAADz/wAABQAGAAIAAAAEAAEABQAFAAAAAAAEAAIABQAFAAEAAAAFAAEABQAGAAAAAAAFAAIABQAGAAEAAAD5/wIABQAGAAIAAAD6/wIABQAGAAIAAAD7/wIABQAHAAIAAAD2/wIABQAFAAIAAAD3/wIABQAGAAIAAAD4/wIABQAGAAIAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 metadata/_edit_lock_ = true
 
 [node name="Floor1" type="TileMapLayer" parent="Enviroments"]
 tile_map_data = PackedByteArray("AAAOAPv/BQAGAAgAACANAPv/BQAGAAgAACAMAPv/BQAGAAgAACALAPv/BQAGAAgAACAKAPv/BQAGAAgAACAJAPv/BQAGAAgAACAIAPv/BQAGAAgAACALAPr/BQABAAIAAAAMAPr/BQABAAIAAAANAPr/BQABAAIAAAAOAPr/BQABAAIAAAAFAP7/BQAFAAIAAAAGAP7/BQAGAAIAAAAHAP7/BQAGAAIAAAAIAP7/BQAGAAIAAAAJAP7/BQAGAAIAAAAKAP7/BQAGAAIAAAALAP7/BQAGAAIAAAAMAP7/BQAGAAIAAAANAP7/BQAGAAIAAAAOAP7/BQAGAAIAAAAPAP7/BQAGAAIAAAAQAP7/BQAGAAIAAAARAP7/BQAGAAIAAAASAP7/BQAGAAIAAAATAP7/BQAGAAIAAAAUAP7/BQAGAAIAAAAIAAYABQABAAEAAAAJAAYABQABAAEAAAAKAAYABQABAAEAAAALAAYABQABAAEAAAAMAAYABQABAAEAAAANAAYABQABAAEAAAAOAAYABQABAAEAAAAPAAYABQABAAEAAAAHAAYABQAEAAYAAAAIAAUABgAAAAAAAAAJAAUABgAFAAAAAAAKAAUABQAAAAAAAAALAAUABQABAAAAAAAMAAUABQABAAAAAAANAAUABQABAAAAAAAPAAUABQADAAAAAAAOAAUABQADAAAAAAAGAPv/BQAGAAgAACAHAPv/BQAGAAgAACAIAPr/BQABAAIAAAAJAPr/BQABAAIAAAAKAPr/BQABAAIAAAAHAPr/BQABAAIAAAAFAPv/BQACAAEAADAFAPr/BQACAAUAADAGAPr/BQABAAIAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 metadata/_edit_lock_ = true
 
 [node name="Floor2" type="TileMapLayer" parent="Enviroments"]
 self_modulate = Color(0.8732984, 0.8732984, 0.8732984, 1)
 position = Vector2(-48, -40)
 tile_map_data = PackedByteArray("AAAAAAcABQACAAEAAAD//wcABQABAAEAAAD+/wcABQABAAEAAAD9/wcABQABAAEAAAD8/wcABQABAAEAAAD7/wcABQABAAEAAAD6/wcABQABAAEAAAD5/wcABQABAAEAAAD4/wcABQABAAEAAAD3/wcABQABAAEAAAD2/wcABQABAAEAAAD1/wcABQABAAEAAAD0/wcABQABAAEAAAD//wYABQABAAAAAAAAAAYABQACAAAAAAD+/wYABgAAAAAAAAD9/wYABgAFAAAAAAD8/wYABQABAAAAAAD7/wYABQABAAAAAAD6/wYABQAAAAAAAAD5/wYABgABAAAAAAD4/wYABgAEAAAAAAD3/wYABQADAAAAAAD2/wYABQACAAAAAAD1/wYABQABAAAAAAD0/wYABQAAAAAAAAD0/wgABQABAAIAAAD1/wgABQABAAIAAAD2/wgABQABAAIAAAD3/wgABQABAAIAAAD4/wgABQABAAIAAAD5/wgABQABAAIAAAD6/wgABQABAAIAAAD7/wgABQABAAIAAAD8/wgABQABAAIAAAD9/wgABQABAAIAAAD+/wgABQABAAIAAAD//wgABQABAAIAAAD0/wkABQABAAIAAAD0/woABQABAAIAAAD1/woABQABAAIAAAD2/woABQABAAIAAAD3/woABQABAAIAAAD4/woABQABAAIAAAD//woABQABAAIAAAD//wkABQABAAIAAAD+/wkABQABAAIAAAD9/wkABQABAAIAAAD8/wkABQABAAIAAAD7/wkABQABAAIAAAD6/wkABQABAAIAAAD5/wkABQABAAIAAAD4/wkABQABAAIAAAD3/wkABQABAAIAAAD2/wkABQABAAIAAAD1/wkABQABAAIAAAD5/woABQABAAIAAAD6/woABQABAAIAAAD7/woABQABAAIAAAD8/woABQABAAIAAAD9/woABQABAAIAAAD+/woABQABAAIAAAAAAAgABQACAAIAAAAAAAkABQACAAUAAAAAAAoABQACAAUAAAD//wQABQAFAAIAAAAAAAQABQAGAAIAAAABAAQABQAHAAIAAAADAAgABQAAAAIAAAADAAcABQAAAAEAAAAEAAcABQABAAEAAAAFAAcABQABAAEAAAAGAAcABQABAAEAAAAHAAcABQABAAEAAAAIAAcABQABAAEAAAADAAYABQAAAAAAAAAEAAYABgABAAAAAAAFAAYABgADAAAAAAAHAAYABQAAAAAAAAAIAAYABQABAAAAAAAGAAYABgAAAAAAAAADAAkABQAAAAIAAAADAAoABQAAAAIAAAAEAAgABQABAAIAAAAFAAgABQABAAIAAAAGAAgABQABAAIAAAAHAAgABQABAAIAAAAIAAgABQABAAIAAAAEAAkABQABAAIAAAAOAAkABQABAAIAAAANAAkABQABAAIAAAAMAAkABQABAAIAAAALAAkABQABAAIAAAAKAAkABQABAAIAAAAJAAkABQABAAIAAAAIAAkABQABAAIAAAAHAAkABQABAAIAAAAGAAkABQABAAIAAAAFAAkABQABAAIAAAAEAAoABQABAAIAAAAFAAoABQABAAIAAAAGAAoABQABAAIAAAAHAAoABQABAAIAAAAIAAoABQABAAIAAAAJAAoABQABAAIAAAAKAAoABQABAAIAAAALAAoABQABAAIAAAAMAAoABQABAAIAAAANAAoABQABAAIAAAAOAAoABQABAAIAAAAPAAoABQABAAIAAAAJAAcABQABAAEAAAAKAAcABQABAAEAAAALAAcABQABAAEAAAAMAAcABQABAAEAAAANAAcABQABAAEAAAAOAAcABQABAAEAAAAPAAcABQABAAEAAAAJAAgABQABAAIAAAAKAAgABQABAAIAAAALAAgABQABAAIAAAAMAAgABQABAAIAAAANAAgABQABAAIAAAAOAAgABQABAAIAAAAPAAgABQABAAIAAAAPAAkABQABAAIAAAAEAAUABQAFAAIAAAAFAAUABQAHAAIAAAAKAAYABQADAAAAAAAOAAYABQADAAAAAAAMAAYABQAAAAAAAAANAAYABQAAAAAAAAAJAAYABQACAAAAAAALAAYABgABAAAAAAD6////BQAHAAMAAAD6/wAABQACAAQAAAD5/wAABQABAAQAAAD4/wAABQABAAQAAAD5////BQAGAAMAAAD4////BQABAAEAAAD3/wAABQABAAQAAAD3////BQABAAEAAAD2////BQABAAEAAAD1////BQABAAEAAAD0////BQABAAEAAADz////BQABAAEAAAD2/wAABQABAAQAAAD1/wAABQABAAQAAAD0/wAABQABAAQAAADz/wAABQABAAQAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 metadata/_edit_lock_ = true
 
 [node name="Foreground" type="TileMapLayer" parent="Enviroments"]
@@ -434,27 +461,11 @@ self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
 position = Vector2(24, 19)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP7/CwACAAEAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAAGAP//CwACAAIAAAAHAP//CwADAAIAAAAGAP3/CwACAAMAAAA=")
-tile_set = ExtResource("13_20kd1")
+tile_set = ExtResource("16_jd0ia")
 
-[node name="SnowFlakes" type="ColorRect" parent="Enviroments"]
-material = SubResource("ShaderMaterial_jd0ia")
-offset_left = -845.0
-offset_top = -324.0
-offset_right = 1003.0
-offset_bottom = 657.0
+[node name="SnowFlakes" parent="Enviroments" instance=ExtResource("19_jd0ia")]
+material = SubResource("ShaderMaterial_yhtsi")
 metadata/_edit_lock_ = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviroments"]
-environment = SubResource("Environment_jd0ia")
-
-[node name="PlayerDummy" parent="." instance=ExtResource("21_b7yer")]
-visible = false
-position = Vector2(-331, 401)
-animal_type = 1
-rabbit_jump_type = 0
-
-[node name="Line2D" parent="PlayerDummy" index="0"]
-points = PackedVector2Array(0, 0, 3.5, -9.599999, 7, -18.8, 10.5, -27.599998, 14, -36, 17.5, -44, 21, -51.6, 24.5, -58.8, 28, -65.6, 31.5, -72, 35, -78, 38.5, -83.6, 42, -88.799995, 45.5, -93.6, 49, -98, 52.5, -102, 56, -105.6, 59.5, -108.799995, 63, -111.6, 66.5, -114, 70, -116, 73.5, -117.6, 77, -118.799995, 80.5, -119.6, 84, -120, 87.5, -120, 91, -119.6, 94.5, -118.799995, 98, -117.6, 101.5, -116, 105, -114, 108.5, -111.6, 112, -108.799995, 115.5, -105.6, 119, -102, 122.5, -98, 126, -93.6, 129.5, -88.799995, 133, -83.6, 136.5, -78, 140, -72, 143.5, -65.6, 147, -58.8, 150.5, -51.6, 154, -44, 157.5, -36, 161, -27.6, 164.5, -18.8, 168, -9.599999, 171.5, 0, 175, 10)
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/StartingCamera"]
@@ -474,4 +485,3 @@ points = PackedVector2Array(0, 0, 3.5, -9.599999, 7, -18.8, 10.5, -27.599998, 14
 [editable path="GameObjects/TimedDoor3"]
 [editable path="GameObjects/MovingPlatformPath"]
 [editable path="GameObjects/DamageArea"]
-[editable path="PlayerDummy"]

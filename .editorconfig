@@ -8,7 +8,7 @@ trim_trailing_whitespace = true
 
 # GDScript 檔案必須使用 Tab 縮排
 [*.gd]
-indent_style = tab
+indent_style = space
 indent_size = 4
 
 # 場景和資源檔案

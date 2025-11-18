@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://bo1nfi637rx1g"]
+[gd_resource type="TileSet" load_steps=19 format=3 uid="uid://btum3tehm7nf1"]
 
 [ext_resource type="Texture2D" uid="uid://brqlyrjjcevak" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tileset.png" id="1_7p76b"]
 [ext_resource type="Texture2D" uid="uid://d33run5cvqq7c" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/TileSets/tree03.png" id="1_gldv0"]

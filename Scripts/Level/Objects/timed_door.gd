@@ -11,13 +11,12 @@ signal door_closed
 @export_tool_button("Toggle Open/Close", "BackBufferCopy") var toggle_door = func(): if is_open or is_opening: close_door() else: open_door()
 ## 門開啟持續時間
 @export var open_duration: float = 3.0  
-## 門開啟的高度
-@export var open_height: float = 64.0  
-## 開關動畫速度
+## 消失/出現動畫速度
 @export var animation_speed: float = 2.0  
 
 @onready var button: GameButton = %GameButton
 @onready var timer: Timer = %DoorTimer
+@onready var door_sprite: Sprite2D = %Timedoor
 @onready var door_polygon: Polygon2D = %Polygon2D
 @onready var door_collision: CollisionPolygon2D = _find_door_collision()
 
@@ -33,6 +32,12 @@ func _ready() -> void:
         # 確保門的碰撞元件存在
         if door_collision == null:
             door_collision = _find_door_collision()
+        
+        # 確保初始狀態是可見的
+        if door_polygon:
+            door_polygon.modulate.a = 1.0
+        if door_collision:
+            door_collision.set_deferred("disabled", false)
         
         add_to_group("doors")
 
@@ -66,7 +71,7 @@ func _on_button_released() -> void:
         start_close_timer()
 
 func open_door() -> void:
-    """開啟門"""
+    """開啟門（消失）"""
     if is_open:
         return
     
@@ -76,16 +81,20 @@ func open_door() -> void:
     if timer.is_stopped() == false:
         timer.stop()
     
-    # 播放開啟動畫
+    # 播放消失動畫（淡出）
     var tween = create_tween()
-    tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, -open_height), 1.0 / animation_speed)
-    tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, -open_height), 1.0 / animation_speed)
+    if door_polygon:
+        tween.parallel().tween_property(door_polygon, "modulate:a", 0.0, 1.0 / animation_speed)
+        tween.parallel().tween_property(door_sprite, "modulate:a", 0.0, 1.0 / animation_speed)
     tween.tween_callback(_on_door_opened)
 
 func _on_door_opened() -> void:
-    """門開啟完成"""
+    """門開啟完成（消失）"""
     is_opening = false
     is_open = true
+    # 禁用碰撞
+    if door_collision:
+        door_collision.set_deferred("disabled", true)
     door_opened.emit()
 
 func start_close_timer() -> void:
@@ -99,20 +108,29 @@ func _on_timer_timeout() -> void:
         close_door()
 
 func close_door() -> void:
-    """關閉門"""
+    """關閉門（出現）"""
     if is_closing or not is_open:
         return
     
     is_closing = true
     
-    # 播放關閉動畫
+    # 確保從透明開始（如果還不是）
+    if door_polygon and door_polygon.modulate.a > 0.0:
+        door_polygon.modulate.a = 0.0
+    
+    # 啟用碰撞
+    if door_collision:
+        door_collision.set_deferred("disabled", false)
+    
+    # 播放出現動畫（淡入）
     var tween = create_tween()
-    tween.parallel().tween_property(door_polygon, "position", door_polygon.position + Vector2(0, open_height), 1.0 / animation_speed)
-    tween.parallel().tween_property(door_collision, "position", door_collision.position + Vector2(0, open_height), 1.0 / animation_speed)
+    if door_polygon:
+        tween.parallel().tween_property(door_polygon, "modulate:a", 1.0, 1.0 / animation_speed)
+        tween.parallel().tween_property(door_sprite, "modulate:a", 1.0, 1.0 / animation_speed)
     tween.tween_callback(_on_door_closed)
         
 func _on_door_closed() -> void:
-    """門關閉完成"""
+    """門關閉完成（出現）"""
     is_closing = false
     is_open = false
     door_closed.emit()
@@ -122,18 +140,22 @@ func get_door_state() -> bool:
     return is_open
 
 func force_open() -> void:
-    """強制開啟門"""
+    """強制開啟門（立即消失）"""
     if not is_open:
-        door_polygon.position += Vector2(0, -open_height)
-        door_collision.position += Vector2(0, -open_height)
+        if door_polygon:
+            door_polygon.modulate.a = 0.0
+        if door_collision:
+            door_collision.set_deferred("disabled", true)
         is_open = true
         door_opened.emit()
 
 func force_close() -> void:
-    """強制關閉門"""
+    """強制關閉門（立即出現）"""
     if is_open:
-        door_polygon.position += Vector2(0, open_height)
-        door_collision.position += Vector2(0, open_height)
+        if door_polygon:
+            door_polygon.modulate.a = 1.0
+        if door_collision:
+            door_collision.set_deferred("disabled", false)
         is_open = false
         door_closed.emit()
 
@@ -143,9 +165,6 @@ func set_open_duration(duration: float) -> void:
     if timer:
         timer.wait_time = duration
 
-func set_open_height(height: float) -> void:
-    """設置門開啟高度"""
-    open_height = height
 
 func reset_door() -> void:
     """重置門到初始狀態"""

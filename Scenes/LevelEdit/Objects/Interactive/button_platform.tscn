@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1p2o8o4q3upd"]
+
+[ext_resource type="Script" uid="uid://bldd566t8wmv8" path="res://Scripts/Level/Objects/button_platform.gd" id="1_y4tku"]
+[ext_resource type="PackedScene" uid="uid://bqxv8y7x8y7x8" path="res://Scenes/LevelEdit/Objects/Interactive/button.tscn" id="2_5dks1"]
+
+[node name="ButtonPlatform" type="StaticBody2D" groups=["Land"]]
+position = Vector2(-1, 0)
+collision_mask = 2
+script = ExtResource("1_y4tku")
+moved_position = Vector2(200, 0)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+color = Color(0.65882355, 0.7372549, 0.98039216, 1)
+polygon = PackedVector2Array(-31, -16, -31, 24, 33, 24, 33, -16)
+
+[node name="PlatformTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
+[node name="GameButton" parent="." instance=ExtResource("2_5dks1")]
+unique_name_in_owner = true
+position = Vector2(0, 40)

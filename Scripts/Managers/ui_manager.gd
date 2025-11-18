@@ -179,6 +179,12 @@ func _update_fullscreen_buttons() -> void:
     if in_game_ui and in_game_ui.has_method("update_fullscreen_button_text"):
         in_game_ui.update_fullscreen_button_text()
 
+# 啟動關卡重置過渡動畫
+func start_level_reset_transition() -> void:
+    """啟動關卡重置的過渡動畫（由 LevelManager 調用）"""
+    if in_game_ui and in_game_ui.has_method("reset_player"):
+        in_game_ui.reset_player()
+
 func _input(event: InputEvent) -> void:
     """處理輸入事件"""
     if event is InputEventKey and event.pressed:

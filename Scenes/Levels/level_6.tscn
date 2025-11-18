@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://c7au3pqv2hj36"]
+[gd_scene load_steps=24 format=4 uid="uid://c7au3pqv2hj36"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_xab48"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_a2hlh"]
@@ -10,26 +10,45 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="8_xab48"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_2gpgt"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_a2hlh"]
+[ext_resource type="PackedScene" uid="uid://crpfih71fyhk6" path="res://Scenes/LevelEdit/Tools/player_dummy.tscn" id="10_a2hlh"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="10_qoxtb"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_qoxtb"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="12_2khew"]
-[ext_resource type="TileSet" uid="uid://bo1nfi637rx1g" path="res://Resources/TileSets/snow_forest.tres" id="14_vlj4u"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="14_xab48"]
+[ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_a2hlh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
 resource_local_to_scene = true
 shader = ExtResource("4_2khew")
 shader_parameter/blur_amount = 1.8000000855
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a2hlh"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b574l"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2mii"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sd7yl"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b4gvl"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rv145"]
+resource_local_to_scene = true
+
 [node name="Level6" type="Node2D"]
 script = ExtResource("1_xab48")
 level_name = "Level Medium"
 max_total_actions = 20
 individual_action_limits = Dictionary[int, int]({
-0: 999,
-1: 999,
-2: 999,
-3: 999,
+0: 3,
+1: 6,
+2: 2,
+3: 4,
 4: 1
 })
 available_animals = Array[int]([0, 1])
@@ -55,10 +74,10 @@ scale = Vector2(1.3, 1.3)
 scale = Vector2(1.3, 1.3)
 
 [node name="ColorRect" parent="BG/BackgroundSnowForest" index="4"]
-offset_left = -935.99994
-offset_top = -467.99997
-offset_right = 504.00006
-offset_bottom = 252.00003
+offset_left = -943.0
+offset_top = -481.0
+offset_right = 497.0
+offset_bottom = 239.0
 scale = Vector2(1.3, 1.3)
 
 [node name="Blur" parent="BG/BackgroundSnowForest" index="5"]
@@ -83,10 +102,10 @@ scale = Vector2(1.3, 1.3)
 scale = Vector2(1.3, 1.3)
 
 [node name="ColorRect" parent="BG/BackgroundSnowForest2" index="4"]
-offset_left = -935.99994
-offset_top = -467.99997
-offset_right = 504.00006
-offset_bottom = 252.00003
+offset_left = -936.99994
+offset_top = -443.0
+offset_right = 503.00006
+offset_bottom = 277.0
 scale = Vector2(1.3, 1.3)
 
 [node name="Blur" parent="BG/BackgroundSnowForest2" index="5"]
@@ -95,7 +114,7 @@ position = Vector2(8, 0)
 scale = Vector2(1.3, 1.3)
 
 [node name="Box" parent="BG/BackgroundSnowForest2" instance=ExtResource("14_xab48")]
-position = Vector2(247, 61)
+position = Vector2(251, 64.94208)
 
 [node name="BackgroundSnowForest3" parent="BG" instance=ExtResource("3_a2hlh")]
 position = Vector2(-3576, 120)
@@ -146,6 +165,7 @@ position = Vector2(-48, 376)
 open_duration = 5.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoorNodes/TimedDoor2" index="0"]
+visible = false
 position = Vector2(551.99994, -243.99997)
 color = Color(0.6196804, 0.3633151, 0.14744577, 1)
 polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
@@ -154,15 +174,19 @@ polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
 position = Vector2(-24, -16)
 color = Color(0.61960787, 0.3647059, 0.14901961, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoorNodes/TimedDoor2"]
+[node name="Timedoor" parent="GameObjects/TimeDoorNodes/TimedDoor2" index="3"]
+material = SubResource("ShaderMaterial_a2hlh")
+position = Vector2(552, -248)
+
+[node name="@CollisionPolygon2D@61737" type="CollisionPolygon2D" parent="GameObjects/TimeDoorNodes/TimedDoor2"]
 position = Vector2(551.99994, -243.99997)
 polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
 
 [node name="TurretNodes" type="Node2D" parent="GameObjects"]
 
 [node name="Turret" parent="GameObjects/TurretNodes" instance=ExtResource("6_sd7yl")]
-position = Vector2(600, 368)
-rotation = -3.1415925
+position = Vector2(600, 344)
+scale = Vector2(-1, 1)
 
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 position = Vector2(-544, 0)
@@ -194,64 +218,87 @@ position = Vector2(632, 72)
 open_duration = 8.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor" index="0"]
+visible = false
 position = Vector2(-171.20001, -142.4)
 polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
 
 [node name="GameButton" parent="GameObjects/TimeDoors/TimedDoor" index="2"]
 position = Vector2(0, 80)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor"]
+[node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor" index="3"]
+material = SubResource("ShaderMaterial_b574l")
+position = Vector2(-168, -144)
+
+[node name="@CollisionPolygon2D@61738" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor"]
 position = Vector2(-171.20001, -142.4)
 polygon = PackedVector2Array(-8, -80, -8, 28, 0, 32, 0, 32, 8, 28, 8, -80)
 
 [node name="TimedDoor2" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-2202, 208)
-open_height = 110.0
 animation_speed = 10.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor2" index="0"]
 position = Vector2(311.99994, 20)
 polygon = PackedVector2Array(-8, -60, -8, 28, 0.2, 32, 8, 28, 8, -60)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor2"]
+[node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor2" index="3"]
+modulate = Color(0.65882355, 0.7372549, 0.98039216, 1)
+material = SubResource("ShaderMaterial_k2mii")
+position = Vector2(309, -1.9999962)
+scale = Vector2(2, 2)
+
+[node name="PlayerDummy" parent="GameObjects/TimeDoors/TimedDoor2" instance=ExtResource("10_a2hlh")]
+position = Vector2(385, 30)
+
+[node name="@CollisionPolygon2D@61739" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor2"]
 position = Vector2(311.99994, 20)
 polygon = PackedVector2Array(-8, -60, -8, 28, 0.2, 32, 8, 28, 8, -60)
 
 [node name="TimedDoor3" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-2258, 208)
 open_duration = 0.5
-open_height = 110.0
 animation_speed = 10.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor3" index="0"]
 position = Vector2(399.99994, 19)
 color = Color(0.6156863, 0.83137256, 0.2, 1)
-polygon = PackedVector2Array(-8, -59, -8, 28, 0.2, 32, 8, 28, 8, -59)
+polygon = PackedVector2Array(-8, -59, -8, 28, 8, 28, 8, -59)
 
 [node name="GameButton" parent="GameObjects/TimeDoors/TimedDoor3" index="2"]
 color = Color(0.61668175, 0.8297578, 0.20016304, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor3"]
+[node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor3" index="3"]
+modulate = Color(0.61668175, 0.8297578, 0.20016304, 1)
+material = SubResource("ShaderMaterial_sd7yl")
+position = Vector2(400.99997, 1.0000038)
+scale = Vector2(2, 2)
+
+[node name="@CollisionPolygon2D@61740" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor3"]
 position = Vector2(399.99994, 19)
-polygon = PackedVector2Array(-8, -59, -8, 28, 0.2, 32, 8, 28, 8, -59)
+polygon = PackedVector2Array(-8, -59, -8, 28, 8, 28, 8, -59)
 
 [node name="TimedDoor4" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-1272, 344)
-open_height = 140.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor4" index="0"]
+visible = false
 position = Vector2(122.999954, -168.00002)
 polygon = PackedVector2Array(-8, -95.999985, -8, 28, 0.2, 32, 8, 28, 8, -95.999985)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor4"]
+[node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor4" index="3"]
+material = SubResource("ShaderMaterial_b4gvl")
+position = Vector2(120.00004, -176)
+scale = Vector2(1.114437, 1.3435917)
+
+[node name="@CollisionPolygon2D@61741" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor4"]
 position = Vector2(122.999954, -168.00002)
 polygon = PackedVector2Array(-8, -95.999985, -8, 28, 0.2, 32, 8, 28, 8, -95.999985)
 
 [node name="TimedDoor5" parent="GameObjects/TimeDoors" instance=ExtResource("9_2gpgt")]
 position = Vector2(-1560, 248)
-open_height = 90.0
 
 [node name="Polygon2D" parent="GameObjects/TimeDoors/TimedDoor5" index="0"]
+visible = false
 position = Vector2(71.999954, 112)
 color = Color(0.6156863, 0.83137256, 0.2, 1)
 polygon = PackedVector2Array(-8, -56, -8, 28, 0.2, 32, 8, 28, 8, -56)
@@ -260,7 +307,12 @@ polygon = PackedVector2Array(-8, -56, -8, 28, 0.2, 32, 8, 28, 8, -56)
 position = Vector2(96, -48)
 color = Color(0.6156863, 0.83137256, 0.2, 1)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor5"]
+[node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor5" index="3"]
+material = SubResource("ShaderMaterial_rv145")
+position = Vector2(72.00006, 103.99999)
+scale = Vector2(0.9999936, 1.2499999)
+
+[node name="@CollisionPolygon2D@61742" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor5"]
 position = Vector2(71.999954, 112)
 polygon = PackedVector2Array(-8, -56, -8, 28, 0.2, 32, 8, 28, 8, -56)
 
@@ -271,11 +323,11 @@ position = Vector2(416, -75)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
 position = Vector2(8, -240)
-polygon = PackedVector2Array(8, 272, 40, 368, 338.6093, 368, 336, 475, 384, 475, 384, 272)
+polygon = PackedVector2Array(8, 272, 56, 411, 104, 411, 120, 363, 336, 363, 336, 475, 384, 475, 384, 272)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land"]
 position = Vector2(8, -240)
-polygon = PackedVector2Array(8, 272, 40, 368, 338.6093, 368, 336, 475, 384, 475, 384, 272)
+polygon = PackedVector2Array(8, 272, 56, 411, 104, 411, 120, 363, 336, 363, 336, 475, 384, 475, 384, 272)
 
 [node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("8_rv145")]
 position = Vector2(-776, 128)
@@ -336,10 +388,11 @@ position = Vector2(8, 264)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land7" index="0"]
 position = Vector2(8, -256)
+polygon = PackedVector2Array(0, 256, 0, 312, 384, 312, 384, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land7"]
 position = Vector2(8, -256)
-polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
+polygon = PackedVector2Array(0, 256, 0, 312, 384, 312, 384, 256)
 
 [node name="Land8" parent="GameObjects/LandNodes" instance=ExtResource("8_rv145")]
 position = Vector2(416, 128)
@@ -359,7 +412,7 @@ position = Vector2(-48, 80)
 position = Vector2(40, -240)
 polygon = PackedVector2Array(8, 256, 8, 296, 384, 296, 384, 256)
 
-[node name="@CollisionPolygon2D@53508" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land9"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land9"]
 position = Vector2(40, -240)
 polygon = PackedVector2Array(8, 256, 8, 296, 384, 296, 384, 256)
 
@@ -378,11 +431,11 @@ position = Vector2(424, -214)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land11" index="0"]
 position = Vector2(8, -256)
-polygon = PackedVector2Array(-88, 126, 0, 320, 335.39038, 320, 336, 438, 384, 438, 400, 126)
+polygon = PackedVector2Array(-88, 126, 16, 366, 48, 366, 80, 326, 336, 326, 336, 438, 384, 438, 400, 126)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land11"]
 position = Vector2(8, -256)
-polygon = PackedVector2Array(-88, 126, 0, 320, 335.39038, 320, 336, 438, 384, 438, 400, 126)
+polygon = PackedVector2Array(-88, 126, 16, 366, 48, 366, 80, 326, 336, 326, 336, 438, 384, 438, 400, 126)
 
 [node name="Land12" parent="GameObjects/LandNodes" instance=ExtResource("8_rv145")]
 position = Vector2(-2264, 232)
@@ -410,21 +463,21 @@ polygon = PackedVector2Array(0, 256, 0, 416, 880, 416, 880, 152, 512, 152, 512, 
 position = Vector2(-3184, -72)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land14" index="0"]
-polygon = PackedVector2Array(0, -24, 0, 320, 1272, 320, 1272, 496, 1512, 496, 1772.5732, 406.9433, 2064, 408, 2184, -24)
+polygon = PackedVector2Array(0, -24, 0, 320, 1272, 320, 1272, 496, 1512, 496, 1608, 408, 1984, 408, 2016, 456, 2048, 456, 2184, -24)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land14"]
 position = Vector2(0, -256)
-polygon = PackedVector2Array(0, -24, 0, 320, 1272, 320, 1272, 496, 1512, 496, 1772.5732, 406.9433, 2064, 408, 2184, -24)
+polygon = PackedVector2Array(0, -24, 0, 320, 1272, 320, 1272, 496, 1512, 496, 1608, 408, 1984, 408, 2016, 456, 2048, 456, 2184, -24)
 
 [node name="Land15" parent="GameObjects/LandNodes" instance=ExtResource("8_rv145")]
 position = Vector2(-1512, 208)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land15" index="0"]
-polygon = PackedVector2Array(0, 256, -48, 304, -48, 352, 56, 352, 56, 320, 344, 320, 344, 408, 384, 408, 384, 256)
+polygon = PackedVector2Array(0, 256, -48, 304, -48, 360, 56, 360, 56, 320, 344, 320, 344, 400, 384, 400, 384, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land15"]
 position = Vector2(0, -256)
-polygon = PackedVector2Array(0, 256, -48, 304, -48, 352, 56, 352, 56, 320, 344, 320, 344, 408, 384, 408, 384, 256)
+polygon = PackedVector2Array(0, 256, -48, 304, -48, 360, 56, 360, 56, 320, 344, 320, 344, 400, 384, 400, 384, 256)
 
 [node name="Checkpoints" type="Node2D" parent="GameObjects"]
 position = Vector2(152, 72)
@@ -438,6 +491,9 @@ zoom = Vector2(2.2, 2.2)
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("10_qoxtb")]
 position = Vector2(-1944, 152)
+
+[node name="CollisionShape2D" parent="GameObjects/Checkpoints/Checkpoint2" index="1"]
+visible = false
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint2" index="2"]
 position = Vector2(600, 0)
@@ -456,23 +512,24 @@ position = Vector2(480, -144)
 [node name="Boxes" type="Node2D" parent="GameObjects"]
 
 [node name="Box" parent="GameObjects/Boxes" instance=ExtResource("14_xab48")]
-position = Vector2(360, 240)
+position = Vector2(360, 243.71056)
+rotation = -0.012601602
 
 [node name="Box2" parent="GameObjects/Boxes" instance=ExtResource("14_xab48")]
-position = Vector2(152, 72)
+position = Vector2(152, 75.97566)
 
 [node name="Box3" parent="GameObjects/Boxes" instance=ExtResource("14_xab48")]
-position = Vector2(-2896, 208)
+position = Vector2(-2896, 212)
 
 [node name="Box4" parent="GameObjects/Boxes" instance=ExtResource("14_xab48")]
-position = Vector2(-2320, 104)
+position = Vector2(-2322, 107.97567)
 
 [node name="Box5" parent="GameObjects/Boxes" instance=ExtResource("14_xab48")]
-position = Vector2(-1384, 368)
+position = Vector2(-1384, 371.99994)
 
 [node name="Turret" parent="GameObjects/Boxes" instance=ExtResource("6_sd7yl")]
-position = Vector2(-735, 391)
-rotation = -3.1415927
+position = Vector2(-736, 368)
+scale = Vector2(-1, 1)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -524,7 +581,7 @@ self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
 position = Vector2(40, 0)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP3/CwACAAAAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
-tile_set = ExtResource("14_vlj4u")
+tile_set = ExtResource("16_a2hlh")
 metadata/_edit_lock_ = true
 
 [editable path="BG/BackgroundSnowForest"]
