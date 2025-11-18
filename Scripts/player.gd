@@ -179,14 +179,10 @@ func _start_next_action() -> void:
         
         # 檢查動作是否可以被執行
         if not _current_action.can_perform(self):
-            print("動作無法執行: ", _current_action.name, " - 跳過此動作")
-            _notify_ui_action_finished(_total_actions_executed)
-            _total_actions_executed += 1
+            print("動作無法執行: ", _current_action.name, " - 等待條件滿足")
+            # 將動作放回佇列前面，等待下一幀再次檢查
+            action_queue.push_front(_current_action)
             _current_action = null
-            
-            # 嘗試執行下一個動作
-            if action_queue.size() > 0:
-                _start_next_action()
             return
         
         # 發出動作開始信號，讓動物組件調整動作參數
@@ -218,7 +214,7 @@ func _check_all_actions_completed() -> void:
         _notify_ui_all_actions_finished()
 
 func interrupt_current_action() -> void:
-    """中斷當前動作並執行下一個（如果下一個動作可以執行的話）"""
+    """中斷當前動作並執行下一個（等待下一個動作可執行）"""
     if _current_action != null:
         # 檢查佇列中是否有下一個動作
         if action_queue.size() > 0:
@@ -229,8 +225,9 @@ func interrupt_current_action() -> void:
                 # 下一個動作可以執行，完成當前動作並開始下一個
                 _finish_current_action()
             else:
-                # 下一個動作無法執行，保持在當前動作
-                print("下一個動作無法執行: ", next_action.name, " - 保持在當前動作")
+                # 下一個動作無法執行，完成當前動作並等待下一個動作可執行
+                print("下一個動作無法執行: ", next_action.name, " - 完成當前動作並等待")
+                _finish_current_action()
         else:
             # 沒有下一個動作，完成當前動作
             _finish_current_action()
