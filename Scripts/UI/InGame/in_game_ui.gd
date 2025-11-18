@@ -169,27 +169,8 @@ func _on_transition_finished() -> void:
     pending_reset = false
 
 func _execute_level_reset() -> void:
-    """執行實際的關卡重置"""
-    # 停止玩家正在執行的動作
-    var player = GameManager.get_player()
-    if player:
-        player.interrupt_current_action()
-        player.is_executing_actions = false
-
-    # 解鎖隊列（如果被鎖定的話）
-    if action_queue:
-        action_queue.unlock_queue()
-        action_queue.clear_executing_action()
-
-    # 重置動作使用計數
-    if card_deck:
-        card_deck.reset_action_usage()
-
-    # 重置到規劃階段
-    GameManager.reset_to_planning()
-
-    # 重新載入關卡（LevelManager會自動保存和恢復動作佇列）
-    LevelManager.reload_level_from_last_checkpoint()
+    """執行實際的關卡重置（調用 LevelManager 的內部方法）"""
+    LevelManager._execute_level_reset()
 
 func _lock_player_control() -> void:
     """鎖定玩家控制"""

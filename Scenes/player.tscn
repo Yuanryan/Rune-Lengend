@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cviyl35yedewi"]
+[gd_scene load_steps=42 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://dwytjll2ncuon" path="res://Assets/characters/rabbit/rabbit.png" id="7_3smsa"]
 [ext_resource type="Texture2D" uid="uid://btd41gjbr18ud" path="res://Assets/characters/rabbit/rabbit_fall.png" id="8_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://br3rbm1wp2vnx" path="res://Assets/characters/rabbit/rabbit_jump.png" id="10_gymyn"]
+[ext_resource type="Script" uid="uid://bhd4nuiu23e7l" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_noise_emitter_2d.gd" id="12_ukyrk"]
+[ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="13_7dp3o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ek2"]
 
@@ -1623,6 +1625,14 @@ _data = {
 &"Move_Right": SubResource("Animation_f1ek2")
 }
 
+[sub_resource type="Resource" id="Resource_h4iuc"]
+script = ExtResource("13_7dp3o")
+amplitude = 30.0
+frequency = 2.0
+randomize_noise_seed = 1
+noise_seed = 712
+metadata/_custom_type_script = "uid://dimvdouy8g0sv"
+
 [node name="Player" type="CharacterBody2D" groups=["Interactive"]]
 collision_layer = 2
 collision_mask = 5
@@ -1654,3 +1664,11 @@ libraries = {
 &"Rabbit": SubResource("AnimationLibrary_pu2lt"),
 &"Wolf": SubResource("AnimationLibrary_ukyrk")
 }
+
+[node name="PhantomCameraNoiseEmitter2D" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("12_ukyrk")
+noise = SubResource("Resource_h4iuc")
+growth_time = 0.00013454283
+duration = 0.15
+metadata/_custom_type_script = "uid://bhd4nuiu23e7l"

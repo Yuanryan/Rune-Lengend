@@ -173,7 +173,6 @@ func reload_level_from_last_checkpoint() -> Level:
     
     if current_level:
         saved_checkpoint_index = current_level.get_current_checkpoint_index()
-        print("saved_checkpoint_index: ", saved_checkpoint_index)
         # 保存所有檢查點的 active 狀態
         for i in range(current_level.get_checkpoint_count()):
             var checkpoint = current_level.get_checkpoint_by_index(i)
@@ -249,3 +248,36 @@ func _restore_checkpoint_states(level: Level, checkpoint_states: Dictionary, cur
     if current_index >= 0:
         level.current_checkpoint_index = current_index
         level._switch_to_checkpoint_camera(level.get_checkpoint_by_index(current_index), false)
+
+# 重置關卡（從檢查點）
+func reset_level_from_checkpoint() -> void:
+    """重置關卡從最後檢查點，通過 UIManager 啟動過渡動畫"""
+    # 通過 UIManager 啟動過渡動畫，過渡動畫會自動調用實際的重置邏輯
+    UIManager.start_level_reset_transition()
+
+# 執行實際的關卡重置邏輯（由 InGameUI 在過渡動畫覆蓋螢幕時調用）
+func _execute_level_reset() -> void:
+    """執行實際的關卡重置邏輯，包含所有必要的狀態重置"""
+    # 停止玩家正在執行的動作
+    var player = GameManager.get_player()
+    if player:
+        player.interrupt_current_action()
+        player.is_executing_actions = false
+
+    # 重置 UI 狀態
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui:
+        # 解鎖隊列（如果被鎖定的話）
+        if in_game_ui.action_queue:
+            in_game_ui.action_queue.unlock_queue()
+            in_game_ui.action_queue.clear_executing_action()
+
+        # 重置動作使用計數
+        if in_game_ui.card_deck:
+            in_game_ui.card_deck.reset_action_usage()
+
+    # 重置到規劃階段
+    GameManager.reset_to_planning()
+
+    # 重新載入關卡（會自動保存和恢復動作佇列）
+    reload_level_from_last_checkpoint()

@@ -31,6 +31,7 @@ var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
 
 # 動物組件
 @onready var animal_component: AnimalComponent = %AnimalComponent
+@onready var noise_emitter: PhantomCameraNoiseEmitter2D = %PhantomCameraNoiseEmitter2D
 # 信號
 signal animal_switched(target_animal: Animal)
 signal action_started(action: Action)
@@ -289,7 +290,6 @@ func reset_to_starting_point() -> void:
 
 func die() -> void:
     """玩家死亡處理"""
-    print("玩家死亡")
     # 使用新的狀態系統
     GameManager.fail_execution()
     # 停止所有動作
@@ -298,7 +298,10 @@ func die() -> void:
         _current_action.interrupt(self)
         _current_action = null
     is_executing_actions = false
-    
+
+    noise_emitter.emit()
+    await get_tree().create_timer(noise_emitter.duration).timeout
+    LevelManager.reset_level_from_checkpoint()
     # 發出死亡信號
     player_died.emit()
     

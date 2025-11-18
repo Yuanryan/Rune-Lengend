@@ -130,36 +130,36 @@ metadata/_edit_lock_ = true
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("5_h8ebw")]
 
-[node name="StartingPoint" type="Marker2D" parent="GameObjects"]
-unique_name_in_owner = true
-position = Vector2(-416, 144)
-
 [node name="StartingCamera" parent="GameObjects" instance=ExtResource("6_bqdxl")]
 unique_name_in_owner = true
 position = Vector2(74, 100)
 zoom = Vector2(1.5, 1.5)
 
+[node name="StartingPoint" type="Marker2D" parent="GameObjects"]
+unique_name_in_owner = true
+position = Vector2(-416, 144)
+
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 position = Vector2(1184, 24)
 
 [node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(982, 1)
+position = Vector2(982, -2)
 rotation = -3.1415927
 
 [node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(1006, 1)
+position = Vector2(1006, -2)
 rotation = -3.1415927
 
 [node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(1030, 1)
+position = Vector2(1030, -2)
 rotation = -3.1415927
 
 [node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(1054, 1)
+position = Vector2(1054, -2)
 rotation = -3.1415927
 
 [node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
-position = Vector2(1078, 1)
+position = Vector2(1078, -2)
 rotation = 3.1415925
 
 [node name="Spike6" parent="GameObjects/SpikeNodes" instance=ExtResource("8_voi1r")]
@@ -250,7 +250,7 @@ position = Vector2(8, -248)
 polygon = PackedVector2Array(-1, 263, -2, 526, 336, 528, 342, 263)
 
 [node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("10_0w7cf")]
-position = Vector2(1152, 0)
+position = Vector2(1152, -3)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
 position = Vector2(48, -184)
@@ -295,7 +295,6 @@ polygon = PackedVector2Array(0, 256, 0, 456, 272, 456, 272, 256)
 position = Vector2(2120, 296)
 
 [node name="ColorRect" parent="GameObjects/DamageArea" index="0"]
-visible = false
 offset_left = 26.0
 offset_top = 4.0
 offset_right = 66.0

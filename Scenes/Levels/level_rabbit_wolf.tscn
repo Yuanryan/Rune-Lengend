@@ -365,7 +365,7 @@ position = Vector2(-2296, 424)
 
 [node name="CollisionPolygon2D" parent="GameObjects/damageAreas/DamageArea" index="1"]
 position = Vector2(-4, 9)
-polygon = PackedVector2Array(4, 4, 540, 4, 540, 36, 4, 44)
+polygon = PackedVector2Array(3, 0, 541, 2, 539, 44, 4, 44)
 
 [node name="DamageArea2" parent="GameObjects/damageAreas" instance=ExtResource("12_3bnw7")]
 position = Vector2(-2928, 336)

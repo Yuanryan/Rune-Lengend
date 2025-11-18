@@ -14,4 +14,5 @@ tween_resource = SubResource("Resource_knl5n")
 tween_on_load = false
 inactive_update_mode = 1
 draw_limits = true
+noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

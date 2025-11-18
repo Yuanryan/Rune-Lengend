@@ -70,7 +70,6 @@ func _detect_player_push():
         var collider = collision.get_collider()
 
         # 檢查是否是玩家
-        print("collider: ", collider)
         if collider is not Player:
             continue
 

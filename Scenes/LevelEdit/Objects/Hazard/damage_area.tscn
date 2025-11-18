@@ -8,6 +8,7 @@ collision_mask = 2
 script = ExtResource("1_damage_area")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(1, 0, 0, 0.3)

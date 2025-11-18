@@ -240,6 +240,7 @@ z_index = -2
 script = ExtResource("3_1q831")
 tween_resource = SubResource("Resource_41icc")
 draw_limits = true
+noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
