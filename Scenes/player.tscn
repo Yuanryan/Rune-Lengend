@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://cviyl35yedewi"]
+[gd_scene load_steps=45 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://br3rbm1wp2vnx" path="res://Assets/characters/rabbit/rabbit_jump.png" id="10_gymyn"]
 [ext_resource type="Script" uid="uid://bhd4nuiu23e7l" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_noise_emitter_2d.gd" id="12_ukyrk"]
 [ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="13_7dp3o"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_fd4e3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ek2"]
 
@@ -1630,6 +1631,14 @@ randomize_noise_seed = 1
 noise_seed = 712
 metadata/_custom_type_script = "uid://dimvdouy8g0sv"
 
+[sub_resource type="GDScript" id="GDScript_7dp3o"]
+script/source = "extends PhantomCamera2D
+"
+
+[sub_resource type="Resource" id="Resource_qqcod"]
+script = ExtResource("15_fd4e3")
+duration = 0.3
+
 [node name="Player" type="CharacterBody2D" groups=["Interactive"]]
 collision_layer = 2
 collision_mask = 5
@@ -1671,3 +1680,17 @@ noise = SubResource("Resource_h4iuc")
 growth_time = 0.00013454283
 duration = 0.15
 metadata/_custom_type_script = "uid://bhd4nuiu23e7l"
+
+[node name="PlayerCamera" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+unique_name_in_owner = true
+top_level = true
+script = SubResource("GDScript_7dp3o")
+priority = 100
+follow_mode = 2
+follow_target = NodePath("..")
+zoom = Vector2(3, 3)
+snap_to_pixel = true
+tween_resource = SubResource("Resource_qqcod")
+follow_damping = true
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

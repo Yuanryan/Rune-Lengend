@@ -56,6 +56,9 @@ func _ready() -> void:
     if not Engine.is_editor_hint():
         initialize_checkpoints()
         _initialize_camera_state()
+        # 監聽遊戲內狀態變化，用於在執行階段切換到玩家相機
+        if GameManager:
+            GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
 
 # 初始化檢查點陣列
@@ -115,6 +118,53 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
     else:
         print("switch_to_checkpoint_camera: no target")
         _activate_starting_camera()
+
+
+# 在執行階段切換到玩家相機，在規劃階段恢復關卡相機
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    match new_state:
+        GameManager.InGameState.EXECUTING:
+            _activate_player_camera()
+        GameManager.InGameState.PLANNING:
+            _restore_level_camera()
+
+
+func _activate_player_camera() -> void:
+    # 確保玩家與玩家相機存在
+    if not GameManager or not GameManager.has_player():
+        return
+    var player := GameManager.get_player()
+    if not player or not player.player_camera:
+        return
+
+    # 降低本關內其他 PhantomCamera 的優先級，避免搶奪控制權
+    for pcam in PhantomCameraManager.get_phantom_camera_2ds():
+        if self.is_ancestor_of(pcam) and pcam != player.player_camera:
+            pcam.priority = 0
+
+    # 提升玩家相機優先級並啟用
+    if get_current_checkpoint() and get_current_checkpoint().phantom_camera:
+        player.player_camera.set_limit_target(get_current_checkpoint().phantom_camera.border.get_path())
+    elif starting_camera:
+        player.player_camera.set_limit_target(starting_camera.border.get_path())
+    player.player_camera.visible = true
+    player.player_camera.priority = 100
+
+
+func _restore_level_camera() -> void:
+    # 規劃階段時恢復目前檢查點相機（若有），否則回到起始相機
+    var checkpoint := get_current_checkpoint()
+    if checkpoint and checkpoint.activate_camera and checkpoint.phantom_camera:
+        _switch_to_checkpoint_camera(checkpoint)
+    else:
+        _activate_starting_camera()
+
+    # 關閉玩家相機優先權，讓關卡相機接管
+    if GameManager.has_player():
+        var player := GameManager.get_player()
+        if player.player_camera:
+            player.player_camera.priority = 0
+            player.player_camera.visible = false
 
 
 # 啟動起始相機

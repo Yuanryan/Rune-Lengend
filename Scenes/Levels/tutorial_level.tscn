@@ -1,10 +1,9 @@
-[gd_scene load_steps=40 format=4 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=41 format=4 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_ot486"]
-[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="4_u4lmr"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_gwj07"]
+[ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="4_ot486"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="6_hj161"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="7_5pgco"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_w685s"]
@@ -16,20 +15,15 @@
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="13_w685s"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="14_w685s"]
 
-[sub_resource type="Resource" id="Resource_knl5n"]
-script = ExtResource("5_gwj07")
-transition = 4
-metadata/_custom_type_script = "uid://8umksf8e80fw"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gwj07"]
 resource_local_to_scene = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
 
-[sub_resource type="Resource" id="Resource_41icc"]
-script = ExtResource("5_gwj07")
-transition = 4
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwj07"]
+resource_local_to_scene = true
+size = Vector2(986, 482)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_41icc"]
 particles_animation = true
@@ -239,6 +233,18 @@ _data = {
 &"RESET": SubResource("Animation_a3k8k")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hj161"]
+resource_local_to_scene = true
+size = Vector2(1268, 418)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5pgco"]
+resource_local_to_scene = true
+size = Vector2(1092, 467)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w685s"]
+resource_local_to_scene = true
+size = Vector2(958, 503)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hp0rl"]
 shader = ExtResource("13_w685s")
 shader_parameter/speed = 1.0
@@ -316,20 +322,27 @@ offset_bottom = 833.0
 color = Color(0.3019608, 0.41568628, 0.60784316, 1)
 metadata/_edit_lock_ = true
 
-[node name="BackgroundLayer0" type="Sprite2D" parent="BG"]
-position = Vector2(216.00002, 200)
-scale = Vector2(1.2, 1.2)
-texture = ExtResource("3_ot486")
-metadata/_edit_lock_ = true
-
 [node name="BackgroundLayer1" type="Sprite2D" parent="BG"]
-position = Vector2(1920.0001, 208)
+visible = false
+position = Vector2(1421, 480)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_ot486")
 metadata/_edit_lock_ = true
 
 [node name="BackgroundLayer2" type="Sprite2D" parent="BG"]
+visible = false
 position = Vector2(3624, 216.00002)
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("3_ot486")
+metadata/_edit_lock_ = true
+
+[node name="Parallax2D" type="Parallax2D" parent="BG"]
+scroll_offset = Vector2(-1857, -212)
+repeat_size = Vector2(1705, 0)
+repeat_times = 3
+
+[node name="BackgroundLayer0" type="Sprite2D" parent="BG/Parallax2D"]
+position = Vector2(216.00002, 200)
 scale = Vector2(1.2, 1.2)
 texture = ExtResource("3_ot486")
 metadata/_edit_lock_ = true
@@ -344,20 +357,18 @@ metadata/_edit_lock_ = true
 unique_name_in_owner = true
 position = Vector2(-512, 352)
 
-[node name="StartingCamera" type="Node2D" parent="GameObjects/Essential"]
+[node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_ot486")]
 unique_name_in_owner = true
 position = Vector2(-136, 216)
-script = ExtResource("4_u4lmr")
-priority = 10
+priority_override = true
 zoom = Vector2(2, 2)
-tween_resource = SubResource("Resource_knl5n")
-tween_on_load = false
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Border" parent="GameObjects/Essential/StartingCamera/Placeholder" index="0"]
+position = Vector2(46, 73)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(3680, 216)
+position = Vector2(-136, 216)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 
@@ -557,10 +568,13 @@ position = Vector2(0, -0.6677152)
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 
-[node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="2"]
-position = Vector2(384, -160)
-zoom = Vector2(2, 2)
-tween_resource = SubResource("Resource_41icc")
+[node name="CheckpointCamera" parent="GameObjects/CheckpointNodes/Checkpoint" index="2"]
+position = Vector2(391, -81)
+zoom = Vector2(1.8, 1.8)
+
+[node name="Border" parent="GameObjects/CheckpointNodes/Checkpoint/CheckpointCamera/Placeholder" index="0"]
+position = Vector2(10, -3)
+shape = SubResource("RectangleShape2D_gwj07")
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -577,10 +591,13 @@ position = Vector2(1080, 376)
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 
-[node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
-position = Vector2(590, -140)
+[node name="CheckpointCamera" parent="GameObjects/CheckpointNodes/Checkpoint2" index="2"]
+position = Vector2(574, -107)
 zoom = Vector2(1.5, 1.5)
-tween_resource = SubResource("Resource_41icc")
+
+[node name="Border" parent="GameObjects/CheckpointNodes/Checkpoint2/CheckpointCamera/Placeholder" index="0"]
+position = Vector2(20, -7)
+shape = SubResource("RectangleShape2D_hj161")
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -597,11 +614,13 @@ position = Vector2(2264, 264)
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 
-[node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="2"]
-position = Vector2(506, -101)
-priority = 13
-zoom = Vector2(1.7, 1.7)
-tween_resource = SubResource("Resource_41icc")
+[node name="CheckpointCamera" parent="GameObjects/CheckpointNodes/Checkpoint3" index="2"]
+position = Vector2(498, -37)
+zoom = Vector2(1.8, 1.8)
+
+[node name="Border" parent="GameObjects/CheckpointNodes/Checkpoint3/CheckpointCamera/Placeholder" index="0"]
+position = Vector2(5, -6.5)
+shape = SubResource("RectangleShape2D_5pgco")
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -621,11 +640,13 @@ position = Vector2(0, 5)
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 
-[node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="2"]
-position = Vector2(416, -24)
-priority = 14
+[node name="CheckpointCamera" parent="GameObjects/CheckpointNodes/Checkpoint4" index="2"]
+position = Vector2(390, -85)
 zoom = Vector2(2, 2)
-tween_resource = SubResource("Resource_41icc")
+
+[node name="Border" parent="GameObjects/CheckpointNodes/Checkpoint4/CheckpointCamera/Placeholder" index="0"]
+position = Vector2(-12, -9.5)
+shape = SubResource("RectangleShape2D_w685s")
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -698,6 +719,14 @@ offset_right = 1597.0
 offset_bottom = 720.0
 metadata/_edit_lock_ = true
 
+[node name="Parallax2D" type="Parallax2D" parent="Environment"]
+follow_viewport = false
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Environment/Parallax2D"]
+modulate = Color(0.23753911, 0.23753914, 0.23753911, 1)
+tile_map_data = PackedByteArray("AAAEAAAACwAAAAEAAAAEAAEACwAAAAIAAAAFAP//CwABAAAAAAAFAAAACwABAAEAAAAFAAEACwABAAIAAAAFAAIACwABAAMAAAAFAAMACwABAAQAAAAFAAQACwABAAUAAAAFAAUACwABAAYAAAAFAAYACwABAAcAAAAGAP//CwACAAAAAAAGAAAACwACAAEAAAAGAAEACwACAAIAAAAGAAIACwACAAMAAAAGAAMACwACAAQAAAAGAAQACwACAAUAAAAGAAUACwACAAYAAAAGAAYACwACAAcAAAAHAAAACwADAAEAAAAHAAEACwADAAIAAAAHAAIACwADAAMAAAAHAAMACwADAAQAAAAHAAQACwADAAUAAAAHAAUACwADAAYAAAAHAAYACwADAAcAAAAIAAQACwAEAAUAAAA=")
+tile_set = ExtResource("12_8yvus")
+
 [node name="TutorialText" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -754,6 +783,7 @@ text = "↓ Action queue
 "
 fit_content = true
 
+[editable path="GameObjects/Essential/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land2"]
 [editable path="GameObjects/LandNodes/Land3"]

@@ -7,7 +7,7 @@ class_name Checkpoint
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "Activate Camera") var activate_camera: bool = true : set = set_activate_camera
 @export var tween_duration: float = 1.0
 
-@onready var phantom_camera: PhantomCamera2D = %PhantomCamera2D
+@onready var phantom_camera: CheckpointCamera = %CheckpointCamera
 @onready var anim_player: AnimationPlayer = %AnimationPlayer
 
 var id: int = 0
@@ -20,7 +20,7 @@ func _ready() -> void:
     if Engine.is_editor_hint():
         get_parent().set_editable_instance(self, true)
     if not phantom_camera:
-        phantom_camera = %PhantomCamera2D
+        phantom_camera = %CheckpointCamera
     add_to_group("checkpoints")
     body_entered.connect(_on_body_entered)
 
@@ -52,9 +52,6 @@ func is_camera_visible() -> bool:
         return phantom_camera.visible
     return false
 
-# 獲取 PhantomCamera2D 節點
-func get_phantom_camera() -> PhantomCamera2D:
-    return phantom_camera
 
 # 設定 activate_camera 並同時設定相機可見性
 func set_activate_camera(value: bool) -> void:
