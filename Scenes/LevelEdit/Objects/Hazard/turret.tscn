@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://btpopvnwbia8c"]
 
 [ext_resource type="Script" uid="uid://b6id6yl7eobqq" path="res://Scripts/Level/Objects/turret.gd" id="1_turret"]
-[ext_resource type="Texture2D" uid="uid://c04f7twjpout2" path="res://turret.png" id="2_201ka"]
+[ext_resource type="Texture2D" uid="uid://dte3xlfjrub41" path="res://Assets/environment/turret.png" id="2_201ka"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
-size = Vector2(101, 38)
+size = Vector2(80, 40)
 
 [node name="Turret" type="StaticBody2D"]
 collision_mask = 2
@@ -17,7 +17,7 @@ offset_bottom = 32.0
 color = Color(0, 0.6, 0.69803923, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(34.5, 13)
+position = Vector2(40, 12)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="GunSprite" type="ColorRect" parent="."]
