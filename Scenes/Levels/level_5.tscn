@@ -179,14 +179,6 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(-8, 17)
 scale = Vector2(1, 1)
 
-[node name="Turret2" parent="GameObjects" instance=ExtResource("6_vdq4f")]
-position = Vector2(688, 384)
-rotation = -3.1415925
-
-[node name="Turret" parent="GameObjects/Turret2" index="5"]
-position = Vector2(43.000004, 28.999996)
-flip_v = true
-
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 
 [node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("7_633d5")]
@@ -382,7 +374,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(8, -39.532196)
+position = Vector2(33.004177, -96)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
@@ -407,6 +399,11 @@ polygon = PackedVector2Array(10, 4, 184, 4, 184, 46, 10, 44)
 
 [node name="EndingPoint" parent="GameObjects" instance=ExtResource("15_jd0ia")]
 position = Vector2(518, -154)
+
+[node name="Turret2" parent="GameObjects" instance=ExtResource("6_vdq4f")]
+position = Vector2(616, 360)
+rotation = 3.1415925
+scale = Vector2(1, -1)
 
 [node name="Enviroments" type="Node2D" parent="."]
 
@@ -475,7 +472,6 @@ metadata/_edit_lock_ = true
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/Turret"]
-[editable path="GameObjects/Turret2"]
 [editable path="GameObjects/LandNodes/Land3"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land4"]
