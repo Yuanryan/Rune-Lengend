@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=4 uid="uid://co1t4pi0rj21"]
+[gd_scene load_steps=20 format=4 uid="uid://co1t4pi0rj21"]
 
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="1_81stg"]
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_kbrar"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="2_xt8m0"]
 [ext_resource type="Texture2D" uid="uid://bsx82j3jqv27w" path="res://Assets/environment/Pixel Art Snowy Forest/Pixel Art Snowy Forest/PNG/Backgrounds/background layer0.png" id="3_aiy5f"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="4_0c0kq"]
-[ext_resource type="Script" uid="uid://11iqfqnk5s16" path="res://Scripts/Level/Objects/falling_ice.gd" id="4_nwe32"]
 [ext_resource type="PackedScene" uid="uid://d0lort7bxt8pj" path="res://Scenes/LevelEdit/Tools/starting_camera.tscn" id="5_ndljw"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="6_nwe32"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="7_kbrar"]
@@ -29,9 +28,9 @@ resource_local_to_scene = true
 
 [node name="Tutorial_wolf" type="Node2D"]
 script = ExtResource("1_kbrar")
-level_name = "Tutotial Wolf"
+level_name = "Tutorial Wolf"
 max_total_actions = 20
-available_animals = Array[int]([0, 1])
+available_animals = Array[int]([0, 2])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("1_81stg")]
@@ -101,7 +100,6 @@ texture = ExtResource("3_aiy5f")
 metadata/_edit_lock_ = true
 
 [node name="GameObjects" type="Node2D" parent="."]
-script = ExtResource("4_nwe32")
 
 [node name="LandEditTool" parent="GameObjects" instance=ExtResource("4_0c0kq")]
 show_all_polygons_in_game = true
@@ -392,9 +390,6 @@ position = Vector2(625, 199)
 
 [node name="Checkpoint3" parent="GameObjects/Checkpoints" instance=ExtResource("9_14fws")]
 position = Vector2(1824, 101)
-
-[node name="AnimationPlayer" parent="GameObjects/Checkpoints/Checkpoint3" index="4"]
-root_node = NodePath("../../Checkpoint3")
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
