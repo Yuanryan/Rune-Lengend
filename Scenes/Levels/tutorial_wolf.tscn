@@ -382,19 +382,32 @@ position = Vector2(1096, 24)
 [node name="Checkpoint" parent="GameObjects/Checkpoints" instance=ExtResource("9_14fws")]
 position = Vector2(-476, 107)
 
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint" index="2"]
+position = Vector2(548, -59)
+zoom = Vector2(1.5, 1.5)
+
 [node name="EndingPoint" parent="GameObjects/Checkpoints" instance=ExtResource("10_5ogeo")]
 position = Vector2(2734, -112)
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("9_14fws")]
 position = Vector2(625, 199)
 
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint2" index="2"]
+position = Vector2(599, -103)
+zoom = Vector2(1.4, 1.4)
+
 [node name="Checkpoint3" parent="GameObjects/Checkpoints" instance=ExtResource("9_14fws")]
 position = Vector2(1824, 101)
 
+[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint3" index="2"]
+position = Vector2(440, -109)
+priority_override = true
+zoom = Vector2(1.7, 1.7)
+
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(74, 100)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(3360, 16)
+zoom = Vector2(1.7, 1.7)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -407,7 +420,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 position = Vector2(3464, 16)
 
 [node name="Turret" parent="GameObjects" instance=ExtResource("15_14fws")]
-position = Vector2(52, 129)
+position = Vector2(56, 136)
 
 [node name="Falling Ices" type="Node2D" parent="GameObjects"]
 
