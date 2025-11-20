@@ -359,16 +359,16 @@ position = Vector2(-512, 352)
 
 [node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_ot486")]
 unique_name_in_owner = true
-position = Vector2(-136, 216)
+position = Vector2(-141, 200)
 priority_override = true
 zoom = Vector2(2, 2)
 
 [node name="Border" parent="GameObjects/Essential/StartingCamera/Placeholder" index="0"]
-position = Vector2(46, 73)
+position = Vector2(46, 65.6875)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-136, 216)
+position = Vector2(-141, 200)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 

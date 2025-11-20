@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://dyev0ja3pu1j0"]
+[gd_scene load_steps=26 format=4 uid="uid://dyev0ja3pu1j0"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
@@ -22,6 +22,18 @@
 resource_local_to_scene = true
 shader = ExtResource("4_q8jeo")
 shader_parameter/blur_amount = 1.8000000855
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h8ebw"]
+resource_local_to_scene = true
+size = Vector2(1920, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqdxl"]
+resource_local_to_scene = true
+size = Vector2(1920, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p85l2"]
+resource_local_to_scene = true
+size = Vector2(1920, 1080)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p85l2"]
 resource_local_to_scene = true
@@ -310,31 +322,27 @@ position = Vector2(1096, 24)
 [node name="Checkpoint1" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
 position = Vector2(-592, 0)
 
-[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint1" index="2"]
-position = Vector2(496, -32)
-zoom = Vector2(1.5, 1.5)
+[node name="Border" parent="GameObjects/Checkpoints/Checkpoint1/CheckpointCamera/Placeholder" index="0"]
+shape = SubResource("RectangleShape2D_h8ebw")
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
 position = Vector2(520, -88)
 
-[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint2" index="2"]
-position = Vector2(520, 16)
-zoom = Vector2(1.5, 1.5)
+[node name="Border" parent="GameObjects/Checkpoints/Checkpoint2/CheckpointCamera/Placeholder" index="0"]
+shape = SubResource("RectangleShape2D_bqdxl")
 
 [node name="Checkpoint3" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
 position = Vector2(1576, -80)
 
-[node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint3" index="2"]
-position = Vector2(528, -8)
-zoom = Vector2(1.6, 1.6)
+[node name="Border" parent="GameObjects/Checkpoints/Checkpoint3/CheckpointCamera/Placeholder" index="0"]
+shape = SubResource("RectangleShape2D_p85l2")
 
 [node name="EndingPoint" parent="GameObjects/Checkpoints" instance=ExtResource("12_4fles")]
 position = Vector2(2656, -168)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(74, 100)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(1565, 24)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -479,6 +487,7 @@ text = "Transform into rabbit to use super jump"
 fit_content = true
 
 [editable path="BackgroundSnowForest"]
+[editable path="GameObjects/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land2"]
 [editable path="GameObjects/LandNodes/Land3"]
