@@ -6,7 +6,7 @@ static var LEVEL_LISTS: Dictionary[String, Array] = {
 	"Tutorial": [
 		preload("uid://dg4aqqbs2gsyq"), # Tutorial Basic
 		preload("uid://dyev0ja3pu1j0"), # Tutorial Rabbit
-		# preload("uid://co1t4pi0rj21"), # Tutorial Wolf
+		preload("uid://co1t4pi0rj21"), # Tutorial Wolf
 	],
 	"Basic": [
 		preload("uid://bkcegcx75ii7n"), # Basic Level 1
