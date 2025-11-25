@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dsq2p8lnac1qg"]
+[gd_scene load_steps=21 format=3 uid="uid://dsq2p8lnac1qg"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_afv7b"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_k2mw1"]
@@ -9,9 +9,12 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_31phq"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="8_7hll7"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_fayjm"]
+[ext_resource type="Texture2D" path="res://Assets/environment/check_point_idle.png" id="9_nq274"]
+[ext_resource type="Script" path="res://Scripts/Level/Core/checkpoint_camera.gd" id="10_lx43u"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_nojx8"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_ad63i"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="12_ovt24"]
+[ext_resource type="PackedScene" uid="uid://cop2vvwj8rh04" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="15_ra1cy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
 resource_local_to_scene = true
@@ -22,6 +25,19 @@ shader_parameter/blur_amount = 1.8000000855
 script = ExtResource("7_31phq")
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
+
+[sub_resource type="Resource" id="Resource_41icc"]
+script = ExtResource("7_31phq")
+duration = 0.5
+transition = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j2g7d"]
+resource_local_to_scene = true
+size = Vector2(1920, 1080)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgr0l"]
+resource_local_to_scene = true
+size = Vector2(1920, 1080)
 
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_afv7b")
@@ -59,18 +75,52 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 [node name="checkpoint" parent="GameObjects" instance=ExtResource("8_7hll7")]
 position = Vector2(472, 224)
 
-[node name="PhantomCamera2D" parent="GameObjects/checkpoint" index="2"]
-position = Vector2(160, -96)
-zoom = Vector2(1.6, 1.6)
+[node name="Sprite2D" parent="GameObjects/checkpoint" index="0"]
+texture = ExtResource("9_nq274")
+
+[node name="CheckpointCamera" parent="GameObjects/checkpoint" index="2"]
+unique_name_in_owner = true
+z_index = -2
+position = Vector2(1061, 0)
+script = ExtResource("10_lx43u")
+tween_resource = SubResource("Resource_41icc")
+draw_limits = true
+noise_emitter_layer = 1
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Placeholder" parent="GameObjects/checkpoint/CheckpointCamera" index="0"]
+monitoring = false
+monitorable = false
+
+[node name="Border" parent="GameObjects/checkpoint/CheckpointCamera/Placeholder" index="0"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_j2g7d")
+disabled = true
 
 [node name="checkpoint2" parent="GameObjects" instance=ExtResource("8_7hll7")]
 position = Vector2(1024, 240)
 
-[node name="PhantomCamera2D" parent="GameObjects/checkpoint2" index="2"]
-visible = false
-position = Vector2(376, -96)
-zoom = Vector2(1.28, 1.28)
-frame_preview = false
+[node name="Sprite2D" parent="GameObjects/checkpoint2" index="0"]
+texture = ExtResource("9_nq274")
+
+[node name="CheckpointCamera" parent="GameObjects/checkpoint2" index="2"]
+unique_name_in_owner = true
+z_index = -2
+position = Vector2(1061, 0)
+script = ExtResource("10_lx43u")
+tween_resource = SubResource("Resource_41icc")
+draw_limits = true
+noise_emitter_layer = 1
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Placeholder" parent="GameObjects/checkpoint2/CheckpointCamera" index="0"]
+monitoring = false
+monitorable = false
+
+[node name="Border" parent="GameObjects/checkpoint2/CheckpointCamera/Placeholder" index="0"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_sgr0l")
+disabled = true
 
 [node name="Land" parent="GameObjects" instance=ExtResource("9_fayjm")]
 position = Vector2(304, 328)
@@ -120,6 +170,28 @@ polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
 [node name="Box" parent="." instance=ExtResource("12_ovt24")]
 position = Vector2(184, 275.9925)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sparrow" parent="Node2D" instance=ExtResource("15_ra1cy")]
+position = Vector2(404, 280)
+jump_force = -300.0
+move_speed = 100.0
+max_wander_distance = 100.0
+min_jump_interval = 2.0
+max_jump_interval = 4.0
+fly_speed = 400.0
+gravity = 980.0
+
+[node name="Sparrow2" parent="Node2D" instance=ExtResource("15_ra1cy")]
+position = Vector2(263, 288)
+jump_force = -300.0
+move_speed = 100.0
+max_wander_distance = 100.0
+min_jump_interval = 2.0
+max_jump_interval = 4.0
+fly_speed = 400.0
+gravity = 980.0
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/checkpoint"]
