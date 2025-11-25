@@ -6,3 +6,7 @@
 
 # Temp files
 *.tmp
+.cursorrules
+
+*.gitignore
+*.DS_Store
