@@ -21,6 +21,7 @@ class_name Level
 
 @onready var starting_point: Marker2D = %StartingPoint
 @onready var starting_camera: BorderedCamera = %StartingCamera
+@onready var starting_camera: BorderedCamera = %StartingCamera
 @onready var camera: Camera2D = %Camera2D
 
 # 檢查點陣列
@@ -56,6 +57,8 @@ func _ready() -> void:
     if not Engine.is_editor_hint():
         initialize_checkpoints()
         _initialize_camera_state()
+        # 連接 GameManager 的狀態變化信號
+        _connect_game_manager_signals()
         # 連接 GameManager 的狀態變化信號
         _connect_game_manager_signals()
 
@@ -193,6 +196,9 @@ func _switch_to_checkpoint_camera(target: Checkpoint, should_tween: bool = true)
         
         # 設置玩家相機邊界為檢查點相機的邊界
         GameManager.set_player_camera_border_from_checkpoint_camera(target.phantom_camera)
+        
+        # 設置玩家相機邊界為檢查點相機的邊界
+        GameManager.set_player_camera_border_from_checkpoint_camera(target.phantom_camera)
     else:
         print("switch_to_checkpoint_camera: no target")
         _activate_starting_camera()
@@ -216,6 +222,10 @@ func _activate_starting_camera() -> void:
     # 設置起始相機為可見並提升優先級
     starting_camera.visible = true
     starting_camera.priority = 10
+    
+    # 設置玩家相機邊界為起始相機的邊界
+    if GameManager.has_player() and GameManager.player.player_camera:
+        GameManager.set_player_camera_border_from_checkpoint_camera(starting_camera)
     
     # 設置玩家相機邊界為起始相機的邊界
     if GameManager.has_player() and GameManager.player.player_camera:

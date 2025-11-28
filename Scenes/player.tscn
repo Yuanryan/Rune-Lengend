@@ -1,3 +1,4 @@
+[gd_scene load_steps=32 format=3 uid="uid://cviyl35yedewi"]
 [gd_scene load_steps=42 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
@@ -1656,7 +1657,9 @@ material = SubResource("ShaderMaterial_f1ek2")
 position = Vector2(3, 0)
 scale = Vector2(2, 2)
 texture = ExtResource("4_x3wgy")
+texture = ExtResource("4_x3wgy")
 flip_h = true
+hframes = 4
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
