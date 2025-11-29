@@ -129,6 +129,8 @@ func show_level_select() -> void:
     """顯示關卡選擇頁面"""
     visible = true
     process_mode = Node.PROCESS_MODE_INHERIT
+    # 播放選關卡頁面音樂
+    MusicManager.play_level_select_music()
 
 func hide_level_select() -> void:
     """隱藏關卡選擇頁面"""

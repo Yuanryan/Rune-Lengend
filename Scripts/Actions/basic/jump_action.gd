@@ -28,6 +28,10 @@ func start(player: CharacterBody2D) -> void:
     # 增加跳躍計數（如果玩家有這個方法）
     if not player.is_on_floor():
         player._air_jump_count += 1
+    
+    # 播放跳躍音效
+    if MusicManager:
+        MusicManager.play_jump_sound()
 
 func should_stop(player: Player, delta: float) -> bool:
     # 檢查是否已經離開地面

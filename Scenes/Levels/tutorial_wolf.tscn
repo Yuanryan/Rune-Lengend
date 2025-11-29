@@ -120,7 +120,7 @@ position = Vector2(1184, 24)
 position = Vector2(-1465, 111)
 
 [node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("6_nwe32")]
-position = Vector2(-843, 114)
+position = Vector2(-923, 111)
 
 [node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("6_nwe32")]
 position = Vector2(2007, -13)

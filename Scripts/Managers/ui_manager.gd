@@ -1,4 +1,4 @@
-# UIManager.gd
+﻿# UIManager.gd
 # UI管理器，負責管理所有UI的顯示和隱藏
 
 extends Node

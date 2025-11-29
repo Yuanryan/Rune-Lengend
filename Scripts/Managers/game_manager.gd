@@ -77,6 +77,8 @@ func set_game_state(new_state: GameState) -> void:
             UIManager.show_game_ui()
             # 進入遊戲時重置為規劃階段
             set_in_game_state(InGameState.PLANNING)
+            # 播放遊玩關卡音樂
+            MusicManager.play_gameplay_music()
 
 # 遊戲內狀態管理
 func set_in_game_state(new_state: InGameState) -> void:
