@@ -54,7 +54,7 @@ script = ExtResource("1_nmk3u")
 
 [node name="MovingPlatform" type="AnimatableBody2D" parent="." groups=["Land"]]
 unique_name_in_owner = true
-position = Vector2(41.33788, -96)
+position = Vector2(0, -96)
 collision_mask = 2
 script = ExtResource("1_eqelh")
 

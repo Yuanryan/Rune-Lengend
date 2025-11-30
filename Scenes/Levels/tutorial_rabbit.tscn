@@ -53,6 +53,9 @@ resource_local_to_scene = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q8jeo"]
 resource_local_to_scene = true
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8jeo"]
+size = Vector2(1284, 659)
+
 [node name="Tutorial_rabbit" type="Node2D"]
 script = ExtResource("1_voi1r")
 level_name = "Tutotial Rabbit"
@@ -312,7 +315,12 @@ position = Vector2(-592, 0)
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint1" index="2"]
 position = Vector2(496, -32)
+priority_override = true
 zoom = Vector2(1.5, 1.5)
+
+[node name="CameraBorder" parent="GameObjects/Checkpoints/Checkpoint1/PhantomCamera2D" index="0"]
+position = Vector2(7, 5)
+shape = SubResource("RectangleShape2D_q8jeo")
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
 position = Vector2(520, -88)
@@ -333,7 +341,7 @@ position = Vector2(2656, -168)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(74, 100)
+position = Vector2(1000, -8)
 zoom = Vector2(1.5, 1.5)
 editor_draw_limits = true
 
