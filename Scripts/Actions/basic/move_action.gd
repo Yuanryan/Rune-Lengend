@@ -20,6 +20,10 @@ func start(player: Player) -> void:
     elif direction < 0:
         player.set_facing_direction(Vector2.LEFT)
     
+    # 播放跑步音效
+    if MusicManager:
+        MusicManager.start_running_sound()
+    
 func update(player: Player, delta: float) -> bool:
     player.velocity.x = velocity_x
     return false
@@ -28,3 +32,7 @@ func update(player: Player, delta: float) -> bool:
 func interrupt(player: Player) -> void:
     player.velocity.x = 0.0
     player.animal_component.stop_animation()
+    
+    # 停止跑步音效
+    if MusicManager:
+        MusicManager.stop_running_sound()

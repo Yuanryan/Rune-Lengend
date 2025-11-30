@@ -9,9 +9,13 @@ const THEME_3_PATH: String = "res://Assets/music/theme/theme_3.mp3"
 
 # 音效資源路徑
 const JUMP_2_PATH: String = "res://Assets/music/jump/jump_2.mp3"
+const RUNNING_ON_SNOW_PATH: String = "res://Assets/music/running/running_on_snow.mp3"
 
 # 當前播放的音樂節點
 var current_music_player: AudioStreamPlayer = null
+
+# 當前播放的跑步音效節點
+var current_running_sound_player: AudioStreamPlayer = null
 
 # 音樂音量（0.0 到 1.0）
 var music_volume: float = 0.5
@@ -142,4 +146,53 @@ func set_sound_volume(volume: float) -> void:
 # 獲取音效音量
 func get_sound_volume() -> float:
 	return sound_volume
+
+# ========== 跑步音效播放功能 ==========
+
+# 開始播放跑步音效（循環播放）
+func start_running_sound() -> void:
+	# 如果已經在播放，則不重複播放
+	if current_running_sound_player and current_running_sound_player.playing:
+		return
+	
+	# 停止之前的跑步音效（如果有的話）
+	stop_running_sound()
+	
+	# 載入跑步音效資源
+	var running_stream = load(RUNNING_ON_SNOW_PATH)
+	if not running_stream:
+		push_error("無法載入跑步音效: " + RUNNING_ON_SNOW_PATH)
+		return
+	
+	# 創建新的 AudioStreamPlayer 節點
+	current_running_sound_player = AudioStreamPlayer.new()
+	current_running_sound_player.stream = running_stream
+	# 降低音量（使用較小的音量值）
+	current_running_sound_player.volume_db = linear_to_db(sound_volume * 0.3)
+	# 設置播放速度為1.2倍
+	current_running_sound_player.pitch_scale = 1.2
+	
+	# 連接 finished 信號以實現循環播放
+	current_running_sound_player.finished.connect(_on_running_sound_finished)
+	
+	# 將音效播放器添加到場景樹
+	add_child(current_running_sound_player)
+	
+	# 播放音效
+	current_running_sound_player.play()
+
+# 跑步音效播放完成時的回調（用於循環播放）
+func _on_running_sound_finished() -> void:
+	if current_running_sound_player:
+		current_running_sound_player.play()
+
+# 停止播放跑步音效
+func stop_running_sound() -> void:
+	if current_running_sound_player:
+		# 斷開信號連接
+		if current_running_sound_player.finished.is_connected(_on_running_sound_finished):
+			current_running_sound_player.finished.disconnect(_on_running_sound_finished)
+		current_running_sound_player.stop()
+		current_running_sound_player.queue_free()
+		current_running_sound_player = null
 
