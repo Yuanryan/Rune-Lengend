@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dmavjrcww2c2h"]
+[gd_scene load_steps=17 format=3 uid="uid://dmavjrcww2c2h"]
 
 [ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://epc148y837el" path="res://Shaders/other/transition.gdshader" id="5_qm78u"]
 [ext_resource type="Texture2D" uid="uid://btmorjic5emta" path="res://Assets/textures/circle_albedo.png" id="6_5qd38"]
 [ext_resource type="Texture2D" uid="uid://byodoiu3ocdb2" path="res://Assets/ui/card_bg/card_background.png" id="7_bg"]
+[ext_resource type="Texture2D" path="res://Assets/ui/button/clear_button.png" id="8_clear_btn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qh1fn"]
 
@@ -422,6 +423,11 @@ layout_mode = 0
 theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("2_queue")
+
+[node name="ClearQueueButton" type="TextureButton" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+texture_normal = ExtResource("8_clear_btn")
 
 [node name="PreviewIndicator" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer/ActionQueue"]
 unique_name_in_owner = true

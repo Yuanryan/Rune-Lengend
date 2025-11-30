@@ -4,6 +4,7 @@ class_name QueuePanel
 
 @onready var monitor: DropMonitor = %DropMonitor
 @onready var _preview_indicator: Control = %PreviewIndicator
+@onready var _clear_button: TextureButton = %ClearQueueButton
 
 var queue_cards: Array[CardTile] = []
 var _is_dragging_over: bool = false
@@ -24,11 +25,58 @@ func _ready() -> void:
     monitor.card_dropped_outside.connect(_on_card_dropped_outside)
     _container = get_parent()  # ActionQueue -> ActionQueueContainer
     call_deferred("_initialize_container_size")  # 初始化 (N=1)
+    _setup_clear_button()  # 設定清除按鈕
 
 func _initialize_container_size() -> void:
     if not _container:
         return
     call_deferred("_do_update_container_size")
+
+func _setup_clear_button() -> void:
+    """設定清除按鈕的信號和效果"""
+    if not _clear_button:
+        return
+
+    # 連接按鈕信號
+    _clear_button.pressed.connect(_on_clear_button_pressed)
+    _clear_button.mouse_entered.connect(_on_clear_button_hover)
+    _clear_button.mouse_exited.connect(_on_clear_button_normal)
+    _clear_button.button_down.connect(_on_clear_button_down)
+    _clear_button.button_up.connect(_on_clear_button_hover)  # 放開時回到 hover 狀態
+
+func _on_clear_button_pressed() -> void:
+    """清除按鈕被按下"""
+    if not _is_locked:
+        clear_queue()
+
+func _on_clear_button_hover() -> void:
+    """滑鼠進入按鈕 - 變亮"""
+    if _clear_button:
+        _clear_button.modulate = Color(1.2, 1.2, 1.2, 1.0)
+
+func _on_clear_button_normal() -> void:
+    """滑鼠離開按鈕 - 恢復正常"""
+    if _clear_button:
+        _clear_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+func _on_clear_button_down() -> void:
+    """按鈕被按下 - 變暗"""
+    if _clear_button:
+        _clear_button.modulate = Color(0.8, 0.8, 0.8, 1.0)
+
+func _update_clear_button_position(bg_offset_x: float, bg_offset_y: float, bg_width: float, bg_height: float, scale_factor: float) -> void:
+    """更新清除按鈕的位置和縮放"""
+    if not _clear_button:
+        return
+
+    # 按鈕原始大小是 40x40px，跟背景一樣需要縮放
+    _clear_button.scale = Vector2(scale_factor, scale_factor)
+
+    # 按鈕位置：背景右邊界，垂直置中
+    var btn_scaled_size = 40.0 * scale_factor
+    var btn_x = bg_offset_x + bg_width  # 緊貼背景右邊
+    var btn_y = bg_offset_y + (bg_height - btn_scaled_size) / 2.0  # 垂直置中
+    _clear_button.position = Vector2(btn_x, btn_y)
 
 func _get_base_card_size() -> Vector2:
     """獲取卡片基底大小 (固定100x100，不考慮scale)"""
@@ -66,6 +114,10 @@ func _do_update_container_size() -> void:
     _container.custom_minimum_size = container_size
     _container.size = container_size
 
+    # 置中背景：計算 offset 讓背景在容器中央
+    var bg_offset_x = (container_width - background_actual_width) / 2.0
+    var bg_offset_y = (container_height - background_actual_height) / 2.0
+
     var background_node = _container.get_node("QueueBackground")
     if background_node:
         # patch_margin 保持原始圖片的 4px，不要改！
@@ -81,9 +133,6 @@ func _do_update_container_size() -> void:
         background_node.custom_minimum_size = Vector2(background_logical_width, background_logical_height)
         background_node.size = Vector2(background_logical_width, background_logical_height)
 
-        # 置中背景：計算 offset 讓背景在容器中央
-        var bg_offset_x = (container_width - background_actual_width) / 2.0
-        var bg_offset_y = (container_height - background_actual_height) / 2.0
         background_node.position = Vector2(bg_offset_x, bg_offset_y)
 
     # 計算卡片之間的間距（desired_natural_padding 是每張卡片的總 padding）
@@ -102,6 +151,9 @@ func _do_update_container_size() -> void:
     var queue_offset_x = (container_width - cards_total_width) / 2.0
     var queue_offset_y = (container_height - queue_height) / 2.0
     self.position = Vector2(queue_offset_x, queue_offset_y)
+
+    # 更新清除按鈕位置和縮放
+    _update_clear_button_position(bg_offset_x, bg_offset_y, background_actual_width, background_actual_height, scale_factor)
 
     # 重新布局
     _container.queue_redraw()
