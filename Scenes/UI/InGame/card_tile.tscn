@@ -16,12 +16,18 @@
 [sub_resource type="ImageTexture" id="ImageTexture_jw68n"]
 
 [node name="Card" type="TextureRect"]
-custom_minimum_size = Vector2(60, 60)
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 100.0
+offset_bottom = 100.0
 mouse_default_cursor_shape = 6
 texture = SubResource("ImageTexture_jw68n")
 script = ExtResource("1_jw68n")
+show_label = false
 run_left_image = ExtResource("3_hkkj1")
 run_right_image = ExtResource("3_ei6wv")
 jump_left_image = ExtResource("4_q2j24")
@@ -37,6 +43,7 @@ frame_default = ExtResource("9_piqp0")
 
 [node name="OutlineColorRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 1
@@ -57,15 +64,11 @@ mouse_filter = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(59, 59)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -29.5
-offset_top = -29.5
-offset_right = 29.5
-offset_bottom = 29.5
+anchors_preset = -1
+anchor_right = 0.98300004
+anchor_bottom = 0.98300004
+offset_right = 0.019996643
+offset_bottom = 0.019996643
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -73,11 +76,14 @@ color = Color(0.11372549, 0.4745098, 0.45882353, 0.6862745)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 60.0
-offset_bottom = 60.0
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.98300004
+anchor_bottom = 0.98300004
+offset_right = 0.019996643
+offset_bottom = 0.019996643
+grow_horizontal = 2
+grow_vertical = 2
 region_rect = Rect2(0, 0, 80, 80)
 patch_margin_left = 10
 patch_margin_top = 10
@@ -86,6 +92,7 @@ patch_margin_bottom = 10
 
 [node name="UsageLabel" type="Label" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -103,6 +110,7 @@ metadata/_edit_group_ = true
 
 [node name="Label" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,14 +128,14 @@ metadata/_edit_lock_ = true
 [node name="TextureRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -19.0
-offset_top = -19.0
-offset_right = -15.0
-offset_bottom = -15.0
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 23.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_hkkj1")
+stretch_mode = 5

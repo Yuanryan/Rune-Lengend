@@ -9,6 +9,11 @@ var queue_cards: Array[CardTile] = []
 var _is_dragging_over: bool = false
 var _current_executing_index: int = -1
 var _is_locked: bool = false  # 隊列鎖定狀態
+var _container: Control  # ActionQueueContainer 引用
+
+@export var card_scale: float = 1.0  # 卡片縮放倍率 (預設1.0, 卡片固定不動scale)
+@export var background_padding: Vector2 = Vector2(8, 8)  # 整體padding
+@export var desired_natural_padding: float = 12.5  # 每張卡片自然padding (左右總和, 可調, 影響scale_factor)
 
 signal action_added(action_type: Action.ActionType, index: int)
 signal action_removed(action_type: Action.ActionType, index: int)
@@ -17,6 +22,92 @@ signal queue_cleared()
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_PASS
     monitor.card_dropped_outside.connect(_on_card_dropped_outside)
+    _container = get_parent()  # ActionQueue -> ActionQueueContainer
+    call_deferred("_initialize_container_size")  # 初始化 (N=1)
+
+func _initialize_container_size() -> void:
+    if not _container:
+        return
+    call_deferred("_do_update_container_size")
+
+func _get_base_card_size() -> Vector2:
+    """獲取卡片基底大小 (固定100x100，不考慮scale)"""
+    return Vector2(100, 100)  # 卡片實際大小
+
+func _do_update_container_size() -> void:
+    """更新容器和背景大小"""
+    if not _container:
+        return
+    await get_tree().process_frame
+
+    var base_card_size = _get_base_card_size()  # Vector2(100, 100)
+    var scaled_card_size = base_card_size * card_scale  # 預設100x100
+    var card_count = max(queue_cards.size(), 1)  # 至少1張空間
+
+    # 逆推scale_factor：讓32px邏輯區域scale後 = 100 + desired_natural_padding (可調)
+    var effective_region_width = scaled_card_size.x + desired_natural_padding  # 112.5px
+    var scale_factor = effective_region_width / 32.0  # ≈3.516
+
+    # 背景邏輯寬度 = N * 32px + 8px (左右邊框各4px)
+    var background_logical_width = card_count * 32.0 + 8.0
+    # 背景邏輯高度 = 40px (原始圖片高度，包含上下邊框)
+    var background_logical_height = 40.0
+
+    # 背景實際大小 = 邏輯大小 * scale_factor
+    var background_actual_width = background_logical_width * scale_factor
+    var background_actual_height = background_logical_height * scale_factor
+
+    # 容器寬度 = 背景實際寬度 + padding
+    var container_width = background_actual_width + background_padding.x
+    var container_height = background_actual_height + background_padding.y
+    var container_size = Vector2(container_width, container_height)
+
+    # 設定容器大小
+    _container.custom_minimum_size = container_size
+    _container.size = container_size
+
+    var background_node = _container.get_node("QueueBackground")
+    if background_node:
+        # patch_margin 保持原始圖片的 4px，不要改！
+        background_node.patch_margin_left = 4
+        background_node.patch_margin_top = 4
+        background_node.patch_margin_right = 4
+        background_node.patch_margin_bottom = 4
+
+        # 用 scale 來放大整個 NinePatchRect（邊框會等比例放大）
+        background_node.scale = Vector2(scale_factor, scale_factor)
+
+        # 設定邏輯大小（scale 前的大小）
+        background_node.custom_minimum_size = Vector2(background_logical_width, background_logical_height)
+        background_node.size = Vector2(background_logical_width, background_logical_height)
+
+        # 置中背景：計算 offset 讓背景在容器中央
+        var bg_offset_x = (container_width - background_actual_width) / 2.0
+        var bg_offset_y = (container_height - background_actual_height) / 2.0
+        background_node.position = Vector2(bg_offset_x, bg_offset_y)
+
+    # 計算卡片之間的間距（desired_natural_padding 是每張卡片的總 padding）
+    set("theme_override_constants/separation", int(desired_natural_padding))
+
+    # ActionQueue 的寬度 = 卡片總寬度 + 間距
+    var cards_total_width = card_count * scaled_card_size.x + (card_count - 1) * desired_natural_padding
+    # ActionQueue 的高度 = 卡片高度（不要拉伸！）
+    var queue_height = scaled_card_size.y
+
+    # 設定 ActionQueue (self) 的大小
+    self.custom_minimum_size = Vector2(cards_total_width, queue_height)
+    self.size = Vector2(cards_total_width, queue_height)
+
+    # ActionQueue 置中於背景
+    var queue_offset_x = (container_width - cards_total_width) / 2.0
+    var queue_offset_y = (container_height - queue_height) / 2.0
+    self.position = Vector2(queue_offset_x, queue_offset_y)
+
+    # 重新布局
+    _container.queue_redraw()
+    var parent = _container.get_parent()
+    if parent and parent is Container:
+        parent.queue_sort()
 
 func _on_card_dropped_outside(card: CardTile) -> void:
     # 如果隊列被鎖定，不允許移除卡片
@@ -133,6 +224,7 @@ func _add_card_at_index(card: CardTile, insert_index: int) -> void:
     var queue_card = _create_queue_card(action_type, card.get_action_label(), animal_type)
     queue_cards.insert(insert_index, queue_card)
     _reorder_children()
+    _do_update_container_size()
 
     action_added.emit(action_type, insert_index)
 
@@ -178,6 +270,7 @@ func _reorder_children() -> void:
         var card = queue_cards[i]
         if is_instance_valid(card):
             move_child(card, i)
+    _do_update_container_size()
 
 func _remove_action_at(index: int) -> void:
     """移除指定位置的動作"""
@@ -189,6 +282,7 @@ func _remove_action_at(index: int) -> void:
 
         queue_cards.remove_at(index)
         card.queue_free()
+        _do_update_container_size()
         action_removed.emit(action_type, index)
 
 func _on_queue_card_clicked(card: CardTile) -> void:
@@ -229,6 +323,7 @@ func clear_queue() -> void:
             card.queue_free()
 
     queue_cards.clear()
+    _do_update_container_size()
     queue_cleared.emit()
 
 func get_action_descriptors() -> Array:
@@ -267,6 +362,7 @@ func restore_action_queue(action_descriptors: Array) -> void:
         queue_cards.append(queue_card)
 
     _reorder_children()
+    _do_update_container_size()
 
     # 發送信號通知UI更新
     for i in range(queue_cards.size()):

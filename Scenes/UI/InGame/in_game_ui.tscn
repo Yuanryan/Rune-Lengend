@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dmavjrcww2c2h"]
+[gd_scene load_steps=16 format=3 uid="uid://dmavjrcww2c2h"]
 
 [ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
@@ -6,12 +6,11 @@
 [ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/InGame/drop_monitor.gd" id="3_2246s"]
 [ext_resource type="Shader" uid="uid://epc148y837el" path="res://Shaders/other/transition.gdshader" id="5_qm78u"]
 [ext_resource type="Texture2D" uid="uid://btmorjic5emta" path="res://Assets/textures/circle_albedo.png" id="6_5qd38"]
+[ext_resource type="Texture2D" uid="uid://byodoiu3ocdb2" path="res://Assets/ui/card_bg/card_background.png" id="7_bg"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_palette_bg"]
-bg_color = Color(0.2, 0.2, 0.3, 0.8)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qh1fn"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_queue_bg"]
-bg_color = Color(0.1, 0.1, 0.2, 0.9)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qvcp2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5qd38"]
 shader = ExtResource("5_qm78u")
@@ -340,7 +339,7 @@ grow_vertical = 2
 [node name="TopPanel" type="PanelContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_palette_bg")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qh1fn")
 
 [node name="TopMargin" type="MarginContainer" parent="MainContainer/TopPanel"]
 layout_mode = 2
@@ -378,7 +377,7 @@ script = ExtResource("3_2246s")
 [node name="BottomPanel" type="PanelContainer" parent="MainContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_queue_bg")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qvcp2")
 
 [node name="BottomMargin" type="MarginContainer" parent="MainContainer/BottomPanel"]
 layout_mode = 2
@@ -398,23 +397,40 @@ theme_override_font_sizes/font_size = 18
 text = "Action Queue"
 horizontal_alignment = 1
 
-[node name="ActionQueue" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+[node name="ActionQueueWrapper" type="CenterContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 10
+
+[node name="ActionQueueContainer" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="QueueBackground" type="NinePatchRect" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer"]
+layout_mode = 0
+texture = ExtResource("7_bg")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+axis_stretch_horizontal = 1
+
+[node name="ActionQueue" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("2_queue")
 
-[node name="PreviewIndicator" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueue"]
+[node name="PreviewIndicator" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer/ActionQueue"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(4, 60)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueue/PreviewIndicator"]
+[node name="ColorRect" type="ColorRect" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer/ActionQueue/PreviewIndicator"]
 layout_mode = 0
 offset_right = 4.0
 offset_bottom = 60.0
@@ -422,6 +438,7 @@ mouse_filter = 2
 color = Color(1, 0.803922, 0.984314, 1)
 
 [node name="ControlButtons" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 20

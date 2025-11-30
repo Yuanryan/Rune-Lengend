@@ -10,3 +10,7 @@
 
 *.gitignore
 *.DS_Store
+
+chat-history/
+
+
