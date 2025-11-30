@@ -48,6 +48,7 @@ func _on_clear_button_pressed() -> void:
     """清除按鈕被按下"""
     if not _is_locked:
         clear_queue()
+    _clear_button.release_focus()
 
 func _on_clear_button_hover() -> void:
     """滑鼠進入按鈕 - 變亮"""
