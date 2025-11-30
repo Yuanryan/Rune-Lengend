@@ -31,7 +31,6 @@ var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
 
 # 動物組件
 @onready var animal_component: AnimalComponent = %AnimalComponent
-@onready var player_camera: PlayerCamera = %PlayerCamera
 
 @onready var noise_emitter: PhantomCameraNoiseEmitter2D = %PhantomCameraNoiseEmitter2D
 @onready var player_camera: PlayerCamera = %PlayerCamera

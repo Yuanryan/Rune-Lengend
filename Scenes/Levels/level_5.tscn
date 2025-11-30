@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=29 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -24,9 +24,6 @@
 resource_local_to_scene = true
 shader = ExtResource("4_jd0ia")
 shader_parameter/blur_amount = 1.8000000855
-
-[sub_resource type="Resource" id="Resource_b7yer"]
-script = ExtResource("7_jd0ia")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jd0ia"]
 resource_local_to_scene = true
@@ -147,10 +144,17 @@ unique_name_in_owner = true
 position = Vector2(69, 131)
 zoom = Vector2(1.225, 1.225)
 
+[node name="CameraBorder" parent="GameObjects/StartingCamera" index="0"]
+position = Vector2(5.5, -31)
+
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
 position = Vector2(69, 131)
 zoom = Vector2(1.225, 1.225)
+limit_left = -703
+limit_top = -325
+limit_right = 852
+limit_bottom = 525
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -368,7 +372,7 @@ loop_time = 4.0
 loop = true
 
 [node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(33.004177, -96)
+position = Vector2(107.20473, -8)
 show_polygon_in_game = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]

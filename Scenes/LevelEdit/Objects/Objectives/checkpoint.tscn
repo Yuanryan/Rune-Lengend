@@ -1,12 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://ctp1234l38t1a"]
+[gd_scene load_steps=24 format=3 uid="uid://ctp1234l38t1a"]
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
-[ext_resource type="Texture2D" uid="uid://cc5fbmlcfdmx2" path="res://Assets/environment/check_point_idle.png" id="2_1q831"]
+[ext_resource type="Texture2D" uid="uid://cc5fbmlcfdmx2" path="res://Assets/environment/Interactables/check_point_idle.png" id="2_1q831"]
 [ext_resource type="Script" uid="uid://cs7mo4htw8l3t" path="res://Scripts/Level/Core/bordered_camera.gd" id="3_gtr1l"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
 [ext_resource type="Texture2D" uid="uid://daudawng7f2vi" path="res://Assets/particles/rune-short.png" id="6_41icc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
 size = Vector2(34, 53)
+
+[sub_resource type="Resource" id="Resource_41icc"]
+script = ExtResource("4_1q831")
+duration = 0.1
+transition = 4
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_41icc"]
 particles_animation = true
@@ -233,6 +239,8 @@ shape = SubResource("RectangleShape2D_ddtxo")
 unique_name_in_owner = true
 z_index = -2
 script = ExtResource("3_gtr1l")
+tween_resource = SubResource("Resource_41icc")
+draw_limits = true
 noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 

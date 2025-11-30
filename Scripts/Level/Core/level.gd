@@ -21,7 +21,6 @@ class_name Level
 
 @onready var starting_point: Marker2D = %StartingPoint
 @onready var starting_camera: BorderedCamera = %StartingCamera
-@onready var starting_camera: BorderedCamera = %StartingCamera
 @onready var camera: Camera2D = %Camera2D
 
 # 檢查點陣列
@@ -77,7 +76,7 @@ func initialize_checkpoints() -> void:
 # 連接 GameManager 信號
 func _connect_game_manager_signals() -> void:
     """連接 GameManager 的狀態變化信號"""
-    if GameManager:
+    if GameManager and not GameManager.in_game_state_changed.is_connected(_on_in_game_state_changed):
         GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
 # 處理遊戲內狀態變化
@@ -92,44 +91,8 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
         
         # 當狀態變為 EXECUTING 時，通過 GameManager 設置玩家相機優先級為 100
         GameManager.set_player_camera_priority(100)
-
-# 獲取關卡中的活動相機（不包括玩家相機）
-func _get_active_level_camera() -> BorderedCamera:
-    """獲取關卡中的活動相機（優先級最高的可見相機，不包括玩家相機）"""
-    var highest_priority: int = -1
-    var active_camera: BorderedCamera = null
-    
-    for pcam in PhantomCameraManager.get_phantom_camera_2ds():
-        if pcam is BorderedCamera:
-            # 只查找關卡中的相機，排除玩家相機
-            if self.is_ancestor_of(pcam) and pcam.visible:
-                # 排除玩家相機（玩家相機通常是玩家的子節點）
-                if GameManager.has_player() and pcam.get_parent() == GameManager.player:
-                    continue
-                if pcam.priority > highest_priority:
-                    highest_priority = pcam.priority
-                    active_camera = pcam
-    
-    return active_camera
-
-# 連接 GameManager 信號
-func _connect_game_manager_signals() -> void:
-    """連接 GameManager 的狀態變化信號"""
-    if GameManager:
-        GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
-
-# 處理遊戲內狀態變化
-func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
-    """當遊戲內狀態變化時，根據狀態調整相機"""
-    if new_state == GameManager.InGameState.EXECUTING:
-        # 在設置玩家相機優先級之前，先找到關卡中的活動相機（起始相機或檢查點相機）
-        var level_camera = _get_active_level_camera()
-        if level_camera:
-            # 設置玩家相機邊界為關卡相機的邊界
-            GameManager.set_player_camera_border_from_checkpoint_camera(level_camera)
-        
-        # 當狀態變為 EXECUTING 時，通過 GameManager 設置玩家相機優先級為 100
-        GameManager.set_player_camera_priority(100)
+    elif new_state == GameManager.InGameState.PLANNING:
+        GameManager.set_player_camera_priority(0)
 
 # 獲取關卡中的活動相機（不包括玩家相機）
 func _get_active_level_camera() -> BorderedCamera:

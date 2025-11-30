@@ -179,7 +179,7 @@ func achieve_victory() -> void:
 # 設置玩家相機優先級
 func set_player_camera_priority(priority: int) -> void:
     """設置玩家相機的優先級"""
-    if has_player() and player.player_camera:
+    if has_player() and player.player_camera and player.player_camera.activate:
         player.player_camera.priority = priority
         player.player_camera.visible = true
         print("玩家相機優先級已設置為: ", priority)
