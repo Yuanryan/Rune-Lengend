@@ -4,8 +4,8 @@
 extends CanvasLayer
 class_name MainMenu
 
-@onready var start_button: Button = %StartButton
-@onready var exit_button: Button = %ExitButton
+@onready var start_button: TextureButton = %StartButton
+@onready var exit_button: TextureButton = %ExitButton
 
 func _ready() -> void:
     # 連接按鈕信號
