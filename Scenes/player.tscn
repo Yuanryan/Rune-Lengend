@@ -1672,7 +1672,6 @@ libraries = {
 unique_name_in_owner = true
 top_level = true
 script = ExtResource("9_tx1dd")
-activate = false
 follow_mode = 1
 follow_target = NodePath("..")
 zoom = Vector2(2, 2)
