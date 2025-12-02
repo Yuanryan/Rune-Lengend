@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cak3m4n5o6p7q"]
+[gd_scene load_steps=8 format=3 uid="uid://cak3m4n5o6p7q"]
 
 [ext_resource type="Script" uid="uid://baouulqndv1md" path="res://Scripts/UI/Menu/main_menu.gd" id="1_main_menu"]
 [ext_resource type="Texture2D" uid="uid://wy0rnbxe0f53" path="res://Assets/environment/page/StartScreenV1.png" id="2_i2xx2"]
 [ext_resource type="Texture2D" uid="uid://byabg6hubs5eh" path="res://Assets/environment/page/Title.png" id="3_mrfpk"]
 [ext_resource type="Texture2D" uid="uid://dhiwns4lkik6g" path="res://Assets/environment/page/Startbutton.png" id="3_u7lva"]
 [ext_resource type="Texture2D" uid="uid://dio4ujr6kfjph" path="res://Assets/environment/page/Quitbutton.png" id="4_mrfpk"]
+[ext_resource type="Texture2D" uid="uid://bgpbab16efjie" path="res://Assets/environment/page/Startbutton_hover.png" id="5_gih0s"]
+[ext_resource type="Texture2D" uid="uid://bpkknkgju34u6" path="res://Assets/environment/page/Quitbutton_hover.png" id="7_k33u3"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_main_menu")
@@ -53,6 +55,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 texture_normal = ExtResource("3_u7lva")
+texture_hover = ExtResource("5_gih0s")
 stretch_mode = 6
 
 [node name="ExitButton" type="TextureButton" parent="MainContainer/VBoxContainer/ButtonContainer"]
@@ -60,4 +63,5 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 texture_normal = ExtResource("4_mrfpk")
+texture_hover = ExtResource("7_k33u3")
 stretch_mode = 6
