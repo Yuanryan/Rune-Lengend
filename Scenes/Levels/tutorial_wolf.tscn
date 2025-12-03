@@ -422,6 +422,10 @@ zoom = Vector2(1.7, 1.7)
 unique_name_in_owner = true
 position = Vector2(74, 100)
 zoom = Vector2(1.5, 1.5)
+limit_left = -704
+limit_top = -325
+limit_right = 852
+limit_bottom = 525
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -491,6 +495,7 @@ tile_set = ExtResource("12_bu7p5")
 metadata/_edit_lock_ = true
 
 [editable path="BackgroundSnowForest"]
+[editable path="GameObjects/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land3"]
 [editable path="GameObjects/LandNodes/Land4"]
 [editable path="GameObjects/LandNodes/Land5"]

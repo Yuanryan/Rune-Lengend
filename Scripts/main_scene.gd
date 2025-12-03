@@ -14,7 +14,3 @@ func _ready() -> void:
     GameManager.setup_level_select_signals(level_select)
     GameManager.initialize_game()
 
-func _input(event: InputEvent) -> void:
-    # 處理ESC鍵返回主選單
-    if event.is_action_pressed("ui_cancel") and GameManager:
-        GameManager.handle_escape_key()

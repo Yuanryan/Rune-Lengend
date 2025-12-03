@@ -163,16 +163,23 @@ func reset_to_planning() -> void:
     """重置到規劃階段"""
     set_in_game_state(InGameState.PLANNING)
 
+
 func pause_game() -> void:
     """暫停遊戲"""
     if not is_in_paused_state():
         set_in_game_state(InGameState.PAUSED)
-
+        get_tree().paused = true
+        print("Game Paused")
+    
+    MusicManager.change_music_volume(MusicManager.get_music_volume() / 2.0)
 func resume_game() -> void:
     """恢復遊戲"""
     if is_in_paused_state():
+        get_tree().paused = false
+        print("Game Resumed")
         # 恢復到之前的狀態，預設為規劃階段
         set_in_game_state(InGameState.PLANNING)
+    MusicManager.change_music_volume(MusicManager.get_music_volume() * 2.0)
 
 func achieve_victory() -> void:
     """達成勝利"""
@@ -182,7 +189,7 @@ func achieve_victory() -> void:
 func set_player_camera_priority(priority: int) -> void:
     """設置玩家相機的優先級"""
     if has_player() and player.player_camera and player.player_camera.activate:
-        player.player_camera.priority = priority
+        player.player_camera.priority = priority    
         player.player_camera.visible = true
         print("玩家相機優先級已設置為: ", priority)
 

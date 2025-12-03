@@ -24,8 +24,13 @@ var music_volume: float = 0.5
 var sound_volume: float = 0.7
 
 func _ready() -> void:
-	# 設置為自動載入單例
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	pass
+
+func change_music_volume(volume: float) -> void:
+	music_volume = clamp(volume, 0.0, 1.0)
+	if current_music_player:
+		current_music_player.volume_db = linear_to_db(music_volume)
 
 # 播放選關卡頁面音樂 (theme_4)
 func play_level_select_music() -> void:

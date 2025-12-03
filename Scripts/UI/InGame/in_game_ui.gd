@@ -14,6 +14,28 @@ signal transition_finished
 @onready var info_label: Label = %InfoLabel
 @onready var trans_animator: AnimationPlayer = %TransAnimator
 
+# Menus
+@onready var pause_menu : Control = %PauseMenu
+@onready var debug_menu : Control = %DebugMenu
+@onready var options_menu : TabContainer = %OptionsMenu
+
+# Buttons
+@onready var buttons : VBoxContainer = %Buttons
+@onready var resume_button : Button = %Resume
+@onready var debug_button : Button = %Debug
+@onready var options_button : Button = %Options
+@onready var quit_button : Button = %Quit	
+
+# Options Menu
+@onready var gameplay_back : Button = %GameplayBack
+@onready var video_back : Button = %VideoBack
+@onready var audio_back : Button = %AudioBack
+@onready var controls_back : Button = %ControlBack
+@onready var options_back : Button = %OptionsBack
+
+enum MenuState { GAME, PAUSED, MAIN_MENU, OPTIONS, GAME_OVER } 
+var menu_state := MenuState.GAME 
+
 # 過渡狀態追蹤
 var is_transitioning: bool = false
 var pending_reset: bool = false
@@ -24,6 +46,13 @@ func _ready() -> void:
     _connect_game_manager_signals()
     _setup_card_deck_reference()
     update_fullscreen_button_text()
+    
+    # Menu initialization
+    if options_menu:
+        options_menu.current_tab = 0
+    _connect_menu_button_signals()
+    hide_options_menu()
+    hide_pause_menu()
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -47,6 +76,25 @@ func _connect_signals() -> void:
         menu_button.pressed.connect(_on_menu_pressed)
     if full_screen:
         full_screen.pressed.connect(_on_fullscreen_pressed)
+
+func _connect_menu_button_signals() -> void:
+    if resume_button:
+        resume_button.pressed.connect(hide_pause_menu)
+    if options_button:
+        options_button.pressed.connect(show_options_menu)
+    if quit_button:
+        quit_button.pressed.connect(get_tree().quit)
+    
+    if gameplay_back:
+        gameplay_back.pressed.connect(hide_options_menu)
+    if video_back:
+        video_back.pressed.connect(hide_options_menu)
+    if audio_back:
+        audio_back.pressed.connect(hide_options_menu)
+    if controls_back:
+        controls_back.pressed.connect(hide_options_menu)
+    if options_back:
+        options_back.pressed.connect(hide_options_menu)
 
 func _connect_game_manager_signals() -> void:
     """連接 GameManager 的狀態變化信號"""
@@ -337,3 +385,62 @@ func _show_message(text: String) -> void:
         await get_tree().create_timer(2.0).timeout
         info_label.text = original_text
         info_label.modulate = Color.WHITE
+
+# Menu methods
+func show_pause_menu() -> void:
+    if pause_menu:
+        pause_menu.show()
+        await play_menu_animations(pause_menu, true, 0.05)
+    
+    GameManager.pause_game()
+    menu_state = MenuState.PAUSED
+    
+func hide_pause_menu() -> void:
+    GameManager.resume_game()  
+    if pause_menu:
+        await play_menu_animations(pause_menu, false, 0.1)
+        pause_menu.hide()
+
+    
+    menu_state = MenuState.GAME
+
+
+func show_options_menu() -> void:
+    if buttons:
+        buttons.hide()
+    if options_menu:
+        options_menu.show()
+        await play_menu_animations(options_menu, true, 0.05)
+        
+    menu_state = MenuState.OPTIONS
+
+func hide_options_menu() -> void:
+    if options_menu:
+        await play_menu_animations(options_menu, false, 0.05)
+        options_menu.hide()
+        
+    if buttons:
+        buttons.show()
+        
+    menu_state = MenuState.PAUSED
+
+func _input(event: InputEvent) -> void:
+    if event.is_action_pressed("ui_cancel") or event.is_action_pressed("Menu_Back"): # Support both
+        match menu_state:
+            MenuState.GAME:
+                await show_pause_menu()
+            MenuState.PAUSED:
+                await hide_pause_menu()
+            MenuState.OPTIONS:
+                await hide_options_menu()
+            _:
+                pass
+
+func play_menu_animations(menu : Control, showing : bool, animation_time : float) -> void:
+    if not menu:
+        return
+        
+    var alpha : float = 1.0 if showing else 0.0
+    var tween := create_tween()
+    tween.tween_property(menu, "modulate:a", alpha, animation_time).set_ease(Tween.EASE_OUT)
+    await tween.finished
