@@ -440,18 +440,26 @@ func _get_action_label(action_type: Action.ActionType, animal_type: int = -1) ->
 
 func set_executing_action_index(index: int) -> void:
     """設置當前執行的動作索引"""
-    # 停止之前執行的卡片發光
-    if _current_executing_index >= 0 and _current_executing_index < queue_cards.size():
-        var prev_card = queue_cards[_current_executing_index]
-        if is_instance_valid(prev_card):
-            prev_card.set_executing(false)
-
-    # 開始新的卡片發光
     _current_executing_index = index
-    if _current_executing_index >= 0 and _current_executing_index < queue_cards.size():
-        var current_card = queue_cards[_current_executing_index]
-        if is_instance_valid(current_card):
-            current_card.set_executing(true)
+
+    # 更新所有卡片的視覺狀態
+    for i in range(queue_cards.size()):
+        var card = queue_cards[i]
+        if not is_instance_valid(card):
+            continue
+
+        if i == index:
+            # 當前執行的卡片：閃爍
+            card.set_executing(true)
+            card.set_dimmed(false)
+        elif index >= 0:
+            # 有卡片在執行，其他卡片變暗
+            card.set_executing(false)
+            card.set_dimmed(true)
+        else:
+            # 沒有卡片在執行，恢復正常
+            card.set_executing(false)
+            card.set_dimmed(false)
 
 func clear_executing_action() -> void:
     """清除執行狀態"""

@@ -423,6 +423,7 @@ layout_mode = 0
 theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("2_queue")
+desired_natural_padding = 5.0
 
 [node name="PreviewIndicator" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer/ActionQueue"]
 unique_name_in_owner = true
@@ -441,6 +442,7 @@ color = Color(1, 0.803922, 0.984314, 1)
 [node name="ClearQueueButton" type="TextureButton" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer"]
 unique_name_in_owner = true
 layout_mode = 0
+focus_mode = 0
 texture_normal = ExtResource("8_clear_btn")
 
 [node name="ControlButtons" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]

@@ -225,31 +225,38 @@ func _gui_input(event: InputEvent) -> void:
             _is_dragging = false
 
 func set_executing(is_executing: bool) -> void:
-    """設置卡片執行狀態，顯示發光效果"""
-    if not outline:
-        return
-
+    """設置卡片執行狀態，顯示閃爍效果"""
     # 停止現有的動畫
     if _glow_tween:
         _glow_tween.kill()
+        _glow_tween = null
 
     if is_executing:
-        # 開始發光動畫
+        # 開始閃爍動畫（整張卡片的 modulate 閃爍）
         _glow_tween = create_tween().set_trans(Tween.TRANS_SINE)
         _glow_tween.set_loops()
-        _glow_tween.tween_property(outline, "self_modulate:a", 0.8, 0.8)
-        _glow_tween.tween_property(outline, "self_modulate:a", 0, 0.8)
+        # 從正常亮度閃到更亮
+        _glow_tween.tween_property(self, "modulate", Color(1.3, 1.3, 1.3, 1.0), 0.3)
+        _glow_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3)
     else:
-        if _glow_tween:
-            _glow_tween.kill()
-        # 停止發光，恢復原狀
-        outline.self_modulate.a = 0
+        # 停止閃爍，恢復正常
+        modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+func set_dimmed(is_dimmed: bool) -> void:
+    """設置卡片變暗狀態"""
+    if is_dimmed:
+        modulate = Color(0.5, 0.5, 0.5, 0.7)
+    else:
+        # 只有在沒有執行中的閃爍動畫時才恢復
+        if not _glow_tween or not _glow_tween.is_running():
+            modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     if new_state != GameManager.InGameState.EXECUTING:
         set_executing(false)
+        set_dimmed(false)
 
 # 設置使用信息
 func set_usage_info(usable: bool, current_usage: int, max_usage: int) -> void:
