@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clnm46es0a0up" path="res://Scripts/Level/Objects/checkpoint.gd" id="1_5xexx"]
 [ext_resource type="Texture2D" uid="uid://cc5fbmlcfdmx2" path="res://Assets/environment/Interactables/check_point_idle.png" id="2_1q831"]
-[ext_resource type="Script" uid="uid://cs7mo4htw8l3t" path="res://Scripts/Level/Core/bordered_camera.gd" id="3_gtr1l"]
+[ext_resource type="Script" path="res://Scripts/Level/Core/bordered_camera.gd" id="3_gtr1l"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1q831"]
 [ext_resource type="Texture2D" uid="uid://daudawng7f2vi" path="res://Assets/particles/rune-short.png" id="6_41icc"]
 

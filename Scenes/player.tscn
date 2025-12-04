@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cviyl35yedewi"]
+[gd_scene load_steps=45 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
@@ -10,10 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://bgu6w8i73f3xx" path="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Run.png" id="6_8erm5"]
 [ext_resource type="Texture2D" uid="uid://dwytjll2ncuon" path="res://Assets/characters/rabbit/rabbit.png" id="7_3smsa"]
 [ext_resource type="Texture2D" uid="uid://btd41gjbr18ud" path="res://Assets/characters/rabbit/rabbit_fall.png" id="8_tx1dd"]
-[ext_resource type="Script" path="res://Scripts/Level/Core/player_camera.gd" id="9_tx1dd"]
+[ext_resource type="Script" uid="uid://dblq8e2sbyx5e" path="res://Scripts/Level/Core/player_camera.gd" id="9_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://br3rbm1wp2vnx" path="res://Assets/characters/rabbit/rabbit_jump.png" id="10_gymyn"]
 [ext_resource type="Script" uid="uid://bhd4nuiu23e7l" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_noise_emitter_2d.gd" id="12_ukyrk"]
 [ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="13_7dp3o"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="13_h4iuc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ek2"]
 
@@ -1623,7 +1624,10 @@ _data = {
 &"Move_Right": SubResource("Animation_f1ek2")
 }
 
-[sub_resource type="Resource" id="Resource_tx1dd"]
+[sub_resource type="Resource" id="Resource_fd4e3"]
+script = ExtResource("13_h4iuc")
+duration = 0.1
+transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="Resource" id="Resource_h4iuc"]
@@ -1675,7 +1679,8 @@ script = ExtResource("9_tx1dd")
 follow_mode = 1
 follow_target = NodePath("..")
 zoom = Vector2(2, 2)
-tween_resource = SubResource("Resource_tx1dd")
+tween_resource = SubResource("Resource_fd4e3")
+follow_offset = Vector2(30, 30)
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="PhantomCameraNoiseEmitter2D" type="Node2D" parent="."]
