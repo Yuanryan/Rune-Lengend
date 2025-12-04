@@ -40,7 +40,7 @@ resource_local_to_scene = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a2hlh"]
 resource_local_to_scene = true
 
-[node name="Level6" type="Node2D"]
+[node name="Level5" type="Node2D"]
 script = ExtResource("1_xab48")
 level_name = "Level Medium"
 max_total_actions = 20
@@ -533,10 +533,6 @@ scale = Vector2(-1, 1)
 unique_name_in_owner = true
 position = Vector2(-2808, 128)
 zoom = Vector2(2.7, 2.7)
-limit_left = -3586
-limit_top = -297
-limit_right = -2031
-limit_bottom = 553
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]

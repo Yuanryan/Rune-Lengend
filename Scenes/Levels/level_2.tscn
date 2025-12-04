@@ -229,15 +229,15 @@ _data = {
 &"RESET": SubResource("Animation_a3k8k")
 }
 
-[node name="Level 2" type="Node2D"]
+[node name="Level 4" type="Node2D"]
 script = ExtResource("1_0x4y1")
 level_name = "Level Easy"
 max_total_actions = 20
 individual_action_limits = Dictionary[int, int]({
-0: 999,
-1: 999,
-2: 999,
-3: 999
+0: 2,
+1: 9,
+2: 0,
+3: 8
 })
 
 [node name="BG" type="Node2D" parent="."]
@@ -503,7 +503,6 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -524,7 +523,6 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(520, -144)
 zoom = Vector2(1.7, 1.7)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -546,7 +544,6 @@ position = Vector2(576, -80)
 priority = 13
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")

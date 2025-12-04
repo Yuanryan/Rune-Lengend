@@ -24,7 +24,7 @@ shader_parameter/blur_amount = 1.8000000855
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e66q0"]
 resource_local_to_scene = true
 
-[node name="Level rabbit wolf" type="Node2D"]
+[node name="level 7" type="Node2D"]
 script = ExtResource("1_e66q0")
 level_name = "Level rabbit wolf"
 max_total_actions = 20
@@ -403,6 +403,7 @@ position = Vector2(-472, 72)
 [editable path="BG/BackgroundSnowForest"]
 [editable path="BG/BackgroundSnowForest2"]
 [editable path="BG/BackgroundSnowForest3"]
+[editable path="GameObjects/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land"]
 [editable path="GameObjects/LandNodes/Land2"]
 [editable path="GameObjects/LandNodes/Land3"]

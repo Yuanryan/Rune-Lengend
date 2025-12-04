@@ -26,7 +26,7 @@ shader_parameter/blur_amount = 1.8000000855
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0bj5"]
 resource_local_to_scene = true
 
-[node name="Tutorial_wolf" type="Node2D"]
+[node name="level 3" type="Node2D"]
 script = ExtResource("1_kbrar")
 level_name = "Tutorial Wolf"
 max_total_actions = 20
@@ -422,10 +422,6 @@ zoom = Vector2(1.7, 1.7)
 unique_name_in_owner = true
 position = Vector2(74, 100)
 zoom = Vector2(1.5, 1.5)
-limit_left = -704
-limit_top = -325
-limit_right = 852
-limit_bottom = 525
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
