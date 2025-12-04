@@ -1,0 +1,160 @@
+[gd_scene load_steps=3 format=3 uid="uid://ma6h4cok36ce"]
+
+[ext_resource type="Script" uid="uid://dbkf02wxniwsn" path="res://Scripts/UI/InGame/pause_menu.gd" id="1_hf1qj"]
+[ext_resource type="Theme" uid="uid://dgysmhlnxoviy" path="res://Scenes/UI/pixel_font.tres" id="1_tuya8"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hf1qj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="CenterContainer/Buttons"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("1_tuya8")
+theme_override_font_sizes/font_size = 64
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="CenterContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+theme = ExtResource("1_tuya8")
+text = "Resume"
+
+[node name="Options" type="Button" parent="CenterContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+theme = ExtResource("1_tuya8")
+text = "Options"
+
+[node name="Quit" type="Button" parent="CenterContainer/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+theme = ExtResource("1_tuya8")
+text = "Quit to Menu"
+
+[node name="OptionsMenu" type="TabContainer" parent="CenterContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(1000, 800)
+layout_mode = 2
+theme = ExtResource("1_tuya8")
+current_tab = 1
+
+[node name="Gameplay" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Gameplay"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Gameplay"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Gameplay/Line"]
+layout_mode = 2
+
+[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Gameplay"]
+visible = false
+layout_mode = 2
+text = "Back"
+
+[node name="Video" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Video"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Video/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/OptionsMenu/Video/MarginContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Screen Mode"
+
+[node name="ScreenMode" type="OptionButton" parent="CenterContainer/OptionsMenu/Video/MarginContainer/HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme = ExtResource("1_tuya8")
+selected = 2
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Borderless"
+popup/item_2/id = 2
+
+[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Video"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Video/Line"]
+layout_mode = 2
+
+[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Video"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Back"
+
+[node name="Audio" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Audio"]
+layout_mode = 2
+
+[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Audio"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Audio/Line"]
+layout_mode = 2
+
+[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Audio"]
+visible = false
+layout_mode = 2
+text = "Back"
