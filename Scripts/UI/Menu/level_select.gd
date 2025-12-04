@@ -7,7 +7,7 @@ class_name LevelSelect
 signal back_to_main_menu()
 
 @onready var levels_container: GridContainer = %LevelsContainer
-@onready var back_button: Button = %BackButton
+@onready var back_button: TextureButton = %BackButton
 
 # 關卡按鈕場景
 const LEVEL_BUTTON_SCENE: PackedScene = preload("uid://c7k8nan0o1p2q")
@@ -136,4 +136,3 @@ func hide_level_select() -> void:
     """隱藏關卡選擇頁面"""
     visible = false
     process_mode = Node.PROCESS_MODE_DISABLED
-
