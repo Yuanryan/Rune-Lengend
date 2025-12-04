@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2nq82l2n1e8q"]
+[gd_scene load_steps=15 format=3 uid="uid://c2nq82l2n1e8q"]
 
 [ext_resource type="Script" uid="uid://e6xtfiuk5p5d" path="res://Scripts/UI/InGame/card_tile.gd" id="1_jw68n"]
 [ext_resource type="Texture2D" uid="uid://brjyunsqeioh3" path="res://Assets/ui/cards/run_right.png" id="3_ei6wv"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cf1h8iq58kqku" path="res://Assets/ui/RUNE/frame_SwitchMan.png" id="10_0t30g"]
 [ext_resource type="Texture2D" uid="uid://43b4l522ydef" path="res://Assets/ui/RUNE/frame_SwitchRabbit.png" id="11_hcwxd"]
 [ext_resource type="Texture2D" uid="uid://c8bipb0l5ebir" path="res://Assets/ui/RUNE/frame_SwitchWolf.png" id="12_defqa"]
+[ext_resource type="FontFile" uid="uid://u1xd0o3iv010" path="res://Assets/fonts/boldpixels.boldpixels.ttf" id="13_npli3"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_jw68n"]
 
@@ -97,19 +98,19 @@ patch_margin_bottom = 10
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -38.0
-offset_top = 1.0
-offset_right = -19.0
-offset_bottom = 38.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 12
-text = "
-"
-horizontal_alignment = 2
-metadata/_edit_group_ = true
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("13_npli3")
+theme_override_font_sizes/font_size = 25
+text = "5/6"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Label" type="RichTextLabel" parent="."]
 unique_name_in_owner = true

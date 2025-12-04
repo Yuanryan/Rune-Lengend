@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dmavjrcww2c2h"]
+[gd_scene load_steps=18 format=3 uid="uid://dmavjrcww2c2h"]
 
 [ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://btmorjic5emta" path="res://Assets/textures/circle_albedo.png" id="6_5qd38"]
 [ext_resource type="Texture2D" uid="uid://byodoiu3ocdb2" path="res://Assets/ui/card_bg/card_background.png" id="7_bg"]
 [ext_resource type="Texture2D" uid="uid://crelmgp6a34ha" path="res://Assets/ui/button/clear_button.png" id="8_clear_btn"]
+[ext_resource type="Texture2D" uid="uid://bm6dfr4jlkum2" path="res://Assets/ui/card_bg/card_deck.png" id="9_deck_bg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qh1fn"]
 
@@ -353,20 +354,37 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="TitleLabel" type="Label" parent="MainContainer/TopPanel/TopMargin/TopContent"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "Available Cards"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CardDeck" type="HBoxContainer" parent="MainContainer/TopPanel/TopMargin/TopContent"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+[node name="CardDeckWrapper" type="CenterContainer" parent="MainContainer/TopPanel/TopMargin/TopContent"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 15
+
+[node name="CardDeckContainer" type="Control" parent="MainContainer/TopPanel/TopMargin/TopContent/CardDeckWrapper"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="DeckBackground" type="NinePatchRect" parent="MainContainer/TopPanel/TopMargin/TopContent/CardDeckWrapper/CardDeckContainer"]
+layout_mode = 0
+texture = ExtResource("9_deck_bg")
+patch_margin_left = 6
+patch_margin_right = 6
+
+[node name="CardDeck" type="HBoxContainer" parent="MainContainer/TopPanel/TopMargin/TopContent/CardDeckWrapper/CardDeckContainer"]
+unique_name_in_owner = true
+layout_mode = 0
+theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("2_lujqu")
+background_padding = Vector2(6, 6)
+label_height = 20.0
 
 [node name="DropMonitor" type="Panel" parent="MainContainer"]
 unique_name_in_owner = true
@@ -447,7 +465,6 @@ focus_mode = 0
 texture_normal = ExtResource("8_clear_btn")
 
 [node name="ControlButtons" type="HBoxContainer" parent="MainContainer/BottomPanel/BottomMargin/BottomContent"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 20

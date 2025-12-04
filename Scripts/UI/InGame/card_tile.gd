@@ -274,10 +274,12 @@ func _update_usage_display() -> void:
     if not usage_label:
         return
 
-    if _max_usage < 999:  # 只有有限制的動作才顯示
+    if _max_usage < 999:
+        # 有限制：顯示 剩餘/最大
         usage_label.text = str(_max_usage - _current_usage) + "/" + str(_max_usage)
         usage_label.visible = true
     else:
+        # 無限制：不顯示
         usage_label.visible = false
 
 # 更新視覺狀態
