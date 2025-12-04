@@ -2,6 +2,9 @@
 extends ConditionalAction
 class_name JumpAction
 
+# 預載入二段跳特效場景
+const DoubleJumpEffectScene = preload("res://Scenes/Effects/double_jump_effect.tscn")
+
 @export var jump_velocity: Vector2 = Vector2.ZERO
 var direction: Vector2 = Vector2.ZERO
 
@@ -28,10 +31,21 @@ func start(player: CharacterBody2D) -> void:
     # 增加跳躍計數（如果玩家有這個方法）
     if not player.is_on_floor():
         player._air_jump_count += 1
+        # 生成二段跳特效
+        _spawn_double_jump_effect(player)
     
     # 播放跳躍音效
     if MusicManager:
         MusicManager.play_jump_sound()
+
+# 生成二段跳特效
+func _spawn_double_jump_effect(player: CharacterBody2D) -> void:
+    if DoubleJumpEffectScene:
+        var effect = DoubleJumpEffectScene.instantiate()
+        # 將特效加入到關卡場景（不是玩家子節點，這樣不會跟著移動）
+        player.get_parent().add_child(effect)
+        # 設定特效位置為玩家當前位置
+        effect.global_position = player.global_position
 
 func should_stop(player: Player, delta: float) -> bool:
     # 檢查是否已經離開地面
