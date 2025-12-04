@@ -16,7 +16,8 @@ signal transition_finished
 
 # Menus
 @onready var pause_menu : PauseMenu = %PauseMenu
-@onready var debug_menu : Control = %DebugMenu 
+@onready var debug_menu : Control = %DebugMenu
+@onready var pause_button: TextureButton = %PauseButton
 
 # 過渡狀態追蹤
 var is_transitioning: bool = false
@@ -28,11 +29,22 @@ func _ready() -> void:
     _connect_game_manager_signals()
     _setup_card_deck_reference()
     update_fullscreen_button_text()
-    
+
     # Menu initialization
     if pause_menu:
         pause_menu.hide()
-    
+        # 連接暫停菜單信號
+        pause_menu.pause_menu_shown.connect(_on_pause_menu_shown)
+        pause_menu.pause_menu_hidden.connect(_on_pause_menu_hidden)
+
+    # Pause button setup
+    if pause_button:
+        pause_button.pressed.connect(_on_pause_button_pressed)
+        pause_button.mouse_entered.connect(_on_pause_button_hover)
+        pause_button.mouse_exited.connect(_on_pause_button_normal)
+        pause_button.button_down.connect(_on_pause_button_down)
+        pause_button.button_up.connect(_on_pause_button_hover)
+
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -351,10 +363,39 @@ func _show_message(text: String) -> void:
 func show_pause_menu() -> void:
     if pause_menu:
         await pause_menu.show_pause_menu()
+        # 移除 pause_button.hide()，改由信號處理
 
 func hide_pause_menu() -> void:
     if pause_menu:
         await pause_menu.hide_pause_menu()
+        # 移除 pause_button.show()，改由信號處理
+
+# Pause button handlers
+func _on_pause_button_pressed() -> void:
+    if pause_button:
+        pause_button.release_focus()
+    await show_pause_menu()
+
+func _on_pause_button_hover() -> void:
+    if pause_button:
+        pause_button.modulate = Color(1.2, 1.2, 1.2, 1.0)
+
+func _on_pause_button_normal() -> void:
+    if pause_button:
+        pause_button.modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+func _on_pause_button_down() -> void:
+    if pause_button:
+        pause_button.modulate = Color(0.8, 0.8, 0.8, 1.0)
+
+# Pause menu signal handlers
+func _on_pause_menu_shown() -> void:
+    if pause_button:
+        pause_button.hide()
+
+func _on_pause_menu_hidden() -> void:
+    if pause_button:
+        pause_button.show()
 
 func _input(event: InputEvent) -> void:
     if GameManager.current_state != GameManager.GameState.GAME_PLAY:

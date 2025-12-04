@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dmavjrcww2c2h"]
+[gd_scene load_steps=20 format=3 uid="uid://dmavjrcww2c2h"]
 
 [ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://byodoiu3ocdb2" path="res://Assets/ui/card_bg/card_background.png" id="7_bg"]
 [ext_resource type="Texture2D" uid="uid://crelmgp6a34ha" path="res://Assets/ui/button/clear_button.png" id="8_clear_btn"]
 [ext_resource type="Texture2D" uid="uid://bm6dfr4jlkum2" path="res://Assets/ui/card_bg/card_deck.png" id="9_deck_bg"]
-[ext_resource type="PackedScene" uid="uid://ma6h4cok36ce" path="res://Scenes/UI/InGame/pause_menu.tscn" id="10_r7opr"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/InGame/pause_menu.tscn" id="10_r7opr"]
+[ext_resource type="Texture2D" uid="uid://byak3bqxunnwq" path="res://Assets/ui/button/pause_button.png" id="11_pause_btn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qh1fn"]
 
@@ -549,3 +550,18 @@ visible = false
 offset_right = 8.0
 offset_bottom = 8.0
 text = "Back"
+
+[node name="PauseButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 150.0
+grow_horizontal = 0
+scale = Vector2(3.28, 3.28)
+focus_mode = 0
+texture_normal = ExtResource("11_pause_btn")

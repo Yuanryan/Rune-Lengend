@@ -195,6 +195,9 @@ func _get_drag_data(at_position: Vector2) -> Variant:
 
     _is_dragging = true
     card_dragged.emit(self)
+    
+    # 開始拖曳時整個卡片變暗
+    modulate = Color(0.6, 0.6, 0.6, 0.6)
 
     var data := {
         "type": "card",
@@ -209,6 +212,12 @@ func _get_drag_data(at_position: Vector2) -> Variant:
     set_drag_preview(preview)
     return data
 
+func _notification(what: int) -> void:
+    if what == NOTIFICATION_DRAG_END:
+        # 拖曳結束時恢復正常
+        _is_dragging = false
+        modulate = Color(1.0, 1.0, 1.0, 1.0)
+
 func _gui_input(event: InputEvent) -> void:
     if event is InputEventMouseMotion:
         if not _is_dragging:
@@ -216,12 +225,12 @@ func _gui_input(event: InputEvent) -> void:
     elif event is InputEventMouseButton:
         var mouse_event = event as InputEventMouseButton
         if mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-            # 按下時不觸發點擊事件，只處理拖拽
-            pass
+            # 按下時整個卡片變暗
+            modulate = Color(0.7, 0.7, 0.7, 1.0)
         elif not mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
-            # 釋放時觸發點擊事件
+            # 釋放時恢復正常並觸發點擊事件
+            modulate = Color(1.0, 1.0, 1.0, 1.0)
             card_clicked.emit(self)
-            bg.visible = false
             _is_dragging = false
 
 func set_executing(is_executing: bool) -> void:
