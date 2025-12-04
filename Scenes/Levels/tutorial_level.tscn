@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=42 format=4 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
@@ -16,6 +16,7 @@
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="13_w685s"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="14_w685s"]
 [ext_resource type="PackedScene" uid="uid://cop2vvwj8rh04" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
+[ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="16_g3l5c"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]
 script = ExtResource("5_gwj07")
@@ -358,12 +359,8 @@ disabled = false
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-136, 216)
+position = Vector2(3680, 216)
 zoom = Vector2(2, 2)
-limit_left = -613
-limit_top = -62
-limit_right = 351
-limit_bottom = 468
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Essential/Camera2D"]
@@ -566,7 +563,6 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(384, -160)
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -587,7 +583,6 @@ shape = SubResource("RectangleShape2D_ddtxo")
 position = Vector2(590, -140)
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -609,7 +604,6 @@ position = Vector2(506, -101)
 priority = 13
 zoom = Vector2(1.7, 1.7)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -634,7 +628,6 @@ position = Vector2(416, -24)
 priority = 14
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
-draw_limits = true
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
@@ -715,53 +708,51 @@ offset_top = 40.0
 offset_right = -248.0
 offset_bottom = 80.0
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
+[node name="TutorialBox" parent="TutorialText" instance=ExtResource("16_g3l5c")]
+custom_minimum_size = Vector2(160, 50)
 layout_mode = 0
-offset_left = 36.0
-offset_top = -40.0
-offset_right = 550.0
-offset_bottom = 60.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+offset_left = 84.0
+offset_top = -13.0
+offset_right = 244.0
+offset_bottom = 37.0
 text = "↑ Action cards deck"
-fit_content = true
+box_size = Vector2(160, 50)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
+[node name="TutorialBox2" parent="TutorialText" instance=ExtResource("16_g3l5c")]
+custom_minimum_size = Vector2(400, 122)
 layout_mode = 0
-offset_left = -169.0
-offset_top = 134.0
-offset_right = 345.0
-offset_bottom = 234.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
-text = "Drag the action cards into the queue to execute actions"
-fit_content = true
+offset_left = -179.0
+offset_top = 99.0
+offset_right = 221.0
+offset_bottom = 221.0
+text = "Drag the action cards into the queue to execute actions
+Press space to execute actions
+Press \"R\" to retry"
+box_size = Vector2(400, 122)
 
-[node name="RichTextLabel4" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
+[node name="TutorialBox3" parent="TutorialText" instance=ExtResource("16_g3l5c")]
+custom_minimum_size = Vector2(180, 50)
 layout_mode = 0
-offset_left = 730.0
-offset_top = 1.0
-offset_right = 1244.0
-offset_bottom = 101.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+offset_left = 301.0
+offset_top = 204.0
+offset_right = 481.0
+offset_bottom = 254.0
+text = "↓ Action queue"
+box_size = Vector2(180, 50)
+
+[node name="TutorialBox4" parent="TutorialText" instance=ExtResource("16_g3l5c")]
+custom_minimum_size = Vector2(391, 100)
+layout_mode = 0
+offset_left = 801.0
+offset_top = -18.0
+offset_right = 1192.0
+offset_bottom = 82.0
 text = "Press space to execute next action
 Move actions wont stop until you interrupt
-Jump actions stops when touched the ground
+Jump actions stops after touching the ground
  "
-fit_content = true
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 0
-offset_left = 61.0
-offset_top = 363.0
-offset_right = 575.0
-offset_bottom = 463.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
-text = "↓ Action queue
-"
-fit_content = true
+auto_start = false
+box_size = Vector2(391, 100)
 
 [node name="Sparrow" parent="." instance=ExtResource("16_5pgco")]
 position = Vector2(-247, 368)

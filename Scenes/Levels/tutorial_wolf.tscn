@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://co1t4pi0rj21"]
+[gd_scene load_steps=21 format=4 uid="uid://co1t4pi0rj21"]
 
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="1_81stg"]
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_kbrar"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_hw8wl"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="14_574ca"]
 [ext_resource type="PackedScene" uid="uid://btpopvnwbia8c" path="res://Scenes/LevelEdit/Objects/Hazard/turret.tscn" id="15_14fws"]
+[ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="17_ndljw"]
 [ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="18_5ogeo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
@@ -482,6 +483,26 @@ offset_left = -288.0
 offset_top = 40.0
 offset_right = -248.0
 offset_bottom = 80.0
+
+[node name="TutorialBox" parent="TutorialText" instance=ExtResource("17_ndljw")]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 0
+offset_left = 1086.0
+offset_top = -139.0
+offset_right = 1386.0
+offset_bottom = -79.0
+text = "Transform into a wolf to jump farther"
+box_size = Vector2(300, 60)
+
+[node name="TutorialBox2" parent="TutorialText" instance=ExtResource("17_ndljw")]
+custom_minimum_size = Vector2(380, 60)
+layout_mode = 0
+offset_left = 3448.0
+offset_top = -304.0
+offset_right = 3828.0
+offset_bottom = -244.0
+text = "Careful about when to transform into a wolf!"
+box_size = Vector2(380, 60)
 
 [node name="Enviroments" type="Node2D" parent="."]
 visible = false
