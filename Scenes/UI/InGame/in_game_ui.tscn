@@ -509,7 +509,7 @@ libraries = {
 
 [node name="PauseMenu" type="Control" parent="."]
 unique_name_in_owner = true
-process_mode = 3
+process_mode = 2
 visible = false
 layout_mode = 3
 anchors_preset = 15

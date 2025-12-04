@@ -53,6 +53,7 @@ func _ready() -> void:
     _connect_menu_button_signals()
     hide_options_menu()
     hide_pause_menu()
+    
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -271,7 +272,6 @@ func disable_buttons() -> void:
     execute_button.disabled = true
     clear_button.disabled = true
 
-
 func enable_buttons() -> void:
     execute_button.disabled = false
     clear_button.disabled = false
@@ -396,11 +396,11 @@ func show_pause_menu() -> void:
     menu_state = MenuState.PAUSED
     
 func hide_pause_menu() -> void:
-    GameManager.resume_game()  
+    print("hide_pause_menu")
+    GameManager.resume_game()
     if pause_menu:
         await play_menu_animations(pause_menu, false, 0.1)
         pause_menu.hide()
-
     
     menu_state = MenuState.GAME
 
