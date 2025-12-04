@@ -32,7 +32,6 @@ func initialize_ui() -> void:
     
     if in_game_ui:
         in_game_ui.visible = false
-        in_game_ui.process_mode = Node.PROCESS_MODE_DISABLED
     
     if level_select:
         level_select.visible = false
@@ -68,7 +67,6 @@ func show_game_ui() -> void:
     _hide_all_ui()
     if in_game_ui:
         in_game_ui.visible = true
-        in_game_ui.process_mode = Node.PROCESS_MODE_INHERIT
         current_ui = in_game_ui
 
 # 隱藏所有UI
@@ -82,7 +80,7 @@ func _hide_all_ui() -> void:
     
     if in_game_ui:
         in_game_ui.visible = false
-        in_game_ui.process_mode = Node.PROCESS_MODE_DISABLED
+
 
 # 獲取當前UI
 func get_current_ui() -> Node:
