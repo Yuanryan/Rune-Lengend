@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://mxj4p352jd5k"]
+[gd_scene load_steps=19 format=4 uid="uid://mxj4p352jd5k"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_e66q0"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="2_kyi57"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="13_4u66v"]
 [ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="13_gvijv"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="15_e66q0"]
+[ext_resource type="TileSet" uid="uid://btum3tehm7nf1" path="res://Resources/TileSets/snow_forest.tres" id="15_kyi57"]
 [ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="15_pcdah"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
@@ -21,7 +22,7 @@ resource_local_to_scene = true
 shader = ExtResource("3_a3lfw")
 shader_parameter/blur_amount = 1.8000000855
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e66q0"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kyi57"]
 resource_local_to_scene = true
 
 [node name="level 7" type="Node2D"]
@@ -87,10 +88,10 @@ scale = Vector2(1.3, 1.3)
 scale = Vector2(1.3, 1.3)
 
 [node name="ColorRect" parent="BG/BackgroundSnowForest2" index="4"]
-offset_left = -935.99994
-offset_top = -467.99997
-offset_right = 504.00006
-offset_bottom = 252.00003
+offset_left = -948.99994
+offset_top = -484.00003
+offset_right = 491.00006
+offset_bottom = 235.99997
 scale = Vector2(1.3, 1.3)
 
 [node name="Blur" parent="BG/BackgroundSnowForest2" index="5"]
@@ -129,7 +130,7 @@ scale = Vector2(1.3, 1.3)
 [node name="GameObjects" type="Node2D" parent="."]
 
 [node name="PlayerDummy" parent="GameObjects" instance=ExtResource("7_t0mxp")]
-position = Vector2(-728, 312)
+position = Vector2(-678, 297)
 animal_type = 1
 rabbit_jump_type = 0
 
@@ -157,74 +158,94 @@ position = Vector2(-544, 0)
 [node name="LandNodes" type="Node2D" parent="GameObjects"]
 
 [node name="Land" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
+visible = false
 position = Vector2(-3096, 232)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land" index="0"]
-position = Vector2(-72, -256)
+position = Vector2(-288.9999, -412.5715)
+scale = Vector2(1.7822583, 1.7053573)
 polygon = PackedVector2Array(0, 256, 0, 368, 248, 368, 248, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land"]
-position = Vector2(-72, -256)
+position = Vector2(-288.9999, -412.5715)
+scale = Vector2(1.7822583, 1.7053573)
 polygon = PackedVector2Array(0, 256, 0, 368, 248, 368, 248, 256)
 
 [node name="Land2" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
+visible = false
 position = Vector2(-2624, 232)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land2" index="0"]
-position = Vector2(-72, -256)
-polygon = PackedVector2Array(0, 256, 0, 368, 104.96484, 368, 104, 456, 400, 456, 400, 256)
+position = Vector2(-61.904663, -203.56)
+scale = Vector2(0.9572616, 0.885)
+polygon = PackedVector2Array(-4.278076, 256.99997, -3.2519531, 360, 0, 368, 104.96484, 368, 104, 456, 400, 456, 400, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land2"]
-position = Vector2(-72, -256)
-polygon = PackedVector2Array(0, 256, 0, 368, 104.96484, 368, 104, 456, 400, 456, 400, 256)
+position = Vector2(-61.904663, -201.28006)
+scale = Vector2(0.9572616, 0.8800002)
+polygon = PackedVector2Array(-4.278076, 256.99997, -3.2519531, 360, 0, 368, 104.96484, 368, 104, 456, 400, 456, 400, 256)
 
 [node name="Land3" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
 position = Vector2(-1688, 224)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land3" index="0"]
+visible = false
+position = Vector2(-130.00003, -191.52632)
+scale = Vector2(1.4166667, 0.88486844)
 polygon = PackedVector2Array(-72, 256, -72, 480, 32.6214, 479.99997, 32, 560, 312, 560, 312, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land3"]
-position = Vector2(0, -256)
+position = Vector2(-130.00003, -191.52632)
+scale = Vector2(1.4166667, 0.88486844)
 polygon = PackedVector2Array(-72, 256, -72, 480, 32.6214, 479.99997, 32, 560, 312, 560, 312, 256)
 
 [node name="Land4" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
 position = Vector2(-744, 64)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land4" index="0"]
-position = Vector2(-40, -224)
-polygon = PackedVector2Array(64, 256, 64, 288, 416, 288, 416, 256)
+visible = false
+position = Vector2(-42.765957, -503)
+scale = Vector2(1.0691489, 1.96875)
+polygon = PackedVector2Array(40, 255.49208, 40, 270.73016, 40, 288.00003, 416, 288, 416, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land4"]
-position = Vector2(-40, -224)
-polygon = PackedVector2Array(64, 256, 64, 288, 416, 288, 416, 256)
+position = Vector2(-42.765957, -503)
+scale = Vector2(1.0691489, 1.96875)
+polygon = PackedVector2Array(40, 255.49208, 40, 270.73016, 40, 288.00003, 416, 288, 416, 256)
 
 [node name="Land5" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
 position = Vector2(-1152, 232)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land5" index="0"]
-position = Vector2(80, -160)
+visible = false
+position = Vector2(58.740746, -174.56412)
+scale = Vector2(1.1898148, 1.0256411)
 polygon = PackedVector2Array(-104, 256, -104, 568, 112, 568, 112, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land5"]
-position = Vector2(80, -160)
+position = Vector2(58.740746, -174.56412)
+scale = Vector2(1.1898148, 1.0256411)
 polygon = PackedVector2Array(-104, 256, -104, 568, 112, 568, 112, 256)
 
 [node name="Land6" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
 position = Vector2(-792, -96)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land6" index="0"]
-position = Vector2(40, -256)
-polygon = PackedVector2Array(0, 128, -1904, 120, -1912, 280, 0, 280, 0, 320, 384, 320, 384, 128)
+visible = false
+position = Vector2(70.81177, -256)
+scale = Vector2(1.016115, 1)
+polygon = PackedVector2Array(0, 128, -1904, 120, -1912, 280, 0, 280, 343.65036, 281, 384.98425, 278, 384, 128)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land6"]
-position = Vector2(40, -256)
-polygon = PackedVector2Array(0, 128, -1904, 120, -1912, 280, 0, 280, 0, 320, 384, 320, 384, 128)
+[node name="@CollisionPolygon2D@30276" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land6"]
+position = Vector2(70.81177, -256)
+scale = Vector2(1.016115, 1)
+polygon = PackedVector2Array(0, 128, -1904, 120, -1912, 280, 0, 280, 343.65036, 281, 384.98425, 278, 384, 128)
 
 [node name="Land7" parent="GameObjects/LandNodes" instance=ExtResource("10_lp4q8")]
 position = Vector2(-872, 328)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land7" index="0"]
+visible = false
 position = Vector2(128, -256)
 polygon = PackedVector2Array(-24, 256, -24, 464, 376, 464, 376, 56, 240, 56, 240, 256)
 
@@ -236,25 +257,28 @@ polygon = PackedVector2Array(-24, 256, -24, 464, 376, 464, 376, 56, 240, 56, 240
 position = Vector2(-1008, 192)
 
 [node name="Polygon2D" parent="GameObjects/LandNodes/Land8" index="0"]
-position = Vector2(48, -224)
-polygon = PackedVector2Array(0, 256, 0, 288, 184, 288, 184, 256)
+visible = false
+position = Vector2(48, -256)
+scale = Vector2(1.0380435, 1)
+polygon = PackedVector2Array(0, 256, 0, 288, 91, 287.5, 184, 288, 184, 256)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/LandNodes/Land8"]
-position = Vector2(48, -224)
-polygon = PackedVector2Array(0, 256, 0, 288, 184, 288, 184, 256)
+position = Vector2(48, -256)
+scale = Vector2(1.0380435, 1)
+polygon = PackedVector2Array(0, 256, 0, 288, 91, 287.5, 184, 288, 184, 256)
 
 [node name="Checkpoints" type="Node2D" parent="GameObjects"]
 position = Vector2(152, 72)
 
 [node name="Checkpoint" parent="GameObjects/Checkpoints" instance=ExtResource("7_756wk")]
-position = Vector2(-2664, 128)
+position = Vector2(-2668, 158)
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint" index="2"]
 position = Vector2(488, -96)
 zoom = Vector2(1.7, 1.7)
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("7_756wk")]
-position = Vector2(-1720, 125)
+position = Vector2(-1717, 154)
 
 [node name="PhantomCamera2D" parent="GameObjects/Checkpoints/Checkpoint2" index="2"]
 position = Vector2(552, -29)
@@ -266,23 +290,23 @@ zoom = Vector2(1.5, 1.5)
 position = Vector2(-1392, 200)
 
 [node name="TimedDoor" parent="GameObjects/Timedoors" instance=ExtResource("9_sfrwa")]
-position = Vector2(624, 24)
 
 [node name="Polygon2D" parent="GameObjects/Timedoors/TimedDoor" index="0"]
-position = Vector2(104.000015, -161)
-polygon = PackedVector2Array(-8, -32, -7.999878, -0.5214844, -8, 32, 8, 32, 8, -32)
+position = Vector2(756.99994, -199.5)
+scale = Vector2(1, 1.765625)
 
 [node name="GameButton" parent="GameObjects/Timedoors/TimedDoor" index="2"]
-position = Vector2(16, 96)
+position = Vector2(475, -18)
 
 [node name="Timedoor" parent="GameObjects/Timedoors/TimedDoor" index="3"]
-material = SubResource("ShaderMaterial_e66q0")
-position = Vector2(111.99997, -192)
-scale = Vector2(1.9999967, 2)
+material = SubResource("ShaderMaterial_kyi57")
+position = Vector2(757.25, -199.75)
+scale = Vector2(2.21875, 2.0078125)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/Timedoors/TimedDoor"]
-position = Vector2(104.000015, -161)
-polygon = PackedVector2Array(-8, -95, -8, 17, -8, 32, 24, 33, 24, -95)
+position = Vector2(756.99994, -199.5)
+scale = Vector2(1, 1.765625)
+polygon = PackedVector2Array(-8, -32, -8, 32, 8, 32, 8, -32)
 
 [node name="Falling Ices" type="Node2D" parent="GameObjects"]
 
@@ -371,6 +395,8 @@ polygon = PackedVector2Array(3, 0, 541, 2, 539, 44, 4, 44)
 position = Vector2(-2928, 336)
 
 [node name="CollisionPolygon2D" parent="GameObjects/damageAreas/DamageArea2" index="1"]
+position = Vector2(-26.21875, -4)
+scale = Vector2(1.0703125, 1)
 polygon = PackedVector2Array(4, 4, 244, 4, 244, 44, 4, 44)
 
 [node name="DamageArea3" parent="GameObjects/damageAreas" instance=ExtResource("12_3bnw7")]
@@ -395,10 +421,22 @@ tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAI
 tile_set = ExtResource("15_pcdah")
 
 [node name="Spike" parent="Environments" instance=ExtResource("12_xuflw")]
-position = Vector2(-1160, 304)
+position = Vector2(-1158, 296)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="Environments"]
+tile_map_data = PackedByteArray("AADO/wQABQABAAEAAADP/wQABQABAAEAAADQ/wQABQABAAEAAADR/wQABQABAAEAAADM/wQABQABAAEAAADN/wQABQABAAEAAADL/wUABQAAAAIAAADL/wQABQAAAAEAAADL/wYABQAAAAIAAADM/wUABQABAAIAAADN/wUABQABAAIAAADM/wYABQABAAIAAADN/wYABQABAAIAAADO/wUABQABAAIAAADO/wYABQABAAIAAADP/wUABQABAAIAAADP/wYABQABAAIAAADQ/wUABQABAAIAAADQ/wYABQABAAIAAADR/wUABQABAAIAAADR/wYABQABAAIAAADW/wQABQAAAAEAAADW/wUABQAAAAIAAADX/wUABQABAAIAAADY/wUABQABAAIAAADZ/wUABQABAAIAAADa/wUABQABAAIAAADb/wUABQACAAIAAADb/wQABQACAAEAAADa/wQABQABAAEAAADZ/wQABQABAAEAAADY/wQABQABAAEAAADX/wQABQABAAEAAADl/wUABQABAAUAAADl/wYABQABAAUAAADl/wQABQABAAEAAADm/wQABQABAAEAAADn/wQABQABAAEAAADo/wQABQABAAEAAADp/wQABQABAAEAAADp/wUABQABAAUAAADp/wYABQABAAUAAADp/wcABQABAAUAAADo/wcABQABAAUAAADn/wcABQABAAUAAADm/wcABQABAAUAAADl/wcABQABAAUAAADm/wYABQABAAUAAADn/wYABQABAAUAAADo/wYABQABAAUAAADn/wUABQABAAUAAADm/wUABQABAAUAAADo/wUABQABAAUAAADk/wcABQABAAIAAADk/wYABQABAAIAAADk/wUABQABAAIAAADk/wQABQABAAEAAADq/wcABQACAAIAAADq/wYABQACAAIAAADq/wUABQACAAIAAADq/wQABQACAAEAAADt/wYABQAAAAIAAADt/wcABQAAAAIAAADt/wgABQAAAAIAAADt/wkABQAAAAQAAADu/wkABQABAAQAAADv/wkABQABAAQAAADw/wkABQACAAQAAADw/wgABQACAAIAAADw/wcABQACAAIAAADw/wYABQACAAIAAADw/wUABQACAAEAAADt/wUABQAAAAEAAADu/wUABQABAAEAAADv/wUABQABAAEAAADu/wYABQABAAIAAADu/wcABQABAAIAAADu/wgABQABAAIAAADv/wgABQABAAIAAADv/wcABQABAAIAAADv/wYABQABAAIAAADj/wcABQABAAIAAADj/wYABQABAAIAAADj/wUABQABAAIAAADj/wQABQABAAEAAADi/wQABQAAAAEAAADi/wUABQAAAAIAAADi/wYABQAAAAIAAADi/wcABQAAAAIAAADi/wgABQAAAAQAAADj/wgABQABAAQAAADk/wgABQABAAQAAADl/wgABQABAAQAAADm/wgABQABAAQAAADn/wgABQABAAQAAADo/wgABQABAAQAAADp/wgABQABAAQAAADq/wgABQACAAQAAAA=")
+tile_set = ExtResource("15_kyi57")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="Environments"]
+tile_map_data = PackedByteArray("AADW//3/BQAAAAIAAADW//7/BQAAAAkAAADX//7/BQABAAkAAADY//7/BQABAAkAAADZ//7/BQABAAkAAADa//7/BQABAAkAAADb//7/BQABAAkAAADc//7/BQABAAkAAADd//7/BQABAAQAAADe//7/BQABAAQAAADf//7/BQABAAQAAADg//7/BQABAAQAAADh//7/BQABAAQAAADi//7/BQABAAQAAADj//7/BQABAAkAAADk//7/BQABAAkAAADl//7/BQABAAkAAADm//7/BQABAAkAAADn//7/BQABAAkAAADo//7/BQABAAkAAADp//7/BQABAAkAAADq//7/BQABAAkAAADr//7/BQABAAkAAADs//7/BQABAAkAAADt//7/BQABAAkAAADu//7/BQABAAkAAADv//7/BQABAAkAAADw//7/BQABAAkAAADx//7/BQABAAkAAADy//7/BQABAAkAAADW//z/BQAAAAMAAADX//3/BQABAAMAAADX//z/BQABAAMAAADY//z/BQABAAMAAADZ//z/BQABAAMAAADa//z/BQABAAMAAADb//z/BQABAAMAAADc//z/BQABAAMAAADc//3/BQABAAMAAADd//3/BQABAAMAAADb//3/BQABAAMAAADa//3/BQABAAMAAADZ//3/BQABAAMAAADY//3/BQABAAMAAADd//z/BQABAAMAAADe//z/BQABAAMAAADf//z/BQABAAMAAADg//z/BQABAAMAAADg//3/BQABAAMAAADf//3/BQABAAMAAADe//3/BQABAAMAAADh//3/BQABAAMAAADh//z/BQABAAMAAADi//z/BQABAAMAAADj//z/BQABAAMAAADk//z/BQABAAMAAADl//z/BQABAAMAAADm//z/BQABAAMAAADn//z/BQABAAMAAADo//z/BQABAAMAAADp//z/BQABAAMAAADq//z/BQABAAMAAADr//z/BQABAAMAAADs//z/BQABAAMAAADt//z/BQABAAMAAADu//z/BQABAAMAAADv//z/BQABAAMAAADw//z/BQABAAMAAADx//z/BQABAAMAAADy//z/BQABAAMAAADz//z/BQABAAMAAADi//3/BQABAAMAAADj//3/BQABAAIAAADp//3/BQABAAMAAADq//3/BQABAAMAAADr//3/BQABAAMAAADs//3/BQABAAMAAADt//3/BQABAAMAAADk//3/BQABAAIAAADl//3/BQABAAMAAADm//3/BQABAAMAAADn//3/BQABAAMAAADo//3/BQABAAMAAADu//3/BQABAAMAAADv//3/BQABAAMAAADw//3/BQABAAMAAADx//3/BQABAAMAAADy//3/BQABAAMAAAD0//z/BQABAAMAAAD1//z/BQABAAMAAAD2//z/BQABAAMAAAD3//z/BQABAAMAAAD4//z/BQABAAMAAAD5//z/BQABAAMAAAD5//3/BQABAAMAAAD4//3/BQABAAMAAAD3//3/BQABAAMAAAD2//3/BQABAAMAAAD1//3/BQABAAMAAAD0//3/BQABAAMAAADz//3/BQABAAMAAADz//7/BQABAAkAAAD0//7/BQABAAkAAAD1//7/BQABAAkAAAD2//7/BQABAAkAAAD3//7/BQABAAkAAAD4//7/BQABAAkAAAD5//7/BQABAAkAAAD6//7/BQACAAkAAAD6//3/BQACAAUAAAD6//z/BQACAAUAAADu/wYABQABAAIAAADv/wYABQABAAIAAADv/wcABQABAAIAAADv/wgABQABAAIAAADu/wgABQABAAIAAADu/wcABQABAAIAAADx/wMABQAAAAgAAADy/wMABQABAAgAAADz/wMABQACAAgAAAD0/wUABQAAAAEAAAD1/wUABQABAAEAAAD2/wUABQABAAEAAAD3/wUABQABAAEAAAD0/wYABQAAAAIAAAD0/wcABQAAAAMAAAD0/wgABQAAAAQAAAD1/wgABQABAAQAAAD2/wgABQABAAQAAAD3/wgABQABAAQAAAD4/wgABQABAAQAAAD5/wgABQABAAQAAAD6/wgABQACAAQAAAD6/wcABQACAAMAAAD6/wYABQACAAMAAAD6/wUABQACAAIAAAD6/wQABQACAAIAAAD6/wMABQACAAIAAAD6/wIABQACAAIAAAD1/wYABQABAAIAAAD1/wcABQABAAIAAAD2/wcABQABAAIAAAD2/wYABQABAAIAAAD3/wYABQABAAIAAAD3/wcABQABAAIAAAD4/wcABQABAAIAAAD4/wYABQABAAIAAAD5/wYABQABAAIAAAD5/wcABQABAAIAAAD5/wUABQABAAIAAAD5/wQABQABAAIAAAD5/wMABQABAAIAAAD5/wIABQABAAIAAAD4/wUABQAAAAYAAAD4/wQABQAAAAUAAAD4/wMABQAAAAUAAAD4/wIABQAAAAUAAAD1/wEABQABAAkAAAD2/wEABQABAAkAAAD3/wEABQABAAkAAAD4/wEABQAGAAgAAAD6/wEABQAEAAEAAAD5/wEABQAGAAgAAAD0/wEABQAAAAkAAAA=")
+tile_set = ExtResource("15_pcdah")
+
+[node name="TileMapLayer3" type="TileMapLayer" parent="Environments"]
+position = Vector2(-1, 0)
+tile_set = ExtResource("15_kyi57")
 
 [node name="EndingPoint" parent="." instance=ExtResource("15_e66q0")]
-position = Vector2(-472, 72)
+position = Vector2(-465, 15)
 
 [editable path="BG/BackgroundSnowForest"]
 [editable path="BG/BackgroundSnowForest2"]
