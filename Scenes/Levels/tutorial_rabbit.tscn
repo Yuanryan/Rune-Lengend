@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=24 format=4 uid="uid://dyev0ja3pu1j0"]
+=======
+[gd_scene load_steps=25 format=4 uid="uid://dyev0ja3pu1j0"]
+>>>>>>> hint
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
@@ -17,6 +21,7 @@
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="15_bqdxl"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="15_xpj4h"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="16_q8jeo"]
+[ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="18_bqdxl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xab48"]
 resource_local_to_scene = true
@@ -56,7 +61,7 @@ resource_local_to_scene = true
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q8jeo"]
 resource_local_to_scene = true
 
-[node name="level 2" type="Node2D"]
+[node name="Tutorial_rabbit" type="Node2D"]
 script = ExtResource("1_voi1r")
 level_name = "Tutotial Rabbit"
 max_total_actions = 20
@@ -342,6 +347,10 @@ position = Vector2(2656, -168)
 unique_name_in_owner = true
 position = Vector2(74, 100)
 zoom = Vector2(1.5, 1.5)
+limit_left = -704
+limit_top = -325
+limit_right = 852
+limit_bottom = 525
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -463,27 +472,24 @@ offset_top = 40.0
 offset_right = -248.0
 offset_bottom = 80.0
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
+[node name="TutorialBox" parent="TutorialText" instance=ExtResource("18_bqdxl")]
+custom_minimum_size = Vector2(366, 60)
 layout_mode = 0
-offset_left = 1219.0
-offset_top = -137.0
-offset_right = 1733.0
-offset_bottom = -37.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
-text = "Rabbit can also double jump in the air "
-fit_content = true
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TutorialText"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 0
-offset_left = 101.0
-offset_top = -102.0
-offset_right = 615.0
-offset_bottom = -2.0
-theme_override_colors/default_color = Color(0.06469653, 0.06469653, 0.06469653, 1)
+offset_top = -99.0
+offset_right = 366.0
+offset_bottom = -39.0
 text = "Transform into rabbit to use super jump"
-fit_content = true
+box_size = Vector2(366, 60)
+
+[node name="TutorialBox2" parent="TutorialText" instance=ExtResource("18_bqdxl")]
+custom_minimum_size = Vector2(345, 60)
+layout_mode = 0
+offset_left = 1169.0
+offset_top = -171.0
+offset_right = 1514.0
+offset_bottom = -111.0
+text = "Rabbit can also double jump in the air "
+box_size = Vector2(345, 60)
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/StartingCamera"]

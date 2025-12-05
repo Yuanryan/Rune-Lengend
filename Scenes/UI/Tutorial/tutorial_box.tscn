@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://tutorialbox001"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Tutorial/tutorial_box.gd" id="1_script"]
+
+[node name="TutorialBox" type="Control"]
+custom_minimum_size = Vector2(300, 150)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 150.0
+pivot_offset = Vector2(150, 75)
+script = ExtResource("1_script")
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContentLabel" type="RichTextLabel" parent="."]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/normal_font_size = 24
+text = "Enter tutorial text here..."
+scroll_active = false
+
+
+
+
