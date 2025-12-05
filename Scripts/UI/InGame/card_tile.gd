@@ -58,6 +58,12 @@ signal card_dragged(card: CardTile)
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_PASS
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+    
+    # 讓子節點不攔截滑鼠事件（避免相鄰卡片的子節點遮擋）
+    if image:
+        image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    if bg:
+        bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
     if click_sound:
         _click_player = AudioStreamPlayer.new()
@@ -201,6 +207,12 @@ func get_action_label() -> String:
 func _get_drag_data(at_position: Vector2) -> Variant:
     if not draggable or not _can_use or not _interactable:
         return null
+    
+    # 檢查拖曳起點是否在可見範圍內（使用 ColorRect 邊界）
+    if color_rect:
+        var visual_rect = color_rect.get_rect()
+        if not visual_rect.has_point(at_position):
+            return null
 
     _is_dragging = true
     card_dragged.emit(self)
@@ -248,6 +260,12 @@ func _notification(what: int) -> void:
 func _gui_input(event: InputEvent) -> void:
     if not _can_use or not _interactable:
         return
+    
+    # 檢查點擊是否在可見範圍內（使用 ColorRect 邊界）
+    if event is InputEventMouseButton and color_rect:
+        var visual_rect = color_rect.get_rect()
+        if not visual_rect.has_point(event.position):
+            return
 
     if event is InputEventMouseMotion:
         if not _is_dragging:
@@ -280,17 +298,17 @@ func set_executing(is_executing: bool) -> void:
         _glow_tween.tween_property(self, "modulate", Color(1.3, 1.3, 1.3, 1.0), 0.3)
         _glow_tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), 0.3)
     else:
-        # 停止閃爍，恢復正常
-        modulate = Color(1.0, 1.0, 1.0, 1.0)
+        # 停止閃爍，恢復到正確的視覺狀態（考慮卡片是否可用）
+        _update_visual_state()
 
 func set_dimmed(is_dimmed: bool) -> void:
     """設置卡片變暗狀態"""
     if is_dimmed:
         modulate = Color(0.5, 0.5, 0.5, 0.7)
     else:
-        # 只有在沒有執行中的閃爍動畫時才恢復
+        # 只有在沒有執行中的閃爍動畫時才恢復到正確狀態
         if not _glow_tween or not _glow_tween.is_running():
-            modulate = Color(1.0, 1.0, 1.0, 1.0)
+            _update_visual_state()
 
 func set_interactable(enabled: bool) -> void:
     """控制卡片是否可被點擊/拖曳"""
@@ -303,7 +321,9 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""
     if new_state != GameManager.InGameState.EXECUTING:
         set_executing(false)
-        set_dimmed(false)
+        # 只有在卡片可用時才取消變暗
+        if _can_use:
+            set_dimmed(false)
 
 # 設置使用信息
 func set_usage_info(usable: bool, current_usage: int, max_usage: int) -> void:

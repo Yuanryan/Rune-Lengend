@@ -49,6 +49,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="OutlineColorRect" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -82,10 +83,8 @@ color = Color(0.11372549, 0.4745098, 0.45882353, 0.6862745)
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.98300004
-anchor_bottom = 0.98300004
-offset_right = 1.699997
-offset_bottom = 1.699997
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 region_rect = Rect2(0, 0, 80, 80)

@@ -18,6 +18,10 @@ var _container: Control  # ActionQueueContainer 引用
 var _sfx_player_add: AudioStreamPlayer
 var _sfx_player_remove: AudioStreamPlayer
 var _sfx_player_clear: AudioStreamPlayer
+var _placeholder: Control  # 透明佔位卡
+var _placeholder_index: int = -1  # 佔位卡當前索引
+var _dragging_queue_card: CardTile = null  # 正在拖曳的佇列卡片
+var _dragging_original_index: int = -1  # 被拖曳卡片的原始索引
 
 @export var card_scale: float = 1.0  # 卡片縮放倍率 (預設1.0, 卡片固定不動scale)
 @export var background_padding: Vector2 = Vector2(8, 8)  # 整體padding
@@ -37,6 +41,11 @@ func _ready() -> void:
     # 監聽遊戲內狀態，避免連續輸入造成高亮狀態錯亂
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
+func _notification(what: int) -> void:
+    # 當拖曳結束時（無論成功與否），確保清理佔位卡和恢復卡片
+    if what == NOTIFICATION_DRAG_END:
+        _cleanup_drag_state()
+
 func _setup_sfx_players() -> void:
     """建立音效播放器"""
     if sfx_add_to_queue:
@@ -47,6 +56,18 @@ func _setup_sfx_players() -> void:
         _sfx_player_remove = AudioStreamPlayer.new()
         _sfx_player_remove.stream = sfx_remove_from_queue
         add_child(_sfx_player_remove)
+
+func _ensure_placeholder() -> void:
+    """確保佔位卡存在，若不存在則建立"""
+    if _placeholder and is_instance_valid(_placeholder):
+        return
+
+    _placeholder = Control.new()
+    _placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    var card_size = _get_base_card_size() * card_scale
+    _placeholder.custom_minimum_size = card_size
+    _placeholder.size = card_size
+    _placeholder_index = -1
 
 func _initialize_container_size() -> void:
     if not _container:
@@ -223,34 +244,57 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 
     if can_drop:
         _is_dragging_over = true
-        _update_preview_indicator(at_position)
+        var card: CardTile = data.get("card")
+        var is_queue_card = card and queue_cards.has(card)
+
+        if is_queue_card:
+            if _dragging_queue_card != card:
+                # 第一次拖起：記錄原始索引，在原位放佔位卡，移除卡片
+                _dragging_original_index = queue_cards.find(card)
+                _dragging_queue_card = card
+                _show_placeholder_at_index(_dragging_original_index)
+                if card.is_inside_tree():
+                    remove_child(card)
+            else:
+                # 已在拖曳中，更新佔位卡位置
+                _update_preview_indicator(at_position)
+        else:
+            # 從外部拖入的卡片
+            _update_preview_indicator(at_position)
     else:
         _hide_preview_indicator()
 
     return can_drop
 
 func _update_preview_indicator(at_position: Vector2) -> void:
-    """簡化的預覽指示器更新"""
-    if not _preview_indicator:
-        return
-
+    """更新佔位卡位置"""
     var insert_index = _get_insert_index(at_position)
-    _show_preview_at_index(insert_index)
+    _show_placeholder_at_index(insert_index)
 
 func _get_insert_index(at_position: Vector2) -> int:
-    """獲取插入位置索引"""
+    """獲取插入位置索引（用固定格子計算）"""
     var global_pos = get_global_mouse_position()
+    var card_count = queue_cards.size()
 
-    # 簡單檢查：找到第一個位置在滑鼠位置右邊的卡片
-    for i in range(queue_cards.size()):
-        var card = queue_cards[i]
-        if is_instance_valid(card):
-            var card_rect = card.get_global_rect()
-            if global_pos.x < card_rect.position.x + card_rect.size.x / 2:
-                return i
+    if card_count == 0:
+        return 0
 
-    # 如果沒有找到，插入到末尾
-    return queue_cards.size()
+    # 計算每個格子的寬度（卡片寬度 + 間距）
+    var card_size = _get_base_card_size() * card_scale
+    var slot_width = card_size.x + desired_natural_padding
+
+    # 取得佇列的起始位置
+    var queue_rect = get_global_rect()
+    var queue_start_x = queue_rect.position.x
+
+    # 計算滑鼠在第幾個格子
+    var relative_x = global_pos.x - queue_start_x
+    var slot_index = int(relative_x / slot_width)
+
+    # 限制在有效範圍內
+    slot_index = clamp(slot_index, 0, card_count)
+
+    return slot_index
 
 func _show_preview_at_index(index: int) -> void:
     """顯示預覽指示器"""
@@ -271,35 +315,135 @@ func _show_preview_at_index(index: int) -> void:
     _preview_indicator.position.y = 0
 
 func _hide_preview_indicator() -> void:
-    """隱藏預覽指示器"""
+    """隱藏預覽指示器並移除佔位卡"""
+    if _preview_indicator:
+        _preview_indicator.visible = false
+    _remove_placeholder()
+
+func _show_placeholder_at_index(index: int) -> void:
+    """在指定索引位置顯示佔位卡，讓其他卡片讓位"""
+    _ensure_placeholder()
+
+    # 隱藏舊的細線指示器
     if _preview_indicator:
         _preview_indicator.visible = false
 
+    var needs_refresh = false
+
+    # 若佔位卡尚未加入樹，先加入
+    if not _placeholder.is_inside_tree():
+        add_child(_placeholder)
+        needs_refresh = true
+
+    # 只有索引改變時才移動，避免重複排版
+    if _placeholder_index != index:
+        _placeholder_index = index
+        move_child(_placeholder, index)
+        needs_refresh = true
+
+    if needs_refresh:
+        queue_sort()
+
+func _remove_placeholder() -> void:
+    """移除佔位卡並重置索引"""
+    var was_in_tree = _placeholder and is_instance_valid(_placeholder) and _placeholder.is_inside_tree()
+    if was_in_tree:
+        remove_child(_placeholder)
+    _placeholder_index = -1
+    _dragging_original_index = -1
+
+    # 恢復被移除的佇列卡片
+    if _dragging_queue_card and is_instance_valid(_dragging_queue_card):
+        if not _dragging_queue_card.is_inside_tree():
+            add_child(_dragging_queue_card)
+            var card_index = queue_cards.find(_dragging_queue_card)
+            if card_index >= 0:
+                move_child(_dragging_queue_card, card_index)
+    _dragging_queue_card = null
+
+    if was_in_tree:
+        queue_sort()
+
+func _remove_placeholder_without_restore() -> void:
+    """只移除佔位卡，不恢復被拖曳的卡片（由呼叫者處理）"""
+    var was_in_tree = _placeholder and is_instance_valid(_placeholder) and _placeholder.is_inside_tree()
+    if was_in_tree:
+        remove_child(_placeholder)
+    _placeholder_index = -1
+    _dragging_original_index = -1
+    _dragging_queue_card = null
+
+    if was_in_tree:
+        queue_sort()
+
+func _restore_card_to_original(card: CardTile) -> void:
+    """將卡片恢復到原本的位置"""
+    if card and is_instance_valid(card):
+        if not card.is_inside_tree():
+            add_child(card)
+            var card_index = queue_cards.find(card)
+            if card_index >= 0:
+                move_child(card, card_index)
+
+func _reorder_card_direct(card: CardTile, card_index: int, target_index: int) -> void:
+    """直接重新排序卡片（卡片已從樹上移除，直接加到目標位置）"""
+    if target_index == card_index:
+        # 位置沒變，直接加回原位
+        _restore_card_to_original(card)
+        _request_layout_refresh()
+        return
+
+    # 從 queue_cards 陣列移除
+    queue_cards.remove_at(card_index)
+
+    # 直接使用 target_index，確保不超過陣列大小
+    var adjusted_index = min(target_index, queue_cards.size())
+
+    # 插入到新位置
+    queue_cards.insert(adjusted_index, card)
+
+    # 將卡片加回樹上
+    if not card.is_inside_tree():
+        add_child(card)
+
+    # 重新排列所有子節點
+    _reorder_children()
+
+func _cleanup_drag_state() -> void:
+    """清理拖曳狀態（拖曳結束時呼叫）"""
+    _is_dragging_over = false
+    _remove_placeholder()
+    _request_layout_refresh()
+
 func _drop_data(at_position: Vector2, data: Variant) -> void:
-    _hide_preview_indicator()
+    # 記錄佔位卡的索引（在移除前保存）
+    var insert_index = _placeholder_index if _placeholder_index >= 0 else _get_insert_index(at_position)
+    var dragged_queue_card = _dragging_queue_card
+
+    # 移除佔位卡但不恢復被拖曳的卡片（我們會手動處理）
+    _remove_placeholder_without_restore()
     _is_dragging_over = false
 
     # 如果隊列被鎖定，不允許拖放
     if _is_locked:
+        _restore_card_to_original(dragged_queue_card)
+        _request_layout_refresh()
         return
 
     var card: CardTile = data["card"]
     if not card:
+        _restore_card_to_original(dragged_queue_card)
+        _request_layout_refresh()
         return
 
     var card_index = queue_cards.find(card)
 
     if card_index < 0:
         # 新卡片從外部拖入
-        _add_new_card(card, at_position)
+        _add_card_at_index(card, insert_index)
     else:
-        # 卡片重新排序
-        _reorder_card(card, card_index, at_position)
-
-func _add_new_card(card: CardTile, at_position: Vector2) -> void:
-    """添加新卡片到佇列"""
-    var insert_index = _get_insert_index(at_position)
-    _add_card_at_index(card, insert_index)
+        # 卡片重新排序 - 直接移動到目標位置
+        _reorder_card_direct(card, card_index, insert_index)
 
 func _add_card_at_index(card: CardTile, insert_index: int) -> void:
     """通用的卡片添加方法，在指定索引處添加卡片"""
@@ -318,13 +462,6 @@ func _add_card_at_index(card: CardTile, insert_index: int) -> void:
 
     action_added.emit(action_type, insert_index)
     _play_add_sfx()
-
-func _reorder_card(card: CardTile, card_index: int, at_position: Vector2) -> void:
-    """重新排序卡片"""
-    var target_index = _get_insert_index(at_position)
-
-    if target_index != card_index and target_index >= 0:
-        _move_card(card_index, target_index)
 
 func _move_card(from_index: int, to_index: int) -> void:
     """移動卡片位置"""
