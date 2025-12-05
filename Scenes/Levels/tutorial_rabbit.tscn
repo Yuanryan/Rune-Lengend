@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 [gd_scene load_steps=24 format=4 uid="uid://dyev0ja3pu1j0"]
-=======
-[gd_scene load_steps=25 format=4 uid="uid://dyev0ja3pu1j0"]
->>>>>>> hint
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
@@ -508,3 +504,4 @@ box_size = Vector2(345, 60)
 [editable path="GameObjects/Checkpoints/Checkpoint3"]
 [editable path="TimedDoor"]
 [editable path="TimedDoor2"]
+

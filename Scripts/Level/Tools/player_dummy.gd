@@ -79,6 +79,8 @@ func toggle_jump_path() -> void:
 func draw_jump_path() -> void:
 	if not animal_data:
 		return
+	if not line_2d:
+		return
 	
 	# 根據動物類型和跳躍類型選擇跳躍速度
 	var jump_velocity: Vector2 = animal_data.jump_velocity
