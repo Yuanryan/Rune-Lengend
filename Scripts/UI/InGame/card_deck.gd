@@ -269,6 +269,7 @@ func _update_card_states() -> void:
 			var max_usage = current_level.individual_action_limits.get(action_type, 999) if current_level else 999
 
 			card.set_usage_info(can_use, current_usage, max_usage)
+			card.set_interactable(can_use)
 
 # 重置動作使用計數
 func reset_action_usage() -> void:

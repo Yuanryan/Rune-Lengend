@@ -6,11 +6,18 @@ class_name QueuePanel
 @onready var _preview_indicator: Control = %PreviewIndicator
 @onready var _clear_button: TextureButton = %ClearQueueButton
 
+@export var sfx_add_to_queue: AudioStream
+@export var sfx_remove_from_queue: AudioStream
+@export var sfx_clear_button: AudioStream
+
 var queue_cards: Array[CardTile] = []
 var _is_dragging_over: bool = false
 var _current_executing_index: int = -1
 var _is_locked: bool = false  # 隊列鎖定狀態
 var _container: Control  # ActionQueueContainer 引用
+var _sfx_player_add: AudioStreamPlayer
+var _sfx_player_remove: AudioStreamPlayer
+var _sfx_player_clear: AudioStreamPlayer
 
 @export var card_scale: float = 1.0  # 卡片縮放倍率 (預設1.0, 卡片固定不動scale)
 @export var background_padding: Vector2 = Vector2(8, 8)  # 整體padding
@@ -26,6 +33,20 @@ func _ready() -> void:
     _container = get_parent()  # ActionQueue -> ActionQueueContainer
     call_deferred("_initialize_container_size")  # 初始化 (N=1)
     _setup_clear_button()  # 設定清除按鈕
+    _setup_sfx_players()
+    # 監聽遊戲內狀態，避免連續輸入造成高亮狀態錯亂
+    GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+
+func _setup_sfx_players() -> void:
+    """建立音效播放器"""
+    if sfx_add_to_queue:
+        _sfx_player_add = AudioStreamPlayer.new()
+        _sfx_player_add.stream = sfx_add_to_queue
+        add_child(_sfx_player_add)
+    if sfx_remove_from_queue:
+        _sfx_player_remove = AudioStreamPlayer.new()
+        _sfx_player_remove.stream = sfx_remove_from_queue
+        add_child(_sfx_player_remove)
 
 func _initialize_container_size() -> void:
     if not _container:
@@ -36,6 +57,20 @@ func _setup_clear_button() -> void:
     """設定清除按鈕的信號和效果"""
     if not _clear_button:
         return
+
+    # 使用透明度作為點擊遮罩，避免透明區域被點擊
+    if _clear_button.texture_normal:
+        var img = _clear_button.texture_normal.get_image()
+        if img:
+            var mask := BitMap.new()
+            mask.create_from_image_alpha(img)
+            _clear_button.texture_click_mask = mask
+
+    # 建立清除按鈕音效播放器
+    if sfx_clear_button:
+        _sfx_player_clear = AudioStreamPlayer.new()
+        _sfx_player_clear.stream = sfx_clear_button
+        _clear_button.add_child(_sfx_player_clear)
 
     # 連接按鈕信號
     _clear_button.pressed.connect(_on_clear_button_pressed)
@@ -49,6 +84,8 @@ func _on_clear_button_pressed() -> void:
     if not _is_locked:
         clear_queue()
     _clear_button.release_focus()
+    if _sfx_player_clear:
+        _sfx_player_clear.play()
 
 func _on_clear_button_hover() -> void:
     """滑鼠進入按鈕 - 變亮"""
@@ -277,9 +314,10 @@ func _add_card_at_index(card: CardTile, insert_index: int) -> void:
     var queue_card = _create_queue_card(action_type, card.get_action_label(), animal_type)
     queue_cards.insert(insert_index, queue_card)
     _reorder_children()
-    _do_update_container_size()
+    _request_layout_refresh()
 
     action_added.emit(action_type, insert_index)
+    _play_add_sfx()
 
 func _reorder_card(card: CardTile, card_index: int, at_position: Vector2) -> void:
     """重新排序卡片"""
@@ -323,7 +361,7 @@ func _reorder_children() -> void:
         var card = queue_cards[i]
         if is_instance_valid(card):
             move_child(card, i)
-    _do_update_container_size()
+    _request_layout_refresh()
 
 func _remove_action_at(index: int) -> void:
     """移除指定位置的動作"""
@@ -335,8 +373,9 @@ func _remove_action_at(index: int) -> void:
 
         queue_cards.remove_at(index)
         card.queue_free()
-        _do_update_container_size()
+        _request_layout_refresh()
         action_removed.emit(action_type, index)
+        _play_remove_sfx()
 
 func _on_queue_card_clicked(card: CardTile) -> void:
     """當佇列中的卡片被點擊時，從佇列中移除它"""
@@ -376,7 +415,7 @@ func clear_queue() -> void:
             card.queue_free()
 
     queue_cards.clear()
-    _do_update_container_size()
+    _request_layout_refresh()
     queue_cleared.emit()
 
 func get_action_descriptors() -> Array:
@@ -415,12 +454,13 @@ func restore_action_queue(action_descriptors: Array) -> void:
         queue_cards.append(queue_card)
 
     _reorder_children()
-    _do_update_container_size()
+    _request_layout_refresh()
 
     # 發送信號通知UI更新
     for i in range(queue_cards.size()):
         if is_instance_valid(queue_cards[i]):
             action_added.emit(queue_cards[i].get_action_type(), i)
+    # 不播放音效，避免載入存檔時重複音效
 
 func _get_action_label(action_type: Action.ActionType, animal_type: int = -1) -> String:
     """獲取動作標籤"""
@@ -442,6 +482,11 @@ func set_executing_action_index(index: int) -> void:
     """設置當前執行的動作索引"""
     _current_executing_index = index
 
+    _apply_execution_highlight()
+
+func _apply_execution_highlight() -> void:
+    """根據當前執行索引刷新高亮 / 變暗狀態"""
+    var index = _current_executing_index
     # 更新所有卡片的視覺狀態
     for i in range(queue_cards.size()):
         var card = queue_cards[i]
@@ -464,6 +509,40 @@ func set_executing_action_index(index: int) -> void:
 func clear_executing_action() -> void:
     """清除執行狀態"""
     set_executing_action_index(-1)
+
+func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
+    """狀態切換時強制刷新一次高亮，避免連按造成狀態不同步"""
+    if new_state == GameManager.InGameState.EXECUTING:
+        _apply_execution_highlight()
+    else:
+        _current_executing_index = -1
+        _apply_execution_highlight()
+
+func lock_and_dim_all() -> void:
+    """執行完畢後鎖定佇列並全部變暗"""
+    _is_locked = true
+    for card in queue_cards:
+        if is_instance_valid(card):
+            card.set_executing(false)
+            card.set_dimmed(true)
+            card.set_interactable(false)
+
+func _play_add_sfx() -> void:
+    if _sfx_player_add:
+        _sfx_player_add.play()
+
+func _play_remove_sfx() -> void:
+    if _sfx_player_remove:
+        _sfx_player_remove.play()
+
+func _request_layout_refresh() -> void:
+    """統一排程布局更新，避免快速操作導致錯位"""
+    call_deferred("_do_update_container_size")
+    if _container:
+        _container.queue_redraw()
+        var parent = _container.get_parent()
+        if parent and parent is Container:
+            parent.queue_sort()
 
 func lock_queue() -> void:
     """鎖定隊列，防止修改"""

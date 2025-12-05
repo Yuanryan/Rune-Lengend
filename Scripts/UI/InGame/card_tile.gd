@@ -47,6 +47,10 @@ var animal_type: int = -1
 var _can_use: bool = true
 var _current_usage: int = 0
 var _max_usage: int = 999
+var _interactable: bool = true
+
+@export var click_sound: AudioStream = null
+var _click_player: AudioStreamPlayer = null
 
 signal card_clicked(card: CardTile)
 signal card_dragged(card: CardTile)
@@ -54,6 +58,11 @@ signal card_dragged(card: CardTile)
 func _ready() -> void:
     mouse_filter = Control.MOUSE_FILTER_PASS
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
+
+    if click_sound:
+        _click_player = AudioStreamPlayer.new()
+        _click_player.stream = click_sound
+        add_child(_click_player)
 
     # 隱藏標籤，使用圖片顯示
     if label:
@@ -190,7 +199,7 @@ func get_action_label() -> String:
     return "Empty"
 
 func _get_drag_data(at_position: Vector2) -> Variant:
-    if not draggable:
+    if not draggable or not _can_use or not _interactable:
         return null
 
     _is_dragging = true
@@ -219,6 +228,9 @@ func _notification(what: int) -> void:
         modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 func _gui_input(event: InputEvent) -> void:
+    if not _can_use or not _interactable:
+        return
+
     if event is InputEventMouseMotion:
         if not _is_dragging:
             bg.visible = true
@@ -230,6 +242,8 @@ func _gui_input(event: InputEvent) -> void:
         elif not mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
             # 釋放時恢復正常並觸發點擊事件
             modulate = Color(1.0, 1.0, 1.0, 1.0)
+            if _click_player and click_sound:
+                _click_player.play()
             card_clicked.emit(self)
             _is_dragging = false
 
@@ -259,6 +273,12 @@ func set_dimmed(is_dimmed: bool) -> void:
         # 只有在沒有執行中的閃爍動畫時才恢復
         if not _glow_tween or not _glow_tween.is_running():
             modulate = Color(1.0, 1.0, 1.0, 1.0)
+
+func set_interactable(enabled: bool) -> void:
+    """控制卡片是否可被點擊/拖曳"""
+    _interactable = enabled
+    draggable = enabled
+    mouse_filter = Control.MOUSE_FILTER_PASS if enabled else Control.MOUSE_FILTER_IGNORE
 
 
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:

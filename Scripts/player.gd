@@ -327,6 +327,7 @@ func _notify_ui_all_actions_finished() -> void:
     var in_game_ui = UIManager.get_in_game_ui()
     if in_game_ui and in_game_ui.action_queue:
         in_game_ui.action_queue.clear_executing_action()
+        in_game_ui.action_queue.lock_and_dim_all()
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""

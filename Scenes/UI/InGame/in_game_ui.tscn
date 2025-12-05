@@ -1,14 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://dmavjrcww2c2h"]
+[gd_scene load_steps=24 format=3 uid="uid://dmavjrcww2c2h"]
 
 [ext_resource type="Script" uid="uid://d0twunxg0q84w" path="res://Scripts/UI/InGame/in_game_ui.gd" id="1_fo61o"]
 [ext_resource type="Script" uid="uid://wyi54h6pfjbs" path="res://Scripts/UI/InGame/card_deck.gd" id="2_lujqu"]
+[ext_resource type="AudioStream" uid="uid://jg5i83q6mt7g" path="res://Assets/sfx/button/button_pause.mp3" id="2_pvmhq"]
 [ext_resource type="Script" uid="uid://be4b8llo386fg" path="res://Scripts/UI/InGame/card_queue.gd" id="2_queue"]
 [ext_resource type="Script" uid="uid://cf1pgdq04d5v8" path="res://Scripts/UI/InGame/drop_monitor.gd" id="3_2246s"]
 [ext_resource type="Shader" uid="uid://epc148y837el" path="res://Shaders/other/transition.gdshader" id="5_qm78u"]
 [ext_resource type="Texture2D" uid="uid://btmorjic5emta" path="res://Assets/textures/circle_albedo.png" id="6_5qd38"]
+[ext_resource type="AudioStream" uid="uid://21g3684p3bsm" path="res://Assets/sfx/card/card_add_to_queue.wav" id="7_4t7m6"]
 [ext_resource type="Texture2D" uid="uid://byodoiu3ocdb2" path="res://Assets/ui/card_bg/card_background.png" id="7_bg"]
 [ext_resource type="Texture2D" uid="uid://crelmgp6a34ha" path="res://Assets/ui/button/clear_button.png" id="8_clear_btn"]
+[ext_resource type="AudioStream" uid="uid://bdtkntysn5ixq" path="res://Assets/sfx/card/card_remove_from_queue.wav" id="8_tsxkh"]
 [ext_resource type="Texture2D" uid="uid://bm6dfr4jlkum2" path="res://Assets/ui/card_bg/card_deck.png" id="9_deck_bg"]
+[ext_resource type="AudioStream" uid="uid://ddikx5aet5727" path="res://Assets/sfx/button/button_clear.mp3" id="10_1uyx1"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/InGame/pause_menu.tscn" id="10_r7opr"]
 [ext_resource type="Texture2D" uid="uid://byak3bqxunnwq" path="res://Assets/ui/button/pause_button.png" id="11_pause_btn"]
 
@@ -333,6 +337,7 @@ _data = {
 [node name="InGameUI" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_fo61o")
+sfx_pause_button_click = ExtResource("2_pvmhq")
 
 [node name="MainContainer" type="VBoxContainer" parent="."]
 anchors_preset = 15
@@ -444,6 +449,9 @@ layout_mode = 0
 theme_override_constants/separation = 0
 alignment = 1
 script = ExtResource("2_queue")
+sfx_add_to_queue = ExtResource("7_4t7m6")
+sfx_remove_from_queue = ExtResource("8_tsxkh")
+sfx_clear_button = ExtResource("10_1uyx1")
 desired_natural_padding = 5.0
 
 [node name="PreviewIndicator" type="Control" parent="MainContainer/BottomPanel/BottomMargin/BottomContent/ActionQueueWrapper/ActionQueueContainer/ActionQueue"]

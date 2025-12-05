@@ -19,6 +19,11 @@ signal transition_finished
 @onready var debug_menu : Control = %DebugMenu
 @onready var pause_button: TextureButton = %PauseButton
 
+@export var sfx_button_click: AudioStream
+@export var sfx_pause_button_click: AudioStream
+var _sfx_player_button: AudioStreamPlayer
+var _sfx_player_pause: AudioStreamPlayer
+
 # 過渡狀態追蹤
 var is_transitioning: bool = false
 var pending_reset: bool = false
@@ -45,6 +50,17 @@ func _ready() -> void:
         pause_button.button_down.connect(_on_pause_button_down)
         pause_button.button_up.connect(_on_pause_button_hover)
 
+    _setup_button_sfx()
+
+func _setup_button_sfx() -> void:
+    if sfx_button_click:
+        _sfx_player_button = AudioStreamPlayer.new()
+        _sfx_player_button.stream = sfx_button_click
+        add_child(_sfx_player_button)
+    if sfx_pause_button_click:
+        _sfx_player_pause = AudioStreamPlayer.new()
+        _sfx_player_pause.stream = sfx_pause_button_click
+        add_child(_sfx_player_pause)
 
 func _connect_signals() -> void:
     # Connect queue signals
@@ -98,6 +114,7 @@ func _on_queue_cleared() -> void:
     _update_ui()
 
 func _on_execute_pressed() -> void:
+    _play_button_sfx()
     execute_button.release_focus()
     execute_sequence()
 
@@ -117,19 +134,23 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     _update_ui()
 
 func _on_clear_pressed() -> void:
+    _play_button_sfx()
     clear_button.release_focus()
     clear_sequence()
 
 func _on_reset_pressed() -> void:
+    _play_button_sfx()
     reset_button.release_focus()
     reset_player()
 
 func _on_menu_pressed() -> void:
+    _play_button_sfx()
     menu_button.release_focus()
     LevelManager.unload_level()
     GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
 
 func _on_fullscreen_pressed() -> void:
+    _play_button_sfx()
     full_screen.release_focus()
     UIManager.toggle_fullscreen()
 
@@ -372,6 +393,7 @@ func hide_pause_menu() -> void:
 
 # Pause button handlers
 func _on_pause_button_pressed() -> void:
+    _play_pause_sfx()
     if pause_button:
         pause_button.release_focus()
     await show_pause_menu()
@@ -396,6 +418,14 @@ func _on_pause_menu_shown() -> void:
 func _on_pause_menu_hidden() -> void:
     if pause_button:
         pause_button.show()
+
+func _play_button_sfx() -> void:
+    if _sfx_player_button:
+        _sfx_player_button.play()
+
+func _play_pause_sfx() -> void:
+    if _sfx_player_pause:
+        _sfx_player_pause.play()
 
 func _input(event: InputEvent) -> void:
     if GameManager.current_state != GameManager.GameState.GAME_PLAY:
