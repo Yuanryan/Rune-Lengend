@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=43 format=4 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_w685s"]
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_8yvus"]
 [ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="12_8yvus"]
-[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="13_5pgco"]
+[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="13_5pgco"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_gwj07"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="13_w685s"]
@@ -741,10 +741,10 @@ box_size = Vector2(400, 122)
 [node name="TutorialBox3" parent="TutorialText" instance=ExtResource("16_g3l5c")]
 custom_minimum_size = Vector2(180, 50)
 layout_mode = 0
-offset_left = 301.0
-offset_top = 204.0
-offset_right = 481.0
-offset_bottom = 254.0
+offset_left = 317.0
+offset_top = 168.0
+offset_right = 497.0
+offset_bottom = 218.0
 text = "↓ Action queue"
 box_size = Vector2(180, 50)
 
@@ -761,6 +761,26 @@ Jump actions stops after touching the ground
  "
 auto_start = false
 box_size = Vector2(391, 100)
+
+[node name="TutorialBox5" parent="TutorialText" instance=ExtResource("16_g3l5c")]
+custom_minimum_size = Vector2(255, 60)
+layout_mode = 0
+offset_left = 2658.0
+offset_top = 22.0
+offset_right = 2913.0
+offset_bottom = 82.0
+text = "Be sure to avoid ice spikes!"
+box_size = Vector2(255, 60)
+
+[node name="TutorialBox6" parent="TutorialText" instance=ExtResource("16_g3l5c")]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 0
+offset_left = 3903.0
+offset_top = -26.0
+offset_right = 4203.0
+offset_bottom = 34.0
+text = "Press the button to open the door"
+box_size = Vector2(300, 60)
 
 [node name="Sparrow" parent="." instance=ExtResource("16_5pgco")]
 position = Vector2(-247, 368)
