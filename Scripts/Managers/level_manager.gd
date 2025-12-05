@@ -25,8 +25,9 @@ func _initialize_level_scenes() -> void:
 # 從 LevelList 載入所有關卡
 func _load_levels_from_list() -> void:
 	# 從 LevelList 資源獲取所有關卡類別
-	for category_name in LevelList.LEVEL_LISTS.keys():
-		var scenes = LevelList.LEVEL_LISTS[category_name] as Array
+	var level_lists = LevelList.get_level_lists()
+	for category_name in level_lists.keys():
+		var scenes = level_lists[category_name] as Array
 		for scene in scenes:
 			if scene is PackedScene:
 				# 從場景中提取關卡名稱
