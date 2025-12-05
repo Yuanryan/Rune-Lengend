@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://icdg1laamdfk"]
 
-[ext_resource type="Script" path="res://Scripts/Effects/double_jump_effect.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://Assets/characters/rabbit/rabbit_double_jump_vfx.png" id="2_texture"]
+[ext_resource type="Script" uid="uid://c0hn55q1jl6tg" path="res://Scripts/Effects/double_jump_effect.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dggpomvuv78sf" path="res://Assets/characters/rabbit/rabbit_double_jump_vfx.png" id="2_texture"]
+[ext_resource type="AudioStream" uid="uid://dyvvwd2d1v668" path="res://Assets/sfx/character/rabbit_double_jump.mp3" id="3_72uta"]
 
 [node name="DoubleJumpEffect" type="Sprite2D"]
 texture_filter = 1
@@ -9,4 +10,4 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_texture")
 hframes = 3
 script = ExtResource("1_script")
-
+sfx = ExtResource("3_72uta")

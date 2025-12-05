@@ -218,7 +218,25 @@ func _get_drag_data(at_position: Vector2) -> Variant:
     var preview := duplicate() as CardTile
     preview.modulate.a = 0.8
     preview._is_dragging = true
-    set_drag_preview(preview)
+    
+    # 手動重新初始化子節點引用（duplicate 後 @onready 不會重新執行）
+    preview.image = preview.get_node_or_null("%TextureRect")
+    preview.bg = preview.get_node_or_null("%NinePatchRect")
+    preview.color_rect = preview.get_node_or_null("%ColorRect")
+    preview.usage_label = preview.get_node_or_null("%UsageLabel")
+    
+    # 確保 animal_type 被複製並更新視覺
+    preview.animal_type = animal_type
+    preview._update_card_image()
+    preview._update_card_color()
+    preview._update_card_frame()
+    
+    # 將預覽置中於滑鼠點擊位置
+    var preview_container := Control.new()
+    preview.position = -at_position
+    preview_container.add_child(preview)
+    
+    set_drag_preview(preview_container)
     return data
 
 func _notification(what: int) -> void:
