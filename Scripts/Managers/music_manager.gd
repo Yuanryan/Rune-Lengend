@@ -124,9 +124,17 @@ func play_sound(sound_path: String, volume_override: float = -1.0) -> void:
 		push_error("無法載入音效: " + sound_path)
 		return
 	
+	play_sound_stream(sound_stream, volume_override)
+
+# 播放 AudioStream 資源的音效（統一音效播放入口）
+func play_sound_stream(audio_stream: AudioStream, volume_override: float = -1.0) -> void:
+	if not audio_stream:
+		push_error("音效資源為空")
+		return
+	
 	# 創建新的 AudioStreamPlayer 節點
 	var sound_player = AudioStreamPlayer.new()
-	sound_player.stream = sound_stream
+	sound_player.stream = audio_stream
 	
 	# 設置音量
 	var vol = sound_volume if volume_override < 0.0 else volume_override

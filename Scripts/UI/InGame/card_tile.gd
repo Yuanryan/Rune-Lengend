@@ -50,7 +50,6 @@ var _max_usage: int = 999
 var _interactable: bool = true
 
 @export var click_sound: AudioStream = null
-var _click_player: AudioStreamPlayer = null
 
 signal card_clicked(card: CardTile)
 signal card_dragged(card: CardTile)
@@ -64,11 +63,6 @@ func _ready() -> void:
         image.mouse_filter = Control.MOUSE_FILTER_IGNORE
     if bg:
         bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-    if click_sound:
-        _click_player = AudioStreamPlayer.new()
-        _click_player.stream = click_sound
-        add_child(_click_player)
 
     # 隱藏標籤，使用圖片顯示
     if label:
@@ -278,8 +272,8 @@ func _gui_input(event: InputEvent) -> void:
         elif not mouse_event.pressed and mouse_event.button_index == MOUSE_BUTTON_LEFT:
             # 釋放時恢復正常並觸發點擊事件
             modulate = Color(1.0, 1.0, 1.0, 1.0)
-            if _click_player and click_sound:
-                _click_player.play()
+            if MusicManager and click_sound:
+                MusicManager.play_sound_stream(click_sound)
             card_clicked.emit(self)
             _is_dragging = false
 

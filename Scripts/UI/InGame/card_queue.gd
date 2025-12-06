@@ -15,9 +15,6 @@ var _is_dragging_over: bool = false
 var _current_executing_index: int = -1
 var _is_locked: bool = false  # 隊列鎖定狀態
 var _container: Control  # ActionQueueContainer 引用
-var _sfx_player_add: AudioStreamPlayer
-var _sfx_player_remove: AudioStreamPlayer
-var _sfx_player_clear: AudioStreamPlayer
 var _placeholder: Control  # 透明佔位卡
 var _placeholder_index: int = -1  # 佔位卡當前索引
 var _dragging_queue_card: CardTile = null  # 正在拖曳的佇列卡片
@@ -37,7 +34,6 @@ func _ready() -> void:
     _container = get_parent()  # ActionQueue -> ActionQueueContainer
     call_deferred("_initialize_container_size")  # 初始化 (N=1)
     _setup_clear_button()  # 設定清除按鈕
-    _setup_sfx_players()
     # 監聽遊戲內狀態，避免連續輸入造成高亮狀態錯亂
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
 
@@ -45,17 +41,6 @@ func _notification(what: int) -> void:
     # 當拖曳結束時（無論成功與否），確保清理佔位卡和恢復卡片
     if what == NOTIFICATION_DRAG_END:
         _cleanup_drag_state()
-
-func _setup_sfx_players() -> void:
-    """建立音效播放器"""
-    if sfx_add_to_queue:
-        _sfx_player_add = AudioStreamPlayer.new()
-        _sfx_player_add.stream = sfx_add_to_queue
-        add_child(_sfx_player_add)
-    if sfx_remove_from_queue:
-        _sfx_player_remove = AudioStreamPlayer.new()
-        _sfx_player_remove.stream = sfx_remove_from_queue
-        add_child(_sfx_player_remove)
 
 func _ensure_placeholder() -> void:
     """確保佔位卡存在，若不存在則建立"""
@@ -87,12 +72,6 @@ func _setup_clear_button() -> void:
             mask.create_from_image_alpha(img)
             _clear_button.texture_click_mask = mask
 
-    # 建立清除按鈕音效播放器
-    if sfx_clear_button:
-        _sfx_player_clear = AudioStreamPlayer.new()
-        _sfx_player_clear.stream = sfx_clear_button
-        _clear_button.add_child(_sfx_player_clear)
-
     # 連接按鈕信號
     _clear_button.pressed.connect(_on_clear_button_pressed)
     _clear_button.mouse_entered.connect(_on_clear_button_hover)
@@ -105,8 +84,8 @@ func _on_clear_button_pressed() -> void:
     if not _is_locked:
         clear_queue()
     _clear_button.release_focus()
-    if _sfx_player_clear:
-        _sfx_player_clear.play()
+    if MusicManager and sfx_clear_button:
+        MusicManager.play_sound_stream(sfx_clear_button)
 
 func _on_clear_button_hover() -> void:
     """滑鼠進入按鈕 - 變亮"""
@@ -665,12 +644,12 @@ func lock_and_dim_all() -> void:
             card.set_interactable(false)
 
 func _play_add_sfx() -> void:
-    if _sfx_player_add:
-        _sfx_player_add.play()
+    if MusicManager and sfx_add_to_queue:
+        MusicManager.play_sound_stream(sfx_add_to_queue)
 
 func _play_remove_sfx() -> void:
-    if _sfx_player_remove:
-        _sfx_player_remove.play()
+    if MusicManager and sfx_remove_from_queue:
+        MusicManager.play_sound_stream(sfx_remove_from_queue)
 
 func _request_layout_refresh() -> void:
     """統一排程布局更新，避免快速操作導致錯位"""
