@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="13_w685s"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="14_w685s"]
-[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
+[ext_resource type="PackedScene" uid="uid://cop2vvwj8rh04" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
 [ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="16_g3l5c"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]

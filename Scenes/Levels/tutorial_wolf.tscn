@@ -481,14 +481,14 @@ offset_right = -248.0
 offset_bottom = 80.0
 
 [node name="TutorialBox" parent="TutorialText" instance=ExtResource("17_ndljw")]
-custom_minimum_size = Vector2(300, 60)
+custom_minimum_size = Vector2(326, 60)
 layout_mode = 0
 offset_left = 1086.0
 offset_top = -139.0
-offset_right = 1386.0
+offset_right = 1412.0
 offset_bottom = -79.0
 text = "Transform into a wolf to jump farther"
-box_size = Vector2(300, 60)
+box_size = Vector2(326, 60)
 
 [node name="TutorialBox2" parent="TutorialText" instance=ExtResource("17_ndljw")]
 custom_minimum_size = Vector2(380, 60)
