@@ -1,6 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjdeafs68s51h"]
+[gd_scene load_steps=8 format=3 uid="uid://cjdeafs68s51h"]
 
 [ext_resource type="Script" uid="uid://8x688lrr6lmo" path="res://Scripts/UI/InGame/victory_ui.gd" id="1_victory"]
+[ext_resource type="FontFile" uid="uid://u1xd0o3iv010" path="res://Assets/fonts/boldpixels.boldpixels.ttf" id="2_3bpt2"]
+[ext_resource type="Texture2D" uid="uid://b1xd0d0cgrhgv" path="res://Assets/environment/page/level_button_normal.png" id="3_00fcj"]
+[ext_resource type="Texture2D" uid="uid://cvx42blg30qvi" path="res://Assets/environment/page/level_button_hover.png" id="4_fay88"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rlyod"]
+texture = ExtResource("3_00fcj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ogm4q"]
+texture = ExtResource("4_fay88")
 
 [sub_resource type="Gradient" id="Gradient_particles"]
 offsets = PackedFloat32Array(0, 0, 1)
@@ -41,6 +50,8 @@ offset_right = 200.0
 offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3bpt2")
+theme_override_font_sizes/font_size = 32
 text = "Level Finished!"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -59,7 +70,29 @@ offset_right = 100.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_3bpt2")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxTexture_rlyod")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ogm4q")
 text = "Back to Level Select"
+
+[node name="LockIcon" type="Label" parent="VictoryControl/ReturnButton"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 32.08333
+offset_right = 30.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "🔒"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Particles" type="CPUParticles2D" parent="VictoryControl"]
 unique_name_in_owner = true
