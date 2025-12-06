@@ -21,7 +21,7 @@ var menu_state := MenuState.GAME
 func _ready() -> void:
     _connect_signals()
     hide_options_menu()
-    visible = false  # 使用 visible 而不是 hide()，這樣可以保持 process_mode 的設置
+    visible = false 
     
 
 func _connect_signals() -> void:

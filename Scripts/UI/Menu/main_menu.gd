@@ -29,9 +29,7 @@ func _on_exit_pressed() -> void:
 func show_main_menu() -> void:
     """顯示主選單"""
     visible = true
-    process_mode = Node.PROCESS_MODE_INHERIT
 
 func hide_main_menu() -> void:
     """隱藏主選單"""
     visible = false
-    process_mode = Node.PROCESS_MODE_DISABLED

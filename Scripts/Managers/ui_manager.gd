@@ -28,19 +28,16 @@ func initialize_ui() -> void:
 	"""初始化所有UI的狀態"""
 	if main_menu_ui:
 		main_menu_ui.visible = true
-		main_menu_ui.process_mode = Node.PROCESS_MODE_INHERIT
 	
 	if in_game_ui:
 		in_game_ui.visible = false
-		in_game_ui.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	if level_select:
 		level_select.visible = false
-		level_select.process_mode = Node.PROCESS_MODE_DISABLED
+
 	
 	if victory_ui:
 		victory_ui.visible = false
-		victory_ui.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	# 連接GameManager信號
 	if GameManager and not GameManager.in_game_state_changed.is_connected(_on_in_game_state_changed):
@@ -68,7 +65,6 @@ func show_game_ui() -> void:
 	_hide_all_ui()
 	if in_game_ui:
 		in_game_ui.visible = true
-		in_game_ui.process_mode = Node.PROCESS_MODE_INHERIT
 		current_ui = in_game_ui
 
 # 隱藏所有UI
@@ -82,7 +78,6 @@ func _hide_all_ui() -> void:
 	
 	if in_game_ui:
 		in_game_ui.visible = false
-		in_game_ui.process_mode = Node.PROCESS_MODE_DISABLED
 
 # 獲取當前UI
 func get_current_ui() -> Node:
@@ -109,7 +104,6 @@ func get_in_game_ui() -> CanvasLayer:
 func show_victory() -> void:
 	"""顯示勝利UI"""
 	if victory_ui:
-		victory_ui.process_mode = Node.PROCESS_MODE_INHERIT
 		victory_ui.show_victory()
 		# 連接返回按鈕信號
 		if not victory_ui.return_to_level_select_requested.is_connected(_on_return_to_level_select_requested):
@@ -120,7 +114,6 @@ func hide_victory() -> void:
 	"""隱藏勝利UI"""
 	if victory_ui:
 		victory_ui.hide_victory()
-		victory_ui.process_mode = Node.PROCESS_MODE_DISABLED
 
 # 處理遊戲內狀態變化
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:

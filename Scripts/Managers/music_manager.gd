@@ -18,14 +18,11 @@ var current_music_player: AudioStreamPlayer = null
 var current_running_sound_player: AudioStreamPlayer = null
 
 # 音樂音量（0.0 到 1.0）
-var music_volume: float = 0.5
+var music_volume: float = 0.3
 
 # 音效音量（0.0 到 1.0）
-var sound_volume: float = 0.7
+var sound_volume: float = 0.3
 
-func _ready() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
-	pass
 
 func change_music_volume(volume: float) -> void:
 	music_volume = clamp(volume, 0.0, 1.0)
