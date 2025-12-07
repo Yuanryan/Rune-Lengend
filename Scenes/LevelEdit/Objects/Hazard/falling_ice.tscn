@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://cuq6hxx5rtrw3"]
 
-[ext_resource type="Script" uid="uid://11iqfqnk5s16" path="res://Scripts/Level/Objects/falling_ice.gd" id="1_bmuf2"]
+[ext_resource type="Script" path="res://Scripts/Level/Objects/falling_ice.gd" id="1_bmuf2"]
 [ext_resource type="Script" uid="uid://b2kblq0fp8sx5" path="res://Scripts/Level/Objects/damage_area.gd" id="2_bmuf2"]
-[ext_resource type="Texture2D" uid="uid://dl2kfwpwfean7" path="res://Assets/environment/ice_spike_new.png" id="2_d35me"]
+[ext_resource type="Texture2D" uid="uid://dl2kfwpwfean7" path="res://Assets/environment/Trap/ice_spike_new.png" id="2_d35me"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d35me"]
 radius = 7.0
@@ -29,6 +29,7 @@ curve = SubResource("Curve_d35me")
 curve = SubResource("Curve_bmuf2")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0dnyb"]
+resource_local_to_scene = true
 particle_flag_disable_z = true
 emission_shape_scale = Vector3(7, 7, 1)
 emission_shape = 3
@@ -69,14 +70,13 @@ collision_mask = 10
 position = Vector2(0.5, 6)
 shape = SubResource("RectangleShape2D_d35me")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-unique_name_in_owner = true
-amount = 3
-lifetime = 2.0
-explosiveness = 0.3
-randomness = 0.7
-process_material = SubResource("ParticleProcessMaterial_0dnyb")
-
 [node name="IceSpike" type="Sprite2D" parent="."]
 position = Vector2(1, 1)
 texture = ExtResource("2_d35me")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+amount = 1
+lifetime = 2.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_0dnyb")
