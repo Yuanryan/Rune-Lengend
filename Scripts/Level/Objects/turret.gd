@@ -7,19 +7,22 @@ class_name Turret
 # 砲塔屬性
 @export var fire_rate: float = 1.0  ## 每秒發射次數
 @export var bullet_speed: float = 500.0 
-@export var bullet_scene: PackedScene = preload("uid://2eslwfy76gub")
+@export var bullet_scene: PackedScene = preload("res://Scenes/LevelEdit/Objects/Hazard/bullet.tscn")
 
 # 節點引用
 @onready var fire_point: Marker2D = $FirePoint
 @onready var base_sprite: ColorRect = $BaseSprite
 @onready var fire_timer: Timer = %FireTimer
 @onready var visible_on_screen : VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var charge_audio: AudioStreamPlayer2D = $ChargeAudio
 
 var is_on_screen: bool = true
 
 # 內部變數
 var _fire_direction: Vector2 = Vector2.RIGHT  # 計算出的射擊方向
 var can_fire: bool = false
+var _is_charging: bool = false
 
 # 信號
 signal bullet_fired(bullet: RigidBody2D)
@@ -31,9 +34,12 @@ func _ready() -> void:
     
     # 設置Timer
     if fire_timer:
-        fire_timer.timeout.connect(_fire_bullet)
+        fire_timer.timeout.connect(_on_fire_timer_timeout)
         fire_timer.wait_time = 1.0 / fire_rate
         fire_timer.one_shot = false
+    
+    if animation_player:
+        animation_player.animation_finished.connect(_on_animation_finished)
     
     # 連接 GameManager 的狀態變化信號
     GameManager.in_game_state_changed.connect(_on_in_game_state_changed)
@@ -72,7 +78,7 @@ func _fire_bullet() -> void:
 
 func manual_fire() -> void:
     """手動射擊"""
-    _fire_bullet()
+    _start_charge()
 
 func set_fire_rate(rate: float) -> void:
     """設置射擊頻率（每秒發射次數）"""
@@ -94,9 +100,39 @@ func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     if new_state == GameManager.InGameState.PLANNING or new_state == GameManager.InGameState.EXECUTING:
         can_fire = true
         if fire_timer.is_stopped():
-            _fire_bullet()
+            _start_charge()
             fire_timer.start()
     elif new_state != GameManager.InGameState.COMPLETED and new_state != GameManager.InGameState.FAILED:
         can_fire = false
         if fire_timer.is_stopped() == false:
             fire_timer.stop()        
+
+func _on_fire_timer_timeout() -> void:
+    """Timer 觸發後先播放蓄力，再於動畫結束射擊"""
+    _start_charge()
+
+func _start_charge() -> void:
+    if not can_fire or not is_on_screen:
+        return
+    if animation_player and animation_player.is_playing():
+        return
+    
+    _is_charging = true
+    
+    if charge_audio:
+        charge_audio.stop()
+        charge_audio.play()
+    
+    if animation_player and animation_player.has_animation("charge"):
+        animation_player.play("charge")
+    else:
+        _fire_bullet()
+        _is_charging = false
+
+func _on_animation_finished(anim_name: StringName) -> void:
+    if anim_name != "charge":
+        return
+    if not _is_charging:
+        return
+    _fire_bullet()
+    _is_charging = false
