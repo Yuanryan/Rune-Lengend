@@ -168,23 +168,23 @@ scale = Vector2(-1, 1)
 position = Vector2(-544, 0)
 
 [node name="Spike" parent="GameObjects/SpikeNodes" instance=ExtResource("9_a2hlh")]
-position = Vector2(-2168, 16)
+position = Vector2(-2157, 15)
 rotation = -3.1415927
 
 [node name="Spike2" parent="GameObjects/SpikeNodes" instance=ExtResource("9_a2hlh")]
-position = Vector2(-2144, 16)
+position = Vector2(-2138, 15)
 rotation = -3.1415927
 
 [node name="Spike3" parent="GameObjects/SpikeNodes" instance=ExtResource("9_a2hlh")]
-position = Vector2(-2120, 16)
+position = Vector2(-2119, 15)
 rotation = 3.1415925
 
 [node name="Spike4" parent="GameObjects/SpikeNodes" instance=ExtResource("9_a2hlh")]
-position = Vector2(-2096, 16)
+position = Vector2(-2100, 15)
 rotation = -3.1415927
 
 [node name="Spike5" parent="GameObjects/SpikeNodes" instance=ExtResource("9_a2hlh")]
-position = Vector2(-2072, 16)
+position = Vector2(-2081, 16)
 rotation = 3.1415923
 
 [node name="TimeDoors" type="Node2D" parent="GameObjects"]
@@ -220,8 +220,8 @@ polygon = PackedVector2Array(-8, -60, -8, 28, 0.2, 32, 8, 28, 8, -60)
 [node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor2" index="3"]
 modulate = Color(0.65882355, 0.7372549, 0.98039216, 1)
 material = SubResource("ShaderMaterial_k2mii")
-position = Vector2(309, -1.9999962)
-scale = Vector2(2, 2)
+position = Vector2(311.49994, -1.9999962)
+scale = Vector2(0.9374914, 2)
 
 [node name="PlayerDummy" parent="GameObjects/TimeDoors/TimedDoor2" instance=ExtResource("10_a2hlh")]
 position = Vector2(385, 30)
@@ -246,8 +246,8 @@ color = Color(0.61668175, 0.8297578, 0.20016304, 1)
 [node name="Timedoor" parent="GameObjects/TimeDoors/TimedDoor3" index="3"]
 modulate = Color(0.61668175, 0.8297578, 0.20016304, 1)
 material = SubResource("ShaderMaterial_sd7yl")
-position = Vector2(400.99997, 1.0000038)
-scale = Vector2(2, 2)
+position = Vector2(399.99994, 1.0000038)
+scale = Vector2(0.9999962, 2)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimeDoors/TimedDoor3"]
 position = Vector2(399.99994, 19)
@@ -594,6 +594,7 @@ tile_map_data = PackedByteArray("AADO/wQABQABAAEAAADP/wQABQABAAEAAADQ/wQABQABAAE
 tile_set = ExtResource("16_a2hlh")
 
 [node name="floor 3" type="TileMapLayer" parent="Enviroments"]
+position = Vector2(2, 0)
 tile_map_data = PackedByteArray("AADc/wQABQABAAEAAADd/wQABQABAAEAAADe/wQABQABAAEAAADf/wQABQABAAEAAADg/wQABQABAAEAAADh/wQABQABAAEAAADi/wQABQABAAEAAADj/wQABQABAAEAAADk/wQABQABAAEAAADl/wQABQABAAEAAAAFAAYABQABAAEAAAAGAAYABQABAAEAAAAHAAYABQABAAEAAAAIAAYABQABAAEAAAAJAAYABQABAAEAAAAKAAYABQABAAEAAAALAAYABQABAAEAAAAEAAYABQABAAEAAAD+/wYABQABAAEAAAD//wYABQABAAEAAAAAAAYABQACAAEAAAAAAAcABQACAAIAAAAAAAgABQACAAIAAAD+/wcABQABAAIAAAD+/wgABQABAAIAAAD+/wkABQABAAIAAAD6/wQABQABAAEAAAD6/wUABQABAAIAAAD6/wYABQABAAIAAAD6/wcABQABAAIAAAD6/wgABQABAAIAAAD6/wkABQABAAIAAAD1/wQABQABAAEAAAD2/wQABQABAAEAAAD3/wQABQABAAEAAAD4/wQABQABAAEAAAD5/wQABQABAAEAAADx/wQABQAFAAIAAADy/wQABQAGAAIAAADz/wQABQAGAAIAAAD0/wQABQAGAAIAAAD1/wUABQABAAIAAAD1/wYABQABAAIAAAAAAAQABQAFAAIAAAABAAQABQAGAAIAAAACAAQABQAGAAIAAAADAAQABQAGAAIAAAAEAAQABQAGAAIAAAAFAAQABQAGAAIAAAAGAAQABQAHAAIAAAAEAAcABQABAAIAAAAEAAgABQABAAIAAAAEAAkABQABAAIAAAADAAYABQAAAAEAAAADAAcABQAAAAIAAAADAAgABQAAAAMAAAADAAkABQAAAAQAAAD8/wUABQADAAQAAAD8/wYABQADAAQAAAD8/wcABQADAAQAAAD8/wgABQADAAQAAAD8/wkABQADAAQAAAA=")
 tile_set = ExtResource("16_a2hlh")
 
