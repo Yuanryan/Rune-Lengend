@@ -148,7 +148,7 @@ func _get_action_color() -> Color:
         Action.ActionType.SWITCH_ANIMAL:
             match animal_type:
                 Animal.AnimalType.MAN:
-                    return Color8(43, 39, 13, 255)
+                    return Color8(138, 196, 182, 255)
                 Animal.AnimalType.RABBIT:
                     return Color8(106, 68, 106, 255)
                 Animal.AnimalType.WOLF:
