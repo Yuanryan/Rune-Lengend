@@ -99,6 +99,12 @@ func load_level_scene(level_scene: PackedScene, spawn_position: Vector2 = Vector
 
     # 通知 UI Manager 創建卡片
     UIManager.create_cards_from_level(current_level)
+    # 載入關卡時清空動作佇列
+    var in_game_ui = UIManager.get_in_game_ui()
+    if in_game_ui and in_game_ui.action_queue:
+        in_game_ui.action_queue.clear_queue()
+        in_game_ui.action_queue.clear_executing_action()
+        in_game_ui.action_queue.unlock_queue()
     GameManager.set_game_state(GameManager.GameState.GAME_PLAY)
 
     level_loaded.emit(current_level)
