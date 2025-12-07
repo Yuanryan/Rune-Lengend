@@ -1681,6 +1681,7 @@ follow_target = NodePath("..")
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_fd4e3")
 follow_offset = Vector2(30, 30)
+noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="PhantomCameraNoiseEmitter2D" type="Node2D" parent="."]
