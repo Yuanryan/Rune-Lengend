@@ -25,6 +25,7 @@ var coyote_time_left: float = 0.0
 
 # 玩家狀態機
 var _player_state: PlayerState = PlayerState.IDLE
+var _has_initialized_animal_switch: bool = false
 
 # 面向方向
 var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
@@ -34,6 +35,7 @@ var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
 
 @onready var noise_emitter: PhantomCameraNoiseEmitter2D = %PhantomCameraNoiseEmitter2D
 @onready var player_camera: PlayerCamera = %PlayerCamera
+@export var transform_effect_scene: PackedScene = preload("res://Scenes/Effects/transform_effect.tscn")
 
 # 信號
 signal animal_switched(target_animal: Animal)
@@ -331,7 +333,23 @@ func _notify_ui_all_actions_finished() -> void:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
-    pass 
+    if not _has_initialized_animal_switch:
+        _has_initialized_animal_switch = true
+        return
+    _spawn_transform_effect()
+
+func _spawn_transform_effect() -> void:
+    if not transform_effect_scene:
+        return
+    var effect: Node2D = transform_effect_scene.instantiate()
+    if not effect:
+        return
+    effect.global_position = global_position
+    # 放在場景根節點或至少玩家的父節點，避免跟隨玩家移動
+    var parent_node: Node = get_tree().current_scene
+    if not parent_node:
+        parent_node = get_parent()
+    parent_node.add_child(effect)
     
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""

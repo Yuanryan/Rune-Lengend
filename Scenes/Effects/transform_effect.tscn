@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://gtve3w4h6ei"]
+
+[ext_resource type="Script" uid="uid://cibkva0egc05k" path="res://Scripts/Effects/transform_effect.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://bmmbx61e64412" path="res://Assets/characters/transform.png" id="2_texture"]
+[ext_resource type="AudioStream" uid="uid://7ehbm0to1s3s" path="res://Assets/sfx/character/transform.wav" id="3_ec2yn"]
+
+[node name="TransformEffect" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_texture")
+hframes = 5
+script = ExtResource("1_script")
+sfx = ExtResource("3_ec2yn")
