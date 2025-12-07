@@ -131,6 +131,7 @@ func _on_checkpoint_reached(checkpoint: Checkpoint, checkpoint_pos: Vector2) -> 
 	
 	print("檢查點到達: ", checkpoint.name, " (索引: ", current_checkpoint_index, ")")
 	
+	GameManager.player.player_camera.remove_border()
 	# 檢查是否需要激活相機
 	if checkpoint and checkpoint.activate_camera:
 		_switch_to_checkpoint_camera(checkpoint)

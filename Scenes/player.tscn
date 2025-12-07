@@ -1626,7 +1626,7 @@ _data = {
 
 [sub_resource type="Resource" id="Resource_fd4e3"]
 script = ExtResource("13_h4iuc")
-duration = 0.1
+duration = 0.0
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
@@ -1681,6 +1681,7 @@ follow_target = NodePath("..")
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_fd4e3")
 follow_offset = Vector2(30, 30)
+noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="PhantomCameraNoiseEmitter2D" type="Node2D" parent="."]

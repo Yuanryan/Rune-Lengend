@@ -166,19 +166,16 @@ func reset_to_planning() -> void:
 
 func pause_game() -> void:
     """暫停遊戲"""
-    if not is_in_paused_state():
-        set_in_game_state(InGameState.PAUSED)
-        get_tree().paused = true
-        print("Game Paused")
+    set_in_game_state(InGameState.PAUSED)
+    get_tree().paused = true
+    print("Game Paused")
     MusicManager.change_music_volume(MusicManager.get_music_volume() / 2.0)
 
 func resume_game() -> void:
     """恢復遊戲"""
-    if is_in_paused_state():
-        get_tree().set_deferred("paused", false)
-        print("Game Resumed")
+    get_tree().set_deferred("paused", false)
+    print("Game Resumed")
         # 恢復到之前的狀態，預設為規劃階段
-        set_in_game_state(InGameState.PLANNING)
     MusicManager.change_music_volume(MusicManager.get_music_volume() * 2.0)
 
 func achieve_victory() -> void:
