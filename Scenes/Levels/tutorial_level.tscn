@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=46 format=4 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="13_w685s"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="14_w685s"]
-[ext_resource type="PackedScene" uid="uid://cop2vvwj8rh04" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
+[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
 [ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="16_g3l5c"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]
@@ -34,7 +34,7 @@ script = ExtResource("5_gwj07")
 transition = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5pgco"]
-size = Vector2(907, 667)
+size = Vector2(907, 594)
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_41icc"]
 particles_animation = true
@@ -243,6 +243,15 @@ _data = {
 &"Floating": SubResource("Animation_41icc"),
 &"RESET": SubResource("Animation_a3k8k")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w685s"]
+size = Vector2(1257, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3l5c"]
+size = Vector2(1096, 519)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hp0rl"]
+size = Vector2(868, 430)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hp0rl"]
 shader = ExtResource("13_w685s")
@@ -532,8 +541,7 @@ position = Vector2(3768, 152)
 show_polygon_in_game = true
 
 [node name="Polygon2D" parent="GameObjects/TimedDoor" index="0"]
-visible = false
-position = Vector2(175.99994, 92)
+position = Vector2(201.99994, 93)
 polygon = PackedVector2Array(-8, -84, -8, 28, 0.2, 32, 8, 28, 8, -84)
 
 [node name="DoorTimer" parent="GameObjects/TimedDoor" index="1"]
@@ -547,8 +555,8 @@ material = SubResource("ShaderMaterial_gwj07")
 position = Vector2(201.80005, 66.8)
 scale = Vector2(1, 1.415)
 
-[node name="@CollisionPolygon2D@235473" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
-position = Vector2(175.99994, 92)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
+position = Vector2(201.99994, 93)
 polygon = PackedVector2Array(-8, -84, -8, 28, 0.2, 32, 8, 28, 8, -84)
 
 [node name="CheckpointNodes" type="Node2D" parent="GameObjects"]
@@ -568,7 +576,7 @@ zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
 
 [node name="CameraBorder" parent="GameObjects/CheckpointNodes/Checkpoint/PhantomCamera2D" index="0"]
-position = Vector2(23.5, -41.5)
+position = Vector2(23.5, -14)
 shape = SubResource("RectangleShape2D_5pgco")
 disabled = true
 
@@ -592,6 +600,10 @@ position = Vector2(590, -140)
 zoom = Vector2(1.5, 1.5)
 tween_resource = SubResource("Resource_41icc")
 
+[node name="CameraBorder" parent="GameObjects/CheckpointNodes/Checkpoint2/PhantomCamera2D" index="0"]
+position = Vector2(1.5, 9)
+shape = SubResource("RectangleShape2D_w685s")
+
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint2" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
 process_material = SubResource("ParticleProcessMaterial_a3k8k")
@@ -613,6 +625,10 @@ priority = 13
 zoom = Vector2(1.7, 1.7)
 tween_resource = SubResource("Resource_41icc")
 
+[node name="CameraBorder" parent="GameObjects/CheckpointNodes/Checkpoint3/PhantomCamera2D" index="0"]
+position = Vector2(9, 54.5)
+shape = SubResource("RectangleShape2D_g3l5c")
+
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint3" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
 process_material = SubResource("ParticleProcessMaterial_a3k8k")
@@ -633,9 +649,14 @@ shape = SubResource("RectangleShape2D_ddtxo")
 
 [node name="PhantomCamera2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="2"]
 position = Vector2(416, -24)
+priority_override = true
 priority = 14
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_41icc")
+
+[node name="CameraBorder" parent="GameObjects/CheckpointNodes/Checkpoint4/PhantomCamera2D" index="0"]
+position = Vector2(-36, -43)
+shape = SubResource("RectangleShape2D_hp0rl")
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")

@@ -1626,7 +1626,7 @@ _data = {
 
 [sub_resource type="Resource" id="Resource_fd4e3"]
 script = ExtResource("13_h4iuc")
-duration = 0.1
+duration = 0.0
 transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
