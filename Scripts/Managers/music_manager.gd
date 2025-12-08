@@ -72,8 +72,6 @@ func play_music(music_path: String) -> void:
 	
 	# 播放音樂
 	current_music_player.play()
-	
-	print("開始播放音樂: ", music_path)
 
 # 音樂播放完成時的回調（用於循環播放）
 func _on_music_finished() -> void:

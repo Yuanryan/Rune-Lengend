@@ -29,27 +29,20 @@ func _connect_signals() -> void:
     # 連接信號
     if resume_button:
         resume_button.pressed.connect(hide_pause_menu)
-        print("Resume button connected")
     if options_button:
         options_button.pressed.connect(show_options_menu)
-        print("Options button connected")
     if quit_button:
-        quit_button.pressed.connect(_on_quit_pressed)
-        print("Quit button connected")
-    
+        quit_button.pressed.connect(_on_quit_pressed)    
     if video_back:
         video_back.pressed.connect(hide_options_menu)
-        print("Video back button connected")
-    
+
     if screen_mode:
         screen_mode.item_selected.connect(_on_screen_mode_selected)
-        print("Screen mode connected")
     
     if options_menu:
         options_menu.current_tab = 0
 
 func _on_screen_mode_selected(index: int) -> void:
-    print("Screen mode selected: ", index)
     match index:
         0:
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
@@ -60,6 +53,7 @@ func _on_screen_mode_selected(index: int) -> void:
 
 func _on_quit_pressed() -> void:
     GameManager.resume_game()
+    hide_pause_menu()
     LevelManager.unload_level()
     GameManager.set_game_state(GameManager.GameState.LEVEL_SELECT)
 
@@ -75,7 +69,6 @@ func show_pause_menu() -> void:
     pause_menu_shown.emit()
     
 func hide_pause_menu() -> void:
-    print("hide_pause_menu")
     GameManager.resume_game()
     await play_menu_animations(self, false, 0.1)
     hide()
@@ -83,7 +76,6 @@ func hide_pause_menu() -> void:
     pause_menu_hidden.emit()
 
 func show_options_menu() -> void:
-    print("show_options_menu")
     if buttons:
         buttons.hide()
     if options_menu:

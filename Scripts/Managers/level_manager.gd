@@ -118,7 +118,6 @@ func unload_level() -> void:
         GameManager.remove_player()
         current_level_scene = null
         level_unloaded.emit()
-        print("關卡已卸載")
 
 # 獲取當前關卡
 func get_current_level() -> Level:

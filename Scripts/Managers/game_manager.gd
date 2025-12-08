@@ -168,14 +168,11 @@ func pause_game() -> void:
     """暫停遊戲"""
     set_in_game_state(InGameState.PAUSED)
     get_tree().paused = true
-    print("Game Paused")
     MusicManager.change_music_volume(MusicManager.get_music_volume() / 2.0)
 
 func resume_game() -> void:
     """恢復遊戲"""
     get_tree().set_deferred("paused", false)
-    print("Game Resumed")
-        # 恢復到之前的狀態，預設為規劃階段
     MusicManager.change_music_volume(MusicManager.get_music_volume() * 2.0)
 
 func achieve_victory() -> void:
@@ -188,7 +185,6 @@ func set_player_camera_priority(priority: int) -> void:
     if has_player() and player.player_camera and player.player_camera.activate:
         player.player_camera.priority = priority    
         player.player_camera.visible = true
-        print("玩家相機優先級已設置為: ", priority)
 
 # 設置玩家相機邊界
 func set_player_camera_border_from_checkpoint_camera(camera: BorderedCamera) -> void:
@@ -200,8 +196,6 @@ func set_player_camera_border_from_checkpoint_camera(camera: BorderedCamera) -> 
     if camera.camera_border:
         # 設置玩家相機的邊界
         player.player_camera.set_border(camera.camera_border)
-    else:
-        print("警告：未找到相機邊界: ", camera.name)
 
 
 # 處理ESC鍵輸入
