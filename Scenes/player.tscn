@@ -1655,7 +1655,8 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_f1ek2")
 position = Vector2(3, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("3_f1ek2")
+texture = ExtResource("3_6t5aa")
+hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.6732209, 9.841758)

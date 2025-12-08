@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=4 uid="uid://iew70rv7tmwc"]
+[gd_scene load_steps=26 format=4 uid="uid://iew70rv7tmwc"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_evokg"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_3koi7"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="7_633d5"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="8_rw7sn"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="9_27vqw"]
-[ext_resource type="PackedScene" uid="uid://ej3qajbyhnv8" path="res://Scenes/LevelEdit/Objects/Environment/moving_platform_path.tscn" id="10_jd0ia"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="11_b7yer"]
 [ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/environment/godray.gdshader" id="14_gqyih"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="15_b7yer"]
@@ -18,19 +17,12 @@
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
 [ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_jd0ia"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
-[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
+[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
 shader = ExtResource("4_jd0ia")
 shader_parameter/blur_amount = 1.8000000855
-
-[sub_resource type="Curve2D" id="Curve2D_3asqb"]
-resource_local_to_scene = true
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 208, -96, 0, 0, 0, 0, 8, -96, 0, 0, 0, 0, 8, -8, 0, 0, 0, 0, 208, -8, 0, 0, 0, 0, 208, -40, 0, 0, 0, 0, 208, -96)
-}
-point_count = 6
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_27vqw"]
 resource_local_to_scene = true
@@ -150,7 +142,7 @@ position = Vector2(69, 131)
 zoom = Vector2(1.225, 1.225)
 
 [node name="CameraBorder" parent="GameObjects/StartingCamera" index="0"]
-position = Vector2(5.5, -31)
+position = Vector2(-0.5, -17.5)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
@@ -301,27 +293,6 @@ polygon = PackedVector2Array(-16, 256, 0, 320, 280, 320, 296, 256)
 position = Vector2(32, -328)
 polygon = PackedVector2Array(-16, 256, 0, 320, 280, 320, 296, 256)
 
-[node name="MovingPlatformPath" parent="GameObjects" instance=ExtResource("10_jd0ia")]
-visible = false
-position = Vector2(-88, -16)
-curve = SubResource("Curve2D_3asqb")
-loop_time = 4.0
-loop = true
-
-[node name="MovingPlatform" parent="GameObjects/MovingPlatformPath" index="0"]
-position = Vector2(134.66478, -8)
-show_polygon_in_game = true
-
-[node name="@CollisionPolygon2D@59230" type="CollisionPolygon2D" parent="GameObjects/MovingPlatformPath/MovingPlatform" index="1"]
-position = Vector2(-39.87085, -16.061768)
-polygon = PackedVector2Array(0.171875, 0, 80.123535, 0, 80.123535, 32, 0.123535156, 32)
-
-[node name="PathFollow2D" parent="GameObjects/MovingPlatformPath" index="1"]
-position = Vector2(208, -96)
-
-[node name="Line2D" parent="GameObjects/MovingPlatformPath" index="3"]
-points = PackedVector2Array(208, -96, 205.7539, -96, 203.05615, -96, 199.40625, -96, 194.87744, -96, 192.30634, -96, 189.54297, -96, 186.5965, -96, 183.47607, -96, 180.19086, -96, 176.75, -96, 173.16266, -96, 169.43799, -96, 165.58514, -96, 161.61328, -96, 157.53156, -96, 153.34912, -96, 149.07513, -96, 144.71875, -96, 140.28912, -96, 135.79541, -96, 131.24677, -96, 126.65234, -96, 122.0213, -96, 117.36279, -96, 112.685974, -96, 108, -96, 103.314026, -96, 98.63721, -96, 93.9787, -96, 89.34766, -96, 84.753235, -96, 80.20459, -96, 75.71088, -96, 71.28125, -96, 66.924866, -96, 62.65088, -96, 58.468445, -96, 54.38672, -96, 50.414856, -96, 46.56201, -96, 42.83734, -96, 39.25, -96, 35.809143, -96, 32.523926, -96, 29.403503, -96, 26.457031, -96, 23.693665, -96, 21.122559, -96, 16.59375, -96, 12.943848, -96, 10.246094, -96, 8, -96, 8, -92.21875, 8, -87.87891, 8, -85.20947, 8, -82.25, 8, -79.032715, 8, -75.58984, 8, -71.95361, 8, -68.15625, 8, -64.22998, 8, -60.20703, 8, -56.11963, 8, -52, 8, -47.88037, 8, -43.79297, 8, -39.77002, 8, -35.84375, 8, -32.046387, 8, -28.410156, 8, -24.967285, 8, -21.75, 8, -18.790527, 8, -16.121094, 8, -11.78125, 8, -8, 10.246094, -8, 12.943848, -8, 16.59375, -8, 21.122559, -8, 23.693665, -8, 26.457031, -8, 29.403503, -8, 32.523926, -8, 35.809143, -8, 39.25, -8, 42.83734, -8, 46.56201, -8, 50.414856, -8, 54.38672, -8, 58.468445, -8, 62.65088, -8, 66.924866, -8, 71.28125, -8, 75.71088, -8, 80.20459, -8, 84.753235, -8, 89.34766, -8, 93.9787, -8, 98.63721, -8, 103.314026, -8, 108, -8, 112.685974, -8, 117.36279, -8, 122.0213, -8, 126.65234, -8, 131.24677, -8, 135.79541, -8, 140.28912, -8, 144.71875, -8, 149.07513, -8, 153.34912, -8, 157.53156, -8, 161.61328, -8, 165.58514, -8, 169.43799, -8, 173.16266, -8, 176.75, -8, 180.19086, -8, 183.47607, -8, 186.5965, -8, 189.54297, -8, 192.30634, -8, 194.87744, -8, 199.40625, -8, 203.05615, -8, 205.7539, -8, 208, -8, 208, -13, 208, -15.421875, 208, -18.125, 208, -21.015625, 208, -24, 208, -26.984375, 208, -29.875, 208, -32.578125, 208, -35, 208, -40, 208, -42.40625, 208, -45.16797, 208, -48.75, 208, -52.98828, 208, -57.71875, 208, -60.217285, 208, -62.777344, 208, -65.37842, 208, -68, 208, -70.62158, 208, -73.22266, 208, -75.782715, 208, -78.28125, 208, -83.01172, 208, -87.25, 208, -90.83203, 208, -93.59375, 208, -96)
-
 [node name="DamageArea" parent="GameObjects" instance=ExtResource("11_b7yer")]
 position = Vector2(-16, 608)
 
@@ -386,6 +357,7 @@ scale = Vector2(2, 2)
 polygon = PackedVector2Array(-8, -32, -8, 32, 8, 32, 8, -32)
 
 [node name="Enviroments" type="Node2D" parent="."]
+z_index = 2
 
 [node name="Tree1" type="TileMapLayer" parent="Enviroments"]
 self_modulate = Color(0.8732984, 0.8732984, 0.8732984, 1)
@@ -462,7 +434,6 @@ metadata/_edit_lock_ = true
 [editable path="GameObjects/LandNodes/Land9"]
 [editable path="GameObjects/LandNodes/Land10"]
 [editable path="GameObjects/LandNodes/Land5"]
-[editable path="GameObjects/MovingPlatformPath"]
 [editable path="GameObjects/DamageArea"]
 [editable path="GameObjects/TimedDoorNodes/TimedDoor"]
 [editable path="GameObjects/TimedDoorNodes/TimedDoor2"]

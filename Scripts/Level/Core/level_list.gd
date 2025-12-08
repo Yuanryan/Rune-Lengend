@@ -8,6 +8,9 @@ static var _basic_levels_cache: Array = []
 static func get_level_lists() -> Dictionary:
 	if _level_lists_cache.is_empty():
 		_level_lists_cache = {
+			"Test": [
+				load("uid://dsq2p8lnac1qg"), # Test Level 1
+			],
 			"Tutorial": [
 				load("uid://dg4aqqbs2gsyq"), # Tutorial Basic
 				load("uid://dyev0ja3pu1j0"), # Tutorial Rabbit

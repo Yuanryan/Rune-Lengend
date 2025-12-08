@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="4_pbfb4"]
 [ext_resource type="Shader" uid="uid://gomxx7m3vdrp" path="res://Shaders/other/blur.gdshader" id="4_tjl6l"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="5_3628d"]
-[ext_resource type="Script" uid="uid://cs7mo4htw8l3t" path="res://Scripts/Level/Core/bordered_camera.gd" id="5_pbfb4"]
+[ext_resource type="Script" path="res://Scripts/Level/Core/bordered_camera.gd" id="5_pbfb4"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_31phq"]
 [ext_resource type="PackedScene" uid="uid://ctp1234l38t1a" path="res://Scenes/LevelEdit/Objects/Objectives/checkpoint.tscn" id="8_7hll7"]
 [ext_resource type="PackedScene" uid="uid://bn81qjmigxgbl" path="res://Scenes/LevelEdit/Objects/Environment/land.tscn" id="9_fayjm"]
@@ -71,7 +71,6 @@ texture = null
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint" index="2"]
 tween_resource = SubResource("Resource_gaxdt")
-draw_limits = true
 
 [node name="checkpoint2" parent="GameObjects" instance=ExtResource("8_7hll7")]
 position = Vector2(1024, 240)
@@ -81,7 +80,6 @@ texture = null
 
 [node name="PhantomCamera2D" parent="GameObjects/checkpoint2" index="2"]
 tween_resource = SubResource("Resource_yjhgp")
-draw_limits = true
 
 [node name="Land" parent="GameObjects" instance=ExtResource("9_fayjm")]
 position = Vector2(304, 328)
@@ -110,7 +108,9 @@ position = Vector2(-200, 296)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(45.995, 104)
+physics_interpolation_mode = 1
+zoom = Vector2(2, 2)
+process_callback = 0
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -130,7 +130,7 @@ position = Vector2(16, -64)
 polygon = PackedVector2Array(0, 256, 0, 320, 384, 320, 384, 256)
 
 [node name="Box" parent="." instance=ExtResource("12_ovt24")]
-position = Vector2(184, 275.9925)
+position = Vector2(281, 37)
 
 [node name="Node2D" type="Node2D" parent="."]
 
