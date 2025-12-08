@@ -11,12 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://cjnqrwfc3b3qd" path="res://Scenes/LevelEdit/Objects/Hazard/spike.tscn" id="9_8yvus"]
 [ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="12_8yvus"]
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="12_g3l5c"]
-[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="13_5pgco"]
+[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="13_5pgco"]
 [ext_resource type="PackedScene" uid="uid://cnyimwluijpi3" path="res://Scenes/LevelEdit/Objects/Interactive/timed_door.tscn" id="13_gwj07"]
 [ext_resource type="PackedScene" uid="uid://b0ijfp3d138u8" path="res://Scenes/LevelEdit/Objects/Objectives/ending_point.tscn" id="13_hj161"]
 [ext_resource type="Shader" uid="uid://rwjpiouxy1r7" path="res://Shaders/environment/wind_sway.gdshader" id="13_w685s"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="14_w685s"]
-[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
+[ext_resource type="PackedScene" uid="uid://cop2vvwj8rh04" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
 [ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="16_g3l5c"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]
@@ -362,6 +362,7 @@ position = Vector2(-512, 352)
 [node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_ot486")]
 unique_name_in_owner = true
 position = Vector2(-100, 171)
+priority_override = true
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_knl5n")
 inactive_update_mode = 0
@@ -372,7 +373,7 @@ disabled = false
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(3680, 216)
+position = Vector2(-100, 171)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 
@@ -764,44 +765,44 @@ offset_right = -248.0
 offset_bottom = 80.0
 
 [node name="TutorialBox" parent="TutorialText" instance=ExtResource("16_g3l5c")]
-custom_minimum_size = Vector2(160, 50)
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
-offset_left = 84.0
-offset_top = -13.0
-offset_right = 244.0
-offset_bottom = 37.0
+offset_left = 88.0
+offset_top = -40.0
+offset_right = 288.0
+offset_bottom = 10.0
 text = "↑ Action cards deck"
-box_size = Vector2(160, 50)
+box_size = Vector2(200, 50)
 
 [node name="TutorialBox2" parent="TutorialText" instance=ExtResource("16_g3l5c")]
 custom_minimum_size = Vector2(400, 122)
 layout_mode = 0
-offset_left = -179.0
-offset_top = 99.0
-offset_right = 221.0
-offset_bottom = 221.0
-text = "Drag the action cards into the queue to execute actions
+offset_left = -11.0
+offset_top = 48.0
+offset_right = 389.0
+offset_bottom = 170.0
+text = "Drag or click the action cards into the queue to decide actions
 Press space to execute actions
-Press \"R\" to retry"
+Press R to retry"
 box_size = Vector2(400, 122)
 
 [node name="TutorialBox3" parent="TutorialText" instance=ExtResource("16_g3l5c")]
-custom_minimum_size = Vector2(180, 50)
+custom_minimum_size = Vector2(160, 60)
 layout_mode = 0
-offset_left = 317.0
-offset_top = 168.0
-offset_right = 497.0
-offset_bottom = 218.0
+offset_left = 108.0
+offset_top = 244.0
+offset_right = 268.0
+offset_bottom = 304.0
 text = "↓ Action queue"
-box_size = Vector2(180, 50)
+box_size = Vector2(160, 60)
 
 [node name="TutorialBox4" parent="TutorialText" instance=ExtResource("16_g3l5c")]
 custom_minimum_size = Vector2(391, 100)
 layout_mode = 0
-offset_left = 801.0
-offset_top = -18.0
-offset_right = 1192.0
-offset_bottom = 82.0
+offset_left = 784.0
+offset_top = 192.0
+offset_right = 1175.0
+offset_bottom = 292.0
 text = "Press space to execute next action
 Move actions wont stop until you interrupt
 Jump actions stops after touching the ground
