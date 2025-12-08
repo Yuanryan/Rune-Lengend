@@ -17,7 +17,7 @@ class WolfSwitchAction extends TimedAction:
 
     func _init():
         duration = 0.3  # 短時間衝刺
-        name = "Wolf_Dash"
+        name = "Dash"
     
     func start(player: CharacterBody2D):
         super.start(player)

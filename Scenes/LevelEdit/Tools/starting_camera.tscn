@@ -9,6 +9,7 @@ transition = 4
 metadata/_custom_type_script = "uid://8umksf8e80fw"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqgi1"]
+resource_local_to_scene = true
 size = Vector2(1368, 714.5)
 
 [node name="StartingCamera" type="Node2D"]

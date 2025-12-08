@@ -611,13 +611,6 @@ scale = Vector2(1, -1)
 fire_rate = 0.7
 bullet_speed = 300.0
 
-[node name="Turret6" parent="GameObjects/TurretNodes" instance=ExtResource("14_t27xo")]
-position = Vector2(2345, 28)
-rotation = 3.1415927
-scale = Vector2(1, -1)
-fire_rate = 0.5
-bullet_speed = 300.0
-
 [node name="BoxNodes" type="Node2D" parent="GameObjects"]
 
 [node name="Box" parent="GameObjects/BoxNodes" instance=ExtResource("9_eopvx")]
@@ -630,41 +623,21 @@ position = Vector2(1261, 388)
 position = Vector2(2416, 167.23247)
 
 [node name="ButtonPlatformNodes" type="Node2D" parent="GameObjects"]
-position = Vector2(920, 344)
 
 [node name="ButtonPlatform" parent="GameObjects/ButtonPlatformNodes" instance=ExtResource("14_eopvx")]
-position = Vector2(431, 0)
-moved_duration = 2.0
-original_position = Vector2(521, 112)
-moved_position = Vector2(521, -20)
-animation_speed = 1.0
+position = Vector2(1854, 421)
+original_position = Vector2(10, 0)
+moved_position = Vector2(10, -80)
+animation_speed = 2.0
 
 [node name="Polygon2D" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform" index="0"]
-position = Vector2(521, 112)
-polygon = PackedVector2Array(-31, -16, -31, 24, 16, 24, 16, -16)
+position = Vector2(10, 0)
 
 [node name="GameButton" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform" index="2"]
-position = Vector2(57, 56)
+position = Vector2(-469, -20)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform"]
-position = Vector2(521, 112)
-polygon = PackedVector2Array(-31, -16, -31, 24, 16, 24, 16, -16)
-
-[node name="ButtonPlatform2" parent="GameObjects/ButtonPlatformNodes" instance=ExtResource("14_eopvx")]
-position = Vector2(1630, -306)
-moved_duration = 10.0
-original_position = Vector2(200, 150)
-moved_position = Vector2(200, 335)
-
-[node name="Polygon2D" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform2" index="0"]
-position = Vector2(200, 150)
-
-[node name="GameButton" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform2" index="2"]
-position = Vector2(1, 50)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform2"]
-position = Vector2(200, 150)
-polygon = PackedVector2Array(-31, -16, -31, 24, 33, 24, 33, -16)
+[node name="CollisionPolygon2D" parent="GameObjects/ButtonPlatformNodes/ButtonPlatform" index="3"]
+position = Vector2(10, 0)
 
 [node name="Environment" type="Node2D" parent="."]
 z_index = 1
@@ -699,6 +672,15 @@ tile_map_data = PackedByteArray("AAAlAAMABQAAAAgAAAAmAAMABQACAAgAAAA=")
 tile_set = ExtResource("14_yxf76")
 metadata/_edit_lock_ = true
 
+[node name="ButtonPlatform" parent="." instance=ExtResource("14_eopvx")]
+position = Vector2(2791, 154)
+moved_duration = 10.0
+moved_position = Vector2(0, 226)
+animation_speed = 1.5
+
+[node name="GameButton" parent="ButtonPlatform" index="2"]
+position = Vector2(-262, -67)
+
 [editable path="GameObjects/Essential/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land9"]
 [editable path="GameObjects/LandNodes/Land"]
@@ -714,4 +696,4 @@ metadata/_edit_lock_ = true
 [editable path="GameObjects/CheckpointNodes/Checkpoint2"]
 [editable path="GameObjects/CheckpointNodes/Checkpoint3"]
 [editable path="GameObjects/ButtonPlatformNodes/ButtonPlatform"]
-[editable path="GameObjects/ButtonPlatformNodes/ButtonPlatform2"]
+[editable path="ButtonPlatform"]

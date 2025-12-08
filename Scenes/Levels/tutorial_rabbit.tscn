@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://dyev0ja3pu1j0"]
+[gd_scene load_steps=26 format=4 uid="uid://dyev0ja3pu1j0"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_voi1r"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_xpj4h"]
@@ -24,8 +24,12 @@ resource_local_to_scene = true
 shader = ExtResource("4_q8jeo")
 shader_parameter/blur_amount = 1.8000000855
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bqdxl"]
+resource_local_to_scene = true
+size = Vector2(1032, 544)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8jeo"]
-size = Vector2(1284, 659)
+size = Vector2(1284, 660)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xpj4h"]
 resource_local_to_scene = true
@@ -70,8 +74,28 @@ position = Vector2(79, 121)
 background_scale = Vector2(1.3, 1.3)
 metadata/_edit_lock_ = true
 
+[node name="BackgroundLayer0bTall" parent="BackgroundSnowForest" index="0"]
+scale = Vector2(1.3, 1.3)
+
+[node name="BackgroundLayer1bTall" parent="BackgroundSnowForest" index="1"]
+scale = Vector2(1.3, 1.3)
+
+[node name="BackgroundLayer2bTall" parent="BackgroundSnowForest" index="2"]
+scale = Vector2(1.3, 1.3)
+
+[node name="BackgroundLayer3bTall" parent="BackgroundSnowForest" index="3"]
+scale = Vector2(1.3, 1.3)
+
+[node name="ColorRect" parent="BackgroundSnowForest" index="4"]
+offset_left = -935.99994
+offset_top = -467.99997
+offset_right = 504.00006
+offset_bottom = 252.00003
+scale = Vector2(1.3, 1.3)
+
 [node name="Blur" parent="BackgroundSnowForest" index="5"]
 material = SubResource("ShaderMaterial_xab48")
+scale = Vector2(1.3, 1.3)
 
 [node name="BG" type="Node2D" parent="."]
 position = Vector2(-8, -256)
@@ -116,12 +140,16 @@ metadata/_edit_lock_ = true
 
 [node name="StartingCamera" parent="GameObjects" instance=ExtResource("6_bqdxl")]
 unique_name_in_owner = true
-position = Vector2(74, 100)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(64, 88)
+zoom = Vector2(2, 2)
+
+[node name="CameraBorder" parent="GameObjects/StartingCamera" index="0"]
+position = Vector2(-28, -48)
+shape = SubResource("RectangleShape2D_bqdxl")
 
 [node name="StartingPoint" type="Marker2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(-416, 144)
+position = Vector2(-256, 216)
 
 [node name="SpikeNodes" type="Node2D" parent="GameObjects"]
 position = Vector2(1184, 24)
@@ -308,7 +336,6 @@ position = Vector2(496, -32)
 zoom = Vector2(1.5, 1.5)
 
 [node name="CameraBorder" parent="GameObjects/Checkpoints/Checkpoint1/PhantomCamera2D" index="0"]
-position = Vector2(7, 5)
 shape = SubResource("RectangleShape2D_q8jeo")
 
 [node name="Checkpoint2" parent="GameObjects/Checkpoints" instance=ExtResource("8_6l1a3")]
@@ -379,8 +406,8 @@ position = Vector2(3503, 33)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-position = Vector2(74, 100)
-zoom = Vector2(1.5, 1.5)
+position = Vector2(64, 88)
+zoom = Vector2(2, 2)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
@@ -399,7 +426,7 @@ tile_set = ExtResource("13_xpj4h")
 
 [node name="Foreground" type="TileMapLayer" parent="Enviroments"]
 self_modulate = Color(0.31431612, 0.31431612, 0.3143161, 1)
-position = Vector2(-1412, -149)
+position = Vector2(-1288, -136)
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAGAP3/CwACAAAAAAAGAP7/CwACAAEAAAAGAP//CwACAAIAAAAGAAAACwACAAMAAAAGAAEACwACAAQAAAAGAAIACwACAAUAAAAGAAMACwACAAYAAAAGAAQACwACAAcAAAAHAP7/CwADAAEAAAAFAP7/CwABAAEAAAAFAP//CwABAAIAAAAEAP7/CwAAAAEAAAAEAP//CwAAAAIAAAAFAP3/CwABAAAAAAAFAAAACwABAAMAAAAFAAEACwABAAQAAAAFAAIACwABAAUAAAAFAAMACwABAAYAAAAFAAQACwABAAcAAAAHAP//CwADAAIAAAAHAAAACwADAAMAAAAHAAEACwADAAQAAAAHAAIACwADAAUAAAAHAAMACwADAAYAAAAHAAQACwADAAcAAAAIAAIACwAEAAUAAAA=")
 tile_set = ExtResource("13_xpj4h")
@@ -468,16 +495,6 @@ offset_right = 1514.0
 offset_bottom = -111.0
 text = "Rabbit can also double jump in the air "
 box_size = Vector2(345, 60)
-
-[node name="TutorialBox3" parent="TutorialText" instance=ExtResource("18_bqdxl")]
-custom_minimum_size = Vector2(300, 60)
-layout_mode = 0
-offset_left = 3338.0
-offset_top = -288.0
-offset_right = 3638.0
-offset_bottom = -228.0
-text = "Push the box to press the button"
-box_size = Vector2(300, 60)
 
 [editable path="BackgroundSnowForest"]
 [editable path="GameObjects/StartingCamera"]

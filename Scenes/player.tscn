@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cviyl35yedewi"]
+[gd_scene load_steps=46 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
@@ -1613,8 +1613,13 @@ tracks/5/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_l6n3p"]
+resource_name = "Dash"
+step = 0.05
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ukyrk"]
 _data = {
+&"Dash": SubResource("Animation_l6n3p"),
 &"Fall_Left": SubResource("Animation_fs7ks"),
 &"Fall_Right": SubResource("Animation_igrcy"),
 &"Idle": SubResource("Animation_7dp3o"),
@@ -1655,8 +1660,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_f1ek2")
 position = Vector2(3, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("3_6t5aa")
-hframes = 7
+texture = ExtResource("3_f1ek2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.6732209, 9.841758)

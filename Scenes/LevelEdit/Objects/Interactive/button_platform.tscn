@@ -28,3 +28,6 @@ one_shot = true
 [node name="GameButton" parent="." instance=ExtResource("2_5dks1")]
 unique_name_in_owner = true
 position = Vector2(0, 40)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-39, -32, -31, 0, -15, 16, 17, 16, 33, 0, 41, -32)
