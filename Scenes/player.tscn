@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bgu6w8i73f3xx" path="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Run.png" id="6_8erm5"]
 [ext_resource type="Texture2D" uid="uid://dwytjll2ncuon" path="res://Assets/characters/rabbit/rabbit.png" id="7_3smsa"]
 [ext_resource type="Texture2D" uid="uid://btd41gjbr18ud" path="res://Assets/characters/rabbit/rabbit_fall.png" id="8_tx1dd"]
-[ext_resource type="Script" path="res://Scripts/Level/Core/player_camera.gd" id="9_tx1dd"]
+[ext_resource type="Script" uid="uid://dblq8e2sbyx5e" path="res://Scripts/Level/Core/player_camera.gd" id="9_tx1dd"]
 [ext_resource type="Texture2D" uid="uid://br3rbm1wp2vnx" path="res://Assets/characters/rabbit/rabbit_jump.png" id="10_gymyn"]
 [ext_resource type="Script" uid="uid://bhd4nuiu23e7l" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_noise_emitter_2d.gd" id="12_ukyrk"]
 [ext_resource type="Script" uid="uid://dimvdouy8g0sv" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_2d.gd" id="13_7dp3o"]
@@ -19,7 +19,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f1ek2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1ek2"]
-size = Vector2(20, 27)
+size = Vector2(50, 35)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tx1dd"]
 
@@ -1655,12 +1655,10 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_f1ek2")
 position = Vector2(3, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("4_x3wgy")
-flip_h = true
-hframes = 4
+texture = ExtResource("3_f1ek2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 2)
+position = Vector2(1.6732209, 9.841758)
 shape = SubResource("RectangleShape2D_f1ek2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1681,6 +1679,7 @@ follow_target = NodePath("..")
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_fd4e3")
 follow_offset = Vector2(30, 30)
+draw_limits = true
 noise_emitter_layer = 1
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 

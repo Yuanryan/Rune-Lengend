@@ -146,6 +146,7 @@ func update_fullscreen_button_text() -> void:
         full_screen.text = UIManager.get_fullscreen_button_text()
 
 func execute_sequence() -> void:
+    
     if action_queue:
         var actions = action_queue.get_action_descriptors()
         if actions.size() > 0:
@@ -155,9 +156,6 @@ func execute_sequence() -> void:
             # 使用新的狀態系統
             GameManager.start_execution()
             _update_ui()
-        else:
-            print("No actions in queue to execute")
-            _show_message("No actions in queue!")
 
 func clear_sequence() -> void:
     if action_queue:

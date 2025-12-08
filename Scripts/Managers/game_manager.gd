@@ -25,6 +25,7 @@ var player: Player = null
 var player_scene: PackedScene = preload("uid://cviyl35yedewi")
 var current_state: GameState = GameState.MAIN_MENU
 var current_in_game_state: InGameState = InGameState.PLANNING
+var in_game_state_before_pause: InGameState = InGameState.PLANNING
 
 # 信號
 signal game_state_changed(new_state: GameState)
@@ -166,14 +167,17 @@ func reset_to_planning() -> void:
 
 func pause_game() -> void:
     """暫停遊戲"""
+    in_game_state_before_pause = current_in_game_state
     set_in_game_state(InGameState.PAUSED)
     get_tree().paused = true
     MusicManager.change_music_volume(MusicManager.get_music_volume() / 2.0)
+   
 
 func resume_game() -> void:
     """恢復遊戲"""
     get_tree().set_deferred("paused", false)
     MusicManager.change_music_volume(MusicManager.get_music_volume() * 2.0)
+    set_in_game_state(in_game_state_before_pause)
 
 func achieve_victory() -> void:
     """達成勝利"""
