@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dakout3cuxl2s" path="res://Scenes/LevelEdit/Objects/Hazard/damage_area.tscn" id="10_nojx8"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_ad63i"]
 [ext_resource type="PackedScene" uid="uid://4p88vcgqivcu" path="res://Scenes/LevelEdit/Objects/Interactive/box.tscn" id="12_ovt24"]
-[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="15_ra1cy"]
+[ext_resource type="PackedScene" uid="uid://cop2vvwj8rh04" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="15_ra1cy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjhgp"]
 resource_local_to_scene = true
@@ -33,7 +33,7 @@ script = ExtResource("7_31phq")
 [node name="Level1" type="Node2D"]
 script = ExtResource("1_afv7b")
 level_name = "Level Test"
-available_animals = Array[int]([0, 1])
+available_animals = Array[int]([0, 1, 2])
 metadata/_custom_type_script = "uid://bfeqcf2b658ki"
 
 [node name="BackgroundSnowForest" parent="." instance=ExtResource("3_k2mw1")]
@@ -108,9 +108,7 @@ position = Vector2(-200, 296)
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects"]
 unique_name_in_owner = true
-physics_interpolation_mode = 1
-zoom = Vector2(2, 2)
-process_callback = 0
+position = Vector2(45.995, 104)
 editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="GameObjects/Camera2D"]
