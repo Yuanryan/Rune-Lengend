@@ -35,7 +35,9 @@ var facing_direction: Vector2 = Vector2.RIGHT  # 預設面向右
 
 @onready var noise_emitter: PhantomCameraNoiseEmitter2D = %PhantomCameraNoiseEmitter2D
 @onready var player_camera: PlayerCamera = %PlayerCamera
+@onready var sprite: Sprite2D = %Sprite2D
 @export var transform_effect_scene: PackedScene = preload("res://Scenes/Effects/transform_effect.tscn")
+@export var death_effect_scene: PackedScene = preload("res://Scenes/Effects/death_effect.tscn")
 
 # 信號
 signal animal_switched(target_animal: Animal)
@@ -292,6 +294,9 @@ func reset_to_starting_point() -> void:
 
 func die() -> void:
     """玩家死亡處理"""
+    # 先停止玩家移動，確保特效位置固定
+    velocity = Vector2.ZERO
+    
     # 使用新的狀態系統
     GameManager.fail_execution()
     # 停止所有動作
@@ -301,14 +306,17 @@ func die() -> void:
         _current_action = null
     is_executing_actions = false
 
+    # 生成死亡特效並隱藏玩家（在停止移動後）
+    var death_position = global_position  # 保存死亡位置
+    _spawn_death_effect(death_position)
+    if sprite:
+        sprite.visible = false
+
     noise_emitter.emit()
     await get_tree().create_timer(noise_emitter.duration).timeout
     LevelManager.reset_level_from_checkpoint()
     # 發出死亡信號
     player_died.emit()
-    
-    # 重置速度
-    velocity = Vector2.ZERO
     
 
 func _notify_ui_action_started(index: int) -> void:
@@ -350,6 +358,25 @@ func _spawn_transform_effect() -> void:
     if not parent_node:
         parent_node = get_parent()
     parent_node.add_child(effect)
+
+func _spawn_death_effect(effect_position: Vector2) -> void:
+    """生成死亡特效，位置固定不隨玩家移動"""
+    if not death_effect_scene:
+        return
+    var effect: Node2D = death_effect_scene.instantiate()
+    if not effect:
+        return
+    
+    # 確保特效位置固定
+    effect.global_position = effect_position
+    
+    # 找到關卡節點（玩家的父節點），而不是玩家的子節點
+    var level_node = get_parent()
+    if not level_node:
+        level_node = get_tree().current_scene
+    
+    # 將特效加入關卡節點，確保不會跟隨玩家移動
+    level_node.add_child(effect)
     
 func _on_in_game_state_changed(new_state: GameManager.InGameState) -> void:
     """處理遊戲內狀態變化"""

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8k2m3n4p5q6r"]
+
+[ext_resource type="Script" uid="uid://be6luf7hlpk" path="res://Scripts/Effects/death_effect.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d1m66kkw26hsm" path="res://Assets/characters/death.png" id="2_texture"]
+[ext_resource type="AudioStream" uid="uid://hssqh4lhdo0s" path="res://Assets/sfx/character/death.mp3" id="3_50y48"]
+
+[node name="DeathEffect" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_texture")
+hframes = 8
+script = ExtResource("1_script")
+texture_sheet = ExtResource("2_texture")
+frame_duration = 0.03
+sfx = ExtResource("3_50y48")
+shake_amplitude = 1.0
