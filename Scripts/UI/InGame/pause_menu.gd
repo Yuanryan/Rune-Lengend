@@ -17,9 +17,14 @@ var menu_state := MenuState.GAME
 @onready var options_menu : TabContainer = %OptionsMenu
 @onready var video_back : Button = %VideoBack
 @onready var screen_mode: OptionButton = %ScreenMode
+@onready var music_slider: HSlider = %MusicSlider
+@onready var music_value_label: Label = %MusicValue
+@onready var sfx_slider: HSlider = %SFXSlider
+@onready var sfx_value_label: Label = %SFXValue
 
 func _ready() -> void:
     _connect_signals()
+    _initialize_volume_sliders()
     hide_options_menu()
     visible = false 
     
@@ -38,9 +43,23 @@ func _connect_signals() -> void:
 
     if screen_mode:
         screen_mode.item_selected.connect(_on_screen_mode_selected)
+    if music_slider:
+        music_slider.value_changed.connect(_on_music_volume_changed)
+    if sfx_slider:
+        sfx_slider.value_changed.connect(_on_sfx_volume_changed)
     
     if options_menu:
         options_menu.current_tab = 0
+
+func _initialize_volume_sliders() -> void:
+    if music_slider:
+        music_slider.value = MusicManager.get_music_volume() * 100.0
+    if music_value_label and music_slider:
+        music_value_label.text = str(int(round(music_slider.value)))
+    if sfx_slider:
+        sfx_slider.value = MusicManager.get_sound_volume() * 100.0
+    if sfx_value_label and sfx_slider:
+        sfx_value_label.text = str(int(round(sfx_slider.value)))
 
 func _on_screen_mode_selected(index: int) -> void:
     match index:
@@ -114,3 +133,13 @@ func play_menu_animations(menu : Control, showing : bool, animation_time : float
     var tween := create_tween()
     tween.tween_property(menu, "modulate:a", alpha, animation_time).set_ease(Tween.EASE_OUT)
     await tween.finished
+
+func _on_music_volume_changed(value: float) -> void:
+    MusicManager.set_music_volume(value / 100.0)
+    if music_value_label:
+        music_value_label.text = str(int(round(value)))
+
+func _on_sfx_volume_changed(value: float) -> void:
+    MusicManager.set_sound_volume(value / 100.0)
+    if sfx_value_label:
+        sfx_value_label.text = str(int(round(value)))

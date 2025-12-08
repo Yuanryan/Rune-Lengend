@@ -65,55 +65,32 @@ text = "Quit to Menu"
 
 [node name="OptionsMenu" type="TabContainer" parent="CenterContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(1000, 800)
 layout_mode = 2
 theme = ExtResource("1_tuya8")
-current_tab = 1
+current_tab = 0
 
-[node name="Gameplay" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
-visible = false
+[node name="Settings" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Gameplay"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-
-[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Gameplay"]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Gameplay/Line"]
-layout_mode = 2
-
-[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Gameplay"]
-visible = false
-layout_mode = 2
-text = "Back"
-
-[node name="Video" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Video"]
+[node name="ScreenModeMargin" type="MarginContainer" parent="CenterContainer/OptionsMenu/Settings"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Video/MarginContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Settings/ScreenModeMargin"]
 layout_mode = 2
+dragging_enabled = false
 
-[node name="Label" type="Label" parent="CenterContainer/OptionsMenu/Video/MarginContainer/HSplitContainer"]
+[node name="Label" type="Label" parent="CenterContainer/OptionsMenu/Settings/ScreenModeMargin/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Screen Mode"
 
-[node name="ScreenMode" type="OptionButton" parent="CenterContainer/OptionsMenu/Video/MarginContainer/HSplitContainer"]
+[node name="ScreenMode" type="OptionButton" parent="CenterContainer/OptionsMenu/Settings/ScreenModeMargin/HSplitContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
@@ -128,33 +105,92 @@ popup/item_1/id = 1
 popup/item_2/text = "Borderless"
 popup/item_2/id = 2
 
-[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Video"]
+[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Settings"]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Video/Line"]
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Settings/Line"]
 layout_mode = 2
 
-[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Video"]
+[node name="MusicVolumeMargin" type="MarginContainer" parent="CenterContainer/OptionsMenu/Settings"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Settings/MusicVolumeMargin"]
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="CenterContainer/OptionsMenu/Settings/MusicVolumeMargin/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Music Volume"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Settings/MusicVolumeMargin/HSplitContainer"]
+layout_mode = 2
+
+[node name="MusicSlider" type="HSlider" parent="CenterContainer/OptionsMenu/Settings/MusicVolumeMargin/HSplitContainer/HSplitContainer"]
 unique_name_in_owner = true
-visible = false
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
-text = "Back"
+size_flags_horizontal = 10
+size_flags_vertical = 4
+value = 70.0
+ticks_position = 3
 
-[node name="Audio" type="VBoxContainer" parent="CenterContainer/OptionsMenu"]
-visible = false
+[node name="MusicValue" type="Label" parent="CenterContainer/OptionsMenu/Settings/MusicVolumeMargin/HSplitContainer/HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-metadata/_tab_index = 2
+size_flags_horizontal = 8
+text = "70"
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Audio"]
-layout_mode = 2
-
-[node name="Line" type="MarginContainer" parent="CenterContainer/OptionsMenu/Audio"]
-layout_mode = 2
-
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Audio/Line"]
+[node name="Line2" type="MarginContainer" parent="CenterContainer/OptionsMenu/Settings"]
 layout_mode = 2
 
-[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Audio"]
-visible = false
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/OptionsMenu/Settings/Line2"]
 layout_mode = 2
+
+[node name="SFXVolumeMargin" type="MarginContainer" parent="CenterContainer/OptionsMenu/Settings"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Settings/SFXVolumeMargin"]
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="CenterContainer/OptionsMenu/Settings/SFXVolumeMargin/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "SFX Volume"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="CenterContainer/OptionsMenu/Settings/SFXVolumeMargin/HSplitContainer"]
+layout_mode = 2
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/OptionsMenu/Settings/SFXVolumeMargin/HSplitContainer/HSplitContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+value = 70.0
+ticks_position = 3
+
+[node name="SFXValue" type="Label" parent="CenterContainer/OptionsMenu/Settings/SFXVolumeMargin/HSplitContainer/HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "70"
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/OptionsMenu/Settings"]
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 2
+
+[node name="VideoBack" type="Button" parent="CenterContainer/OptionsMenu/Settings"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
 text = "Back"

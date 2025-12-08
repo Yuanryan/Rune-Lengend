@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://c7au3pqv2hj36"]
+[gd_scene load_steps=27 format=4 uid="uid://c7au3pqv2hj36"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_xab48"]
 [ext_resource type="PackedScene" uid="uid://qqtipk4asuev" path="res://Scenes/LevelEdit/Objects/Environment/background_snow_forest.tscn" id="3_a2hlh"]
@@ -20,6 +20,10 @@
 resource_local_to_scene = true
 shader = ExtResource("4_2khew")
 shader_parameter/blur_amount = 1.8000000855
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2mii"]
+resource_local_to_scene = true
+size = Vector2(1368, 714.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b574l"]
 resource_local_to_scene = true
@@ -167,6 +171,7 @@ zoom = Vector2(2.7, 2.7)
 
 [node name="CameraBorder" parent="GameObjects/StartingCamera" index="0"]
 position = Vector2(380, -69.25)
+shape = SubResource("RectangleShape2D_k2mii")
 
 [node name="TurretNodes" type="Node2D" parent="GameObjects"]
 
