@@ -362,7 +362,6 @@ position = Vector2(-512, 352)
 [node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_ot486")]
 unique_name_in_owner = true
 position = Vector2(-100, 171)
-priority_override = true
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_knl5n")
 inactive_update_mode = 0
@@ -373,7 +372,7 @@ disabled = false
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(-100, 171)
+position = Vector2(3680, 216)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 
@@ -551,10 +550,12 @@ wait_time = 2.0
 
 [node name="GameButton" parent="GameObjects/TimedDoor" index="2"]
 position = Vector2(0, 56)
+color = Color(1, 0.627451, 1, 1)
 
 [node name="Timedoor" parent="GameObjects/TimedDoor" index="3"]
+modulate = Color(1, 0.627451, 1, 1)
 material = SubResource("ShaderMaterial_gwj07")
-position = Vector2(201.80005, 66.8)
+position = Vector2(200, 64)
 scale = Vector2(1, 1.415)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GameObjects/TimedDoor"]
@@ -643,9 +644,6 @@ libraries = {
 [node name="Checkpoint4" parent="GameObjects/CheckpointNodes" instance=ExtResource("7_5pgco")]
 position = Vector2(3264, 240)
 
-[node name="Sprite2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="0"]
-position = Vector2(0, 5)
-
 [node name="CollisionShape2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="1"]
 shape = SubResource("RectangleShape2D_ddtxo")
 
@@ -661,7 +659,6 @@ shape = SubResource("RectangleShape2D_hp0rl")
 
 [node name="GPUParticles2D" parent="GameObjects/CheckpointNodes/Checkpoint4" index="3"]
 material = SubResource("CanvasItemMaterial_41icc")
-emitting = false
 process_material = SubResource("ParticleProcessMaterial_a3k8k")
 
 [node name="AnimationPlayer" parent="GameObjects/CheckpointNodes/Checkpoint4" index="4"]
