@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="15_vdq4f"]
 [ext_resource type="TileSet" uid="uid://5ljrewb0emuu" path="res://Resources/TileSets/snow_forest_64.tres" id="16_jd0ia"]
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="19_27vqw"]
-[ext_resource type="PackedScene" uid="uid://dqakcerromqfj" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
+[ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/snow_flakes.tscn" id="19_jd0ia"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b7yer"]
 resource_local_to_scene = true
@@ -328,6 +328,7 @@ position = Vector2(-560, -160)
 color = Color(0.8948584, 0.65641457, 0.85786116, 1)
 
 [node name="Timedoor" parent="GameObjects/TimedDoorNodes/TimedDoor" index="3"]
+modulate = Color(0.89411765, 0.654902, 0.85882354, 1)
 material = SubResource("ShaderMaterial_27vqw")
 position = Vector2(-560, -159)
 
