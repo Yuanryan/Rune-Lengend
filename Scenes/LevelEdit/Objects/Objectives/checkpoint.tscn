@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://daudawng7f2vi" path="res://Assets/particles/rune-short.png" id="6_41icc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ddtxo"]
-size = Vector2(34, 53)
+size = Vector2(33.5, 136)
 
 [sub_resource type="Resource" id="Resource_41icc"]
 script = ExtResource("4_1q831")
