@@ -1,10 +1,9 @@
-[gd_scene load_steps=49 format=3 uid="uid://cviyl35yedewi"]
+[gd_scene load_steps=48 format=3 uid="uid://cviyl35yedewi"]
 
 [ext_resource type="Script" uid="uid://ch18drvg3x43p" path="res://Scripts/player.gd" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://bfrlho461b3xp" path="res://Scripts/Animals/animal_component.gd" id="2_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://dfhhgvghwpd2k" path="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Idle.png" id="3_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://dk2b8vhcnc78m" path="res://Assets/characters/rabbit/rabbit_run.png" id="3_8erm5"]
-[ext_resource type="Texture2D" uid="uid://bxyv0nsyf80wo" path="res://Assets/characters/wolf/wolf.png" id="3_f1ek2"]
 [ext_resource type="Texture2D" uid="uid://cqatvfn260dlw" path="res://Assets/characters/wolf/wolf_fall.png" id="3_fd4e3"]
 [ext_resource type="Texture2D" uid="uid://bnmder082jrcf" path="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Fall.png" id="4_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://csyxo7brsqg0i" path="res://Assets/characters/Luneblade - Little Axion (Free)/Luneblade - Little Axion (Free)/Sprite Sheet/Jump.png" id="5_3smsa"]
@@ -26,6 +25,30 @@ size = Vector2(50, 35)
 [sub_resource type="Animation" id="Animation_l6n3p"]
 resource_name = "Dash"
 step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_qqcod")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tx1dd"]
 _data = {
@@ -1266,6 +1289,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_7dp3o"]
 resource_name = "Idle"
+length = 0.6
 loop_mode = 1
 step = 0.05
 tracks/0/type = "value"
@@ -1315,6 +1339,18 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(8, -10)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprite2D:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_qqcod"]
@@ -1668,11 +1704,12 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(3, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("3_f1ek2")
-hframes = 2
+texture = ExtResource("13_qqcod")
+hframes = 4
+frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(3, -9.000001)
+position = Vector2(8, -10)
 shape = SubResource("RectangleShape2D_f1ek2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
