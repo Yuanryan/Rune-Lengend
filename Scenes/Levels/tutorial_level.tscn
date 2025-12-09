@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://dg4aqqbs2gsyq"]
+[gd_scene load_steps=58 format=4 uid="uid://dg4aqqbs2gsyq"]
 
 [ext_resource type="Script" uid="uid://bfeqcf2b658ki" path="res://Scripts/Level/Core/level.gd" id="1_c2yeb"]
 [ext_resource type="PackedScene" uid="uid://cplrsetwf82ks" path="res://Scenes/LevelEdit/Tools/land_edit_tool.tscn" id="3_8yvus"]
@@ -18,6 +18,9 @@
 [ext_resource type="Shader" uid="uid://dyvcfyqhih585" path="res://Shaders/environment/snow_flakes.gdshader" id="14_w685s"]
 [ext_resource type="PackedScene" path="res://Scenes/LevelEdit/Objects/Environment/sparrow.tscn" id="16_5pgco"]
 [ext_resource type="PackedScene" uid="uid://b2i21khyj6hoi" path="res://Scenes/UI/Tutorial/tutorial_box.tscn" id="16_g3l5c"]
+[ext_resource type="PackedScene" uid="uid://c13sgnl1cphcs" path="res://Scenes/LevelEdit/Objects/Environment/god_ray.tscn" id="19_ck3nf"]
+[ext_resource type="Shader" uid="uid://hjp2lg5nh72m" path="res://Shaders/environment/godray.gdshader" id="20_w35ah"]
+[ext_resource type="PackedScene" uid="uid://cuq6hxx5rtrw3" path="res://Scenes/LevelEdit/Objects/Hazard/falling_ice.tscn" id="21_w35ah"]
 
 [sub_resource type="Resource" id="Resource_knl5n"]
 script = ExtResource("5_gwj07")
@@ -27,6 +30,39 @@ metadata/_custom_type_script = "uid://8umksf8e80fw"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ck3nf"]
 resource_local_to_scene = true
 size = Vector2(1368, 714.5)
+
+[sub_resource type="Curve" id="Curve_bmuf2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2901235, 1), 0.0, 0.0, 0, 0, Vector2(0.75555557, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_d35me"]
+curve = SubResource("Curve_bmuf2")
+
+[sub_resource type="Curve" id="Curve_d35me"]
+_limits = [-200.0, 200.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.15020578, 9.40239), 0.0, 0.0, 0, 0, Vector2(0.27983543, 200), 0.0, 0.0, 0, 0, Vector2(1, 200), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_0dnyb"]
+curve = SubResource("Curve_d35me")
+
+[sub_resource type="CurveTexture" id="CurveTexture_c34t7"]
+curve = SubResource("Curve_bmuf2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wtv56"]
+resource_local_to_scene = true
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(7, 7, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, 20, 0)
+linear_accel_min = 0.99999774
+linear_accel_max = 0.99999774
+linear_accel_curve = SubResource("CurveTexture_0dnyb")
+scale_min = 0.5
+scale_max = 1.1999999
+scale_curve = SubResource("CurveTexture_c34t7")
+alpha_curve = SubResource("CurveTexture_d35me")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gwj07"]
 resource_local_to_scene = true
@@ -306,6 +342,23 @@ shader_parameter/wind = -1.49999997625
 shader_parameter/num_of_layers = 15
 shader_parameter/layer_start = 5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wtv56"]
+resource_local_to_scene = true
+shader = ExtResource("20_w35ah")
+shader_parameter/ray_angle = -0.025
+shader_parameter/ray_position = 0.41
+shader_parameter/spread = 0.0
+shader_parameter/cutoff = 0.48900007072749996
+shader_parameter/falloff = 0.400000019
+shader_parameter/edge_fade = 0.6000000285
+shader_parameter/speed = 0.5
+shader_parameter/ray1_density = 8.0
+shader_parameter/ray2_density = 25.0
+shader_parameter/ray2_intensity = 0.30000001425
+shader_parameter/color = Color(0.8204, 0.84, 0.672, 0.7921569)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
+
 [node name="level 1" type="Node2D"]
 script = ExtResource("1_c2yeb")
 level_name = "Tutorial Basic"
@@ -365,7 +418,8 @@ position = Vector2(-512, 352)
 
 [node name="StartingCamera" parent="GameObjects/Essential" instance=ExtResource("4_ot486")]
 unique_name_in_owner = true
-position = Vector2(-100, 171)
+position = Vector2(-96, 224)
+priority_override = true
 zoom = Vector2(2, 2)
 tween_resource = SubResource("Resource_knl5n")
 inactive_update_mode = 0
@@ -377,7 +431,7 @@ disabled = false
 
 [node name="Camera2D" type="Camera2D" parent="GameObjects/Essential"]
 unique_name_in_owner = true
-position = Vector2(3680, 216)
+position = Vector2(-96, 224)
 zoom = Vector2(2, 2)
 editor_draw_limits = true
 
@@ -541,6 +595,15 @@ position = Vector2(-684, -16)
 
 [node name="Spike10" parent="GameObjects/SpikeNodes" instance=ExtResource("9_8yvus")]
 position = Vector2(-660, -16)
+
+[node name="FallingIce" parent="GameObjects/SpikeNodes" instance=ExtResource("21_w35ah")]
+position = Vector2(-2584, -432)
+
+[node name="ShapeCast2D" parent="GameObjects/SpikeNodes/FallingIce" index="1"]
+target_position = Vector2(0, 500)
+
+[node name="GPUParticles2D" parent="GameObjects/SpikeNodes/FallingIce" index="4"]
+process_material = SubResource("ParticleProcessMaterial_wtv56")
 
 [node name="TimedDoor" parent="GameObjects" instance=ExtResource("13_gwj07")]
 position = Vector2(3768, 152)
@@ -718,7 +781,7 @@ metadata/_edit_lock_ = true
 
 [node name="GroundTileMapLayer3" type="TileMapLayer" parent="Environment"]
 position = Vector2(0, 32)
-tile_map_data = PackedByteArray("AAAYAAUABQAAAAEAAAAZAAUABQABAAEAAAAaAAUABQABAAEAAAAbAAUABQABAAEAAAAcAAUABQABAAEAAAAdAAUABQACAAEAAAAeAAQABQAAAAEAAAAfAAQABQABAAEAAAAgAAQABQABAAEAAAAiAAQABQABAAEAAAAhAAQABQABAAEAAAAjAAQABQABAAEAAAAkAAQABQACAAEAAAAYAAYABQAAAAMAAAAYAAcABQAAAAIAAAAYAAgABQAAAAMAAAAYAAkABQAAAAMAAAAZAAYABQABAAIAAAAZAAcABQABAAMAAAAaAAYABQABAAIAAAAaAAcABQABAAMAAAAZAAgABQABAAIAAAAZAAkABQABAAMAAAAaAAgABQABAAIAAAAaAAkABQABAAMAAAAbAAgABQABAAIAAAAbAAkABQABAAMAAAAbAAYABQABAAIAAAAbAAcABQABAAMAAAAcAAYABQABAAIAAAAcAAcABQABAAMAAAAcAAgABQABAAIAAAAcAAkABQABAAMAAAAdAAYABQACAAIAAAAdAAcABQACAAMAAAAdAAkABQACAAMAAAAdAAgABQACAAIAAAAeAAUABQAAAAIAAAAeAAYABQAAAAMAAAAeAAcABQAAAAIAAAAeAAgABQAAAAMAAAAeAAkABQAAAAMAAAAfAAUABQABAAIAAAAfAAYABQABAAMAAAAgAAUABQABAAIAAAAgAAYABQABAAMAAAAhAAUABQABAAIAAAAhAAYABQABAAMAAAAiAAUABQABAAIAAAAiAAYABQABAAMAAAAjAAUABQABAAIAAAAjAAYABQABAAMAAAAjAAcABQABAAIAAAAjAAgABQABAAMAAAAiAAcABQABAAIAAAAiAAgABQABAAMAAAAhAAcABQABAAIAAAAhAAgABQABAAMAAAAgAAcABQABAAIAAAAgAAgABQABAAMAAAAfAAcABQABAAIAAAAfAAgABQABAAMAAAAfAAkABQABAAIAAAAgAAkABQABAAIAAAAhAAkABQABAAIAAAAiAAkABQABAAIAAAAjAAkABQABAAIAAAAkAAUABQACAAMAAAAkAAYABQACAAIAAAAkAAcABQACAAMAAAAkAAgABQACAAIAAAAkAAkABQACAAMAAAA=")
+tile_map_data = PackedByteArray("AAAYAAUABQAAAAEAAAAZAAUABQABAAEAAAAaAAUABQABAAEAAAAbAAUABQABAAEAAAAcAAUABQABAAEAAAAdAAUABQACAAEAAAAeAAQABQAAAAEAAAAfAAQABQABAAEAAAAgAAQABQABAAEAAAAiAAQABQABAAEAAAAhAAQABQABAAEAAAAjAAQABQABAAEAAAAkAAQABQACAAEAAAAYAAYABQAAAAMAAAAYAAcABQAAAAIAAAAYAAgABQAAAAMAAAAYAAkABQAAAAMAAAAZAAYABQABAAIAAAAZAAcABQABAAMAAAAaAAYABQABAAIAAAAaAAcABQABAAMAAAAZAAgABQABAAIAAAAZAAkABQABAAMAAAAaAAgABQABAAIAAAAaAAkABQABAAMAAAAbAAgABQABAAIAAAAbAAkABQABAAMAAAAbAAYABQABAAIAAAAbAAcABQABAAMAAAAcAAYABQABAAIAAAAcAAcABQABAAMAAAAcAAgABQABAAIAAAAcAAkABQABAAMAAAAdAAYABQACAAIAAAAdAAcABQACAAMAAAAdAAkABQACAAMAAAAdAAgABQACAAIAAAAeAAUABQAAAAIAAAAeAAYABQAAAAMAAAAeAAcABQAAAAIAAAAeAAgABQAAAAMAAAAeAAkABQAAAAMAAAAfAAUABQABAAIAAAAfAAYABQABAAMAAAAgAAUABQABAAIAAAAgAAYABQABAAMAAAAhAAUABQABAAIAAAAhAAYABQABAAMAAAAiAAUABQABAAIAAAAiAAYABQABAAMAAAAjAAUABQABAAIAAAAjAAYABQABAAMAAAAjAAcABQABAAIAAAAjAAgABQABAAMAAAAiAAcABQABAAIAAAAiAAgABQABAAMAAAAhAAcABQABAAIAAAAhAAgABQABAAMAAAAgAAcABQABAAIAAAAgAAgABQABAAMAAAAfAAcABQABAAIAAAAfAAgABQABAAMAAAAfAAkABQABAAIAAAAgAAkABQABAAIAAAAhAAkABQABAAIAAAAiAAkABQABAAIAAAAjAAkABQABAAIAAAAkAAUABQACAAMAAAAkAAYABQACAAIAAAAkAAcABQACAAMAAAAkAAgABQACAAIAAAAkAAkABQACAAMAAAAaAAQACQAGAAQAAAAbAAQACQAHAAQAAAA=")
 tile_set = ExtResource("12_8yvus")
 metadata/_edit_lock_ = true
 
@@ -731,7 +794,7 @@ metadata/_edit_lock_ = true
 [node name="TreeTileMapLayer" type="TileMapLayer" parent="Environment"]
 material = SubResource("ShaderMaterial_hp0rl")
 position = Vector2(-124, -41)
-tile_map_data = PackedByteArray("AAD6////CAAMAAEAAAD6/wAACAAMAAIAAAD6/wEACAAMAAMAAAD6/wIACAAMAAQAAAD6/wMACAAMAAUAAAD6/wQACAAMAAYAAAD6/wUACAAMAAcAAAD6/wYACAAMAAgAAAA=")
+tile_map_data = PackedByteArray("AAD6////CAAMAAEAAAD6/wAACAAMAAIAAAD6/wEACAAMAAMAAAD6/wIACAAMAAQAAAD6/wMACAAMAAUAAAD6/wQACAAMAAYAAAD6/wUACAAMAAcAAAD6/wYACAAMAAgAAAAWAAYACQAFAAIAAAA=")
 tile_set = ExtResource("12_8yvus")
 
 [node name="SnowFlakes3" parent="Environment" instance=ExtResource("13_5pgco")]
@@ -770,19 +833,19 @@ offset_bottom = 80.0
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 0
 offset_left = 88.0
-offset_top = -40.0
+offset_top = -16.0
 offset_right = 288.0
-offset_bottom = 10.0
+offset_bottom = 34.0
 text = "↑ Action cards deck"
 box_size = Vector2(200, 50)
 
 [node name="TutorialBox2" parent="TutorialText" instance=ExtResource("16_g3l5c")]
 custom_minimum_size = Vector2(400, 122)
 layout_mode = 0
-offset_left = -11.0
-offset_top = 48.0
-offset_right = 389.0
-offset_bottom = 170.0
+offset_left = -8.0
+offset_top = 128.0
+offset_right = 392.0
+offset_bottom = 250.0
 text = "Drag or click the action cards into the queue to decide actions
 Press space to execute actions
 Press R to retry"
@@ -791,10 +854,10 @@ box_size = Vector2(400, 122)
 [node name="TutorialBox3" parent="TutorialText" instance=ExtResource("16_g3l5c")]
 custom_minimum_size = Vector2(160, 60)
 layout_mode = 0
-offset_left = 108.0
-offset_top = 244.0
-offset_right = 268.0
-offset_bottom = 304.0
+offset_left = 104.0
+offset_top = 312.0
+offset_right = 264.0
+offset_bottom = 372.0
 text = "↓ Action queue"
 box_size = Vector2(160, 60)
 
@@ -836,10 +899,17 @@ box_size = Vector2(300, 60)
 position = Vector2(-247, 368)
 
 [node name="Sparrow2" parent="." instance=ExtResource("16_5pgco")]
-position = Vector2(-192, 345)
+position = Vector2(-184, 384)
 
 [node name="Sparrow3" parent="." instance=ExtResource("16_5pgco")]
-position = Vector2(752, 392)
+position = Vector2(920, 392)
+
+[node name="GodRay" parent="." instance=ExtResource("19_ck3nf")]
+material = SubResource("ShaderMaterial_wtv56")
+offset_left = -176.0
+offset_top = -64.0
+offset_right = 1357.0
+offset_bottom = 815.0
 
 [editable path="GameObjects/Essential/StartingCamera"]
 [editable path="GameObjects/LandNodes/Land"]
@@ -853,6 +923,7 @@ position = Vector2(752, 392)
 [editable path="GameObjects/LandNodes/Land10"]
 [editable path="GameObjects/LandNodes/Land11"]
 [editable path="GameObjects/LandNodes/Land12"]
+[editable path="GameObjects/SpikeNodes/FallingIce"]
 [editable path="GameObjects/TimedDoor"]
 [editable path="GameObjects/CheckpointNodes/Checkpoint"]
 [editable path="GameObjects/CheckpointNodes/Checkpoint2"]
