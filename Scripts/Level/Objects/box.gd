@@ -13,10 +13,12 @@ var size_scale : Vector2 = Vector2(1.0, 1.0) : set = set_size_scale
 @onready var collision_polygon = %CollisionPolygon2D
 @onready var visible_on_screen : VisibleOnScreenNotifier2D = %VisibleOnScreenNotifier2D
 
-var player_ref : Player = null
 var is_pushing: bool = false
 var push_direction: Vector2 = Vector2.ZERO
 var is_on_screen: bool = true
+# 玩家在本物理幀回報的推動（由 Player 呼叫 push() 設定）
+var _pending_push_velocity_x: float = 0.0
+var _has_pending_push: bool = false
 
 func _ready():
     set_size_scale(size_scale)
@@ -33,102 +35,36 @@ func _physics_process(delta: float) -> void:
     if not is_on_floor():
         velocity.y += get_gravity().y * delta
     
-    # 檢測玩家推動
-    _detect_player_push()
-    if player_ref == null:
-        _apply_friction()
-    move_and_slide()
-
-func _detect_player_push():
-    """檢測玩家是否在推動箱子"""
-    # 如果已經有保存的玩家引用，檢查該玩家是否仍在碰撞
-    if player_ref != null:
-        var current_collision_count = player_ref.get_slide_collision_count()
-        var player_still_colliding = false
-        
-        # 檢查保存的玩家是否仍在碰撞
-        for i in range(current_collision_count):
-            var collision = player_ref.get_slide_collision(i)
-            if collision.get_collider() == self:
-                player_still_colliding = true
-                break 
-
-        if player_still_colliding and player_ref.animal_component.current_animal is Man:
-            _apply_push_from_player(player_ref)
-        else:
-            # 玩家已離開，清除引用並應用摩擦力
-            player_ref = null
-            is_pushing = false
-            push_direction = Vector2.ZERO
-        return
-    
-    # 沒有保存的玩家，尋找新的玩家碰撞
-    var collision_count = get_slide_collision_count()
-    
-    for i in range(collision_count):
-        var collision = get_slide_collision(i)
-        var collider = collision.get_collider()
-
-        # 檢查是否是玩家
-        if collider is not Player:
-            continue
-
-        var player = collider as Player
-        if not player.animal_component.current_animal is Man:
-            continue
-            
-        var player_position = player.global_position
-        var box_position = global_position
-        
-        # 計算推動方向
-        var push_vector = (box_position - player_position).normalized()
-        
-        # 檢查是否從側面推動（不是從上方或下方）
-        var push_from_side = abs(push_vector.y) < 0.5
-        
-        if push_from_side:
-            # 保存玩家引用
-            player_ref = player
-            is_pushing = true
-            push_direction = push_vector
-            
-            # 應用推動
-            _apply_push_from_player(player)
-            break
-
-func _apply_push_from_player(player: Player):
-    """從玩家應用推動力"""
-    var player_velocity = player.velocity * push_force
-    var player_position = player.global_position
-    var box_position = global_position
-    
-    # 計算玩家相對於箱子的位置
-    var relative_position = box_position - player_position
-    var player_direction = sign(player_velocity.x)
-    
-    # 檢查推動方向是否正確（玩家必須在箱子後面推動）
-    var correct_push_direction = false
-    
-    if player_direction > 0:  # 玩家向右移動
-        # 玩家應該在箱子左邊（相對位置.x > 0）
-        correct_push_direction = relative_position.x > 0
-    elif player_direction < 0:  # 玩家向左移動
-        # 玩家應該在箱子右邊（相對位置.x < 0）
-        correct_push_direction = relative_position.x < 0
-    
-    if correct_push_direction and abs(player_velocity.x) > 0:
-        # 推動方向正確，應用推動力
-        push_direction.x = player_direction
-        push_direction.y = 0
-        
-        # 設置箱子的速度為玩家的速度乘以推動力係數
-        velocity.x = player_velocity.x
-        
-        # 觸發推動事件
-        _on_box_pushed()
+    # 套用玩家回報的推動；沒有推動時套用摩擦力
+    if _has_pending_push:
+        velocity.x = _pending_push_velocity_x
+        _has_pending_push = false
     else:
         is_pushing = false
         push_direction = Vector2.ZERO
+        _apply_friction()
+    move_and_slide()
+
+func push(player: Player, player_velocity_x: float, collision_normal: Vector2) -> void:
+    """由 Player 在 move_and_slide 撞到箱子後呼叫。
+    箱子的 collision_mask 不含 Player 層，所以箱子自己偵測不到玩家，
+    也不會被玩家的碰撞分離（depenetration）慢慢擠動。"""
+    # 只有人可以推箱子
+    if not player.animal_component.current_animal is Man:
+        return
+    # 只接受從側面推（normal 指向玩家，水平分量要夠大）
+    if abs(collision_normal.x) < 0.7:
+        return
+    # 玩家必須朝箱子移動（速度與 normal 反向）
+    if player_velocity_x * collision_normal.x >= 0:
+        return
+
+    is_pushing = true
+    push_direction = Vector2(sign(player_velocity_x), 0)
+    # 箱子速度略慢於玩家，讓玩家持續貼著箱子
+    _pending_push_velocity_x = player_velocity_x * push_force
+    _has_pending_push = true
+    _on_box_pushed()
 
 func _apply_friction():
     """應用摩擦力"""
