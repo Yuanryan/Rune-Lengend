@@ -5,7 +5,7 @@
 
 [node name="Box" type="CharacterBody2D" groups=["Interactive"]]
 collision_layer = 9
-collision_mask = 11
+collision_mask = 9
 script = ExtResource("1_nyu6s")
 friction = 0.85
 

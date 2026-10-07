@@ -162,7 +162,18 @@ func _physics_process(delta: float) -> void:
             elif current_animation != _get_animation_name_from_state(PlayerState.RUNNING):
                 # 方向改變時，強制更新狀態以觸發動畫變化
                 _set_player_state(PlayerState.RUNNING, true)
+    # move_and_slide 撞牆後會把 velocity.x 歸零，先記下想要的水平速度
+    var intended_velocity_x := velocity.x
     move_and_slide()
+    _push_boxes(intended_velocity_x)
+
+func _push_boxes(intended_velocity_x: float) -> void:
+    """把本幀撞到的箱子回報給箱子，由箱子決定能不能被推"""
+    for i in get_slide_collision_count():
+        var collision := get_slide_collision(i)
+        var box := collision.get_collider() as Box
+        if box:
+            box.push(self, intended_velocity_x, collision.get_normal())
 
 func _process(delta: float) -> void:
     # 若沒有正在執行的 action，就從 queue 取下一個
@@ -341,6 +352,9 @@ func _notify_ui_all_actions_finished() -> void:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
+    # 狀態沒變時 _set_player_state 不會重播動畫，
+    # 必須強制重播，sprite 和碰撞框（由動畫軌道控制）才會換成新動物的
+    _set_player_state(_player_state, true)
     if not _has_initialized_animal_switch:
         _has_initialized_animal_switch = true
         return
