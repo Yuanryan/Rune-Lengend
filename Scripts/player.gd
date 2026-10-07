@@ -352,6 +352,9 @@ func _notify_ui_all_actions_finished() -> void:
 
 func _on_animal_switched(target_animal: Animal) -> void:
     """當動物切換時的回調"""
+    # 狀態沒變時 _set_player_state 不會重播動畫，
+    # 必須強制重播，sprite 和碰撞框（由動畫軌道控制）才會換成新動物的
+    _set_player_state(_player_state, true)
     if not _has_initialized_animal_switch:
         _has_initialized_animal_switch = true
         return
